@@ -1,0 +1,37 @@
+[alias]
+	st = status
+	ci = commit
+	co = checkout
+	di = diff
+	lo = log
+[color]
+	diff = auto
+	grep = auto
+	branch = auto
+	interactive = auto
+	status = auto
+	ui = auto
+[user]
+	name = Micah Elliott
+	email = mde@MicahElliott.com
+[color "status"]
+	added = blue
+	untracked = green
+[core]
+	excludesfile = /home/mde/.gitignore
+[github]
+	token = 6e3a38f5610c27c6e1d3e13e54567aa5
+	user = MicahElliott
+[gui]
+[gui]
+[gui]
+[gui]
+[gui]
+[gui]
+	recentrepo = /tmp/foo
+[giggle]
+	main-window-maximized = false
+	main-window-geometry = 1297x907+162+1240
+	history-view-vpane-position = 581
+	main-window-view = HistoryView
+	file-view-vpane-position = 404

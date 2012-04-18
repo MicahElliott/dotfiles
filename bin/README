@@ -1,0 +1,11 @@
+~/bin README
+
+This bin directory should always be in PATH, probably towards then end,
+so as not to hide any system commands.  File names should not clash with
+system commands.  It contains mostly Micah's personally written scripts.
+
+Bash scripts don't need a .sh suffix.  Vim and others will do the right
+thing.  However, Python, Perl, etc should have an indicative prefix so
+that find, Vim, tidy, tests, etc, will do the right things.  If a Bash
+script needs to be 'source'd, it should have a .sh suffix and be not
+executable.  Everything to be "run" should be executable.

@@ -1,0 +1,20 @@
+######################################################################
+# .bashrc
+#
+# NOTE: ssh activates this without ever looking at .bash_profile
+######################################################################
+
+shdir=~/config/shell
+
+# Turn this on for debugging.  SUSE seems to source .bashrc twice!
+#echo -e "*** .bashrc activated ***"
+
+# source all the sh and bash files.
+for f in $shdir/*.sh $shdir/*.bash; do
+    #echo "source-ing $f"
+    source $f
+done
+
+# Site-specific.
+siterc="$shdir/$(hostname -s).sh"
+test -f $siterc && source $siterc

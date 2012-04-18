@@ -1,0 +1,37 @@
+#!/bin/bash
+
+elite()
+{
+unset PROMPT_COMMAND
+
+local gray="\[\033[1;30m\]"
+local light_gray="\[\033[0;37m\]"
+local cyan="\[\033[0;36m\]"
+local light_cyan="\[\033[1;36m\]"
+local light_cyan="\[\033[1;36m\]"
+local end="\[\033[0m\]"
+
+case $TERM in
+    xterm*)
+        local TITLEBAR='\[\033]0;\u@\h:\w\007\]'
+        ;;
+    *)
+        local TITLEBAR=""
+        ;;
+esac
+
+local GRAD1=$(tty|cut -d/ -f3)
+PS1="$TITLEBAR\
+$gray-$cyan-$light_cyan(\
+$cyan\u$gray@$cyan\h\
+$light_cyan)$cyan-$light_cyan(\
+$cyan\#$gray/$cyan$GRAD1\
+$light_cyan)$cyan-$light_cyan(\
+$cyan\$(date +%H%M)$gray/$cyan\$(date +%d-%b-%y)\
+$light_cyan)$cyan-$gray-\
+$light_gray\n\
+$gray-$cyan-$light_cyan(\
+$cyan\$$gray:$cyan\w\
+$light_cyan)$cyan-$gray-$light_gray-$end "
+PS2="$light_cyan-$cyan-$gray-$light_gray-$end "
+}

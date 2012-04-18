@@ -1,0 +1,13 @@
+######################################################################
+# .bash_completion (personal)
+######################################################################
+
+#echo "*** in personal .bash_completion ***"
+
+# Other user-contributed scripts.
+for i in ~/contrib/bash_completion.d/* ; do source $i ; done
+
+# Rake
+complete -C ~/contrib/bash_completion_scripts/rake_completion.rb -o default rake
+
+# My own completion code.

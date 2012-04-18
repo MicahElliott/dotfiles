@@ -1,0 +1,306 @@
+"-----------------------------------------------------------------------
+" .vimrc
+" Maintainer:  Micah Elliott
+" Version:     0.2
+" Info:        Micah’s main config file
+"-----------------------------------------------------------------------
+
+set t_Co=256
+if &t_Co > 2                " check for multi colors
+    syntax on                    " colored syntax
+endif
+
+"-- Options ------------------------------------------------------------
+set exrc          " use local .exrc file
+set autowrite     " autosave before changing window or shellcmd
+set noignorecase  " search case sensitive
+set tabstop=4     " tab 4 chars (ts)
+set shiftwidth=4  " autoindent to 4 chars
+set expandtab
+set nobackup
+set bs=2          " allow backspacing in insert mode
+set nocompatible  " not compatible with vi
+set history=50    " keeps command history
+set ruler         " show cursor position always
+set showmode
+set showcmd
+set showmatch     " match parens, brackets in insert mode
+set hlsearch      " search pattern highlighting
+set mousehide     " hide mouse pointer while typing
+set errorbells    " turn on bells
+set visualbell    " some kind of visual bell warning
+set modeline      " enable .exrc cmds inside file being edited
+set modelines=5   " number of lines at top to be checked
+set formatoptions=tcrq
+                  " r is non-default but important! (:h fo-table)
+set cursorline
+"set cursorcolumn
+set hidden
+set autoindent    " Mimic previous line
+set incsearch     " Show found string as it's being typed
+set nojoinspaces    " I prefer that *one* space is inserted upon `join' (j)
+set nolinebreak   " Wrap long lines (breakat) -- do not insert <EOL>s
+                  "   only affects the way the file is displayed
+set nosmartindent " Too smart for text
+set nosmarttab    " Too smart for text
+set textwidth=72  " Insert <EOL> when reaching this column
+set wrap          " Display long lines wrapped
+set wrapmargin=0  " Like `textwidth' but use instead (from right border)
+set suffixes=.bak,~,.o,.info,.swp,.swp,.pc,.pcl,.aux,.dvi,.log,.toc
+
+let mapleader = ","
+let maplocalleader = ","
+                  " ignore command-line completion
+"set term=linux   " override shell's setting--should work everywhere
+"set tags=$VIMTAGS
+set tags=./tags,./TAGS,tags,TAGS,../tags
+
+set guicursor=a:blinkwait0,a:block-cursor
+
+" http://vim.wikia.com/wiki/Configuring_the_cursor
+if &term =~ "xterm\\|rxvt"
+  " use an orange cursor in insert mode
+  let &t_SI = "\<Esc>]12;orange\x7"
+  " use a red cursor otherwise
+  let &t_EI = "\<Esc>]12;red\x7"
+  " reset cursor when vim exits
+  autocmd VimLeave * silent !echo -ne "\033]112\007"
+endif
+
+setlocal spell spelllang=en_us
+set nospell
+
+"-- GUI (instead of having a gvimrc) -----------------------------------
+"set guifont=Monospace\ 6
+set guifont=ProFontWindows\ 9
+"set guifont=mde
+set guioptions=acegi
+
+
+"-- Pathogen ---------------------------------------------------------
+filetype off
+call pathogen#runtime_append_all_bundles()
+" For testing my hacks.
+"call pathogen#runtime_prepend_subdirectories('~/gitcontainer/forks')
+filetype plugin indent on
+
+
+"-- Passthrough settings ---------------------------------------------
+let python_highlight_all = 1
+
+let ruby_operators = 1
+let ruby_space_errors = 1
+
+"set verbose
+
+"-- Color Schemes ----------------------------------------------------
+" Listed in order of preference.
+"colorscheme adobe
+"colorscheme herald
+"colorscheme inkpot
+colorscheme molokai
+"colorscheme vibrantink
+"colorscheme vividchalk
+"colorscheme desert256
+"colorscheme motus
+"set background=light
+"let g:solarized_termcolors=256
+"let g:solarized_contrast="high"
+"colorscheme solarized
+"se background=dark
+colorscheme comments
+colorscheme missing
+colorscheme overrides
+
+" Has no effect.
+"source ~/.vim/ftplugin/comments.vim
+
+" Catching bad whitespace.
+"hi ExtraWhitespace ctermbg=9 guibg=red
+match ExtraWhitespace /\s\+$/
+
+
+"-- Map ----------------------------------------------------------------
+
+nmap <buffer> dl :Conflict2DiffGetLeft<CR>
+nmap <buffer> dr :Conflict2DiffGetRight<CR>
+nmap <buffer> dq :Conflict2DiffFinish<CR>
+
+" Clear the hlsearch.
+nmap <leader>c :noh<CR>
+
+" Center the screen by having top marked.
+" Could even auto-detect a "top" marker like ";;;"
+nmap <leader>t 'tz^M''
+
+
+"-- Abbreviation -------------------------------------------------------
+iabbr :) ☻
+iabbr (c) ©
+
+
+"-- Autocmd ------------------------------------------------------------
+" au! " remove existing auto-commands to avoid double-sourcing
+if has("autocmd")
+" Use the skeletons
+au BufNewFile *.cpp,*.C,*.cxx,*.cc r ~/.vim/skel/skel.cpp | source ~/.vim/skel/skel.cpp.sh
+au BufNewFile *.c read ~/.vim/skel/skel.c | source ~/.vim/skel/skel.c.sh
+au BufNewFile *.h read ~/.vim/skel/skel.h | source ~/.vim/skel/skel.h.sh
+au BufNewFile *.py  0read ~/.vim/skel/skel.py
+au BufNewFile *.rb  0read ~/.vim/skel/skel.rb
+au BufNewFile *.zsh  0read ~/.vim/skel/skel.zsh
+au BufNewFile makefile read ~/.vim/skel/skel.mk | source ~/.vim/skel/skel.mk.sh
+au BufNewFile *.docbook,*.docbk,*.db 0r ~/.vim/skel/skel.docbook
+au BufNewFile *.html 0r ~/.vim/skel/skel.html
+endif " if has("autocmd")
+
+
+"-- Shortcut Mappings ------------------------------------------------
+
+" BufExplorer
+map <Leader>b :BufExplorerHorizontalSplit<CR>
+
+" NERDTree
+" Explore (using NT)
+map <Leader>e :NERDTreeToggle<CR>
+
+" FuzzyFinder TextMate
+"let g:fuzzy_roots = ["~/proj/Membean/mbg/app", "~/proj/Membean/mbg/stylesheets/sass", "~/config", "~/bin", "~/proj/Membean/misc", "~/proj/Membean/wordstudy", ]
+let g:fuzzy_ignore = "*.png,*.jpg,*.xcf,*.mp3,*.css,*.xml,*.swf,*.css,*.gif,*.psd,tmp,images,video,videos,vendor"
+map <Leader>f :FuzzyFinderTextMate<CR>
+map <Leader>r :ruby finder.rescan!<CR>
+
+" Ack (grep)
+map <Leader>g :Ack 
+
+" NERDCommenter
+let g:NERDCreateDefaultMappings = 0
+map <leader>k <plug>NERDCommenterToggle
+" Defaults, but replacing leading ‘c’ with ‘k’.
+"map <leader>kk <plug>NERDCommenterComment
+"map <leader>k<space> <plug>NERDCommenterToggle
+"map <leader>km <plug>NERDCommenterMinimal
+"map <leader>ks <plug>NERDCommenterSexy
+"map <leader>ki <plug>NERDCommenterInvert
+"map <leader>ky <plug>NERDCommenterYank
+"map <leader>kl <plug>NERDCommenterAlignLeft
+"map <leader>kb <plug>NERDCommenterAlignBoth
+"map <leader>kn <plug>NERDCommenterNest
+"map <leader>ku <plug>NERDCommenterUncomment
+"map <leader>k$ <plug>NERDCommenterToEOL
+"map <leader>kA <plug>NERDCommenterAppend
+
+" EnhancedCommentify visual bindings:
+" http://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim
+" But not using EnhancedCommentify since NERDCommenter is superior.
+"let g:EnhCommentifyUserBindings='Yes'
+
+" Rails (MVCh)
+" There are several more of these available; see rails.txt.
+map <Leader>m :Rmodel<CR>
+map <Leader>v :Rview<CR>
+map <Leader>c :Rcontroller<CR>
+map <Leader>h :Rhelper<CR>
+
+" Clojure
+let vimfiles = $HOME . "/.vim"
+let vimclojure#HighlightBuiltins = 1      " Highlight Clojure's builtins
+let vimclojure#ParenRainbow = 1           " Rainbow parentheses'!
+let vimclojure#SplitSize = 10
+let vimclojure#SplitPos = "bottom"
+let vimclojureRoot = vimfiles."/bundle/VimClojure"
+let vimclojure#HighlightContrib = 1
+let vimclojure#DynamicHighlighting = 1
+"let vimclojure#WantNailgun = 1
+"let vimclojure#NailgunClient = vimclojureRoot."/lib/nailgun/ng"
+" Java? http://blog.darevay.com/2010/10/how-i-tamed-vimclojure/
+
+set previewheight=50
+au BufEnter ?* call PreviewHeightWorkAround()
+func PreviewHeightWorkAround()
+    if &previewwindow
+        exec 'setlocal winheight='.&previewheight
+    endif
+endfunc
+
+" Sparkup defaults.
+let g:sparkupExecuteMapping = '<C-v>'  " default <C-e>
+let g:sparkupNextMapping    = '<C-s>'  " default <C-n>
+
+" Toggles for “quickwin”, used by grep, ack, make, etc.
+" Might not use this much.
+map <Leader>q :cclose<CR>
+map <Leader>Q :copen<CR>
+
+map <Leader>t :TlistToggle<CR>
+
+" UniCycle typography
+map <Leader>u :UniCycleToggle<CR>
+" Stupid unicycle somehow breaks FuzzyFinder by mistreating - and .
+" So be sure to toggle it off before invoking FuzzyFinder!
+"let g:unicycle_on = 1
+
+" Clear last search.
+" :exe… doesn’t quite work since failed search raises error and quit.
+nmap <Leader>z /asdfjkl<CR>:execute histdel("/", -1)<CR>:redraw<CR>
+
+
+"-- Window/Tab Navigation --------------------------------------------
+
+map ,1 <C-W>1w
+map ,2 <C-W>2w
+map ,3 <C-W>3w
+map ,4 <C-W>4w
+
+" Tabbing like Firefox, xterm only.
+map <M-1> 1gt
+map <M-2> 2gt
+map <M-3> 3gt
+map <M-4> 4gt
+map <M-5> 5gt
+map <M-6> 6gt
+map <M-7> 7gt
+map <M-8> 8gt
+map <M-9> 9gt
+
+" Tabbing, for rxvt-unicode/urxvt for alt/meta recognition
+map 1 1gt
+map 2 2gt
+map 3 3gt
+map 4 4gt
+map 5 5gt
+map 6 6gt
+map 7 7gt
+map 8 8gt
+map 9 9gt
+
+"-- Misc -------------------------------------------------------------
+
+" Right next to <S-Insert> (the actual xterm paste sequence.
+set pastetoggle=<S-Home>
+
+let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+
+" This seems horrible, but since filetype.vim is looked at *after*
+" system syntax file, there's no other place to set it for sh/zsh.
+" Sure hope it doesn't affect anything else.
+let b:is_bash = 1
+
+"-- Obscure overrides of Vim builtins --------------------------------
+
+" Start new tab with Explorer.
+"nmap <C-N> :tabnew<C-M><leader>f
+nmap <C-N> :tabnew<C-M><Leader>e
+
+"se lines=12
+"set t_ti= t_te=
+
+" Two ways to address inotify problems. See vim docs to understand their
+" repercussions, which AFAICT are none.
+"se backupcopy=yes
+set nowritebackup
+
+" No effect this early in load cycle, so has to go individually in all
+" the ftplugin files that want to use it. :(
+"echo "doing rainbow" | sleep 1
+"source ~/.vim/bundle/Rainbow-Parenthesis/syntax/RainbowParenthsis.vim

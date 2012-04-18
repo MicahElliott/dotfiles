@@ -1,0 +1,131 @@
+#!/bin/bash
+# backup some_dir
+#
+# This script must `cd' to the target archive directory and tar up all
+# of its subdirs. This allows the tarball to sit in the same dir as the
+# the backed up subdirs, which is useful when at the tip of an NFS mount
+# point. Upon extracting the archive all subdirs are dumped to CWD, so
+# no superfluous dirs need to be created.
+#
+# TODO: 
+#  - add multiple args capability switch to specify log dir
+#  - add ability to specify more than one backup directory
+#
+# INPUT: 
+#   [1] Any single relative or absolute path to an arbitrary directory
+#
+# OUTPUT: 
+#   [1] An archive
+#   [2] A logfile
+#
+# CONCEPTS:
+#   -- Target directory to be archived. (relative to CWD)
+#   archive_dir        quad
+#
+#   -- Absolute location directory of archive
+#   archive_dir_abs    /var
+#
+#   -- Archive file/tarball. (named with absolute path)
+#      Default to archive_parent_dir
+#   archive_abs [OUT]      _var_quad.tgz
+#
+#   -- Log file. Default to archive_parent_dir
+#   log_abs [OUT]          backup-_var_quad.log
+#
+# ACTUAL WORK:
+#   $ backup ../quad
+#     + cd /var/quad
+#     + tar _var_quad.tgz *
+#     +   > backup-_var_quad.log
+
+prog="${0##*/}"
+usage="Usage: $prog target_directory"
+specified_target_dir="$1"
+dt=$(date "+%Y%m%d")
+tm=$(date)
+
+# If no directory arg given then exit with Usage message
+if [ "$#" -ne 1 ]; then
+   echo "$usage" 1>&2
+   exit 1 
+fi
+
+# Want to get absolute path of backup dir instead of anything relative to cwd
+#   Just cd there whether absolute or relative to be safe
+if ! cd $specified_target_dir >& /dev/null; then
+   echo "${prog}: Directory $specified_target_dir does not exist -- aborting" \
+      1>&2
+   exit 2
+fi
+
+# Command to determine what get archived (maybe use `find' instead of `ls')
+targets=$(ls -1)
+
+archive_dir=$(basename $(pwd))
+archive_parent_dir_abs="$(dirname $(pwd))"
+archive_dir_abs=$(echo "${archive_parent_dir_abs}/${archive_dir}" \
+   | sed 's:///*:/:')
+
+# Disallow backup of /
+if [ "$archive_dir_abs" = "/" ]; then 
+   echo "${prog}: Not allowing backup of \`/' !!" 1>&2
+   exit 1
+fi
+
+archive="${archive_dir_abs//\//_}-$HOSTNAME-$dt.tar.bz2"
+archive_abs=$(echo "$archive_dir_abs/$archive" | sed 's:///*:/:')
+log="backup-${archive_dir_abs//\//_}-$dt.log"
+log_abs=$(echo "$archive_dir_abs/$log" | sed 's:///*:/:')
+
+#-----------------------------------------------------------------------
+
+# Assign backup file and log; check for existence of identicals
+if [ -f "$archive_abs" ] ; then 
+   echo "${prog}: Archive file \`$archive_abs'"\
+      "already exists -- aborting" 1>&2
+   exit 2
+fi
+
+if [ -f "$log_abs" ] ; then 
+   echo "${prog}: Log file \`$log_abs' already exists" \
+      "-- aborting" 1>&2
+   exit 2
+fi
+
+#-- Exclude the archive and others -------------------------------------
+
+exclude_file="$archive_dir_abs/backup-exclude"
+bigfiles="$archive_dir_abs/bigfiles.log"
+#touch "$exclude_file"
+#targets=$(echo "$targets" | sed { '/$bigfiles/d' 's:\n::' } )
+targets=$(echo "$targets" | sed 's:\\n::' )
+echo -e "" > "$exclude_file"
+if [ -f "$bigfiles" ] ; then
+   cat $bigfiles >> "$exclude_file"
+fi
+
+#-- Do the work --------------------------------------------------------
+
+worker="tar --create --bzip --verbose --preserve-permissions --atime-preserve --exclude-from $exclude_file --file $archive_abs $targets >> $log_abs 2>&1"
+#echo -e "\t*** Excluding $(cat $exclude_file)"
+
+# Begin log
+echo -e "\n\t==> Begin Backup ($tm) <==\n" > $log_abs 2>&1
+
+echo -e "*** Archive file: $archive_abs" >> $log_abs 2>&1
+echo -e "*** Log file:     $log_abs\n" >> $log_abs 2>&1
+
+# Write to console to inform action
+echo -e ${prog}: calling\\n\\t==\> $worker \<==
+
+# Run the worker
+if ! eval $worker ; then exit 3; fi
+#if ! echo "$worker"; then exit 3; fi
+
+# Log results
+tm=$(date)
+echo "" >> $log_abs 2>&1
+ls -l $archive_abs >> $log_abs 2>&1
+echo -e "\n\t==> End Backup ($tm) <==" >> $log_abs 2>&1
+
+rm "$exclude_file"

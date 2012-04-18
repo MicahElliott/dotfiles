@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# FILE: prof_tar
+#	add all important files here as part of portable profile
+
+# modify this to accept arguments to tar
+#  such as 
+
+echo 'Backing up home...'
+cd ~
+
+dt=$(date "+%Y%m%d")
+target="mde.profile.$dt.tar.gz"
+
+# move existing profile to backup
+if [ -f ~/archive/mde.profile.????????.tar.gz ]; then
+   echo "Moving old archive to ~/tmp"
+   mv ~/archive/mde.profile.????????.tar.gz ~/tmp
+fi
+
+# $BACKUPS is now set/maintained in .bash_profile
+#BACKUPS=...
+
+# tarball important files into new profile
+echo "tar --create --bzip --verbose --preserve-permissions --atime-preserve \
+    --file $target $BACKUPS &> ~/tmp/prof.log"
+tar --create --bzip --verbose --preserve-permissions --atime-preserve \
+    --file $target $BACKUPS &> ~/tmp/prof.log
+
+# This backup script should be run from spd1, so can't move to symlink.
+#mv $target ~/archive
+

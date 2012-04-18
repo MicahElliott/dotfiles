@@ -1,0 +1,5 @@
+These are all confiration dot-files.  They are symlinked from below as
+their tools demand -- with a prefixed dot.  IOW, all files/dirs in this
+directory have dotted analogs in the parent.  E.g.,
+
+   ~/.muttrc -> ~/config/muttrc

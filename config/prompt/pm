@@ -1,0 +1,63 @@
+#!/bin/bash
+########################################################################
+# pm(): prompt template 
+# 
+# 
+# 
+########################################################################
+
+pm()
+{
+unset PROMPT_COMMAND
+
+# Distribution (for Red Hat only now)
+local dist=$(sed 's/.*(\(.*\)).*/\1/' /etc/redhat-release)
+
+# Kernel Version
+local kern=$(uname -r)
+
+# Machine Type
+local mach=$(uname -m)
+
+# List of colors to choose from and plug into template
+local gray="\[\033[1;30m\]"
+local light_gray="\[\033[0;37m\]"
+local cyan="\[\033[0;36m\]"
+local light_cyan="\[\033[1;36m\]"
+local red="\[\033[0;31m\]"
+local light_red="\[\033[1;31m\]"
+
+# Generic Scheme to choose colors above
+local c1="$gray"
+local c2="$light_gray"
+local c3="$red"
+local c4="$light_red"
+
+case $TERM in
+    xterm*)
+        local TITLEBAR='\[\033]0;\u@\h:\w\007\]'
+        ;;
+    *)
+        local TITLEBAR=""
+        ;;
+esac
+
+# Template for PS1
+PS1="$TITLEBAR\
+$c1-$c3-$c4(\
+$c3\u$c1@$c3\h$c1:$c3\l$c1:$c3\j\
+$c4)\
+$c3-$c4(\
+$c3\$(date +%H%M)$c1/$c3\$(date +%d-%b-%y)\
+$c4)\
+$c3-$c4(\
+$c3$dist$c1/$c3$kern$c1/$c3$mach\
+$c4)\
+$c3-$c1-\
+$c2\n\
+$c1-$c3-$c4(\
+$c3\$$c1:$c3\w\
+$c4)$c3-$c1-$c2 "
+PS2="$c4-$c3-$c1-$c2 "
+}
+

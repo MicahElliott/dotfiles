@@ -1,0 +1,24 @@
+#! /bin/bash
+
+sources="./sources.log"
+
+test -f $sources || {
+    echo "Did not find $sources.  Try running at top of proj:"
+    echo "  find . -name '*.[ch]' -o -name '*.cc'"
+    echo "  find . -name '*.cpp' -o -name '*.cc' -o -name '*.C' -o -name '*.cxx'"
+    echo "(and redirect to $sources)"
+    exit 1
+}
+
+for d in $(cat $sources); do 
+   echo "$d - "; 
+
+   echo -n "  c: "; 
+   find $d -name "*.c" | wc -l ; 
+
+   echo -n " cc: "; 
+   find $d -name "*.cc" -o -name "*.cpp" | wc -l ; 
+
+   echo -n "  h: "; 
+   find $d -name "*.h" | wc -l; 
+done 

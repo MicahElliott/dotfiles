@@ -1,0 +1,1 @@
+/home/mde/gitcontainer/vim/colors-adobe/syntax/comments.vim

@@ -1,0 +1,34 @@
+require 'irb/completion'
+
+#require 'utility_belt'
+#require 'what_methods'
+
+#ARGV.concat [ "--readline", "--prompt", "inf-ruby" ]
+ARGV.concat [ "--readline", "--prompt", "simple" ]
+
+# bond breaks variable completion!
+#require 'bond'
+#require 'bond/completion'
+
+# Make sure Wirble comes before Hirb! or you'll lose history.
+require 'wirble'
+Wirble.init({ :skip_prompt => true })
+Wirble.colorize
+
+require 'hirb'
+if ENV['RAILS_ENV']
+  # Called after the irb session is initialized and Rails has been loaded
+  IRB.conf[:IRB_RC] = Proc.new do
+    puts "Enabling Hirb"
+    logger = Logger.new(STDOUT)
+    ActiveRecord::Base.logger = logger
+    ActiveResource::Base.logger = logger
+  end
+end
+Hirb::View.enable
+
+# Auto-indent
+IRB.conf[:AUTO_INDENT] = true
+
+# Bunch of fancy stuff.
+require 'irbtools'

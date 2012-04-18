@@ -1,0 +1,19 @@
+#! /bin/zsh
+
+# my-term — Fire up urxvt with random hue, support transparency.
+#
+# NOTE: Fired when key is pressed, using xbindkeys.
+# See ~/.xbinkeysrc
+
+if [[ -n $1 ]]; then
+    print -n "cd misc/emails/followups/\n./teachersolicit.rb schools/ca3/" |xsel -i
+    notify-send $xy
+fi
+
+xy=${1-100x46}
+
+fpath+=~/config/shell/zsh/functions
+autoload rand-rgba
+
+#exec urxvtc -geometry 100x93
+exec urxvtcd -depth 32 -bg "$(rand-rgba)" -fg "white" -geometry $xy

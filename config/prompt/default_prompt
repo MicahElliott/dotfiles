@@ -1,0 +1,72 @@
+#!/bin/bash
+
+default_prompt ()
+{
+#	;1 bold
+#	;2 regular
+#	;4 underline
+#	;7 reverse
+
+# this declares $sec as an int and randomly gets a value 1-6
+#PROMPT_COMMAND='
+#declare -i sec="`date +%S`%6+1"
+#PS1="[\u@\[\e[0;3"$sec"m\]\h\[\e[0m\]:\w]\$ "
+#'
+#PS1="[\u@\h:\w]\$ "
+
+case $TERM in
+    xterm*)
+        local TITLEBAR='\[\033]0;\u@\h:\w\007\]'
+        ;;
+    *)
+        local TITLEBAR=""
+        ;;
+esac
+
+# this is the line that gets the number of files/dirs in cwd below
+#dirno="$(ls -B1 | wc -l | sed 's/^[ 	]*//g')"
+
+local gry="\[\033[1;30m\]"
+local lrd="\[\033[1;31m\]"
+local lgr="\[\033[1;32m\]"
+local yel="\[\033[1;33m\]"
+local lbl="\[\033[1;34m\]"
+local pnk="\[\033[1;35m\]"
+local lcn="\[\033[1;36m\]"
+local wht="\[\033[1;37m\]"
+local blk="\[\033[0;30m\]"
+local red="\[\033[0;31m\]"
+local grn="\[\033[0;32m\]"
+local brn="\[\033[0;33m\]"
+local blu="\[\033[0;34m\]"
+local lav="\[\033[0;35m\]"
+local tea="\[\033[0;36m\]"
+local wr="\[\033[0;41m\]"
+local wg="\[\033[0;42m\]"
+local wb="\[\033[0;43m\]"
+local wi="\[\033[0;44m\]"
+local yellowonred="\[\033[1;41;36m\]"
+local end="\[\033[0m\]"
+#gradients; can't get these to work
+#PS1="$red\333\262\261\260$grn[\u@\h:\w]\$ $end"
+#PS2="\[\033[31;40m\]\333\262\261\260\[\033[0m\]"
+
+#PS1="$blu[$end\$(date "+%I:%M")$blu]$wht(\$(ls -B1 | wc -l | sed 's/^[ 	]*//g'))$red[$end\u$red@$end\h$red:$end\w$red]$wht\$ $end"
+
+if [ -f /etc/redhat-release ]; then
+	local bld=$(sed 's/\(.*\)(\(.*\))/\2/' /etc/redhat-release)
+else
+	local bld=$(sed 's/\(.*\)(\(.*\))/\2/' /etc/turbolinux-release)
+fi
+
+###
+# SOMETHING IN THE FOLLOWING 2 NESTED LS LINES CAUSES <ESC-/> TO KILL SHELL
+#
+PS1="\
+$tea[$end\$(date "+%I:%M")$tea]\
+$yel<$(uname -m)-$bld>\
+$lrd($end\$(ls -p1 | grep '[^/]$' | wc -l | sed 's/^[ 	]*//g')$lrd)\
+$lbl($end\$(ls -p1 | grep '/' | wc -l | sed 's/^[ 	]*//g')$lbl)\
+$red[$end\u$red@$wht\h$red:$end\w$red]$wht\$ $end\
+";
+}

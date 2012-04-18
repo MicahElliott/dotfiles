@@ -1,0 +1,16 @@
+# FILE: .gdbinit
+#	initializations for running gdb
+# 	type "show var" to see set value
+
+# list only displays 7 lines
+set listsize 15
+
+# intel-style asm
+#set disassembly-flavor intel
+
+# don't print addresses when displaying contents
+#set print address off
+
+# show symbol info on ptrs
+#set print symbol-filename on
+

@@ -1,0 +1,1 @@
+/home/mde/gitcontainer/vim/pathogen/autoload/pathogen.vim

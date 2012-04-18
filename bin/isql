@@ -1,0 +1,3 @@
+#! /bin/zsh
+
+python -c "import apsw;apsw.main()" -column -header $@

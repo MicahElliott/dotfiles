@@ -1,0 +1,115 @@
+# mde prompt theme
+#
+# Make sure this file is called prompt_SOMENAME_setup and lives on fpath.
+#
+# See zshmisc for details on prompt escapes.
+#
+# Much borrowed from
+#   http://kriener.org/articles/2009/06/04/zsh-prompt-magic
+# and bits from 'clint' theme.
+#
+# Learned more from Phil!, including termwidth spanning.
+#   http://aperiodic.net/phil/prompt/
+
+setopt promptsubst
+autoload colors; colors
+autoload -Uz vcs_info
+
+function precmd {
+    vcs_info 'prompt'
+
+    local TERMWIDTH
+    local promptsize=${#${(%):---(%n@%m:%l)---()--}}
+    local pwdsize=${#${(%):-%~}}
+
+    (( TERMWIDTH = ${COLUMNS} - 1 ))
+
+    # Truncate the path if it's too long.
+    PR_FILLBAR=""
+    PR_PWDLEN=""
+
+    if [[ "$promptsize + $pwdsize" -gt $TERMWIDTH ]]; then
+        ((PR_PWDLEN=$TERMWIDTH - $promptsize))
+    else
+        PR_FILLBAR="\${(l.(($TERMWIDTH - ($promptsize + $pwdsize)))..${PR_HBAR}.)}"
+    fi
+
+}
+
+function prompt_mde_setup {
+
+    # set some colors
+    for color in red green yellow white black cyan blue; do
+        eval pr_$color='%{$fg[${(L)color}]%}'
+        eval pr_bright_$color='%{$fg_bold[${(L)color}]%}'
+    done
+    pr_reset="%{${reset_color}%}"
+    #pr_reset="${reset_color}"
+
+    # See if we can use extended characters to look nicer.
+    typeset -A altchar
+    set -A altchar ${(s..)terminfo[acsc]}
+    PR_SET_CHARSET="%{$terminfo[enacs]%}"
+    PR_SHIFT_IN="%{$terminfo[smacs]%}"
+    PR_SHIFT_OUT="%{$terminfo[rmacs]%}"
+    PR_HBAR=${altchar[q]:--}
+    PR_ULCORNER=${altchar[l]:--}
+    PR_LLCORNER=${altchar[m]:--}
+    PR_LRCORNER=${altchar[j]:--}
+    PR_URCORNER=${altchar[k]:--}
+
+    # set formats
+    # %b - branchname
+    # %u - unstagedstr (see below)
+    # %c - stangedstr (see below)
+    # %a - action (e.g. rebase-i)
+    # %R - repository path
+    # %S - path in the repository
+    fmt_branch="%B${pr_yellow}%b%u%c${pr_reset}" # e.g. master¹²
+    fmt_action="(${pr_cyan}%a${pr_reset}%)"   # e.g. (rebase-i)
+    fmt_path="%R${pr_yellow}/%S${pr_reset}" # e.g. ~/repo/subdir
+
+    # check-for-changes can be really slow.
+    # you should disable it, if you work with large repositories
+    zstyle ':vcs_info:*:prompt:*' check-for-changes true
+    #zstyle ':vcs_info:*:prompt:*' stagedstr "${pr_green}¤%f${pr_reset}"
+    zstyle ':vcs_info:*:prompt:*' stagedstr "%b${pr_green}♂%f${pr_reset}"
+    zstyle ':vcs_info:*:prompt:*' unstagedstr "%b${pr_red}±%f${pr_reset}"
+    zstyle ':vcs_info:*:prompt:*' actionformats "${fmt_branch}${fmt_action}//" "${fmt_path}${pr_reset}"
+    zstyle ':vcs_info:*:prompt:*' formats "${fmt_branch}//${pr_reset}" "${fmt_path}${pr_reset}"
+    zstyle ':vcs_info:*:prompt:*' nvcsformats "" "%~${pr_reset}"
+
+    local color1=$pr_bright_black
+    local color2=$pr_white
+    local bopen="${color1}[${pr_reset}"
+    local bclose="${color1}]${pr_reset}"
+    local git='$vcs_info_msg_0_'
+    local cwd1="${color2}%B%1~%b${pr_reset}"
+    # Return code, if non-zero.
+    local es="%(?..${bopen}${pr_red}e%?%1v${bclose})"
+    # Jobs, if non-zero.
+    local jobs="%1(j.%F${bopen}${pr_cyan}j%j${bclose}%f.)"
+    local time="${bopen}${pr_cyan}%D{%R}${bclose}"
+
+    local at="${color1}@${pr_reset}"
+    local user_host="${color2}%n${at}${color2}%m${pr_reset}"
+    local vcs_cwd='${${vcs_info_msg_1_%%.}/$HOME/~}'
+    #local cwd2="${color2}%B%20<..<${vcs_cwd}%<<%b"
+    local cwd2="${color2}%B${vcs_cwd}%b"
+    local inner="${user_host} ${cwd2}"
+
+    # Set titlebar text.
+    PR_TITLEBAR=$'%{\e]0;%(!.-=*[ROOT]*=- | .)%n@%m:%~ | ${COLUMNS}x${LINES} | %y\a%}'
+
+    line1="$PR_SET_CHARSET${(e)PR_TITLEBAR}${pr_reset}${bopen}${inner}${bclose}${pr_reset}"
+    line2="$es$jobs${pr_reset}${bopen}${git}${cwd1}${bclose}${color2}%# ${pr_reset}"
+    PROMPT="$line1
+$line2"
+    #PROMPT="$time${pr_reset}${bopen}${inner}${bclose}${pr_reset}
+#$es$jobs${pr_reset}${bopen}${git}${cwd1}${bclose}${color2}%# ${pr_reset}"
+    RPROMPT="$time"
+}
+
+prompt_mde_setup
+
+# vim:set filetype=zsh:

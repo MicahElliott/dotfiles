@@ -1,0 +1,32 @@
+#!/usr/bin/python
+# (c) Zygmunt Krynicki 2005, 2006, 2007, 2008
+# Licensed under GPL, see COPYING for the whole text
+
+__version__ = "0.2.21"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/+source/command-not-found"
+
+try:
+    import sys
+    import CommandNotFound
+    from CommandNotFound.util import crash_guard, gettext_wrapper as _
+    from CommandNotFound import CommandNotFound
+    from optparse import OptionParser
+except KeyboardInterrupt:
+    sys.exit(127)
+
+def main():
+    parser = OptionParser(version = __version__, usage=_("%prog [options] <command-name>"))
+    parser.add_option('-d', '--data-dir', action='store',
+                      default="/usr/share/command-not-found",
+                      help=_("use this path to locate data fields"))
+    parser.add_option('--ignore-installed', '--ignore-installed',
+                      action='store_true',  default=False,
+                      help=_("ignore local binaries and display the available packages"))
+    (options, args) = parser.parse_args()
+    if len(args) == 1:
+        cnf = CommandNotFound(options.data_dir)
+        if not cnf.advise(args[0], options.ignore_installed):
+            print >>sys.stderr, _("%s: command not found") % args[0]
+
+if __name__ == "__main__":
+    crash_guard(main, BUG_REPORT_URL, __version__)

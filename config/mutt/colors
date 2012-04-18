@@ -1,0 +1,55 @@
+# Mutt colors
+
+color normal    default default
+
+color quoted    brightwhite default
+color quoted1   brightblack default
+color quoted2   red  default
+color quoted3   cyan default
+color quoted4   brightcyan default
+color quoted5   yellow default
+color quoted6   brightred  default
+color quoted7   brightwhite default
+
+color hdrdefault    brightblue default
+color header        brightyellow default    '^(from|subject):'
+color header        green default           '^to:'
+color header        brightgreen default     '^(cc|bcc):'
+
+color indicator     brightwhite yellow
+color message       green default
+color status        black magenta
+color error         black red
+color underline         black red
+
+color attachment    magenta default
+
+# This looks cool.  I can match any regex in body.
+#color body	yellow black (https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+
+color body	yellow default '\W_.*?_\W'
+color body	brightyellow default [*].*?[*]
+
+color signature     cyan default
+color markers       red yellow
+color tilde         yellow default
+color bold          brightblack default
+
+color search        white red
+color tree          magenta default
+
+# Anything other than plain text
+#color index     red default '( ~h "^content-type:" ) ( ! ~h "^content-type: *text/plain" )'
+
+# Patterns: mime stuff
+color index     brightyellow default '~h "^content-type: multipart/(signed|encrypted)"'
+color index     green white '~h "^content-type: application/"'
+color index     brightwhite default '~h "^content-type: multipart/mixed"'
+
+# Patterns
+color index green default ~N # new
+color index brightwhite red ~F     # important
+color index magenta blue ~O  # old
+color index brightcyan default ~Q  # replied to
+color index white default ~D   # deleted
+color index yellow blue ~T   # tagged
+

@@ -1,0 +1,56 @@
+#!/bin/bash
+#
+#   On an idea (and using much of the basics from) S�rgio Vale e Pace.
+#   Created 8 January 99. 
+#
+#   Stuff that only needs to be done once:
+
+PromUserName="$(whoami)"
+PromCurTTY=$(tty | sed -e "s/.*tty\(.*\)/\1/")
+PromHostName=$(echo -n $HOSTNAME | sed -e "s/[\.].*//")
+
+PromWHITE="\033[1;37m"
+PromBLUE_BACK="\033[44m"
+PromYELLOW="\033[1;33m"
+PromLIGHT_GREEN="\033[1;32m"
+PromLIGHT_CYAN="\033[1;36m"
+PromNO_COLOUR="\033[0m"
+
+function prompt_command {
+   #   Enter your preferred date format here:
+   PromCurDate="$(echo -n $(date "+%H%M"))"
+	let PromCurDateLoc=$COLUMNS-$(echo -n "${PromCurDate}" \
+	   | wc -c | tr -d " ")
+   let local BarTextSize=$(echo -n \
+	   " $PromUserName@$PromHostName:$PromCurTTY ${PWD} ${PromCurDate} " \
+      | wc -c | tr -d " ")
+   if [ "$BarTextSize" -gt "$COLUMNS" ]
+	then
+	   let cut=$BarTextSize-$COLUMNS+5
+		#   Why do I need to add 5 not 3 (the number of dots) here?
+      PromNewPWD="...$(echo -n $PWD | sed -e "s/\(^.\{$cut\}\)\(.*\)/\2/")"
+	else
+      PromNewPWD="$(echo -n $PWD)";
+   fi
+}
+
+PROMPT_COMMAND=prompt_command
+
+#   Because most of the action goes on in the blue bar at the top of the 
+#   screen, which is already considered to be a "non-printing" area by the
+#   prompt, the local COLOURs don't have to be surrounded by \[ and \] .
+
+function sergio {
+
+PS1="\[\033[s\
+\033[H\033[K\
+$PromBLUE_BACK$PromWHITE\
+ \$PromUserName@\$PromHostName:\$PromCurTTY \
+$PromLIGHT_GREEN\$PromNewPWD\033[K  \
+\033[0;\${PromCurDateLoc}H$PromYELLOW\${PromCurDate} \
+\033[K\
+\033[u\033[1A\033[1B\
+$PromLIGHT_CYAN\]>\[$PromNO_COLOUR\] "
+
+PS2="\[$PromLIGHT_CYAN\]-\[$PromNO_COLOUR\] "
+}

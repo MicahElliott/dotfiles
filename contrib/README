@@ -1,0 +1,16 @@
+contrib/bin README
+
+This is a place for other people's scripts.  The name "contrib"
+basically means that someone other than I wrote it -- it's contrib-uted
+to my repo by someone else.  Cases where scripts end up in here include:
+
+ * I had to hack it up to get to behave as I needed.  Now I can use my
+   VCS to see all my diffs from the original version, and even "rebase"
+   on external updates if worth it.
+
+ * Not part of a full project package (which are installed to ~/local).
+
+ * Not available as a .deb (if it were I'd just 'agi' it everywhere).
+
+ * I need to have it installed everywhere, to save having to install
+   some package on every machine/acct.

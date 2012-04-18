@@ -1,0 +1,41 @@
+PATH=$HOME/bin:/usr/local/bin:/usr/bin:/bin
+MAILDIR=$HOME/Mail
+DEFAULT=$MAILDIR/mdelliot
+LOGFILE=$MAILDIR/from
+
+# For Shamla's Startup Support work.
+:0
+* ^Subject:.*Live Chat
+* ^From:.*password.support@intel.com
+| $HOME/livechat/livechat.py
+
+# ICL Tools repo Continuous Integration.
+#* ^From:.*svnnotify@sc8slwik1.sc.ids1.intel.com
+#* ^From:.*svnnotify@.*
+:0 c
+* ^From.*cathedral-commits-bounces
+| $HOME/bin/cosmos-kicktests.sh
+
+:0
+* ^Subject: ("[Mm]ainline|Daily CM Tasks Notification)
+spam
+
+:0
+* ^From:.*MAILER-DAEMON@spd.0\.jf\.intel\.com
+spam
+
+:0
+* ^From: Cron Daemon.*spd64
+spam
+
+:0 c
+* < 256000
+! intel@micahelliott.com
+
+:0fw
+* < 256000
+| spamassassin
+
+:0:
+* ^Subject: \[(cesr|CESR)\].*tests
+cesr

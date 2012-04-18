@@ -1,0 +1,26 @@
+#! /bin/bash
+
+# ps1select -- program to select a prompt
+#
+# Kinda clever idea but not too useful since most prompts are broken.
+# Better to just keep using 'versatile' and its aliases.  Be careful
+# that $pdir only has useable prompts in it.
+
+echo "NOTE: This script needs to be 'source'd."
+echo "$SHLVL"
+
+ps1select () {
+    local pdir=~/bin/prompt
+    local prompts=$(ls -B $pdir)
+    local PS3="Please select a prompt: "
+
+    select name in $prompts; do
+        echo "You chose $name! Here you go..."
+        source $pdir/$name
+        $name
+        break
+    done
+}
+
+ps1select
+unset ps1select

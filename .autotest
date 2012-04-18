@@ -1,0 +1,10 @@
+# ~.autotest
+require 'autotest_notification'
+SPEAKING = true
+DOOM_EDITION = true
+BUUF = true
+DESKTOP = true
+PENDING = false
+STICKY = false
+#FAILURE_SOUND = '/home/mde/proj/gists/autotest/resources/angry.wav'
+#SUCCESS_SOUND = '/home/mde/proj/gists/autotest/resources/Purr.ogg'

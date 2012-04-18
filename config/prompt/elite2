@@ -1,0 +1,11 @@
+# Created by icetrey <trey@imagin.net>
+# Added by Spidey 08/06
+function elite2 {
+local GRAD1=`tty|cut -d/ -f3`
+local COLOR1="\[\033[0;36m\]"
+local COLOR2="\[\033[1;36m\]"
+local COLOR3="\[\033[1;30m\]"
+local COLOR4="\[\033[0m\]"
+PS1="$COLOR3�$COLOR1�$COLOR2($COLOR1\u$COLOR3@$COLOR1\h$COLOR2)$COLOR1�$COLOR2($COLOR1\#$COLOR3/$COLOR1$GRAD1$COLOR2)$COLOR1�$COLOR2($COLOR1\$(date +%I:%M%P)$COLOR3:$COLOR1\$(date +%m/%d/%y)$COLOR2)$COLOR1�$COLOR3-$COLOR4\n$COLOR3�$COLOR1�$COLOR2($COLOR1\$$COLOR3:$COLOR1\w$COLOR2)$COLOR1�$COLOR3-$COLOR4 " 
+PS2="$COLOR2�$COLOR1�$COLOR3-$COLOR4 "
+}

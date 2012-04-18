@@ -1,0 +1,50 @@
+######################################################################
+# .zshrc
+######################################################################
+
+# Two good reasons for splitting into files, instead of big unified
+# .zshrc:
+#
+#   1. Can separate different things for different shells (zsh, bash)
+#
+#   2. Can have a “reload” util that just re-source-s a subset of the
+#      files.
+#
+# Using convention that ‘my_*’ vars are things that I have set.
+
+my_shdir=~/config/shell
+
+# This order can be important. I like to make sure all the envars are
+# set so subsequent functions etc can make use of them.
+# Doing actions.sh early to avoid 3rd-party stuff overriding anything.
+my_configs=(
+    envars.sh
+    actions.sh
+    options.zsh
+    aliases.sh
+    aliases.zsh
+    functions.sh
+)
+
+# Time the stuff.
+integer t0=$(date '+%s')
+
+#setopt noclobber
+
+# Source all the Zsh-specific and sh-generic files.
+for f in $my_configs; do
+    [[ -f $my_shdir/$f ]] && . $my_shdir/$f
+done
+
+# Site-specific.
+_siterc="$my_shdir/$(hostname -s).sh"
+[[ -f $_siterc ]] && . $_siterc || :
+unset _siterc
+
+function {
+    local -i t1 startup
+    t1=$(date '+%s')
+    startup=$(( t1 - t0 ))
+    [[ $startup -gt 1 ]] && print "Hmm, poor shell startup time: $startup"
+}
+unset t0

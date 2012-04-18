@@ -1,0 +1,23 @@
+# .inputrc -- needed by some programs to set readline opts (ex. gdb)
+
+# Bug with untype-able 's' if next line enabled.
+##source /etc/inputrc
+
+set editing-mode vi
+#set editing-mode emacs
+
+set bell-style visible
+
+# Enable ALT in gnome-terminal, for vim tabbing.
+# OOPS: it still does not work.
+set convert-meta on
+
+# Only require 1 tab for completion.
+set show-all-if-ambiguous on
+
+# Show filetype indicators.
+set visible-stats on
+
+set blink-matching-paren on
+
+"\C-e": rlwrap-call-editor

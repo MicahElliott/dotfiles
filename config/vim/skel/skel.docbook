@@ -1,0 +1,45 @@
+<?xml version='1.0'?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook V4.0//EN" 
+     "file:///usr/share/sgml/docbook/xml-dtd-4.2-1.0-17/docbookx.dtd" [
+  <!ENTITY icc "<application>icc</application>">
+]>
+  
+<article id="some-title" lang="en">
+
+  <articleinfo>
+    <title>Some Title</title>
+    <authorgroup>
+      <author>
+        <firstname>Micah</firstname>
+        <othername></othername>
+        <surname>Elliott</surname>
+      </author>
+    </authorgroup>
+
+    <date>Some Date</date>
+    <releaseinfo>1.01.00</releaseinfo>
+
+    <abstract>
+      <para>
+      </para>
+    </abstract>
+
+    <keywordset>
+      <keyword>some_keyword</keyword>
+    </keywordset>
+  </articleinfo> 
+
+  <sect1 id="intro"><title>Introduction</title>
+
+    <para></para>
+
+  </sect1>
+
+  <sect1 id="part2"><title>Large Application Structure</title>
+
+    <para></para>
+
+  </sect1>
+
+</article>
+

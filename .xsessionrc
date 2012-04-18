@@ -1,0 +1,7 @@
+#xbindkeys
+#
+#echo 'hello'
+
+xset +fp ~/gitcontainer/projects/orp-font/misc
+
+#ssh-add ~/.ssh/id_rsa

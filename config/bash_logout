@@ -1,0 +1,16 @@
+# ~/.bash_logout
+
+# Append this shell's history list to the global file
+#history -a ~/.history/master
+
+# Don't write private history file
+unset HISTFILE  
+
+
+test -x /usr/games/fortune && /usr/games/fortune
+#sleep 5
+
+# This is a pause to read message. Don't echo chars, timeout after 60s
+read -s -t 60
+
+clear

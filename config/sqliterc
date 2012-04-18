@@ -1,0 +1,4 @@
+-- Colorizing the prompt screw up readline history recall.
+-- .prompt "\033[0;31msqlite>\033[0m " "\033[0;31m   ...>\033[0m "
+
+.headers ON

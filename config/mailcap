@@ -1,0 +1,118 @@
+application/octet-stream; antiword %s; copiousoutput;
+application/vnd.sun.xml.writer;soffice %s
+application/vnd.sun.xml.writer.global;soffice %s
+application/vnd.stardivision.writer;soffice %s
+application/vnd.stardivision.writer-global;soffice %s
+application/x-starwriter;soffice %s
+application/vnd.sun.xml.writer.template;soffice %s
+application/vnd.sun.xml.calc;soffice %s
+application/vnd.stardivision.calc;soffice %s
+application/x-starcalc;soffice %s
+application/vnd.sun.xml.calc.template;soffice %s
+application/excel;soffice %s
+application/msexcel;soffice %s
+application/vnd.ms-excel;soffice %s
+application/x-msexcel;soffice %s
+application/vnd.sun.xml.impress;soffice %s
+application/vnd.stardivision.impress;soffice %s
+application/vnd.stardivision.impress-packed;soffice %s
+application/x-starimpress;soffice %s
+application/vnd.sun.xml.impress.template;soffice %s
+application/powerpoint;soffice %s
+application/mspowerpoint;soffice %s
+application/vnd.ms-powerpoint;soffice %s
+application/x-mspowerpoint;soffice %s
+application/vnd.sun.xml.draw;soffice %s
+application/vnd.stardivision.draw;soffice %s
+application/x-stardraw;soffice %s
+application/vnd.sun.xml.draw.template;soffice %s
+application/vnd.sun.xml.math;soffice %s
+application/vnd.stardivision.math;soffice %s
+application/x-starmath;soffice %s
+application/vnd.sun.xml.writer;soffice %s
+application/vnd.sun.xml.writer.global;soffice %s
+application/vnd.stardivision.writer;soffice %s
+application/vnd.stardivision.writer-global;soffice %s
+application/x-starwriter;soffice %s
+application/vnd.sun.xml.writer.template;soffice %s
+application/vnd.sun.xml.calc;soffice %s
+application/vnd.stardivision.calc;soffice %s
+application/x-starcalc;soffice %s
+application/vnd.sun.xml.calc.template;soffice %s
+application/vnd.sun.xml.impress;soffice %s
+application/vnd.stardivision.impress;soffice %s
+application/vnd.stardivision.impress-packed;soffice %s
+application/x-starimpress;soffice %s
+application/vnd.sun.xml.impress.template;soffice %s
+application/vnd.sun.xml.draw;soffice %s
+application/vnd.stardivision.draw;soffice %s
+application/x-stardraw;soffice %s
+application/vnd.sun.xml.draw.template;soffice %s
+application/vnd.sun.xml.math;soffice %s
+application/vnd.stardivision.math;soffice %s
+application/x-starmath;soffice %s
+# use "lynx" to render HTML files:
+#text/html;   elinks -dump-color-mode 1 %s; nametemplate=%s.html; copiousoutput
+#text/htm;   elinks -dump-color-mode 1 %s; nametemplate=%s.html; copiousoutput
+
+#text/html; elinks -default-mime-type text/html %s; needsterminal;
+text/html; elinks -dump -dump-charset iso-8859-15 -default-mime-type text/html %s; needsterminal; copiousoutput;
+
+#text/html;   htmldump.py %s; nametemplate=%s.html; copiousoutput
+#text/htm;   htmldump.py %s; nametemplate=%s.html; copiousoutput
+#text/html;   w3m -S -dump %s; nametemplate=%s.html; copiousoutput
+#text/htm;   w3m -S -dump %s; nametemplate=%s.html; copiousoutput
+message/html;   w3m -S -dump %s; nametemplate=%s.html; copiousoutput
+message/htm;   w3m -S -dump %s; nametemplate=%s.html; copiousoutput
+text/x-vcard; mutt.vcard.filter; copiousoutput
+application/msword; antiword %s; copiousoutput;
+application/octet-stream; antiword %s; copiousoutput;
+
+application/pdf; pdftotext %s -; copiousoutput;
+
+application/x-ogg;vlc %s
+application/ogg;vlc %s
+text/vnd.rn-realtext;vlc %s
+image/vnd.rn-realpix;vlc %s
+application/smil;vlc %s
+audio/mp3;vlc %s
+audio/x-mp3;vlc %s
+audio/mpeg;vlc %s
+audio/mpg;vlc %s
+audio/x-mpeg;vlc %s
+audio/x-mpg;vlc %s
+audio/mpegurl;vlc %s
+audio/x-mpegurl;vlc %s
+audio/wav;vlc %s
+audio/x-wav;mplayer %s
+audio/x-pn-wav;vlc %s
+audio/x-pn-windows-acm;vlc %s
+audio/x-pn-windows-pcm;vlc %s
+application/vnd.rn-realmedia-secure;vlc %s
+application/vnd.rn-realaudio-secure;vlc %s
+audio/x-realaudio-secure;vlc %s
+video/vnd.rn-realvideo-secure;vlc %s
+audio/vnd.rn-realaudio;vlc %s
+audio/x-realaudio;vlc %s
+application/vnd.rn-realmedia;vlc %s
+application/vnd.rn-realmedia-vbr;vlc %s
+image/vnd.rn-realpix;vlc %s
+audio/x-pn-realaudio;vlc %s
+video/vnd.rn-realvideo;vlc %s
+application/vnd.rn-realsystem-rmj;vlc %s
+application/vnd.rn-realsystem-rmx;vlc %s
+audio/aac;vlc %s
+audio/m4a;vlc %s
+audio/mp2;vlc %s
+audio/mp1;vlc %s
+audio/rn-mpeg;vlc %s
+audio/scpls;vlc %s
+audio/x-scpls;vlc %s
+application/streamingmedia;vlc %s
+application/sdp;vlc %s
+application/x-sdp;vlc %s
+audio/basic;vlc %s
+audio/x-pn-au;vlc %s
+audio/aiff;vlc %s
+audio/x-aiff;vlc %s
+audio/x-pn-aiff;vlc %s

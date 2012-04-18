@@ -1,0 +1,21 @@
+# This is a Mercurial configuration file.
+
+[ui]
+username = Micah Elliott <mde@MicahElliott.com>
+#username = Micah Elliott <Micah@uGraph.com>
+ignore.other = ~/.hgignore-global
+
+[extensions]
+hgext.convert=
+hgext.color=
+hgext.graphlog=
+hgext.churn=
+hgext.mq=
+
+[color]
+status.modified = black underline red_background
+status.added = green
+status.removed = red bold blue_background
+status.deleted = cyan bold underline
+status.unknown = magenta bold underline
+status.ignored = black bold

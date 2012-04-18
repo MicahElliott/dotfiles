@@ -1,0 +1,70 @@
+# mde prompt theme
+#
+# See zshmisc for details on prompt escapes.
+# Much borrowed from
+#   http://kriener.org/articles/2009/06/04/zsh-prompt-magic
+# and bits from 'clint' theme.
+
+setopt promptsubst
+autoload colors; colors
+autoload -Uz vcs_info
+
+function precmd { vcs_info 'prompt'; }
+
+function prompt_mde_setup {
+
+    # set some colors
+    for color in red green yellow white black cyan blue; do
+        eval pr_$color='%{$fg[${(L)color}]%}'
+        eval pr_bright_$color='%{$fg_bold[${(L)color}]%}'
+    done
+    pr_reset="%{${reset_color}%}";
+
+    # set formats
+    # %b - branchname
+    # %u - unstagedstr (see below)
+    # %c - stangedstr (see below)
+    # %a - action (e.g. rebase-i)
+    # %R - repository path
+    # %S - path in the repository
+    fmt_branch="${pr_bright_yellow}%b%u%c${pr_reset}" # e.g. master¹²
+    fmt_action="(${pr_cyan}%a${pr_reset}%)"   # e.g. (rebase-i)
+    fmt_path="%R${pr_yellow}/%S"              # e.g. ~/repo/subdir
+
+    # check-for-changes can be really slow.
+    # you should disable it, if you work with large repositories
+    zstyle ':vcs_info:*:prompt:*' check-for-changes true
+    zstyle ':vcs_info:*:prompt:*' stagedstr '%F{gr}¤%f'
+    zstyle ':vcs_info:*:prompt:*' unstagedstr '%F{re}±%f'
+    zstyle ':vcs_info:*:prompt:*' actionformats "${fmt_branch}${fmt_action}//" "${fmt_path}"
+    zstyle ':vcs_info:*:prompt:*' formats "${fmt_branch}//" "${fmt_path}"
+    zstyle ':vcs_info:*:prompt:*' nvcsformats "" "%~"
+
+    local color1=$pr_bright_black
+    local color2=$pr_white
+    local bopen="${color1}[${pr_reset}"
+    local bclose="${color1}]${pr_reset}"
+    local bopen2="${color1}(${pr_reset}"
+    local bclose2="${color1})${pr_reset}"
+    local git='$vcs_info_msg_0_'
+    local cwd1="${color2}%B%1~%b"
+    # Return code, if non-zero.
+    local es="%(?..${bopen}${pr_red}e%?%1v${bclose})"
+    # Jobs, if non-zero.
+    local jobs="%1(j.%F${bopen}${pr_cyan}j%j${bclose}%f.)"
+    local time="${bopen}%D{%R}${bclose}"
+
+    local at="${color1}@${pr_reset}"
+    local user_host="${color2}%n${at}${color2}%m"
+    local vcs_cwd='${${vcs_info_msg_1_%%.}/$HOME/~}'
+    local cwd2="${color2}%B%20<..<${vcs_cwd}%<<%b"
+    local inner="${user_host} ${cwd2}"
+
+    PROMPT="$es$jobs$time${pr_reset}${bopen}${git}${cwd1}${bclose}${color2}%# ${pr_reset}"
+
+    RPROMPT="${pr_reset}${bopen2}${inner}${bclose2}${pr_reset}"
+}
+
+prompt_mde_setup
+
+# vim:set filetype=zsh:

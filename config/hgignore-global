@@ -1,0 +1,7 @@
+.svn
+tmp
+.bzr*
+.bazaar*
+glob:*.sw[nop]
+glob:*.pyc
+glob:*~

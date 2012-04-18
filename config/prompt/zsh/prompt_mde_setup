@@ -1,0 +1,22 @@
+prompt_mde_help () {
+  cat <<'EOF'
+This prompt is color-scheme-able.  You can invoke it thus:
+
+  prompt mde [<color1>]
+
+where the color is for the right-hand prompt.
+EOF
+}
+
+prompt_mde_setup () {
+
+if [[ "$TERM" != "dumb" ]]; then
+    export PROMPT='%B%(?..[%?] )%b%n@%m> '
+    export RPROMPT="%{$fg_no_bold[${1:-green}]%}%~%{$reset_color%}"
+else
+    export PROMPT="%(?..[%?] )%n@%m:%~> "
+fi
+
+}
+
+prompt_mde_setup "$@"

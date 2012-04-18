@@ -1,0 +1,20 @@
+# ftbasic prompt
+# Frank Terbeck's demo prompt.
+#
+# As found in zshcontrib documentaion (or pretty similar).
+
+setopt promptsubst
+autoload colors; colors; autoload -Uz vcs_info
+
+function precmd { vcs_info; }
+
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' unstagedstr '¹'
+zstyle ':vcs_info:*' stagedstr '²'
+zstyle ':vcs_info:*' actionformats '%F{ma}(%f%s%F{ma})%F{ye}-%F{ma}[%F{gr}%b%F{ye}|%F{bl}%a%F{ma}]%f '
+zstyle ':vcs_info:*' formats '%F{ma}(%f%s%F{ma})%F{ye}-%F{ma}[%F{gr}%b%F{ma}]%f '
+zstyle ':vcs_info:*:*' branchformat '%b%F{bl}:%F{ye}%r'
+
+PROMPT='%F{ma}[%F{gr}%n%F{ma}] %F{ye}%3~ ${vcs_info_msg_0_}%f%# '
+
+# vim:set ft=zsh:

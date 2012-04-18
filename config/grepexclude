@@ -1,0 +1,5 @@
+*.atom
+*.log
+*.db*
+*.pyc
+*.swp

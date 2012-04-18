@@ -1,0 +1,146 @@
+# PROCMAILRC
+# See http://handsonhowto.com/pmail101.html
+
+PATH=/usr/local/bin:/usr/bin:/bin
+MAILDIR=$HOME/Mail
+DEFAULT=$MAILDIR/micahelliott
+LOGFILE=$MAILDIR/procmail.log
+DISPLAY=:0
+ONSCREEN="osd_cat --color=#ffe000 --delay=8 --shadow=1 -Acenter -pmiddle --font=-*-*-bold-r-normal-*-*-280-*-*-p-*-iso8859-1"
+FROM=`formail -x From:`
+RECD=`formail -x Received:`
+SUBJECT=`formail -x Subject:`
+VERBOSE=off
+PYTHONPATH=/home/mde/local/lib/python:/home/mde/local/lib/python/site-packages:/home/mde/local/lib/python2.5/site-packages:/home/mde/contrib/lib:.
+
+
+
+#################################################################
+### Snailr
+
+:0
+* ^TO_info@snailr.com
+| /usr/local/bin/python2.4 /home/mde/bin/snailr-handler.py
+#snailr
+
+
+#################################################################
+### uGraph
+
+#:0
+#* ^TO_hyf@howyafeelin.com
+#| /home/mde/bin/howyafeelin.py
+
+:0
+* ^TO_feeling@ugraph.com
+* ^X-Twitteremailtype: is_following
+| /home/mde/proj/ugraph/mde2/ugraph/ubotics/autofollow.py
+#* ^TO_mde@proc.ugraph.com
+
+
+#################################################################
+### DictionaryWOTD
+
+:0:
+* ^From.*Dictionary.com Word of the Day
+| /home/mde/bin/dictwotd.py
+
+#################################################################
+### Whitelisted friends/acquaintances
+
+:0:
+* ^From.*@intel.com
+intel
+
+:0
+* ^TOrss@micahelliott.com
+rss
+
+:0 E
+#* ? (grep -i "$FROM" $MAILDIR/whitelist)
+* ? (echo "$FROM" | fgrep -i --file=$MAILDIR/whitelist)
+{
+   LOG="WHITELIST "
+   :0
+   ${DEFAULT}
+}
+
+
+###
+### Let /etc/procmailrc do spamc filtering for whole system.
+###
+
+#:0fw: spamc.lock
+#* < 256000
+#| spamc
+
+# All mail tagged as spam (eg. with a score higher than the set
+# threshold) is moved to "probably-spam".
+:0:
+* ^X-Spam-Status: Yes
+spam
+
+###
+### Now do custom filtering for the rest of the manually detected spam.
+###
+
+#:0:
+#* ^Subject: hi mde
+#customspam
+#
+#SQUEEZED_SUBJECT=`echo "$SUBJECT" |tr -d ' "'`
+##* ? (test $(echo "$FROM" |cut -f2 -d' ') == "$SUBJECT")
+#:0 E
+#* ? (echo "$FROM" |grep -q "$SQUEEZED_SUBJECT")
+#{
+#   LOG="FROM_SUBJECT "
+#   LOG="customspam::--$FROM--$SUBJECT--::"
+#   :0
+#   customspam
+#}
+
+
+# DISPLAY IT ON THE SCREEN!
+# Maybe use xmessage (or gmsgp) instead osd_cat for very important messages.
+##:0 c
+##* ^Subject:.*\/.*
+##{   
+##    SUBJECT=$MATCH
+##
+##    :0 ih
+##    * ^From: .*\/[^<]*
+##    | echo "$SUBJECT <$MATCH>" | $ONSCREEN
+##}
+
+:0:
+* ^Subject:.*r2e run
+rsscron
+
+:0:
+* ^From.*Cron Daemon
+cron
+
+## Now a digest so send to inbox.
+:0:
+* ^TOpython-list@python.org
+pylist
+
+:0:
+* (^Sender:|^From).*(subversion.tigris.org|owner-mutt-users|moin-user-admin|trac-bounces|cs565-bounces|vim|omp|python-announce|comp-lang-python-announce|python-announce-list|python-announce-list|googlegroups.com|tip@lists.idyll.org|testing-in-python@lists.idyll.org|mercurial-bounces@selenic.com|zsh-users@sunsite.dk|users@cvs2svn.tigris.org)
+lists
+
+:0:
+* ^TO_mde@tracos.org
+mdetracos
+
+:0:
+* ^TO_(admin|account-request)@tracos.org
+admintracos
+
+#:0
+#* ^TO(mde|jobs)@micah.elliott.name
+#{
+#   LOG="mde::--$FROM--$SUBJECT--::"
+#   :0
+#   micahelliott
+#}

@@ -1,0 +1,35 @@
+#! /bin/bash
+
+# Call "watch -d60 mailwatch" to see display updates.
+
+mboxes="
+admintracos
+codetag
+inbox
+mbox
+mdetracos
+micahelliott
+otherlists
+rss
+"
+
+#mboxes="codesamples issue mbox mdelliot personal sysadmin utils wiki"
+#mboxes="personal"
+#mboxes="personal codesamples"
+
+red="\033[1;41m"
+nocolor="\033[0m"
+red=
+nocolor=
+color="$nocolor"
+
+for m in $mboxes; do
+   readmsgs=$(grep -c '^Status: RO' $m)
+   # BUG: saw an html msg with an additional embedded Content-Length:
+   totalmsgs=$(grep -ic '^Content-Length: ' $m)
+   newmsgs=$(($totalmsgs - $readmsgs))
+   test $newmsgs && color="$red"
+   #echo -e "$m   total: $totalmsgs  new: $color$newmsgs$nocolor"
+   printf "%-20s total: %-4s new: $color%d$nocolor\n" \
+          "$m" "$totalmsgs" "$newmsgs"
+done

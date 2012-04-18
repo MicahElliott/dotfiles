@@ -1,0 +1,13 @@
+# .bash_profile
+#   THIS FILE SHOULD ONLY CONTAIN ENVIRONMENT VARIABLES AND THEIR EXPORT,
+#   AND COMMANDS THAT ARE NOT DEFINITIONS BUT ACTUALLY RUN OR PRODUCE
+#   OUTPUT WHEN YOU LOGIN
+
+#echo -e "*** .bash_profile invoked ***"
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+   . ~/.bashrc
+fi
+
+#xbindkeys
