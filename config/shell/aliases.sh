@@ -162,6 +162,8 @@ alias fe='git fetch -v'
 alias fed='git fetch --dry-run'
 alias re='git rebase -v'
 
+alias dotfiles='git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
+
 #alias irc='weechat-curses "irc://MicahElliott:mde@irc.freenode.net//#bash,#zsh,#git,#ruby,#esperanto"'
 
 alias ri='ri -f ansi'

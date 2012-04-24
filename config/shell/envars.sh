@@ -46,6 +46,7 @@ export DJANGO_SETTINGS_MODULE=settings
 #export UGRAPH_ROOT=$HOME/
 
 export RLWRAP_EDITOR="vim -c ':set filetype=clojure'"
+export RLWRAP_OPTIONS='--multi-line -pyellow --remember -c'
 
 #export TERM=linux
 #test "$OSTYPE" = "cygwin" &&

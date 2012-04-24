@@ -197,10 +197,10 @@ map <leader>k <plug>NERDCommenterToggle
 
 " Rails (MVCh)
 " There are several more of these available; see rails.txt.
-map <Leader>m :Rmodel<CR>
-map <Leader>v :Rview<CR>
-map <Leader>c :Rcontroller<CR>
-map <Leader>h :Rhelper<CR>
+"map <Leader>m :Rmodel<CR>
+"map <Leader>v :Rview<CR>
+"map <Leader>c :Rcontroller<CR>
+"map <Leader>h :Rhelper<CR>
 
 " Clojure
 let vimfiles = $HOME . "/.vim"
