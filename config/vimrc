@@ -79,7 +79,8 @@ set guioptions=acegi
 
 "-- Pathogen ---------------------------------------------------------
 filetype off
-call pathogen#runtime_append_all_bundles()
+"call pathogen#runtime_append_all_bundles()
+call pathogen#infect('~/gitcontainer/vim')
 " For testing my hacks.
 "call pathogen#runtime_prepend_subdirectories('~/gitcontainer/forks')
 filetype plugin indent on

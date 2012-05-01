@@ -120,6 +120,10 @@ alias cu=cucumber
 #alias cat='coderay'
 #alias cat='pygmentize'
 
+# pacman/packer shortcuts
+alias pm=packer
+alias packer='packer --noedit'
+
 # apt-* shortcuts
 # Will make a good blog post. Note these won't tab-complete in bash.
 # Maybe should just use aptitude for everything? This article says to:
@@ -162,7 +166,7 @@ alias fe='git fetch -v'
 alias fed='git fetch --dry-run'
 alias re='git rebase -v'
 
-alias dotfiles='git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
+alias dotfiles='git --git-dir=$HOME/.dotfiles.git/.git --work-tree=$HOME'
 
 #alias irc='weechat-curses "irc://MicahElliott:mde@irc.freenode.net//#bash,#zsh,#git,#ruby,#esperanto"'
 

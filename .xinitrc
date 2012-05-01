@@ -1,0 +1,67 @@
+#!/bin/bash
+#export BROWSER=firefox-aurora
+#export DE=xfce
+#exec ck-launch-session dbus-launch openbox-session
+
+# Disable bell.
+xset -b
+
+xset +fp ~/gitcontainer/projects/orp-font/misc
+xset +fp /usr/share/fonts/local
+
+# To see all the xmodmap mappings: xmodmap -pke
+
+# Swap Caps_Lock and Control_L.
+xmodmap -e "remove Lock = Caps_Lock"
+xmodmap -e "keysym Caps_Lock = Control_L"
+xmodmap -e "add Control = Control_L"
+
+# Swap grave/asciitilde into Alt_R with Escape.
+xmodmap -e "remove grave = grave"
+xmodmap -e "remove asciitilde = asciitilde"
+xmodmap -e "remove Alt = Alt_R"
+xmodmap -e "keysym Alt_R = grave asciitilde"
+xmodmap -e "keycode 49 = Escape"
+#xmodmap -e "add Alt = grave asciitilde"
+
+# Other keys worth thinking about switching.
+# Use xev to see keycodes/keysyms. On ario:
+# KEYSYM      KEYCODE
+# grave        49
+# asciitilde   49
+# Alt_R       108
+# Super_L     133
+# Menu        135
+# Control_L    37
+
+# udiskie is great, but maybe not working when started from here
+udiskie &
+
+# Clipboard manager
+clipit &
+
+#eval $(ssh-agent)
+eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
+
+#feh --bg-fill /usr/share/archwall/Arch-Black.png
+# Supposedly nitrogen is better than feh for multiple screens.
+#nitrogen --restore &
+
+#trayer --edge top --align right --SetDockType true --expand true --width 6 --transparent true --alpha 0 --tint 0x000000 --height 16 &
+
+#nm-applet &
+
+# IM client
+#gajim &
+
+#exec ck-launch-session dbus-launch xmonad
+#exec ck-launch-session xmonad
+
+#exec i3
+# ConsoleKit needed for some perms, like automount USBs.
+# http://igurublog.wordpress.com/downloads/script-devmon/#install
+#source /etc/X11/xinit/xinitrc.d/30-dbus
+exec ck-launch-session dbus-launch i3
+
+# Put in zshrc.
+#source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

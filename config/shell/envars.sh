@@ -55,6 +55,7 @@ export RLWRAP_OPTIONS='--multi-line -pyellow --remember -c'
 #export TERM=xterm
 #export TERM=xterm-256color
 export XTERM=urxvtcd
+export TERMINAL=urxvtcd
 
 # Home path areas
 # NOTE: ~/local is early since it should only be used to replace
