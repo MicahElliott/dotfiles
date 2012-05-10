@@ -34,6 +34,7 @@ font -misc-orp-bold-r-*--*-*-*-*-*-*-iso10646-1
 # Volume control
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 2- unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 2- unmute
+bindsym XF86Battery exec ~/bin/pm.zsh
 
 focus_follows_mouse yes
 #bindsym $mod+b workspace back_and_forth
