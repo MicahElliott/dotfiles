@@ -69,6 +69,9 @@ zstyle :compinstall filename '/home/mde/.zshrc'
 autoload -Uz compinit; compinit
 # End of lines added by compinstall
 
+# Help system. See zshcontrib(1) for instructions.
+unalias run-help
+autoload run-help
 
 # Prompt.
 setopt promptsubst
@@ -86,8 +89,8 @@ prompt balance $(( $RANDOM % 9 ))
 # My funcs.
 autoload v foofunc
 
-# Mime types; enable massive set of "alias -s"
-autoload -U zsh-mime-setup; zsh-mime-setup
+# Mime types; enable massive set of "alias -s" (MAYBE SLOW)
+#autoload -U zsh-mime-setup; zsh-mime-setup
 
 # Set vi mode.
 bindkey -v

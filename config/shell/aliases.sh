@@ -5,8 +5,9 @@
 ### Highest importance, 1-char shortcuts.
 # A -- apt package mgmt
 alias a='sudo aptitude'
-# C -- code/coderay
-alias c='coderay'
+# C -- cat/pygmentize
+#alias c='coderay' # not installing on arch
+alias c='pygmentize'
 # D -- dirs
 alias d='dirs -v'
 # E -- super-fast-to-start-up browser
@@ -118,9 +119,9 @@ alias gi='gem install'
 # testing
 alias cu=cucumber
 
-# Looking at code
-#alias cat='coderay'
-#alias cat='pygmentize'
+# Be safe. Unfortunate that stupid --no-clobber won't error when avoiding overwrite.
+alias mv='mv -i'
+alias cp='cp -i'
 
 # pacman/packer shortcuts
 # OOPS: The --noedit kills zsh completion

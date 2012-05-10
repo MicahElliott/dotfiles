@@ -20,11 +20,13 @@ exec xset +fp ~/gitcontainer/projects/orp-font/misc
 #exec xset +fp ~/gits/projects/orp-font/misc
 exec xset +fp /usr/share/fonts/local
 
+# Keyboard indicator icon
 exec fbxkb
 
-# Worth trying
+# Seems to work but stupid icon is too big so doesn't show up!
 exec nm-applet
 
+# Auto-mount usb disks, etc.
 exec udiskie
 
 # font for window titles. ISO 10646 = Unicode
@@ -32,7 +34,7 @@ exec udiskie
 font -misc-orp-bold-r-*--*-*-*-*-*-*-iso10646-1
 
 # Volume control
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 2- unmute
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 2+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 2- unmute
 bindsym XF86Battery exec ~/bin/pm.zsh
 
@@ -109,16 +111,16 @@ bindsym $mod+Shift+a focus child
 #bindcode $mod+d focus child
 
 # switch to workspace
-bindsym $mod+1 workspace 1: term
-bindsym $mod+2 workspace 2: membean
-bindsym $mod+3 workspace 3: browse
-bindsym $mod+4 workspace 4: axiom
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
 bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6: gimp
+bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10: scratch
+bindsym $mod+0 workspace 10
 
 # alternative ctrl-based workspace switching
 bindsym Control+1 workspace 1
@@ -130,7 +132,7 @@ bindsym Control+6 workspace 6
 bindsym Control+7 workspace 7
 bindsym Control+8 workspace 8
 bindsym Control+9 workspace 9
-bindsym Control+0 workspace 10
+#bindsym Control+0 workspace 10 # browsers need this for font sizing
 
 # move focused container to workspace
 bindsym $mod+Shift+exclam move container to workspace 1
@@ -187,8 +189,10 @@ bar {
         mode dock
         modifier Mod4
         colors {
-          background #116600
-          statusline #ffffff
+          #background #116600
+          #statusline #ffffff
+          #background #ffffff
+          #statusline #000000
 
           #focused_workspace  #4c7899 #285577 #ffffff
           #active_workspace   #333333 #5f676a #ffffff
@@ -199,12 +203,41 @@ bar {
         tray_output LVDS1
 }
 
+bindsym $mod+b border toggle
+# Remove to return to "normal" border.
+new_window 1pixel
 
+#                       border  background  text
 #client.focused           #2B6473 #2B6473 #FFA000
-client.focused           #2B6473 #2B6473 #00FF00
+# Gold
+#client.focused           #2B6473 #2B6473 #ffd700
 #client.focused_inactive  #004050 #004050 #FFA000
 #client.unfocused         #004050 #004050 #cccccc
 client.urgent            #900000 #900000 #ffffff
+
+
+# colors gentoo
+client.focused        #7a5ada     #7a5ada     #ffff00
+#client.focused        #000000     #000000     #d7ff00
+client.focused_inactive    #45347b     #45347b     #aaaaaa
+client.unfocused    #333333     #333333     #666666
+client.urgent        #D11931     #D11931     #ffffff
+
+
+# colours arch linux
+# Important that vert/horiz blue is still apparent.
+#client.focused        #1793D1     #1793D1     #ffffff
+client.focused        #9793D1     #9793D1     #ffffff
+client.focused        #7a5ada     #7a5ada     #ffff00
+client.focused_inactive    #666666     #666666     #aaaaaa
+client.unfocused    #333333     #333333     #777777
+client.urgent        #D11931     #D11931     #777777
+
+# colours freebsd
+#client.focused        #990000     #990000     #ffffff
+#client.focused_inactive    #666666     #666666     #ffffff
+#client.unfocused    #333333     #333333     #ffffff
+#client.urgent        #D11931     #D11931     #ffffff
 
 
 

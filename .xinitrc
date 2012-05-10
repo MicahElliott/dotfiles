@@ -1,5 +1,10 @@
 #!/bin/bash
-#export BROWSER=firefox-aurora
+
+# .xinitrc — Called by startx
+#
+# LOTS OF IMPORTANT X SETTINGS NECESSARILY HAPPEN IN ~/.i3/config
+
+# Original stuff from ArchBang
 #export DE=xfce
 #exec ck-launch-session dbus-launch openbox-session
 
@@ -9,7 +14,7 @@ xset -b
 xset +fp ~/gitcontainer/projects/orp-font/misc
 xset +fp /usr/share/fonts/local
 
-xcompmgr -c &
+#xcompmgr -c &
 # For transparentcy see: https://wiki.archlinux.org/index.php/Xcompmgr
 # Though that may hog cpu, so not doing for now.
 #transset-df .8
@@ -49,7 +54,7 @@ clipit &
 eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
 
 #feh --bg-fill /usr/share/archwall/Arch-Black.png
-feh --bg-fill ~/transcat.jpg
+feh --bg-fill ~/Pictures/transcat.jpg
 # Supposedly nitrogen is better than feh for multiple screens.
 #nitrogen --restore &
 
@@ -58,7 +63,7 @@ feh --bg-fill ~/transcat.jpg
 #nm-applet &
 
 # IM client
-#gajim &
+gajim &
 
 #exec ck-launch-session dbus-launch xmonad
 #exec ck-launch-session xmonad

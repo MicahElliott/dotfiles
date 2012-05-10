@@ -72,8 +72,8 @@ export PATH=$PATH:/sbin:/usr/sbin:/usr/local/sbin
 # Ruby
 # FIXME: some gems want 1.8 (not 1.8.7) in PATH.
 which ruby >/dev/null && {
-    # Fastest way to get version.
-    local rubyver=$( ruby -v |awk '{print $2}' )
+    # Fastest way to get version. BUT STILL SLOWS DOWN SHELL STARTUP!
+    #local rubyver=$( ruby -v |awk '{print $2}' )
     # Hack for 1.8.x (see http://gist.github.com/54177)
     #export RUBYOPT="rubygems"
     #export PATH=$PATH:$HOME/.gem/ruby/$rubyver/bin
@@ -136,7 +136,8 @@ eval "$(TERM=xterm dircolors -b $DIR_COLORS)"
 # According to:
 # http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#SEC267
 # you need to set HELPDIR to make mini-help with run-help work.
-HELPDIR=/usr/share/zsh/help
+#HELPDIR=/usr/share/zsh/help
+HELPDIR=~/local/doc/zsh/help
 
 L="/media/LACIE"
 
