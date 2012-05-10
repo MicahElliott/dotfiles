@@ -48,6 +48,8 @@ export DJANGO_SETTINGS_MODULE=settings
 export RLWRAP_EDITOR="vim -c ':set filetype=clojure'"
 export RLWRAP_OPTIONS='--multi-line -pyellow --remember -c'
 
+export PATH=$PATH:/opt/clojurescript/bin
+
 #export TERM=linux
 #test "$OSTYPE" = "cygwin" &&
 #    export TERM=dumb ||

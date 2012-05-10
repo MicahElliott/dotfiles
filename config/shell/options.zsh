@@ -91,8 +91,9 @@ autoload -U zsh-mime-setup; zsh-mime-setup
 
 # Set vi mode.
 bindkey -v
-# Probably not necesssary; must be getting settings from inputrc.
-setopt vi
+# Not necesssary and not recommended (according to zshoptions);
+# might also be getting settings from inputrc.
+#setopt vi
 # Workaround for funny Ubuntu setting.
 bindkey '\e/' vi-history-search-backward
 

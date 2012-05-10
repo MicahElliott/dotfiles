@@ -44,6 +44,8 @@ alias w='whence -av'
 # X -- exit (see func)
 alias x='exit'
 
+alias rb=rbenv
+
 alias go='google-chrome'
 
 alias zg='zgrep -E --color=always'
@@ -121,8 +123,9 @@ alias cu=cucumber
 #alias cat='pygmentize'
 
 # pacman/packer shortcuts
+# OOPS: The --noedit kills zsh completion
 alias pm=packer
-alias packer='packer --noedit'
+#alias packer='packer --noedit'
 
 # apt-* shortcuts
 # Will make a good blog post. Note these won't tab-complete in bash.
@@ -172,6 +175,8 @@ alias dotfiles='git --git-dir=$HOME/.dotfiles.git/.git --work-tree=$HOME'
 
 alias ri='ri -f ansi'
 alias top='htop -d 5'
+
+alias mysql='mysql --auto-rehash'
 
 # VirtualEnvWrapper (see .../virtualenvwrapper.sh)
 # Seems pretty silly that ~8 ve/vewrapper commands all get shoved into

@@ -9,6 +9,11 @@ xset -b
 xset +fp ~/gitcontainer/projects/orp-font/misc
 xset +fp /usr/share/fonts/local
 
+xcompmgr -c &
+# For transparentcy see: https://wiki.archlinux.org/index.php/Xcompmgr
+# Though that may hog cpu, so not doing for now.
+#transset-df .8
+
 # To see all the xmodmap mappings: xmodmap -pke
 
 # Swap Caps_Lock and Control_L.
@@ -35,7 +40,7 @@ xmodmap -e "keycode 49 = Escape"
 # Control_L    37
 
 # udiskie is great, but maybe not working when started from here
-udiskie &
+#udiskie &
 
 # Clipboard manager
 clipit &
@@ -44,6 +49,7 @@ clipit &
 eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
 
 #feh --bg-fill /usr/share/archwall/Arch-Black.png
+feh --bg-fill ~/transcat.jpg
 # Supposedly nitrogen is better than feh for multiple screens.
 #nitrogen --restore &
 

@@ -8,6 +8,8 @@
 # i3 config file (v4)
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
+#
+# Nice example: http://www.fastlinux.eu/linux/downloads/i3/.i3/config
 
 #set $mod Mod1
 set $mod Mod4
@@ -18,14 +20,28 @@ exec xset +fp ~/gitcontainer/projects/orp-font/misc
 #exec xset +fp ~/gits/projects/orp-font/misc
 exec xset +fp /usr/share/fonts/local
 
-# Worth trying
-exec nm-applet &
+exec fbxkb
 
-exec udiskie &
+# Worth trying
+exec nm-applet
+
+exec udiskie
 
 # font for window titles. ISO 10646 = Unicode
 #font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 font -misc-orp-bold-r-*--*-*-*-*-*-*-iso10646-1
+
+# Volume control
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 2- unmute
+bindsym XF86AudioLowerVolume exec amixer -q set Master 2- unmute
+
+focus_follows_mouse yes
+#bindsym $mod+b workspace back_and_forth
+bindsym $mod+Tab workspace back_and_forth
+
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -86,21 +102,22 @@ bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
+bindsym $mod+Shift+a focus child
 
 # focus the child container
 #bindcode $mod+d focus child
 
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
+bindsym $mod+1 workspace 1: term
+bindsym $mod+2 workspace 2: membean
+bindsym $mod+3 workspace 3: browse
+bindsym $mod+4 workspace 4: axiom
 bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
+bindsym $mod+6 workspace 6: gimp
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+0 workspace 10: scratch
 
 # alternative ctrl-based workspace switching
 bindsym Control+1 workspace 1
@@ -169,13 +186,33 @@ bar {
         mode dock
         modifier Mod4
         colors {
-          background #330000
+          background #116600
           statusline #ffffff
 
-          focused_workspace  #4c7899 #285577 #ffffff
-          active_workspace   #333333 #5f676a #ffffff
-          inactive_workspace #333333 #222222 #888888
-          urgent_workspace   #2f343a #900000 #ffffff
+          #focused_workspace  #4c7899 #285577 #ffffff
+          #active_workspace   #333333 #5f676a #ffffff
+          #active_workspace   #ff0000 #00ff00 #0000ff
+          #inactive_workspace #333333 #222222 #888888
+          #urgent_workspace   #2f343a #900000 #ffffff
         }
         tray_output LVDS1
 }
+
+
+#client.focused           #2B6473 #2B6473 #FFA000
+client.focused           #2B6473 #2B6473 #00FF00
+#client.focused_inactive  #004050 #004050 #FFA000
+#client.unfocused         #004050 #004050 #cccccc
+client.urgent            #900000 #900000 #ffffff
+
+
+
+workspace "2" output VGA1
+workspace "4" output VGA1
+workspace "6" output VGA1
+workspace "8" output VGA1
+
+workspace "1" output LVDS1
+workspace "3" output LVDS1
+workspace "5" output LVDS1
+workspace "7" output LVDS1
