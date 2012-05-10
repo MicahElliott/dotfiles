@@ -7,4 +7,5 @@ export RLWRAP_EDITOR="vim -c ':set filetype=clojure'"
 breakchars="(){}[],^%$#@\"\";:''|\\"
 #exec rlwrap --remember -c -b "$breakchars" -f "$HOME"/.clj_completions clojure
 #exec rlwrap --remember -c -b "$breakchars" -f "$HOME"/.clj_completions java -cp . -jar ~/local/lib/clojure.jar
-exec rlwrap --multi-line -p'red' --remember -c -b "(){}[],^%$#@\"\";:''|\\" -f "$HOME"/.clj_completions java -cp . -jar ~/local/lib/clojure.jar $@
+#exec rlwrap --multi-line -p'red' --remember -c -b "(){}[],^%$#@\"\";:''|\\" -f "$HOME"/.clj_completions java -cp . -jar ~/local/lib/clojure.jar $@
+exec rlwrap --multi-line -p'red' --remember -c -b "(){}[],^%$#@\"\";:''|\\" -f "$HOME"/.clj_completions java -cp . -jar /usr/share/clojure/clojure.jar $@
