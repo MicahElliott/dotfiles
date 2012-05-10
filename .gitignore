@@ -1,2 +1,7 @@
 tags
+*.sw[po]
 /.*
+Downloads
+/gitcontainer
+/gits
+/repos

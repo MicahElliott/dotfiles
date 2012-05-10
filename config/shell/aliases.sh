@@ -169,7 +169,14 @@ alias fe='git fetch -v'
 alias fed='git fetch --dry-run'
 alias re='git rebase -v'
 
+# Home git mgmt
 alias dotfiles='git --git-dir=$HOME/.dotfiles.git/.git --work-tree=$HOME'
+alias dad='dotfiles add'
+alias dlo='dotfiles log --stat'
+alias dci='dotfiles commit'
+alias ddi='dotfiles diff'
+alias dst='dotfiles status'
+alias dpu='dotfiles push origin master'
 
 #alias irc='weechat-curses "irc://MicahElliott:mde@irc.freenode.net//#bash,#zsh,#git,#ruby,#esperanto"'
 

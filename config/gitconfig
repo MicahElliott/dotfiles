@@ -23,11 +23,6 @@
 	token = 6e3a38f5610c27c6e1d3e13e54567aa5
 	user = MicahElliott
 [gui]
-[gui]
-[gui]
-[gui]
-[gui]
-[gui]
 	recentrepo = /tmp/foo
 [giggle]
 	main-window-maximized = false
