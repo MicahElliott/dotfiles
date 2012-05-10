@@ -4,4 +4,4 @@
 " AFAICT.
 
 source ~/.vim/syntax/comments.vim
-source ~/.vim/bundle/Rainbow-Parenthesis/syntax/RainbowParenthsis.vim
+source ~/gitcontainer/vim/Rainbow-Parenthesis/syntax/RainbowParenthsis.vim

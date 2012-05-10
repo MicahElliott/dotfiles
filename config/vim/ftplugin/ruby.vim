@@ -3,7 +3,7 @@
 "echo "Loading Micah's ruby plugin..."
 
 source ~/.vim/syntax/comments.vim
-source ~/.vim/bundle/Rainbow-Parenthesis/syntax/RainbowParenthsis.vim
+source ~/gitcontainer/vim/Rainbow-Parenthesis/syntax/RainbowParenthsis.vim
 
 set tabstop=2
 set shiftwidth=2
