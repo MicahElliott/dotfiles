@@ -11,7 +11,7 @@ alias c='pygmentize'
 # D -- dirs
 alias d='dirs -v'
 # E -- super-fast-to-start-up browser
-alias e='epiphany-browser'
+alias e='epiphany'
 # F -- fc history display
 alias f='fc -ldD'
 # G -- grep searching
@@ -27,7 +27,6 @@ alias l='ls -hlABFX'
 alias m='mplayer'
 # N -- nautilus
 alias n=nautilus
-#alias n='EVS_DEBUG= EVS_NOWARN=1 nosetests --with-doctest --noexe'
 # O -- open, the right way
 alias o='xdg-open'
 # P -- print, eg. envars
@@ -42,12 +41,13 @@ alias sn='sed -nr'
 # V -- edit (see func)
 # W -- command info
 alias w='whence -av'
+alias w1='whence'
 # X -- exit (see func)
 alias x='exit'
 
 alias rb=rbenv
 
-alias go='google-chrome'
+alias go=$BROWSER
 
 alias zg='zgrep -E --color=always'
 
@@ -153,6 +153,8 @@ alias jobdone="date |mail -s 'job done' $EMAIL"
 
 #alias latest='ls ~/Downloads/$(ls -rt ~/Downloads/ |tail -1)'
 alias day="date '+%Y%m%d'"
+alias dt='date "+%Y%m%d"'
+
 alias gm='gnome-mplayer'
 
 # VCS commands are 2 chars.
@@ -178,8 +180,6 @@ alias dci='dotfiles commit'
 alias ddi='dotfiles diff'
 alias dst='dotfiles status'
 alias dpu='dotfiles push origin master'
-
-#alias irc='weechat-curses "irc://MicahElliott:mde@irc.freenode.net//#bash,#zsh,#git,#ruby,#esperanto"'
 
 alias ri='ri -f ansi'
 alias top='htop -d 5'
@@ -222,7 +222,7 @@ alias re-funcs=". $my_zshdir/functions.sh"
 #alias re-aliases=". $my_zshdir/aliases.sh"
 alias re-opts=". $my_zshdir/options.zsh"
 
-alias mkf='mkfifo /home/mde/tmp/refresher.fifo && cat > /home/mde/tmp/refresher.fifo &'
+alias mkf="mkfifo $TMPDIR/refresher.fifo && cat > $TMPDIR/refresher.fifo &"
 
 alias vlcshot='print ~/.local/share/vlc/$(ls -t ~/.local/share/vlc/ |head -1)'
 

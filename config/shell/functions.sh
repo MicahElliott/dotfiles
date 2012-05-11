@@ -283,3 +283,9 @@ ms() { mvn site    $@ 2>&1 |mvn-hilite.awk }  # project documentation
 # http://www.zsh.org/mla/users/2011/msg00527.html
 rehash-last-install() { fc -l -1 |grep -q install && { echo rehash-ing; rehash } }
 precmd_functions+=rehash-last-install
+
+
+vi-maps() {
+    print "All possible vim maps to contend with:"
+    grep -Eir '^[^"]*leader>' ~/.vimrc ~/config/vim ~/gitcontainer/vim
+}

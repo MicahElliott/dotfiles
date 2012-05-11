@@ -14,17 +14,17 @@ HISTSIZE=10000
 HISTFILESIZE=$HISTSIZE
 #export HISTFILE=~/.history/bh-$$
 
-# mail agents need to see these
+# Mail agents need to see these
 export EDITOR=vim
-export XEDITOR=vim
-export VISUAL=vim
-export HGEDITOR=hgeditor
+export XEDITOR=$EDITOR
+export VISUAL=$EDITOR
 #export VIMTAGS
 export TMPDIR=~/tmp
-#export BROWSER=chromium-browser
-export BROWSER=epiphany-browser
+export BROWSER=google-chrome  # previously: chromium-browser
+export DE=i3 # must be Desktop Environment (was xfce in archbang's .xinitrc)
 export MAILCHECK=60
 
+# Pager stuff
 export PAGER=less
 #export PAGER=most
 # Enable ipython to display color sequences in PAGER (http://zi.ma/9e4f04)
@@ -32,22 +32,35 @@ export LESS='-F -R -S -X'
 # Make less more friendly for non-text input files, see lesspipe(1)
 # Set LESSOPEN/LESSCLOSE.
 [[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
+# Less Colors for Man Pages
+export LESS_TERMCAP_mb=$'\e[01;31m'       # ??
+export LESS_TERMCAP_md=$'\e[01;38;5;74m'  # headings
+export LESS_TERMCAP_me=$'\e[0m'           # end
+export LESS_TERMCAP_us=$'\e[04;38;5;82m' # emphasis
+export LESS_TERMCAP_ue=$'\e[0m'           # end
+export LESS_TERMCAP_so=$'\e[1;38;5;226;48;5;236m'    # footer, search, etc
+export LESS_TERMCAP_se=$'\e[0m'           # end
 
-#export REPLYTO="micah.d.elliott@intel.com"
 export EMAIL="mde@MicahElliott.com"
+export REPLYTO=$EMAIL
 export HGUSER="Micah Elliott ($(hostname -s)) <mde@MicahElliott.com>"
 export HGMERGE=vimdiff
+export HGEDITOR=hgeditor
 export INPUTRC=~/.inputrc
+
+# Python
 #export PYTHONPATH="$HOME/local/lib/python:$HOME/local/lib/python/site-packages:$HOME/local/lib/python2.6/site-packages:$HOME/contrib/lib:."
 # Micah's personal python modules.
 #export PYTHONPATH=$PYTHONPATH:"$HOME/lib/python"
 export VIRTUAL_ENV_DISABLE_PROMPT=1
+export VIRTUALENV_USE_DISTRIBUTE=1
+export WORKON_HOME=$HOME/.virtualenvs
 export DJANGO_SETTINGS_MODULE=settings
-#export UGRAPH_ROOT=$HOME/
 
-export RLWRAP_EDITOR="vim -c ':set filetype=clojure'"
+export RLWRAP_EDITOR="$EDITOR -c ':set filetype=clojure'"
 export RLWRAP_OPTIONS='--multi-line -pyellow --remember -c'
 
+# Might be enough for cljs.
 export PATH=$PATH:/opt/clojurescript/bin
 
 #export TERM=linux
@@ -57,11 +70,10 @@ export PATH=$PATH:/opt/clojurescript/bin
 #export TERM=xterm
 #export TERM=xterm-256color
 export XTERM=urxvtcd
-export TERMINAL=urxvtcd
+export TERMINAL=$XTERM
 
 # Home path areas
-# NOTE: ~/local is early since it should only be used to replace
-# system utils; e.g., hg.
+# NOTE: ~/local is early since it should only be used to replace sys utils
 export PATH=$HOME/bin:$HOME/local/bin:$HOME/contrib/bin:$PATH
 # System path areas
 # NOTE: stuff like /usr/local/bin should be added by any system, so
@@ -111,10 +123,11 @@ export PATH=$PATH:$HOME/opt/android-sdk-linux_86/tools
 # Recent Groovy
 export PATH=$HOME/opt/groovy-1.8.1/bin:$PATH
 
+# Clojure
 #export PATH=$HOME/.cljr/bin:$PATH
 export PATH=$HOME/.lein/bin:$PATH
 
-# Local stuff.
+# Local dir stuff.
 export PATH=$PATH:./bin
 
 # Get rake to STFU.
@@ -136,24 +149,9 @@ eval "$(TERM=xterm dircolors -b $DIR_COLORS)"
 # According to:
 # http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#SEC267
 # you need to set HELPDIR to make mini-help with run-help work.
-#HELPDIR=/usr/share/zsh/help
-HELPDIR=~/local/doc/zsh/help
+HELPDIR=~/local/doc/zsh/help  # was prescribed as /usr/share/zsh/help
 
 L="/media/LACIE"
-
-export VIRTUALENV_USE_DISTRIBUTE=1
-export WORKON_HOME=$HOME/.virtualenvs
-
-# Colorful pager.
-
-# Less Colors for Man Pages
-export LESS_TERMCAP_mb=$'\e[01;31m'       # ??
-export LESS_TERMCAP_md=$'\e[01;38;5;74m'  # headings
-export LESS_TERMCAP_me=$'\e[0m'           # end
-export LESS_TERMCAP_us=$'\e[04;38;5;82m' # emphasis
-export LESS_TERMCAP_ue=$'\e[0m'           # end
-export LESS_TERMCAP_so=$'\e[1;38;5;226;48;5;236m'    # footer, search, etc
-export LESS_TERMCAP_se=$'\e[0m'           # end
 
 # How color sequences work:
 # echo $'\e[1;4;5;38;5;118;42m'" hi there "
@@ -170,7 +168,7 @@ export LESS_TERMCAP_se=$'\e[0m'           # end
 #    trap "kill $SSH_AGENT_PID" 0
 #fi
 
-export JENKINS_USER=micah
+#export JENKINS_USER=micah
 
 
 #-- Bottom Matter ----------------------------------------------------

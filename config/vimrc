@@ -159,11 +159,11 @@ endif " if has("autocmd")
 "-- Shortcut Mappings ------------------------------------------------
 
 " BufExplorer
-map <Leader>b :BufExplorerHorizontalSplit<CR>
+"map <Leader>b :BufExplorerHorizontalSplit<CR>
 
 " NERDTree
 " Explore (using NT)
-map <Leader>e :NERDTreeToggle<CR>
+map <Leader>n :NERDTreeToggle<CR>
 
 " FuzzyFinder TextMate
 "let g:fuzzy_roots = ["~/proj/Membean/mbg/app", "~/proj/Membean/mbg/stylesheets/sass", "~/config", "~/bin", "~/proj/Membean/misc", "~/proj/Membean/wordstudy", ]

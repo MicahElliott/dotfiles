@@ -5,18 +5,19 @@
 # LOTS OF IMPORTANT X SETTINGS NECESSARILY HAPPEN IN ~/.i3/config
 
 # Original stuff from ArchBang
-#export DE=xfce
+export DE=i3
 #exec ck-launch-session dbus-launch openbox-session
 
 # Disable bell.
 xset -b
 
+# Enable more fonts.
 xset +fp ~/gitcontainer/projects/orp-font/misc
 xset +fp /usr/share/fonts/local
 
-#xcompmgr -c &
 # For transparentcy see: https://wiki.archlinux.org/index.php/Xcompmgr
 # Though that may hog cpu, so not doing for now.
+#xcompmgr -c &
 #transset-df .8
 
 # To see all the xmodmap mappings: xmodmap -pke
@@ -44,9 +45,6 @@ xmodmap -e "keycode 49 = Escape"
 # Menu        135
 # Control_L    37
 
-# udiskie is great, but maybe not working when started from here
-#udiskie &
-
 # Clipboard manager
 clipit &
 
@@ -58,8 +56,9 @@ feh --bg-fill ~/Pictures/transcat.jpg
 # Supposedly nitrogen is better than feh for multiple screens.
 #nitrogen --restore &
 
+# these needed to be in .i3/config
+#udiskie &
 #trayer --edge top --align right --SetDockType true --expand true --width 6 --transparent true --alpha 0 --tint 0x000000 --height 16 &
-
 #nm-applet &
 
 # IM client
@@ -73,6 +72,3 @@ gajim &
 # http://igurublog.wordpress.com/downloads/script-devmon/#install
 #source /etc/X11/xinit/xinitrc.d/30-dbus
 exec ck-launch-session dbus-launch i3
-
-# Put in zshrc.
-#source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

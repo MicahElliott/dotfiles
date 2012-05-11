@@ -65,14 +65,14 @@ map U' o'60I'khljlD0
 map U_ O_60I_jhlklDj0
 
 " Codetags
-map ,f :r !date +\%F<CR>O.. FIXME: . <MDE<Esc>JA><Esc>BBBi
-map ,t :r !date +\%F<CR>O.. TODO: . <MDE<Esc>JA><Esc>BBBi
-map ,b :r !date +\%F<CR>O.. BUG: . <MDE<Esc>JA><Esc>BBBi
-map ,n :r !date +\%F<CR>O.. NOTE: . <MDE<Esc>JA><Esc>BBBi
-map ,g :r !date +\%F<CR>O.. GLOSS: . <MDE<Esc>JA><Esc>BBBi
+"map <Leader>f :r !date +\%F<CR>O.. FIXME: . <MDE<Esc>JA><Esc>BBBi
+"map <Leader>t :r !date +\%F<CR>O.. TODO: . <MDE<Esc>JA><Esc>BBBi
+"map <Leader>b :r !date +\%F<CR>O.. BUG: . <MDE<Esc>JA><Esc>BBBi
+"map <Leader>n :r !date +\%F<CR>O.. NOTE: . <MDE<Esc>JA><Esc>BBBi
+"map <Leader>g :r !date +\%F<CR>O.. GLOSS: . <MDE<Esc>JA><Esc>BBBi
 
 " Wiki Done/Deletion
-map ,d 0WWi--(A)-- @DATE@ddG{P
+"map <Leader>d 0WWi--(A)-- @DATE@ddG{P
 
 "hi ExtraWhitespace ctermbg=9
 "match ExtraWhitespace /\s\+$/
