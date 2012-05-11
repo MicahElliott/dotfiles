@@ -56,8 +56,9 @@ feh --bg-fill ~/Pictures/transcat.jpg
 # Supposedly nitrogen is better than feh for multiple screens.
 #nitrogen --restore &
 
+udiskie &
+
 # these needed to be in .i3/config
-#udiskie &
 #trayer --edge top --align right --SetDockType true --expand true --width 6 --transparent true --alpha 0 --tint 0x000000 --height 16 &
 #nm-applet &
 
