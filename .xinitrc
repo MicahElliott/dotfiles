@@ -4,9 +4,10 @@
 #
 # LOTS OF IMPORTANT X SETTINGS NECESSARILY HAPPEN IN ~/.i3/config
 
-# Original stuff from ArchBang
-export DE=i3
+# Original ArchBang config.
 #exec ck-launch-session dbus-launch openbox-session
+
+export DE=i3
 
 # Disable bell.
 xset -b
@@ -14,6 +15,9 @@ xset -b
 # Enable more fonts.
 xset +fp ~/gitcontainer/projects/orp-font/misc
 xset +fp /usr/share/fonts/local
+
+# Seems to have no effect.
+#setxkbmap -option grp:switch,grp:shifts_toggle,grp_led:scroll us,eo,it
 
 # For transparentcy see: https://wiki.archlinux.org/index.php/Xcompmgr
 # Though that may hog cpu, so not doing for now.
@@ -45,8 +49,10 @@ xmodmap -e "keycode 49 = Escape"
 # Menu        135
 # Control_L    37
 
-# Clipboard manager
-clipit &
+# Clipboard manager. parcellite and clipit both work, but parcellite
+# has useful tray icon.
+#clipit &
+parcellite &
 
 #eval $(ssh-agent)
 eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
@@ -61,12 +67,19 @@ udiskie &
 # these needed to be in .i3/config
 #trayer --edge top --align right --SetDockType true --expand true --width 6 --transparent true --alpha 0 --tint 0x000000 --height 16 &
 #nm-applet &
+wicd-client &
 
 # IM client
 gajim &
 
-#exec ck-launch-session dbus-launch xmonad
-#exec ck-launch-session xmonad
+# Battery monitor. Both batti and batterymon seem to work well.
+# batti's icon is more readable in small i3status bar.
+#batterymon
+batti &
+
+# CPU frequency. Wish it would do htop. Not sure why load is getting
+# high (0.4+), despite gatotray saying quiescent.
+gatotray &
 
 #exec i3
 # ConsoleKit needed for some perms, like automount USBs.
