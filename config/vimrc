@@ -57,10 +57,14 @@ set tags=./tags,./TAGS,tags,TAGS,../tags
 
 set guicursor=a:blinkwait0,a:block-cursor
 
+" Mitigate annoying delay on Esc:
+" http://superuser.com/questions/246540/vim-delay-when-exiting-visual-mode
+set timeoutlen=300 " ms
 " http://vim.wikia.com/wiki/Configuring_the_cursor
+" Only xterm supports underscore & blinking
 if &term =~ "xterm\\|rxvt"
   " use an orange cursor in insert mode
-  let &t_SI = "\<Esc>]12;orange\x7"
+  let &t_SI = "\<Esc>]12;white\x7"
   " use a red cursor otherwise
   let &t_EI = "\<Esc>]12;red\x7"
   " reset cursor when vim exits
@@ -241,17 +245,13 @@ map <Leader>u :UniCycleToggle<CR>
 " So be sure to toggle it off before invoking FuzzyFinder!
 "let g:unicycle_on = 1
 
-" Clear last search.
-" :exe… doesn’t quite work since failed search raises error and quit.
-nmap <Leader>z /asdfjkl<CR>:execute histdel("/", -1)<CR>:redraw<CR>
-
 
 "-- Window/Tab Navigation --------------------------------------------
 
-map ,1 <C-W>1w
-map ,2 <C-W>2w
-map ,3 <C-W>3w
-map ,4 <C-W>4w
+map <Leader>1 <C-W>1w
+map <Leader>2 <C-W>2w
+map <Leader>3 <C-W>3w
+map <Leader>4 <C-W>4w
 
 " Tabbing like Firefox, xterm only.
 map <M-1> 1gt

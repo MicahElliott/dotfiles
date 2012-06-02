@@ -40,7 +40,8 @@ alias sn='sed -nr'
 # T -- test (see func)
 # V -- edit (see func)
 # W -- command info
-alias w='whence -av'
+alias w='whence'
+alias wa='whence -av'
 alias w1='whence'
 # X -- exit (see func)
 alias x='exit'
@@ -114,7 +115,17 @@ alias dl='ls "$HOME/Downloads/$(ls -rt $HOME/Downloads/ |tail -1)"'
 # rubygems
 ##alias gs='gem search -r --details' # Too slow
 alias gs='gem search -r'
-alias gi='gem install'
+# See functions for "gi" equivalent.
+#alias gi='gem install'
+
+# bundler
+# http://ryan.mcgeary.org/2011/02/09/vendor-everything-still-applies/
+alias b="bundle"
+alias bi="b install --path vendor"
+alias bil="bi --local"
+alias bu="b update"
+alias be="b exec"
+alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
 
 # testing
 alias cu=cucumber

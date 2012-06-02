@@ -6,7 +6,7 @@
 set editing-mode vi
 #set editing-mode emacs
 
-set bell-style visible
+#set bell-style visible
 
 # Enable ALT in gnome-terminal, for vim tabbing.
 # OOPS: it still does not work.
@@ -19,5 +19,7 @@ set show-all-if-ambiguous on
 set visible-stats on
 
 set blink-matching-paren on
+
+set history-size 10000
 
 "\C-e": rlwrap-call-editor

@@ -289,3 +289,7 @@ vi-maps() {
     print "All possible vim maps to contend with:"
     grep -Eir '^[^"]*leader>' ~/.vimrc ~/config/vim ~/gitcontainer/vim
 }
+
+gw() { grep -E --color $1 /usr/share/dict/words }
+
+gi() { gem install $@; rbenv rehash; rehash }

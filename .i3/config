@@ -38,6 +38,7 @@ bindsym XF86Battery exec ~/bin/pm.zsh
 focus_follows_mouse yes
 #bindsym $mod+b workspace back_and_forth
 bindsym $mod+Tab workspace back_and_forth
+workspace_auto_back_and_forth yes
 
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
@@ -180,9 +181,9 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 # http://i3wm.org/docs/userguide.html#_configuring_i3bar
 bar {
-        #output LVDS1
+        output LVDS1
         status_command i3status --config ~/.i3status.conf
-        position bottom
+        position top
         mode dock
         modifier Mod4
         colors {
@@ -198,6 +199,13 @@ bar {
           #urgent_workspace   #2f343a #900000 #ffffff
         }
         tray_output LVDS1
+}
+
+# Neat! Can have 2 bars.
+bar {
+        output VGA1
+        mode hide
+        status_command i3status --config ~/.i3status-vga1.conf
 }
 
 bindsym $mod+b border toggle
@@ -247,3 +255,12 @@ workspace "1" output LVDS1
 workspace "3" output LVDS1
 workspace "5" output LVDS1
 workspace "7" output LVDS1
+
+
+
+# App-specific
+# Use `xprop` (and maybe `xwininfo`) to determine class, title, etc.
+for_window [title=".* LibreOffice Writer"] floating enable; border normal
+for_window [class="Firefox"] border normal
+for_window [class="(?i)google-chrome"] border normal
+for_window [class="(?i)thunar"] floating enable; border normal
