@@ -275,6 +275,23 @@ map 7 7gt
 map 8 8gt
 map 9 9gt
 
+"###################################
+" Return to previously visited tab (<alt><tab>).
+" http://vim.1045645.n5.nabble.com/jump-to-last-visited-tabpage-td1172955.html
+map <Tab> :exe "tabn " . g:ltv<CR>
+" referred to by TabLeave autocmd.
+function! Setlasttabpagevisited()
+  let g:ltv = tabpagenr()
+endfunction
+augroup localtl
+" Remove all localtl autocommands
+au!
+" keep tally of the last tab page visited.
+autocmd TabLeave * call Setlasttabpagevisited()
+augroup END
+autocmd VimEnter * let g:ltv = 1
+"##################################
+
 "-- Misc -------------------------------------------------------------
 
 " Right next to <S-Insert> (the actual xterm paste sequence.
