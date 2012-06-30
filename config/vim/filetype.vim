@@ -22,5 +22,3 @@ augroup filetypedetect
   au! BufRead,BufNewFile *.zsh  set filetype=sh | let b:is_bash = 1
   "au! BufWrite *.sass         !compass
 augroup END
-
-"  source ~/.vim/docbook.vim
