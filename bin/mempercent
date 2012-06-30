@@ -1,0 +1,10 @@
+#! /bin/zsh
+
+# mempercent — print the percentage of used memory
+#
+# Could be added to i3status.
+
+tot=$(awk '/MemTotal/ {print $2}' /proc/meminfo)
+free=$(awk '/MemFree/ {print $2}' /proc/meminfo)
+
+printf "%0.2f" $(( ($tot - $free) / $tot.0 ))
