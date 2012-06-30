@@ -35,7 +35,7 @@ bindsym XF86AudioRaiseVolume exec amixer -q set Master 2+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 2- unmute
 bindsym XF86Battery exec ~/bin/pm.zsh
 
-focus_follows_mouse yes
+focus_follows_mouse no
 #bindsym $mod+b workspace back_and_forth
 bindsym $mod+Tab workspace back_and_forth
 workspace_auto_back_and_forth yes
@@ -231,12 +231,14 @@ client.urgent        #D11931     #D11931     #ffffff
 
 # colours arch linux
 # Important that vert/horiz blue is still apparent.
-#client.focused        #1793D1     #1793D1     #ffffff
-client.focused        #9793D1     #9793D1     #ffffff
-client.focused        #7a5ada     #7a5ada     #ffff00
-client.focused_inactive    #666666     #666666     #aaaaaa
-client.unfocused    #333333     #333333     #777777
-client.urgent        #D11931     #D11931     #777777
+# yellow
+client.focused           #ffff00     #ffff00     #0033ff
+# orange
+client.focused_inactive  #ff9900     #ff9900     #0044ff
+# purple
+client.unfocused         #7a5ada     #7a5ada     #ffff00
+# red
+client.urgent            #D11931     #D11931     #777777
 
 # colours freebsd
 #client.focused        #990000     #990000     #ffffff
@@ -264,3 +266,4 @@ for_window [title=".* LibreOffice Writer"] floating enable; border normal
 for_window [class="Firefox"] border normal
 for_window [class="(?i)google-chrome"] border normal
 for_window [class="(?i)thunar"] floating enable; border normal
+for_window [class="(?i)gimp"] floating enable; border normal
