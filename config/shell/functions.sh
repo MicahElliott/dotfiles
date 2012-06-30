@@ -293,3 +293,26 @@ vi-maps() {
 gw() { grep -E --color $1 /usr/share/dict/words }
 
 gi() { gem install $@; rbenv rehash; rehash }
+
+# Create a gemset.
+rbg() {
+    local gsname=$1 gsfile=.rbenv-gemsets
+    if (( $#@ < 1 )); then
+        print "usage: $0 <gemname>"
+        return
+    fi
+    if [[ -f $gsfile ]]; then
+        print -n "Already using gemset: "
+        <$gsfile
+        print "Delete $gsfile to proceed."
+        return
+    fi
+    # Default to just use active version
+    local rver=$(rbenv versions| awk '/\*/ {print $2}')
+    print "Creating gemset area."
+    rbenv gemset create $rver $gsname
+    print "Persistently activating gemset (and global gemset)."
+    >$gsfile <<<"$gsname global"
+    print -n "Active gemset: "
+    rbenv gemset active
+}
