@@ -58,7 +58,7 @@ export WORKON_HOME=$HOME/.virtualenvs
 export DJANGO_SETTINGS_MODULE=settings
 
 export RLWRAP_EDITOR="$EDITOR -c ':set filetype=clojure'"
-export RLWRAP_OPTIONS='--multi-line -pyellow --remember -c'
+export RLWRAP_OPTIONS='--multi-line -pyellow --remember --complete-filenames --histsize 10000'
 
 # Might be enough for cljs.
 export PATH=$PATH:/opt/clojurescript/bin

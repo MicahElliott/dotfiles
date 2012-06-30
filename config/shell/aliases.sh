@@ -16,6 +16,7 @@ alias e='epiphany'
 alias f='fc -ldD'
 # G -- grep searching
 alias g='egrep --color=always'
+alias gr='g -ir'
 # H -- help system
 alias h=help
 # I -- initialize project working dir (see func)
@@ -33,7 +34,7 @@ alias o='xdg-open'
 alias p='print -l'
 alias q='exit'
 # R -- rake
-alias r='rake'
+#alias r='rake'
 # S -- regex-enabled sed
 alias s='sed -r'
 alias sn='sed -nr'
@@ -47,6 +48,9 @@ alias w1='whence'
 alias x='exit'
 
 alias rb=rbenv
+alias rl=bin/rails
+alias rk=bin/rake
+alias rs=bin/rspec
 
 alias go=$BROWSER
 
@@ -121,7 +125,8 @@ alias gs='gem search -r'
 # bundler
 # http://ryan.mcgeary.org/2011/02/09/vendor-everything-still-applies/
 alias b="bundle"
-alias bi="b install --path vendor"
+alias bi="b install --path vendor --binstubs"
+# Not useful? http://gembundler.com/bundle_package.html
 alias bil="bi --local"
 alias bu="b update"
 alias be="b exec"
@@ -136,8 +141,8 @@ alias cp='cp -i'
 
 # pacman/packer shortcuts
 # OOPS: The --noedit kills zsh completion
+alias packer='packer --noedit'
 alias pm=packer
-#alias packer='packer --noedit'
 
 # apt-* shortcuts
 # Will make a good blog post. Note these won't tab-complete in bash.
