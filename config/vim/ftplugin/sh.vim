@@ -17,14 +17,14 @@ set incsearch
 set nolinebreak
 
 " How many spaces for a `>>' or `<<'
-set shiftwidth=4
+set shiftwidth=2
 
 " Too smart for text
 ""set nosmartindent
 ""set nosmarttab
 
 " How many spaces for a <Tab>
-set tabstop=4
+set tabstop=2
 
 " Insert <EOL> when reaching this column
 set textwidth=70

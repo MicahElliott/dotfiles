@@ -3,7 +3,7 @@
 # Bug with untype-able 's' if next line enabled.
 ##source /etc/inputrc
 
-set editing-mode vi
+#set editing-mode vi
 #set editing-mode emacs
 
 #set bell-style visible

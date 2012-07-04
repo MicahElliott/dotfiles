@@ -3,6 +3,7 @@ if exists("did_load_filetypes")
   finish
 endif
 augroup filetypedetect
+  "au! BufRead,BufNewFile *_spec.js.coffee  set filetype=jasmine.coffee syntax=jasmine
   au! BufRead,BufNewFile *.rst,*.rest setfiletype rest
   au! BufRead,BufNewFile *.creole setfiletype creole
   au! BufRead,BufNewFile *.txt,*.text,*.TXT  setfiletype text

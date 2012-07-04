@@ -239,6 +239,11 @@ vimdocgen() {
     echo "${reset_color}Created tags file for viewing documentation for ‘$1:h:t’ plugin."
 }
 
+vimdocgenmulti() {
+    # cd ~/gitcontainer/vim
+    for d in */doc(/); do vimdocgen $d; done
+}
+
 nose-init() {
     # Nose
     export NOSE_TEST_CONFIG_FILE=$PWD/config.yml
@@ -298,7 +303,7 @@ gi() { gem install $@; rbenv rehash; rehash }
 rbg() {
     local gsname=$1 gsfile=.rbenv-gemsets
     if (( $#@ < 1 )); then
-        print "usage: $0 <gemname>"
+        print "usage: $0 <gemsetname>"
         return
     fi
     if [[ -f $gsfile ]]; then

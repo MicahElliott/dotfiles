@@ -6,8 +6,8 @@
 # A -- apt package mgmt
 alias a='sudo aptitude'
 # C -- cat/pygmentize
-#alias c='coderay' # not installing on arch
-alias c='pygmentize'
+alias c='coderay' # uses bold unlike pygmentize
+#alias c='pygmentize'
 # D -- dirs
 alias d='dirs -v'
 # E -- super-fast-to-start-up browser
@@ -51,6 +51,8 @@ alias rb=rbenv
 alias rl=bin/rails
 alias rk=bin/rake
 alias rs=bin/rspec
+alias rg=bin/guard
+alias cu=cucumber
 
 alias go=$BROWSER
 
@@ -113,6 +115,8 @@ alias pg='pgrep'
 alias pk='pkill'
 alias spk='sudo pkill'
 
+alias tm='tmux'
+
 # Latest download, see also "latest" func.
 alias dl='ls "$HOME/Downloads/$(ls -rt $HOME/Downloads/ |tail -1)"'
 
@@ -132,17 +136,14 @@ alias bu="b update"
 alias be="b exec"
 alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
 
-# testing
-alias cu=cucumber
-
 # Be safe. Unfortunate that stupid --no-clobber won't error when avoiding overwrite.
 alias mv='mv -i'
 alias cp='cp -i'
 
 # pacman/packer shortcuts
 # OOPS: The --noedit kills zsh completion
-alias packer='packer --noedit'
-alias pm=packer
+#alias packer='packer --noedit'
+alias pm='packer --noedit'
 
 # apt-* shortcuts
 # Will make a good blog post. Note these won't tab-complete in bash.

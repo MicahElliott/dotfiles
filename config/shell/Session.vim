@@ -3,14 +3,16 @@ if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
 inoremap <silent> <S-Tab> =BackwardsSnippet()
-inoremap <silent> <Plug>NERDCommenterInInsert  <BS>:call NERDComment(0, "insert")
-inoremap <Plug>ClojureReplDownHistory :call b:vimclojure_repl.downHistory()
-inoremap <Plug>ClojureReplUpHistory :call b:vimclojure_repl.upHistory()
-inoremap <Plug>ClojureReplEvaluate G$:call b:vimclojure_repl.enterHook()
-inoremap <Plug>ClojureReplEnterHook :call b:vimclojure_repl.enterHook()
+inoremap <Plug>ClojureReplDownHistory. :call b:vimclojure_repl.downHistory()
+inoremap <Plug>ClojureReplUpHistory. :call b:vimclojure_repl.upHistory()
+inoremap <Plug>ClojureReplEvaluate. G$:call b:vimclojure_repl.enterHook()
+inoremap <Plug>ClojureReplEnterHook. :call b:vimclojure_repl.enterHook()
 snoremap <silent> 	 i<Right>=TriggerSnippet()
 nmap  :tabnew,e
+nnoremap <silent>  :CtrlP
+nmap o <Plug>ZoomWin
 snoremap  b<BS>
+map 	 :exe "tabn " . g:ltv
 map 9 9gt
 map 8 8gt
 map 7 7gt
@@ -23,24 +25,31 @@ map 1 1gt
 snoremap % b<BS>%
 snoremap ' b<BS>'
 map ,<F2> :call HexHighlight()
+nnoremap <silent> ,T :BuffergatorTabsClose
+nnoremap <silent> ,t :BuffergatorTabsOpen
+nnoremap <silent> ,B :BuffergatorClose
+nnoremap <silent> ,b :BuffergatorOpen
 map ,4 4w
 map ,3 3w
 map ,2 2w
 map ,1 1w
-nmap ,z /asdfjkl:execute histdel("/", -1):redraw
 map ,u :UniCycleToggle
 map ,Q :copen
 map ,q :cclose
 map ,k <Plug>NERDCommenterToggle
+vmap ,b :BuffergatorToggle
+omap ,b :BuffergatorToggle
+map ,s :SyntasticCheck
 map ,g :Ack 
-map ,r :ruby finder.rescan!
-map ,f :FuzzyFinderTextMate
-map ,e :NERDTreeToggle
-map ,b :BufExplorerHorizontalSplit
-map ,t :TlistToggle
+map ,n :NERDTreeToggle
+vmap ,t :TlistToggle
+omap ,t :TlistToggle
 nmap ,c :noh
 xmap S <Plug>VSurround
 snoremap U b<BS>U
+nmap [YY <Plug>unimpairedLineBase64Encode
+xmap [Y <Plug>unimpairedBase64Encode
+nmap [Y <Plug>unimpairedBase64Encode
 nmap [xx <Plug>unimpairedLineXmlEncode
 xmap [x <Plug>unimpairedXmlEncode
 nmap [x <Plug>unimpairedXmlEncode
@@ -53,7 +62,11 @@ nmap [y <Plug>unimpairedStringEncode
 xmap [e <Plug>unimpairedMoveUp
 nmap [e <Plug>unimpairedMoveUp
 nmap [  <Plug>unimpairedBlankUp
+omap [n <Plug>unimpairedContextPrevious
+nmap [n <Plug>unimpairedContextPrevious
 nmap [o <Plug>unimpairedOPrevious
+nmap <silent> [T <Plug>unimpairedTFirst
+nmap <silent> [t <Plug>unimpairedTPrevious
 nmap <silent> [Q <Plug>unimpairedQFirst
 nmap <silent> [q <Plug>unimpairedQPrevious
 nmap <silent> [L <Plug>unimpairedLFirst
@@ -63,6 +76,9 @@ nmap <silent> [b <Plug>unimpairedBPrevious
 nmap <silent> [A <Plug>unimpairedAFirst
 nmap <silent> [a <Plug>unimpairedAPrevious
 snoremap \ b<BS>\
+nmap ]YY <Plug>unimpairedLineBase64Decode
+xmap ]Y <Plug>unimpairedBase64Decode
+nmap ]Y <Plug>unimpairedBase64Decode
 nmap ]xx <Plug>unimpairedLineXmlDecode
 xmap ]x <Plug>unimpairedXmlDecode
 nmap ]x <Plug>unimpairedXmlDecode
@@ -75,7 +91,11 @@ nmap ]y <Plug>unimpairedStringDecode
 xmap ]e <Plug>unimpairedMoveDown
 nmap ]e <Plug>unimpairedMoveDown
 nmap ]  <Plug>unimpairedBlankDown
+omap ]n <Plug>unimpairedContextNext
+nmap ]n <Plug>unimpairedContextNext
 nmap ]o <Plug>unimpairedONext
+nmap <silent> ]T <Plug>unimpairedTLast
+nmap <silent> ]t <Plug>unimpairedTNext
 nmap <silent> ]Q <Plug>unimpairedQLast
 nmap <silent> ]q <Plug>unimpairedQNext
 nmap <silent> ]L <Plug>unimpairedLLast
@@ -90,7 +110,6 @@ nmap cs <Plug>Csurround
 nmap ds <Plug>Dsurround
 nmap gx <Plug>NetrwBrowseX
 xmap gS <Plug>VgSurround
-xmap s <Plug>Vsurround
 nmap ySS <Plug>YSsurround
 nmap ySs <Plug>YSsurround
 nmap yss <Plug>Yssurround
@@ -101,12 +120,12 @@ snoremap <Right> a
 snoremap <BS> b<BS>
 snoremap <silent> <S-Tab> i<Right>=BackwardsSnippet()
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
-xnoremap <silent> <Plug>unimpairedMoveDown :exe 'norm m`'|exe '''<,''>move''>+'.v:count1``
-xnoremap <silent> <Plug>unimpairedMoveUp :exe 'norm m`'|exe '''<,''>move--'.v:count1``
-nnoremap <silent> <Plug>unimpairedMoveDown :exe 'norm m`'|exe 'move+'.v:count1``
-nnoremap <silent> <Plug>unimpairedMoveUp :exe 'norm m`'|exe 'move--'.v:count1``
-nnoremap <silent> <Plug>unimpairedBlankDown :put =repeat(nr2char(10),v:count)|'[-1
-nnoremap <silent> <Plug>unimpairedBlankUp :put!=repeat(nr2char(10),v:count)|']+1
+xnoremap <silent> <Plug>unimpairedMoveDown :exe 'normal! m`'|exe '''<,''>move''>+'.v:count1``
+xnoremap <silent> <Plug>unimpairedMoveUp :exe 'normal! m`'|exe '''<,''>move--'.v:count1``
+nmap <silent> <Plug>unimpairedTLast :exe "tlast ".(v:count ? v:count : "")
+nmap <silent> <Plug>unimpairedTFirst :exe "tfirst ".(v:count ? v:count : "")
+nmap <silent> <Plug>unimpairedTNext :exe "tnext ".(v:count ? v:count : "")
+nmap <silent> <Plug>unimpairedTPrevious :exe "tprevious ".(v:count ? v:count : "")
 nmap <silent> <Plug>unimpairedQLast :exe "clast ".(v:count ? v:count : "")
 nmap <silent> <Plug>unimpairedQFirst :exe "cfirst ".(v:count ? v:count : "")
 nmap <silent> <Plug>unimpairedQNext :exe "cnext ".(v:count ? v:count : "")
@@ -123,55 +142,56 @@ nmap <silent> <Plug>unimpairedALast :exe "last ".(v:count ? v:count : "")
 nmap <silent> <Plug>unimpairedAFirst :exe "first ".(v:count ? v:count : "")
 nmap <silent> <Plug>unimpairedANext :exe "next ".(v:count ? v:count : "")
 nmap <silent> <Plug>unimpairedAPrevious :exe "previous ".(v:count ? v:count : "")
-nmap <silent> <Plug>NERDCommenterAppend :call NERDComment(0, "append")
-nnoremap <silent> <Plug>NERDCommenterToEOL :call NERDComment(0, "toEOL")
-vnoremap <silent> <Plug>NERDCommenterUncomment :call NERDComment(1, "uncomment")
-nnoremap <silent> <Plug>NERDCommenterUncomment :call NERDComment(0, "uncomment")
-vnoremap <silent> <Plug>NERDCommenterNest :call NERDComment(1, "nested")
-nnoremap <silent> <Plug>NERDCommenterNest :call NERDComment(0, "nested")
-vnoremap <silent> <Plug>NERDCommenterAlignBoth :call NERDComment(1, "alignBoth")
-nnoremap <silent> <Plug>NERDCommenterAlignBoth :call NERDComment(0, "alignBoth")
-vnoremap <silent> <Plug>NERDCommenterAlignLeft :call NERDComment(1, "alignLeft")
-nnoremap <silent> <Plug>NERDCommenterAlignLeft :call NERDComment(0, "alignLeft")
-vmap <silent> <Plug>NERDCommenterYank :call NERDComment(1, "yank")
-nmap <silent> <Plug>NERDCommenterYank :call NERDComment(0, "yank")
-vnoremap <silent> <Plug>NERDCommenterInvert :call NERDComment(1, "invert")
-nnoremap <silent> <Plug>NERDCommenterInvert :call NERDComment(0, "invert")
-vnoremap <silent> <Plug>NERDCommenterSexy :call NERDComment(1, "sexy")
-nnoremap <silent> <Plug>NERDCommenterSexy :call NERDComment(0, "sexy")
-vnoremap <silent> <Plug>NERDCommenterMinimal :call NERDComment(1, "minimal")
-nnoremap <silent> <Plug>NERDCommenterMinimal :call NERDComment(0, "minimal")
-vnoremap <silent> <Plug>NERDCommenterToggle :call NERDComment(1, "toggle")
-nnoremap <silent> <Plug>NERDCommenterToggle :call NERDComment(0, "toggle")
-vnoremap <silent> <Plug>NERDCommenterComment :call NERDComment(1, "norm")
-nnoremap <silent> <Plug>NERDCommenterComment :call NERDComment(0, "norm")
-nnoremap <Plug>ClojureCloseResultBuffer :call vimclojure#ResultBuffer.CloseBuffer()
-nnoremap <Plug>ClojureReplHatHook :call b:vimclojure_repl.hatHook()
-nnoremap <Plug>ClojureStartLocalRepl :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#StartRepl"), [ b:vimclojure_namespace ]])
-nnoremap <Plug>ClojureStartRepl :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#StartRepl"), [  ]])
-nnoremap <Plug>ClojureEvalParagraph :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#EvalParagraph"), [  ]])
-nnoremap <Plug>ClojureEvalToplevel :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#EvalToplevel"), [  ]])
-vnoremap <Plug>ClojureEvalBlock :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#EvalBlock"), [  ]])
-nnoremap <Plug>ClojureEvalLine :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#EvalLine"), [  ]])
-nnoremap <Plug>ClojureEvalFile :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#EvalFile"), [  ]])
-nnoremap <Plug>ClojureMacroExpand1 :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#MacroExpand"), [ 1 ]])
-nnoremap <Plug>ClojureMacroExpand :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#MacroExpand"), [ 0 ]])
-nnoremap <Plug>ClojureRunTests :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#RunTests"), [ 0 ]])
-nnoremap <Plug>ClojureRequireFileAll :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#RequireFile"), [ 1 ]])
-nnoremap <Plug>ClojureRequireFile :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#RequireFile"), [ 0 ]])
-nnoremap <Plug>ClojureGotoSourceInteractive :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#GotoSource"), [ input("Symbol to go to: ") ]])
-nnoremap <Plug>ClojureGotoSourceWord :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#GotoSource"), [ expand("<cword>") ]])
-nnoremap <Plug>ClojureSourceLookupInteractive :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#SourceLookup"), [ input("Symbol to look up: ") ]])
-nnoremap <Plug>ClojureSourceLookupWord :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#SourceLookup"), [ expand("<cword>") ]])
-nnoremap <Plug>ClojureMetaLookupInteractive :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#MetaLookup"), [ input("Symbol to look up: ") ]])
-nnoremap <Plug>ClojureMetaLookupWord :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#MetaLookup"), [ expand("<cword>") ]])
-nnoremap <Plug>ClojureFindDoc :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#FindDoc"), [  ]])
-nnoremap <Plug>ClojureJavadocLookupInteractive :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#JavadocLookup"), [ input("Class to lookup: ") ]])
-nnoremap <Plug>ClojureJavadocLookupWord :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#JavadocLookup"), [ expand("<cword>") ]])
-nnoremap <Plug>ClojureDocLookupInteractive :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#DocLookup"), [ input("Symbol to look up: ") ]])
-nnoremap <Plug>ClojureDocLookupWord :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#DocLookup"), [ expand("<cword>") ]])
-nnoremap <Plug>ClojureToggleParenRainbow :call vimclojure#ProtectedPlug(function("vimclojure#ToggleParenRainbow"), [  ])
-nnoremap <Plug>ClojureAddToLispWords :call vimclojure#ProtectedPlug(function("vimclojure#AddToLispWords"), [ expand("<cword>") ])
+nnoremap <silent> <Plug>SurroundRepeat .
+xnoremap <silent> <Plug>NERDCommenterUncomment :call NERDComment("x", "Uncomment")
+nnoremap <silent> <Plug>NERDCommenterUncomment :call NERDComment("n", "Uncomment")
+xnoremap <silent> <Plug>NERDCommenterAlignBoth :call NERDComment("x", "AlignBoth")
+nnoremap <silent> <Plug>NERDCommenterAlignBoth :call NERDComment("n", "AlignBoth")
+xnoremap <silent> <Plug>NERDCommenterAlignLeft :call NERDComment("x", "AlignLeft")
+nnoremap <silent> <Plug>NERDCommenterAlignLeft :call NERDComment("n", "AlignLeft")
+nnoremap <silent> <Plug>NERDCommenterAppend :call NERDComment("n", "Append")
+xnoremap <silent> <Plug>NERDCommenterYank :call NERDComment("x", "Yank")
+nnoremap <silent> <Plug>NERDCommenterYank :call NERDComment("n", "Yank")
+xnoremap <silent> <Plug>NERDCommenterSexy :call NERDComment("x", "Sexy")
+nnoremap <silent> <Plug>NERDCommenterSexy :call NERDComment("n", "Sexy")
+xnoremap <silent> <Plug>NERDCommenterInvert :call NERDComment("x", "Invert")
+nnoremap <silent> <Plug>NERDCommenterInvert :call NERDComment("n", "Invert")
+nnoremap <silent> <Plug>NERDCommenterToEOL :call NERDComment("n", "ToEOL")
+xnoremap <silent> <Plug>NERDCommenterNested :call NERDComment("x", "Nested")
+nnoremap <silent> <Plug>NERDCommenterNested :call NERDComment("n", "Nested")
+xnoremap <silent> <Plug>NERDCommenterMinimal :call NERDComment("x", "Minimal")
+nnoremap <silent> <Plug>NERDCommenterMinimal :call NERDComment("n", "Minimal")
+xnoremap <silent> <Plug>NERDCommenterToggle :call NERDComment("x", "Toggle")
+nnoremap <silent> <Plug>NERDCommenterToggle :call NERDComment("n", "Toggle")
+xnoremap <silent> <Plug>NERDCommenterComment :call NERDComment("x", "Comment")
+nnoremap <silent> <Plug>NERDCommenterComment :call NERDComment("n", "Comment")
+nnoremap <Plug>ClojureCloseResultBuffer. :call vimclojure#ResultBuffer.CloseBuffer()
+nnoremap <Plug>ClojureReplHatHook. :call b:vimclojure_repl.hatHook()
+nnoremap <Plug>ClojureStartLocalRepl. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#StartRepl"), [ b:vimclojure_namespace ]])
+nnoremap <Plug>ClojureStartRepl. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#StartRepl"), [  ]])
+nnoremap <Plug>ClojureEvalParagraph. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#EvalParagraph"), [  ]])
+nnoremap <Plug>ClojureEvalToplevel. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#EvalToplevel"), [  ]])
+vnoremap <Plug>ClojureEvalBlock. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#EvalBlock"), [  ]])
+nnoremap <Plug>ClojureEvalLine. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#EvalLine"), [  ]])
+nnoremap <Plug>ClojureEvalFile. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#EvalFile"), [  ]])
+nnoremap <Plug>ClojureMacroExpand1. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#MacroExpand"), [ 1 ]])
+nnoremap <Plug>ClojureMacroExpand. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#MacroExpand"), [ 0 ]])
+nnoremap <Plug>ClojureRunTests. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#RunTests"), [ 0 ]])
+nnoremap <Plug>ClojureRequireFileAll. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#RequireFile"), [ 1 ]])
+nnoremap <Plug>ClojureRequireFile. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#RequireFile"), [ 0 ]])
+nnoremap <Plug>ClojureGotoSourceInteractive. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#GotoSource"), [ input("Symbol to go to: ") ]])
+nnoremap <Plug>ClojureGotoSourceWord. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#GotoSource"), [ expand("<cword>") ]])
+nnoremap <Plug>ClojureSourceLookupInteractive. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#SourceLookup"), [ input("Symbol to look up: ") ]])
+nnoremap <Plug>ClojureSourceLookupWord. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#SourceLookup"), [ expand("<cword>") ]])
+nnoremap <Plug>ClojureMetaLookupInteractive. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#MetaLookup"), [ input("Symbol to look up: ") ]])
+nnoremap <Plug>ClojureMetaLookupWord. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#MetaLookup"), [ expand("<cword>") ]])
+nnoremap <Plug>ClojureFindDoc. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#FindDoc"), [  ]])
+nnoremap <Plug>ClojureJavadocLookupInteractive. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#JavadocLookup"), [ input("Class to lookup: ") ]])
+nnoremap <Plug>ClojureJavadocLookupWord. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#JavadocLookup"), [ expand("<cword>") ]])
+nnoremap <Plug>ClojureDocLookupInteractive. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#DocLookup"), [ input("Symbol to look up: ") ]])
+nnoremap <Plug>ClojureDocLookupWord. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#DocLookup"), [ expand("<cword>") ]])
+nnoremap <Plug>ClojureToggleParenRainbow. :call vimclojure#ProtectedPlug(function("vimclojure#ToggleParenRainbow"), [  ])
+nnoremap <Plug>ClojureAddToLispWords. :call vimclojure#ProtectedPlug(function("vimclojure#AddToLispWords"), [ expand("<cword>") ])
 imap S <Plug>ISurround
 imap s <Plug>Isurround
 inoremap <silent> 	 =TriggerSnippet()
@@ -208,15 +228,16 @@ set nojoinspaces
 set pastetoggle=<S-Home>
 set previewheight=50
 set ruler
-set runtimepath=~/gitcontainer/vim/Rainbow-Parenthesis,~/gitcontainer/vim/VimClojure,~/gitcontainer/vim/ack,~/gitcontainer/vim/color-sampler-pack,~/gitcontainer/vim/colors-adobe,~/gitcontainer/vim/colors-solarized,~/gitcontainer/vim/cucumber,~/gitcontainer/vim/haml,~/gitcontainer/vim/markdown,~/gitcontainer/vim/mustache,~/gitcontainer/vim/nerdcommenter,~/gitcontainer/vim/nerdtree,~/gitcontainer/vim/pathogen,~/gitcontainer/vim/rails,~/gitcontainer/vim/repeat,~/gitcontainer/vim/ruby,~/gitcontainer/vim/screen,~/gitcontainer/vim/slim,~/gitcontainer/vim/snipmate,~/gitcontainer/vim/surround,~/gitcontainer/vim/syntax-python,~/gitcontainer/vim/unicycle,~/gitcontainer/vim/unimpaired,~/gitcontainer/vim/vim-coffee-script,~/gitcontainer/vim/vim-json-bundle,~/.vim,/usr/share/vim/vimfiles,/usr/share/vim/vim73,/usr/share/vim/vimfiles/after,~/.vim/after,~/gitcontainer/vim/snipmate/after,~/gitcontainer/vim/vim-coffee-script/after
-set shiftwidth=4
+set runtimepath=~/gitcontainer/vim/Rainbow-Parenthesis,~/gitcontainer/vim/VimClojure,~/gitcontainer/vim/ZoomWin,~/gitcontainer/vim/ack,~/gitcontainer/vim/color-sampler-pack,~/gitcontainer/vim/colors-adobe,~/gitcontainer/vim/colors-solarized,~/gitcontainer/vim/ctrlp.vim,~/gitcontainer/vim/cucumber,~/gitcontainer/vim/disabled,~/gitcontainer/vim/haml,~/gitcontainer/vim/markdown,~/gitcontainer/vim/mustache,~/gitcontainer/vim/nerdcommenter,~/gitcontainer/vim/nerdtree,~/gitcontainer/vim/pathogen,~/gitcontainer/vim/rails,~/gitcontainer/vim/repeat,~/gitcontainer/vim/ruby,~/gitcontainer/vim/screen,~/gitcontainer/vim/slim,~/gitcontainer/vim/snipmate,~/gitcontainer/vim/snipmate-snippets,~/gitcontainer/vim/surround,~/gitcontainer/vim/syntastic,~/gitcontainer/vim/syntax-python,~/gitcontainer/vim/tlib_vim,~/gitcontainer/vim/unicycle,~/gitcontainer/vim/unimpaired,~/gitcontainer/vim/vim-addon-mw-utils,~/gitcontainer/vim/vim-buffergator,~/gitcontainer/vim/vim-coffee-script,~/gitcontainer/vim/vim-json-bundle,~/.vim,/usr/share/vim/vimfiles,/usr/share/vim/vim73,/usr/share/vim/vimfiles/after,~/.vim/after,~/gitcontainer/vim/snipmate/after,~/gitcontainer/vim/vim-coffee-script/after
+set shiftwidth=2
 set showcmd
 set showmatch
 set suffixes=.bak,~,.o,.info,.swp,.swp,.pc,.pcl,.aux,.dvi,.log,.toc
 set tabline=%!MyTabLine()
-set tabstop=4
+set tabstop=2
 set tags=./tags,./TAGS,tags,TAGS,../tags
 set textwidth=70
+set timeoutlen=300
 set visualbell
 set nowritebackup
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
@@ -248,10 +269,10 @@ set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe '1resize ' . ((&lines * 24 + 50) / 101)
-exe '2resize ' . ((&lines * 24 + 50) / 101)
-exe '3resize ' . ((&lines * 24 + 50) / 101)
-exe '4resize ' . ((&lines * 24 + 50) / 101)
+exe '1resize ' . ((&lines * 25 + 52) / 104)
+exe '2resize ' . ((&lines * 25 + 52) / 104)
+exe '3resize ' . ((&lines * 25 + 52) / 104)
+exe '4resize ' . ((&lines * 24 + 52) / 104)
 argglobal
 nmap <buffer> dq :Conflict2DiffFinish
 nmap <buffer> dr :Conflict2DiffGetRight
@@ -332,7 +353,7 @@ setlocal norelativenumber
 setlocal norightleft
 setlocal rightleftcmd=search
 setlocal noscrollbind
-setlocal shiftwidth=4
+setlocal shiftwidth=2
 setlocal noshortname
 setlocal nosmartindent
 setlocal softtabstop=0
@@ -347,7 +368,7 @@ setlocal synmaxcol=3000
 if &syntax != 'sh'
 setlocal syntax=sh
 endif
-setlocal tabstop=4
+setlocal tabstop=2
 setlocal tags=
 setlocal textwidth=70
 setlocal thesaurus=
@@ -357,11 +378,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 3 - ((2 * winheight(0) + 12) / 24)
+let s:l = 1 - ((0 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-3
+1
 normal! 0
 wincmd w
 argglobal
@@ -442,7 +463,7 @@ setlocal norelativenumber
 setlocal norightleft
 setlocal rightleftcmd=search
 setlocal noscrollbind
-setlocal shiftwidth=4
+setlocal shiftwidth=2
 setlocal noshortname
 setlocal nosmartindent
 setlocal softtabstop=0
@@ -457,7 +478,7 @@ setlocal synmaxcol=3000
 if &syntax != 'sh'
 setlocal syntax=sh
 endif
-setlocal tabstop=4
+setlocal tabstop=2
 setlocal tags=
 setlocal textwidth=70
 setlocal thesaurus=
@@ -467,7 +488,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 12) / 24)
+let s:l = 1 - ((0 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -552,7 +573,7 @@ setlocal norelativenumber
 setlocal norightleft
 setlocal rightleftcmd=search
 setlocal noscrollbind
-setlocal shiftwidth=4
+setlocal shiftwidth=2
 setlocal noshortname
 setlocal nosmartindent
 setlocal softtabstop=0
@@ -567,7 +588,7 @@ setlocal synmaxcol=3000
 if &syntax != 'sh'
 setlocal syntax=sh
 endif
-setlocal tabstop=4
+setlocal tabstop=2
 setlocal tags=
 setlocal textwidth=70
 setlocal thesaurus=
@@ -577,7 +598,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 12) / 24)
+let s:l = 1 - ((0 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -662,7 +683,7 @@ setlocal norelativenumber
 setlocal norightleft
 setlocal rightleftcmd=search
 setlocal noscrollbind
-setlocal shiftwidth=4
+setlocal shiftwidth=2
 setlocal noshortname
 setlocal nosmartindent
 setlocal softtabstop=0
@@ -677,7 +698,7 @@ setlocal synmaxcol=3000
 if &syntax != 'sh'
 setlocal syntax=sh
 endif
-setlocal tabstop=4
+setlocal tabstop=2
 setlocal tags=
 setlocal textwidth=70
 setlocal thesaurus=
@@ -694,10 +715,10 @@ normal! zt
 1
 normal! 0
 wincmd w
-exe '1resize ' . ((&lines * 24 + 50) / 101)
-exe '2resize ' . ((&lines * 24 + 50) / 101)
-exe '3resize ' . ((&lines * 24 + 50) / 101)
-exe '4resize ' . ((&lines * 24 + 50) / 101)
+exe '1resize ' . ((&lines * 25 + 52) / 104)
+exe '2resize ' . ((&lines * 25 + 52) / 104)
+exe '3resize ' . ((&lines * 25 + 52) / 104)
+exe '4resize ' . ((&lines * 24 + 52) / 104)
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

@@ -133,6 +133,9 @@ export PATH=$PATH:./bin
 # Get rake to STFU.
 export MAKE=make
 
+# Sencha crap.
+export PATH=$PATH:$HOME/opt/SenchaArchitect:$HOME/opt/SenchaSDKTools-2.0.0-beta3
+
 #export dir_stack=$HOME
 
 ## COLORS ############################################################
