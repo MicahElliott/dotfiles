@@ -1,7 +1,7 @@
 "-----------------------------------------------------------------------
 " .vimrc
 " Maintainer:  Micah Elliott
-" Version:     0.2
+" Version:     0.3
 " Info:        Micah’s main config file
 "-----------------------------------------------------------------------
 
@@ -47,6 +47,7 @@ set textwidth=72  " Insert <EOL> when reaching this column
 set wrap          " Display long lines wrapped
 set wrapmargin=0  " Like `textwidth' but use instead (from right border)
 set suffixes=.bak,~,.o,.info,.swp,.swp,.pc,.pcl,.aux,.dvi,.log,.toc
+set hidden
 
 let mapleader = ","
 let maplocalleader = ","
@@ -90,11 +91,61 @@ call pathogen#infect('~/gitcontainer/vim')
 filetype plugin indent on
 
 
-"-- Passthrough settings ---------------------------------------------
+"-- Override settings ------------------------------------------------
 let python_highlight_all = 1
 
 let ruby_operators = 1
 let ruby_space_errors = 1
+
+"let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+
+"let g:snippets_dir = '~/.vim/snippets'
+
+" Stupid unicycle somehow breaks FuzzyFinder by mistreating - and .
+" So be sure to toggle it off before invoking FuzzyFinder!
+"let g:unicycle_on = 1
+
+let g:buffergator_display_regime = "bufname"
+let g:buffergator_sort_regime = "mru"
+let g:buffergator_viewport_split_policy = "L" "left
+
+" CtrlP
+"set wildignore+=*/tmp*,*.swp,/vendor
+let g:ctrlp_use_caching = 1
+let g:ctrlp_dotfiles = 1
+let g:ctrlp_max_depth = 6
+"let g:ctrlp_working_path_mode = 1
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files']
+let g:ctrlp_max_height = 30
+let g:ctrlp_switch_buffer = 2
+let g:ctrlp_clear_cache_on_exit = 0
+"let g:ctrlp_arg_map = 1
+"let g:ctrlp_prompt_mappings = {
+  "\ 'AcceptSelection("h")': ['<S-i>'],
+  "\ }
+
+" NERDCommenter
+let g:NERDCreateDefaultMappings = 0
+
+" EnhancedCommentify visual bindings:
+" http://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim
+" But not using EnhancedCommentify since NERDCommenter is superior.
+"let g:EnhCommentifyUserBindings='Yes'
+
+let g:jasmine_use_templates = ""
+
+" Clojure
+let vimfiles = $HOME . "/.vim"
+let vimclojure#HighlightBuiltins = 1      " Highlight Clojure's builtins
+let vimclojure#ParenRainbow = 1           " Rainbow parentheses'!
+let vimclojure#SplitSize = 10
+let vimclojure#SplitPos = "bottom"
+let vimclojureRoot = vimfiles."/bundle/VimClojure"
+let vimclojure#HighlightContrib = 1
+let vimclojure#DynamicHighlighting = 1
+"let vimclojure#WantNailgun = 1
+"let vimclojure#NailgunClient = vimclojureRoot."/lib/nailgun/ng"
+" Java? http://blog.darevay.com/2010/10/how-i-tamed-vimclojure/
 
 "set verbose
 
@@ -125,18 +176,82 @@ colorscheme overrides
 match ExtraWhitespace /\s\+$/
 
 
-"-- Map ----------------------------------------------------------------
+"-- Map (Leader) -------------------------------------------------------
 
 nmap <buffer> dl :Conflict2DiffGetLeft<CR>
 nmap <buffer> dr :Conflict2DiffGetRight<CR>
 nmap <buffer> dq :Conflict2DiffFinish<CR>
 
 " Clear the hlsearch.
-nmap <leader>c :noh<CR>
+nmap <leader>z :noh<CR>
 
 " Center the screen by having top marked.
 " Could even auto-detect a "top" marker like ";;;"
 nmap <leader>t 'tz^M''
+
+" BufExplorer
+"map <Leader>b :BufExplorerHorizontalSplit<CR>
+
+" NERDTree
+" Explore (using NT)
+nmap <Leader>n :NERDTreeToggle<CR>
+nmap <Leader>e :NERDTreeToggle<CR>
+
+" Ack (grep)
+nmap <Leader>g :Ack 
+
+nmap <Leader>s :SyntasticCheck<CR>
+
+"nmap <Leader>b :BuffergatorToggle<CR>
+
+map <Leader>k <plug>NERDCommenterToggle
+"map <Leader>k <plug>NERDCommenterAlignLeft
+"map <Leader>K <plug>NERDComUncommentLine
+" Defaults, but replacing leading ‘c’ with ‘k’.
+"map <leader>kk <plug>NERDCommenterComment
+"map <leader>k<space> <plug>NERDCommenterToggle
+"map <leader>km <plug>NERDCommenterMinimal
+"map <leader>ks <plug>NERDCommenterSexy
+"map <leader>ki <plug>NERDCommenterInvert
+"map <leader>ky <plug>NERDCommenterYank
+"map <leader>kl <plug>NERDCommenterAlignLeft
+"map <leader>kb <plug>NERDCommenterAlignBoth
+"map <leader>kn <plug>NERDCommenterNest
+"map <leader>ku <plug>NERDCommenterUncomment
+"map <leader>k$ <plug>NERDCommenterToEOL
+"map <leader>kA <plug>NERDCommenterAppend
+
+" Rails (MVCh)
+" There are several more of these available; see rails.txt.
+nmap <Leader>m :Rmodel<CR>
+nmap <Leader>v :Rview<CR>
+nmap <Leader>c :Rcontroller<CR>
+nmap <Leader>h :Rhelper<CR>
+nmap <Leader>q <C-W>q
+
+" Toggles for “quickwin”, used by grep, ack, make, etc.
+" Might not use this much.
+"map <Leader>q :cclose<CR>
+"map <Leader>Q :copen<CR>
+
+"map <Leader>t :TlistToggle<CR>
+
+" UniCycle typography
+map <Leader>u :UniCycleToggle<CR>
+
+
+"-- Window Navigation --------------------------------------------
+
+map <Leader>1 <C-W>1w
+map <Leader>2 <C-W>2w
+map <Leader>3 <C-W>3w
+map <Leader>4 <C-W>4w
+
+" Start new tab with Explorer.
+"nmap <C-N> :tabnew<C-M><leader>f
+"nmap <C-N> :tabnew<C-M><Leader>e
+nmap <C-N> :10tab tabnew<C-M>
+
 
 
 "-- Abbreviation -------------------------------------------------------
@@ -160,61 +275,6 @@ au BufNewFile *.html 0r ~/.vim/skel/skel.html
 endif " if has("autocmd")
 
 
-"-- Shortcut Mappings ------------------------------------------------
-
-" BufExplorer
-"map <Leader>b :BufExplorerHorizontalSplit<CR>
-
-" NERDTree
-" Explore (using NT)
-map <Leader>n :NERDTreeToggle<CR>
-
-" Ack (grep)
-map <Leader>g :Ack 
-let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-
-" NERDCommenter
-let g:NERDCreateDefaultMappings = 0
-map <leader>k <plug>NERDCommenterToggle
-" Defaults, but replacing leading ‘c’ with ‘k’.
-"map <leader>kk <plug>NERDCommenterComment
-"map <leader>k<space> <plug>NERDCommenterToggle
-"map <leader>km <plug>NERDCommenterMinimal
-"map <leader>ks <plug>NERDCommenterSexy
-"map <leader>ki <plug>NERDCommenterInvert
-"map <leader>ky <plug>NERDCommenterYank
-"map <leader>kl <plug>NERDCommenterAlignLeft
-"map <leader>kb <plug>NERDCommenterAlignBoth
-"map <leader>kn <plug>NERDCommenterNest
-"map <leader>ku <plug>NERDCommenterUncomment
-"map <leader>k$ <plug>NERDCommenterToEOL
-"map <leader>kA <plug>NERDCommenterAppend
-
-" EnhancedCommentify visual bindings:
-" http://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim
-" But not using EnhancedCommentify since NERDCommenter is superior.
-"let g:EnhCommentifyUserBindings='Yes'
-
-" Rails (MVCh)
-" There are several more of these available; see rails.txt.
-"map <Leader>m :Rmodel<CR>
-"map <Leader>v :Rview<CR>
-"map <Leader>c :Rcontroller<CR>
-"map <Leader>h :Rhelper<CR>
-
-" Clojure
-let vimfiles = $HOME . "/.vim"
-let vimclojure#HighlightBuiltins = 1      " Highlight Clojure's builtins
-let vimclojure#ParenRainbow = 1           " Rainbow parentheses'!
-let vimclojure#SplitSize = 10
-let vimclojure#SplitPos = "bottom"
-let vimclojureRoot = vimfiles."/bundle/VimClojure"
-let vimclojure#HighlightContrib = 1
-let vimclojure#DynamicHighlighting = 1
-"let vimclojure#WantNailgun = 1
-"let vimclojure#NailgunClient = vimclojureRoot."/lib/nailgun/ng"
-" Java? http://blog.darevay.com/2010/10/how-i-tamed-vimclojure/
-
 set previewheight=50
 au BufEnter ?* call PreviewHeightWorkAround()
 func PreviewHeightWorkAround()
@@ -223,27 +283,7 @@ func PreviewHeightWorkAround()
     endif
 endfunc
 
-" Toggles for “quickwin”, used by grep, ack, make, etc.
-" Might not use this much.
-map <Leader>q :cclose<CR>
-map <Leader>Q :copen<CR>
-
-map <Leader>t :TlistToggle<CR>
-
-" UniCycle typography
-map <Leader>u :UniCycleToggle<CR>
-" Stupid unicycle somehow breaks FuzzyFinder by mistreating - and .
-" So be sure to toggle it off before invoking FuzzyFinder!
-"let g:unicycle_on = 1
-
-
-"-- Window/Tab Navigation --------------------------------------------
-
-map <Leader>1 <C-W>1w
-map <Leader>2 <C-W>2w
-map <Leader>3 <C-W>3w
-map <Leader>4 <C-W>4w
-
+"-- Tab Navigation --------------------------------------------
 " Tabbing like Firefox, xterm only.
 map <M-1> 1gt
 map <M-2> 2gt
@@ -254,7 +294,6 @@ map <M-6> 6gt
 map <M-7> 7gt
 map <M-8> 8gt
 map <M-9> 9gt
-
 " Tabbing, for rxvt-unicode/urxvt for alt/meta recognition
 map 1 1gt
 map 2 2gt
@@ -294,10 +333,6 @@ set pastetoggle=<S-Home>
 let b:is_bash = 1
 
 "-- Obscure overrides of Vim builtins --------------------------------
-
-" Start new tab with Explorer.
-"nmap <C-N> :tabnew<C-M><leader>f
-nmap <C-N> :tabnew<C-M><Leader>e
 
 "se lines=12
 "set t_ti= t_te=
