@@ -85,7 +85,8 @@ autoload -Uz colors; colors
 #prompt bart
 #prompt mde
 # Set prompt to random color.
-prompt balance $(( $RANDOM % 9 ))
+#prompt balance $(( $RANDOM % 9 ))
+prompt balance black
 #prompt off
 
 # My funcs.
