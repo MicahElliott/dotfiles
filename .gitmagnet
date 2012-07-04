@@ -80,6 +80,7 @@ magnets=(
 'vim/vim-coffee-script https://github.com/kchmck/vim-coffee-script.git'
 'vim/vim-json-bundle https://github.com/vim-scripts/vim-json-bundle.git'
 'vim/ZoomWin git://github.com/vim-scripts/ZoomWin.git'
+'vim/vim-slime git://github.com/jpalardy/vim-slime.git'
 )
 
 # vim:se filetype=zsh

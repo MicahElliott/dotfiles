@@ -68,7 +68,7 @@ t () {
 }
 
 # Python vim test and module setup for vim.
-vpy() {
+vi-py() {
     test -z $1 && { echo "missing .py"; return; }
     if [ -f "../test/test_$1" ];
     then
@@ -192,7 +192,7 @@ latest() {
 
 # Vi-Grep
 # Edit the file grepped for if found one match.
-vig() {
+vi-g() {
     pat=$1
     dir=$2
     file=()
@@ -229,7 +229,7 @@ showargs() { for arg do echo "»$arg«"; done; }
 # finding it. Might consider also showing hidden ‘_’-prefixed funcs.
 showfuncs funcshow () { functions |awk '/^[[:alpha:]].*{$/ {print $1}' |$PAGER; }
 
-vimdocgen() {
+vi-docgen() {
     if [[ -z $1 ]]; then
         echo "Generate documnetion (tags) file for vim plugin.\n"
         echo "usage: vimdocgen some/vim/plugin/doc"
@@ -239,7 +239,7 @@ vimdocgen() {
     echo "${reset_color}Created tags file for viewing documentation for ‘$1:h:t’ plugin."
 }
 
-vimdocgenmulti() {
+vi-docgenmulti() {
     # cd ~/gitcontainer/vim
     for d in */doc(/); do vimdocgen $d; done
 }

@@ -5,6 +5,9 @@
 " Info:        Micah’s main config file
 "-----------------------------------------------------------------------
 
+" Some info on getting python support for arch linux:
+" https://gist.github.com/3048622
+
 set t_Co=256
 if &t_Co > 2                " check for multi colors
     syntax on                    " colored syntax
@@ -60,7 +63,7 @@ set guicursor=a:blinkwait0,a:block-cursor
 
 " Mitigate annoying delay on Esc:
 " http://superuser.com/questions/246540/vim-delay-when-exiting-visual-mode
-set timeoutlen=300 " ms
+set timeoutlen=600 " ms
 " http://vim.wikia.com/wiki/Configuring_the_cursor
 " Only xterm supports underscore & blinking
 if &term =~ "xterm\\|rxvt"
@@ -133,6 +136,9 @@ let g:NERDCreateDefaultMappings = 0
 "let g:EnhCommentifyUserBindings='Yes'
 
 let g:jasmine_use_templates = ""
+
+let g:slime_target = "tmux"
+let g:slime_paste_file = "$HOME/.slime_paste"
 
 " Clojure
 let vimfiles = $HOME . "/.vim"
@@ -228,6 +234,17 @@ nmap <Leader>v :Rview<CR>
 nmap <Leader>c :Rcontroller<CR>
 nmap <Leader>h :Rhelper<CR>
 nmap <Leader>q <C-W>q
+
+" SLIMV: a video: http://vimeo.com/38372260
+" But not going to use it.
+" Problems with slimv repl:
+" * completion doesn't really work
+" * has some silly par* modes
+" * overrides (or plays poorly with) lots of mappings
+" * only way to get history is via up/down arrows
+" * probably plays poorly with vimclojure
+" * docs are generic to lisp; no real tutorial
+"let g:slimv_swank_clojure = '! xterm -e lein swank &'
 
 " Toggles for “quickwin”, used by grep, ack, make, etc.
 " Might not use this much.
