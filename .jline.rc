@@ -1,0 +1,5 @@
+# JLine Config
+#
+# https://github.com/jline/jline2/wiki/Configuration-Properties
+
+jline.sh=/bin/zsh
