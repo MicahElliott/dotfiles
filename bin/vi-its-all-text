@@ -1,0 +1,3 @@
+#! /bin/zsh
+
+/usr/bin/urxvt -e vim -c ':set filetype=mail' $@ &
