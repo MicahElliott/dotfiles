@@ -16,9 +16,9 @@ endif
 "-- Options ------------------------------------------------------------
 set exrc          " use local .exrc file
 set autowrite     " autosave before changing window or shellcmd
-set noignorecase  " search case sensitive
+set ignorecase  " search case sensitive
 set tabstop=4     " tab 4 chars (ts)
-set shiftwidth=4  " autoindent to 4 chars
+set shiftwidth=2  " autoindent to 4 chars
 set expandtab
 set nobackup
 set bs=2          " allow backspacing in insert mode
@@ -51,6 +51,8 @@ set wrap          " Display long lines wrapped
 set wrapmargin=0  " Like `textwidth' but use instead (from right border)
 set suffixes=.bak,~,.o,.info,.swp,.swp,.pc,.pcl,.aux,.dvi,.log,.toc
 set hidden
+"set relativenumber
+set colorcolumn=80
 
 let mapleader = ","
 let maplocalleader = ","
@@ -77,6 +79,7 @@ endif
 
 setlocal spell spelllang=en_us
 set nospell
+set spellfile=~/.vim/en.utf-8.add
 
 "-- GUI (instead of having a gvimrc) -----------------------------------
 "set guifont=Monospace\ 6
@@ -97,12 +100,11 @@ filetype plugin indent on
 "-- Override settings ------------------------------------------------
 let python_highlight_all = 1
 
-let ruby_operators = 1
-let ruby_space_errors = 1
-
 "let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 
 "let g:snippets_dir = '~/.vim/snippets'
+"inoremap <C-j> <C-r>=TriggerSnippet()<CR>
+"snoremap <C-j> <Esc>i<Right><C-r>=TriggerSnippet()<CR>
 
 " Stupid unicycle somehow breaks FuzzyFinder by mistreating - and .
 " So be sure to toggle it off before invoking FuzzyFinder!
@@ -126,6 +128,8 @@ let g:ctrlp_clear_cache_on_exit = 0
 "let g:ctrlp_prompt_mappings = {
   "\ 'AcceptSelection("h")': ['<S-i>'],
   "\ }
+let g:ctrlp_open_new_file = 'h'
+let g:ctrlp_extensions = ['dir']
 
 " NERDCommenter
 let g:NERDCreateDefaultMappings = 0
@@ -140,7 +144,12 @@ let g:jasmine_use_templates = ""
 let g:slime_target = "tmux"
 let g:slime_paste_file = "$HOME/.slime_paste"
 
+let syntastic_enable_signs = 1
+let syntastic_auto_jump = 1
+
 " Clojure
+" Disable all vimclojure default key mappings.
+"let vimclojure#SetupKeyMap = 0
 let vimfiles = $HOME . "/.vim"
 let vimclojure#HighlightBuiltins = 1      " Highlight Clojure's builtins
 let vimclojure#ParenRainbow = 1           " Rainbow parentheses'!
@@ -149,6 +158,7 @@ let vimclojure#SplitPos = "bottom"
 let vimclojureRoot = vimfiles."/bundle/VimClojure"
 let vimclojure#HighlightContrib = 1
 let vimclojure#DynamicHighlighting = 1
+let vimclojure#FuzzyIndent = 1
 "let vimclojure#WantNailgun = 1
 "let vimclojure#NailgunClient = vimclojureRoot."/lib/nailgun/ng"
 " Java? http://blog.darevay.com/2010/10/how-i-tamed-vimclojure/
@@ -160,6 +170,8 @@ let vimclojure#DynamicHighlighting = 1
 "colorscheme adobe
 "colorscheme herald
 "colorscheme inkpot
+" No effect for cterm
+"let g:molokai_original = 1
 colorscheme molokai
 "colorscheme vibrantink
 "colorscheme vividchalk
@@ -204,7 +216,7 @@ nmap <Leader>n :NERDTreeToggle<CR>
 nmap <Leader>e :NERDTreeToggle<CR>
 
 " Ack (grep)
-nmap <Leader>g :Ack 
+nmap <Leader>g :Ack! 
 
 nmap <Leader>s :SyntasticCheck<CR>
 
@@ -235,6 +247,8 @@ nmap <Leader>c :Rcontroller<CR>
 nmap <Leader>h :Rhelper<CR>
 nmap <Leader>q <C-W>q
 
+nmap <Leader>P :call PareditToggle()<CR>
+
 " SLIMV: a video: http://vimeo.com/38372260
 " But not going to use it.
 " Problems with slimv repl:
@@ -263,6 +277,7 @@ map <Leader>1 <C-W>1w
 map <Leader>2 <C-W>2w
 map <Leader>3 <C-W>3w
 map <Leader>4 <C-W>4w
+"map <Leader>p <C-W>p
 
 " Start new tab with Explorer.
 "nmap <C-N> :tabnew<C-M><leader>f
@@ -352,7 +367,13 @@ let b:is_bash = 1
 "-- Obscure overrides of Vim builtins --------------------------------
 
 "se lines=12
-"set t_ti= t_te=
+" http://www.shallowsky.com/linux/noaltscreen.html
+" Make vim not clear screen on exit.
+set t_ti= t_te=
+" vimpager stuff: https://github.com/rkitover/vimpager/
+" not sure what these really do
+let vimpager_disable_x11 = 1
+let vimpager_scrolloff = 5
 
 " Two ways to address inotify problems. See vim docs to understand their
 " repercussions, which AFAICT are none.

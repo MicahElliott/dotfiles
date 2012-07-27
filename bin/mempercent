@@ -2,9 +2,10 @@
 
 # mempercent — print the percentage of used memory
 #
-# Could be added to i3status.
+# Can be called by an i3status command (such as my-i3status).
+# See i3status(1).
 
 tot=$(awk '/MemTotal/ {print $2}' /proc/meminfo)
 free=$(awk '/MemFree/ {print $2}' /proc/meminfo)
 
-printf "%0.2f" $(( ($tot - $free) / $tot.0 ))
+printf "%0.0f%%" $(( ($tot - $free) / $tot.0 * 100 ))

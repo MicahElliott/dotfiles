@@ -182,7 +182,8 @@ bindsym $mod+r mode "resize"
 # http://i3wm.org/docs/userguide.html#_configuring_i3bar
 bar {
         output LVDS1
-        status_command i3status --config ~/.i3status.conf
+        #status_command i3status --config ~/.i3status.conf
+        status_command my-i3status
         position top
         mode dock
         modifier Mod4
@@ -252,6 +253,7 @@ workspace "2" output VGA1
 workspace "4" output VGA1
 workspace "6" output VGA1
 workspace "8" output VGA1
+workspace "10" output VGA1
 
 workspace "1" output LVDS1
 workspace "3" output LVDS1
@@ -265,5 +267,6 @@ workspace "7" output LVDS1
 for_window [title=".* LibreOffice Writer"] floating enable; border normal
 for_window [class="Firefox"] border normal
 for_window [class="(?i)google-chrome"] border normal
+for_window [class="(?i)chromium"] border normal
 for_window [class="(?i)thunar"] floating enable; border normal
 for_window [class="(?i)gimp"] floating enable; border normal

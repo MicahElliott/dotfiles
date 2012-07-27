@@ -20,13 +20,14 @@ export XEDITOR=$EDITOR
 export VISUAL=$EDITOR
 #export VIMTAGS
 export TMPDIR=~/tmp
-export BROWSER=google-chrome  # previously: chromium-browser
+export BROWSER=firefox-aurora  # previously: chromium, google-chrome  
 export DE=i3 # must be Desktop Environment (was xfce in archbang's .xinitrc)
 export MAILCHECK=60
 
 # Pager stuff
-export PAGER=less
 #export PAGER=most
+#export PAGER=less
+export PAGER=vimpager
 # Enable ipython to display color sequences in PAGER (http://zi.ma/9e4f04)
 export LESS='-F -R -S -X'
 # Make less more friendly for non-text input files, see lesspipe(1)
@@ -96,7 +97,8 @@ which ruby >/dev/null && {
 
 # rbenv
 export PATH=$HOME/.rbenv/bin:$PATH
-eval "$(rbenv init -)"
+# SLOW!!
+#eval "$(rbenv init -)"
 
 #export RAILS_ROOT=~/proj/Membean/mbg
 #PATH+=:$RAILS_ROOT/script

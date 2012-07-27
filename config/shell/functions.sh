@@ -59,26 +59,12 @@ ct () {
 }
 
 # Auto unit-testing for Python.  Probably nose obviates this.
-t () {
+pyt() {
     test -z $1 && { echo "missing .py"; return; }
     origpwd=$PWD
     cd ../test
     python ./test_$1
     cd $origpwd
-}
-
-# Python vim test and module setup for vim.
-vi-py() {
-    test -z $1 && { echo "missing .py"; return; }
-    if [ -f "../test/test_$1" ];
-    then
-        origpwd=$PWD
-        cd ../test
-        vim -c "set makeprg=python\ test_$1" -O2 -geom 161 "$origpwd/$1" "test_$1"
-        cd $origpwd
-    else
-        vim $1
-    fi
 }
 
 # Needed for zsh, but does no harm to have here.
@@ -117,13 +103,13 @@ untracked () {
 }
 
 # ls for dirs and files only.
-lsd() { ls -d $(find -maxdepth 1 -type d -iname '[a-z]*' |sed 's/^..//'); }
-# FIXME: lsf on dir with no files prints dirs since result is empty.
-lsf() {
-    local res
-    res=$( find -maxdepth 1 -type f -iname '[a-z]*' |sed 's/^..//')
-    test -z "$res" && echo 'No files here!' || echo $res
-}
+#lsd() { ls -d $(find -maxdepth 1 -type d -iname '[a-z]*' |sed 's/^..//'); }
+## FIXME: lsf on dir with no files prints dirs since result is empty.
+#lsf() {
+    #local res
+    #res=$( find -maxdepth 1 -type f -iname '[a-z]*' |sed 's/^..//')
+    #test -z "$res" && echo 'No files here!' || echo $res
+#}
 
 # Initialize a shell (just history for now) for proj work.
 i histinit () {
@@ -190,6 +176,22 @@ latest() {
     echo "Now look at $filename and have your way with it."
 }
 
+### VIM ##############################################################
+
+# Python vim test and module setup for vim.
+vi-py() {
+    test -z $1 && { echo "missing .py"; return; }
+    if [ -f "../test/test_$1" ];
+    then
+        origpwd=$PWD
+        cd ../test
+        vim -c "set makeprg=python\ test_$1" -O2 -geom 161 "$origpwd/$1" "test_$1"
+        cd $origpwd
+    else
+        vim $1
+    fi
+}
+
 # Vi-Grep
 # Edit the file grepped for if found one match.
 vi-g() {
@@ -211,6 +213,28 @@ vi-g() {
         v $file +$lineno
     fi
 }
+vi-docgen() {
+    if [[ -z $1 ]]; then
+        echo "Generate documnetion (tags) file for vim plugin.\n"
+        echo "usage: vimdocgen some/vim/plugin/doc"
+        return
+    fi
+    vim -c ":helptags $1|q"
+    echo "${reset_color}Created tags file for viewing documentation for ‘$1:h:t’ plugin."
+}
+vi-docgenmulti() {
+    # cd ~/gitcontainer/vim
+    for d in */doc(/); do vimdocgen $d; done
+}
+vi-maps() {
+    print "All possible vim maps to contend with:"
+    grep -Eir '^[^ ]*leader>' ~/.vimrc ~/config/vim ~/gitcontainer/vim
+}
+vi-addons() {
+  for d in ~/gitcontainer/vim/*(/); p $d:t
+}
+
+######################################################################
 
 # Show a historic file, displayed in color.
 gitm-show-file() {
@@ -228,21 +252,6 @@ showargs() { for arg do echo "»$arg«"; done; }
 # There’s probably a cleaner built-in way to do this, but I’m not
 # finding it. Might consider also showing hidden ‘_’-prefixed funcs.
 showfuncs funcshow () { functions |awk '/^[[:alpha:]].*{$/ {print $1}' |$PAGER; }
-
-vi-docgen() {
-    if [[ -z $1 ]]; then
-        echo "Generate documnetion (tags) file for vim plugin.\n"
-        echo "usage: vimdocgen some/vim/plugin/doc"
-        return
-    fi
-    vim -c ":helptags $1|q"
-    echo "${reset_color}Created tags file for viewing documentation for ‘$1:h:t’ plugin."
-}
-
-vi-docgenmulti() {
-    # cd ~/gitcontainer/vim
-    for d in */doc(/); do vimdocgen $d; done
-}
 
 nose-init() {
     # Nose
@@ -290,14 +299,13 @@ rehash-last-install() { fc -l -1 |grep -q install && { echo rehash-ing; rehash }
 precmd_functions+=rehash-last-install
 
 
-vi-maps() {
-    print "All possible vim maps to contend with:"
-    grep -Eir '^[^"]*leader>' ~/.vimrc ~/config/vim ~/gitcontainer/vim
-}
-
 gw() { grep -E --color $1 /usr/share/dict/words }
 
 gi() { gem install $@; rbenv rehash; rehash }
+
+# Initialize rbenv.
+# Too slow to do for every shell by default so making manual.
+rbi() { eval "$(rbenv init -)" }
 
 # Create a gemset.
 rbg() {
@@ -321,3 +329,6 @@ rbg() {
     print -n "Active gemset: "
     rbenv gemset active
 }
+
+# mkdir & chdir in one
+mcd() { mkdir $1 && cd $1 }

@@ -36,3 +36,5 @@ alias de='vared dirstack'
 
 ### Globals
 alias -g C='| wc -l'  # grep foo ~/.zsh/* C
+alias -g B='| bcat'
+alias -g L='| less'

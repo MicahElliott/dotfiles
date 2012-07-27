@@ -1,0 +1,6 @@
+--color
+--ignore-dir
+vendor
+# http://stackoverflow.com/questions/3038966/ack-misses-results-vs-grep
+--type-add=ruby=.haml,.rake
+--type-add=css=.less

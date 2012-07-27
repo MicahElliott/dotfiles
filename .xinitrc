@@ -69,8 +69,8 @@ udiskie &
 #nm-applet &
 wicd-client &
 
-# IM client
-gajim &
+# IM client (mem hog)
+#gajim &
 
 # Battery monitor. Both batti and batterymon seem to work well.
 # batti's icon is more readable in small i3status bar.
@@ -80,6 +80,10 @@ batti &
 # CPU frequency. Wish it would do htop. Not sure why load is getting
 # high (0.4+), despite gatotray saying quiescent.
 gatotray &
+
+# Kill <C-s> terminal pause
+# http://stackoverflow.com/questions/791765/unable-to-forward-search-bash-history-similarly-as-with-ctrl-r
+stty -ixon
 
 #exec i3
 # ConsoleKit needed for some perms, like automount USBs.

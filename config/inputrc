@@ -1,9 +1,11 @@
 # .inputrc -- needed by some programs to set readline opts (ex. gdb)
 
 # Bug with untype-able 's' if next line enabled.
+# Though Padraig says to use it:
+# http://www.pixelbeat.org/settings/.inputrc
 ##source /etc/inputrc
 
-#set editing-mode vi
+set editing-mode vi
 #set editing-mode emacs
 
 #set bell-style visible

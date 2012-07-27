@@ -12,7 +12,7 @@ augroup filetypedetect
   "au! BufRead,BufNewFile *.html  setfiletype html
   au! BufRead,BufNewFile *.docbook,*.docbk,*.db, setfiletype docbook
   au! BufRead,BufNewFile *.sass         setfiletype sass
-  au! BufRead,BufNewFile *.scss         setfiletype scss
+  "au! BufRead,BufNewFile *.scss         setfiletype scss
   au! BufRead,BufNewFile *.mkd,*.md,*.markdown,*.ron,*.ronn  setfiletype markdown
   au! BufRead,BufNewFile *.eo  setfiletype eo
   au! BufRead,BufNewFile *.cljs  setfiletype clojure

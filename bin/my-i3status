@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# my-i3status — shell script to prepend i3status with more stuff
+# Used in bottom screen bar.
+# See i3status(1).
+
+i3status --config ~/.i3status.conf | while :
+do
+  read line
+  mem=$(mempercent)
+  echo "MEM:$mem | $line" || exit 1
+done

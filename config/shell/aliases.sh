@@ -6,8 +6,10 @@
 # A -- apt package mgmt
 alias a='sudo aptitude'
 # C -- cat/pygmentize
-alias c='coderay' # uses bold unlike pygmentize
+# None seem to have markdown support
+alias c='/usr/bin/coderay' # uses bold unlike pygmentize
 #alias c='pygmentize'
+#alias c='src-hilite-lesspipe.sh'
 # D -- dirs
 alias d='dirs -v'
 # E -- super-fast-to-start-up browser
@@ -15,7 +17,8 @@ alias e='epiphany'
 # F -- fc history display
 alias f='fc -ldD'
 # G -- grep searching
-alias g='egrep --color=always'
+#alias g='egrep --color=always'
+alias g='ack --unrestricted'
 alias gr='g -ir'
 # H -- help system
 alias h=help
@@ -38,7 +41,8 @@ alias q='exit'
 # S -- regex-enabled sed
 alias s='sed -r'
 alias sn='sed -nr'
-# T -- test (see func)
+# T -- tree
+alias t='tree'
 # V -- edit (see func)
 # W -- command info
 alias w='whence'
@@ -107,7 +111,8 @@ alias cx='chmod +x'
 alias vp='versatile purple1'
 alias vb='versatile blue1'
 alias vg='versatile green1'
-alias less='less -R'
+#alias less='less -R'
+alias less='vimpager'
 alias tree='tree -C --charset utf8'
 alias elinks='TERM=xterm-256color elinks'
 
@@ -116,6 +121,8 @@ alias pk='pkill'
 alias spk='sudo pkill'
 
 alias tm='tmux'
+# Each slime wants its own socket.
+tmn() { tmux -L $PWD:t new }
 
 # Latest download, see also "latest" func.
 alias dl='ls "$HOME/Downloads/$(ls -rt $HOME/Downloads/ |tail -1)"'
@@ -188,6 +195,7 @@ alias ad='git add'
 alias fe='git fetch -v'
 alias fed='git fetch --dry-run'
 alias re='git rebase -v'
+alias lsf='git ls-files'
 
 # Home git mgmt
 alias dotfiles='git --git-dir=$HOME/.dotfiles.git/.git --work-tree=$HOME'
@@ -197,6 +205,8 @@ alias dci='dotfiles commit'
 alias ddi='dotfiles diff'
 alias dst='dotfiles status'
 alias dpu='dotfiles push origin master'
+alias dls='dotfiles ls-files'
+alias dign='comm -13 <(dls $(p .*(.))|sort) <(p .*(.)|sort)'  # ignored files
 
 alias ri='ri -f ansi'
 alias top='htop -d 5'
@@ -248,3 +258,9 @@ alias trash-restore=restore-trash
 alias trash-empty=empty-trash
 alias trash-list=restore-list
 alias trash-auto=autotrash
+
+# Node with rlwrap
+# http://blog.doteight.com/blog/2011/01/16/rlwrap-and-node/
+alias node='NODE_NO_READLINE=1 rlwrap -pgreen -S "node> " node'
+alias coffee='NODE_NO_READLINE=1 rlwrap -pyellow -S "coffee> " coffee'
+

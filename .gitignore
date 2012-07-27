@@ -1,10 +1,53 @@
-tags
+# Top level dirs
 *.sw[po]
-/.*
-Downloads
+/Downloads
 /gitcontainer
 /gits
 /repos
 /doc
+/abs
+/Videos
+/opt
+/xfer
+/Desktop
+
+# Specific files
+tags
 test-0.mp4
+dead.letter
+foo*
+mde.*
+/*.md
+/*.mp3
+/*.ogg
+/*.json
+/*.xml
+
+# Dot *files*
+.*_history
+.*.history
+.*.log
+.conkyrc1
+.*_auth
+.fbtermrc
+.fehbg
+.gnumericrc
+.gnuplot-wxt
+.gtk-bookmarks
+.gtkrc-2.0
+.*-credentials
+.lesshst
+.lucli
+.luke
+.*-cookie
+.recently-used
+.slime_paste
+.viminfo
+.Xauthority
+.zcompdump
+
+# Dot *dirs*
+.*/
+
+# Keepers
 !.i3
