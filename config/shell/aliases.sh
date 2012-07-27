@@ -111,8 +111,8 @@ alias cx='chmod +x'
 alias vp='versatile purple1'
 alias vb='versatile blue1'
 alias vg='versatile green1'
-#alias less='less -R'
-alias less='vimpager'
+#alias less='vimpager'
+alias less='less'
 alias tree='tree -C --charset utf8'
 alias elinks='TERM=xterm-256color elinks'
 
@@ -196,6 +196,8 @@ alias fe='git fetch -v'
 alias fed='git fetch --dry-run'
 alias re='git rebase -v'
 alias lsf='git ls-files'
+alias gls='git ls-files'
+alias gpu='git push origin master'
 
 # Home git mgmt
 alias dotfiles='git --git-dir=$HOME/.dotfiles.git/.git --work-tree=$HOME'
@@ -205,6 +207,7 @@ alias dci='dotfiles commit'
 alias ddi='dotfiles diff'
 alias dst='dotfiles status'
 alias dpu='dotfiles push origin master'
+alias dfe='dotfiles fetch -v'
 alias dls='dotfiles ls-files'
 alias dign='comm -13 <(dls $(p .*(.))|sort) <(p .*(.)|sort)'  # ignored files
 
