@@ -18,7 +18,7 @@ alias e='epiphany'
 alias f='fc -ldD'
 # G -- grep searching
 #alias g='egrep --color=always'
-alias g='ack --unrestricted'
+alias g='ack'
 alias gr='g -ir'
 # H -- help system
 alias h=help
