@@ -332,3 +332,13 @@ rbg() {
 
 # mkdir & chdir in one
 mcd() { mkdir $1 && cd $1 }
+
+cl() { git clone $1; cd $1:t:r }
+
+rg() { rk db:test:prepare; ./bin/guard }
+
+bl() { slocate -d books.udb -ir $1 |s 's:.*torrent/::' }
+
+isgmail() { host $1 |awk '/mail/ {print $7}' |grep -q google }
+
+isprogressive() { identify -verbose $1 |grep -q 'Interlace: JPEG' }

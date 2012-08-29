@@ -2,31 +2,43 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
+inoremap <silent> <Plug>(neocomplcache_start_omni_complete) =neocomplcache#popup_post()
+inoremap <silent> <Plug>(neocomplcache_start_auto_complete) =neocomplcache#popup_post()
+inoremap <silent> <expr> <Plug>(neocomplcache_start_unite_snippet) unite#sources#snippet#start_complete()
+inoremap <silent> <expr> <Plug>(neocomplcache_start_unite_quick_match) unite#sources#neocomplcache#start_quick_match()
+inoremap <silent> <expr> <Plug>(neocomplcache_start_unite_complete) unite#sources#neocomplcache#start_complete()
 inoremap <silent> <S-Tab> =BackwardsSnippet()
+inoremap <expr> <BS> neocomplcache#smart_close_popup()."\"
+imap <C-S-Space> <Plug>SuperTabBackward
+imap <C-Space> <Plug>SuperTabForward
+inoremap <C-Tab> 	
 inoremap <Plug>ClojureReplDownHistory. :call b:vimclojure_repl.downHistory()
 inoremap <Plug>ClojureReplUpHistory. :call b:vimclojure_repl.upHistory()
 inoremap <Plug>ClojureReplEvaluate. G$:call b:vimclojure_repl.enterHook()
 inoremap <Plug>ClojureReplEnterHook. :call b:vimclojure_repl.enterHook()
+nmap v <Plug>SlimeConfig
+nmap  <Plug>SlimeParagraphSend
+xmap  <Plug>SlimeRegionSend
 snoremap <silent> 	 i<Right>=TriggerSnippet()
-nmap  :tabnew,e
+smap  <Plug>(neocomplcache_snippets_expand)
+nmap  :10tab tabnew
 nnoremap <silent>  :CtrlP
-nmap o <Plug>ZoomWin
+nmap o _
 snoremap  b<BS>
-map 	 :exe "tabn " . g:ltv
-map 9 9gt
-map 8 8gt
-map 7 7gt
-map 6 6gt
-map 5 5gt
-map 4 4gt
-map 3 3gt
-map 2 2gt
-map 1 1gt
+nmap 	 :exe "tabn " . g:ltv
+nmap 9 9gt
+nmap 8 8gt
+nmap 7 7gt
+nmap 6 6gt
+nmap 5 5gt
+nmap 4 4gt
+nmap 3 3gt
+nmap 2 2gt
+nmap 1 1gt
 snoremap % b<BS>%
 snoremap ' b<BS>'
 map ,<F2> :call HexHighlight()
 nnoremap <silent> ,T :BuffergatorTabsClose
-nnoremap <silent> ,t :BuffergatorTabsOpen
 nnoremap <silent> ,B :BuffergatorClose
 nnoremap <silent> ,b :BuffergatorOpen
 map ,4 4w
@@ -34,17 +46,16 @@ map ,3 3w
 map ,2 2w
 map ,1 1w
 map ,u :UniCycleToggle
-map ,Q :copen
-map ,q :cclose
+nmap ,q q
 map ,k <Plug>NERDCommenterToggle
-vmap ,b :BuffergatorToggle
-omap ,b :BuffergatorToggle
-map ,s :SyntasticCheck
-map ,g :Ack 
-map ,n :NERDTreeToggle
-vmap ,t :TlistToggle
-omap ,t :TlistToggle
-nmap ,c :noh
+nmap ,s :SyntasticCheck
+nmap ,g :Ack! 
+nmap ,e :NERDTreeToggle
+nmap ,n :NERDTreeToggle
+nnoremap <silent> ,t :BuffergatorTabsOpen
+nmap ,z :noh
+nmap ,x <Plug>Transposewords
+nmap Q :CtrlPMRU
 xmap S <Plug>VSurround
 snoremap U b<BS>U
 nmap [YY <Plug>unimpairedLineBase64Encode
@@ -120,6 +131,7 @@ snoremap <Right> a
 snoremap <BS> b<BS>
 snoremap <silent> <S-Tab> i<Right>=BackwardsSnippet()
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
+nnoremap <silent> <F11> :call conque_term#exec_file()
 xnoremap <silent> <Plug>unimpairedMoveDown :exe 'normal! m`'|exe '''<,''>move''>+'.v:count1``
 xnoremap <silent> <Plug>unimpairedMoveUp :exe 'normal! m`'|exe '''<,''>move--'.v:count1``
 nmap <silent> <Plug>unimpairedTLast :exe "tlast ".(v:count ? v:count : "")
@@ -192,11 +204,20 @@ nnoremap <Plug>ClojureDocLookupInteractive. :call vimclojure#ProtectedPlug( fu
 nnoremap <Plug>ClojureDocLookupWord. :call vimclojure#ProtectedPlug( function("vimclojure#CommandPlug"), [ function("vimclojure#DocLookup"), [ expand("<cword>") ]])
 nnoremap <Plug>ClojureToggleParenRainbow. :call vimclojure#ProtectedPlug(function("vimclojure#ToggleParenRainbow"), [  ])
 nnoremap <Plug>ClojureAddToLispWords. :call vimclojure#ProtectedPlug(function("vimclojure#AddToLispWords"), [ expand("<cword>") ])
+inoremap <expr>  neocomplcache#cancel_popup()
+inoremap <expr>  neocomplcache#undo_completion()
 imap S <Plug>ISurround
 imap s <Plug>Isurround
+inoremap <expr>  neocomplcache#smart_close_popup()."\"
 inoremap <silent> 	 =TriggerSnippet()
+imap  <Plug>(neocomplcache_snippets_expand)
+inoremap <expr>  neocomplcache#complete_common_string()
+inoremap <expr>  neocomplcache#smart_close_popup() . "\"
+imap  <Plug>SuperTabForward
+imap  <Plug>SuperTabBackward
 inoremap <silent> 	 =ShowAvailableSnips()
 imap  <Plug>Isurround
+inoremap <expr>  neocomplcache#close_popup()
 map ¹ 9gt
 map ¸ 8gt
 map · 7gt
@@ -206,38 +227,47 @@ map ´ 4gt
 map ³ 3gt
 map ² 2gt
 map ± 1gt
+imap jk 
+imap kj 
 iabbr (c) ©
-iabbr :) ☻
 let &cpo=s:cpo_save
 unlet s:cpo_save
 set autoindent
 set autowrite
 set backspace=2
+set completefunc=neocomplcache#manual_complete
+set completeopt=preview,menuone
 set errorbells
+set noesckeys
 set expandtab
 set exrc
 set fileencodings=ucs-bom,utf-8,default,latin1
 set formatoptions=tcrq
+set grepprg=ack\ -a
 set guicursor=a:blinkwait0,a:block-cursor
 set helplang=en
 set hidden
 set history=50
 set hlsearch
+set ignorecase
 set incsearch
 set nojoinspaces
+set laststatus=2
+set mouse=n
 set pastetoggle=<S-Home>
 set previewheight=50
 set ruler
-set runtimepath=~/gitcontainer/vim/Rainbow-Parenthesis,~/gitcontainer/vim/VimClojure,~/gitcontainer/vim/ZoomWin,~/gitcontainer/vim/ack,~/gitcontainer/vim/color-sampler-pack,~/gitcontainer/vim/colors-adobe,~/gitcontainer/vim/colors-solarized,~/gitcontainer/vim/ctrlp.vim,~/gitcontainer/vim/cucumber,~/gitcontainer/vim/disabled,~/gitcontainer/vim/haml,~/gitcontainer/vim/markdown,~/gitcontainer/vim/mustache,~/gitcontainer/vim/nerdcommenter,~/gitcontainer/vim/nerdtree,~/gitcontainer/vim/pathogen,~/gitcontainer/vim/rails,~/gitcontainer/vim/repeat,~/gitcontainer/vim/ruby,~/gitcontainer/vim/screen,~/gitcontainer/vim/slim,~/gitcontainer/vim/snipmate,~/gitcontainer/vim/snipmate-snippets,~/gitcontainer/vim/surround,~/gitcontainer/vim/syntastic,~/gitcontainer/vim/syntax-python,~/gitcontainer/vim/tlib_vim,~/gitcontainer/vim/unicycle,~/gitcontainer/vim/unimpaired,~/gitcontainer/vim/vim-addon-mw-utils,~/gitcontainer/vim/vim-buffergator,~/gitcontainer/vim/vim-coffee-script,~/gitcontainer/vim/vim-json-bundle,~/.vim,/usr/share/vim/vimfiles,/usr/share/vim/vim73,/usr/share/vim/vimfiles/after,~/.vim/after,~/gitcontainer/vim/snipmate/after,~/gitcontainer/vim/vim-coffee-script/after
+set runtimepath=~/gitcontainer/vim/Rainbow-Parenthesis,~/gitcontainer/vim/VimClojure,~/gitcontainer/vim/ack.vim,~/gitcontainer/vim/clj-fold,~/gitcontainer/vim/color-sampler-pack,~/gitcontainer/vim/colors-adobe,~/gitcontainer/vim/colors-badwolf,~/gitcontainer/vim/colors-jellybeans,~/gitcontainer/vim/colors-solarized,~/gitcontainer/vim/ctrlp.vim,~/gitcontainer/vim/cucumber,~/gitcontainer/vim/disabled,~/gitcontainer/vim/haml,~/gitcontainer/vim/irc.vim,~/gitcontainer/vim/jasmine.vim,~/gitcontainer/vim/markdown,~/gitcontainer/vim/mustache,~/gitcontainer/vim/neocomplcache,~/gitcontainer/vim/nerdcommenter,~/gitcontainer/vim/nerdtree,~/gitcontainer/vim/pathogen,~/gitcontainer/vim/rails,~/gitcontainer/vim/repeat,~/gitcontainer/vim/ruby,~/gitcontainer/vim/rubycomplete.vim,~/gitcontainer/vim/screen,~/gitcontainer/vim/slim,~/gitcontainer/vim/snipmate,~/gitcontainer/vim/snipmate-snippets,~/gitcontainer/vim/supertab,~/gitcontainer/vim/surround,~/gitcontainer/vim/syntastic,~/gitcontainer/vim/syntax-python,~/gitcontainer/vim/taglist.vim,~/gitcontainer/vim/tlib_vim,~/gitcontainer/vim/transpose-words,~/gitcontainer/vim/unicycle,~/gitcontainer/vim/unimpaired,~/gitcontainer/vim/vim-addon-mw-utils,~/gitcontainer/vim/vim-buffergator,~/gitcontainer/vim/vim-coffee-script,~/gitcontainer/vim/vim-conque,~/gitcontainer/vim/vim-indexed-search,~/gitcontainer/vim/vim-json-bundle,~/gitcontainer/vim/vim-liquid,~/gitcontainer/vim/vim-powerline,~/gitcontainer/vim/vim-ruby,~/gitcontainer/vim/vim-slime,~/.vim,/usr/share/vim/vimfiles,/usr/share/vim/vim73,/usr/share/vim/vimfiles/after,~/.vim/after,~/gitcontainer/vim/snipmate/after,~/gitcontainer/vim/vim-coffee-script/after
 set shiftwidth=2
 set showcmd
 set showmatch
+set spellfile=~/.vim/en.utf-8.add
 set suffixes=.bak,~,.o,.info,.swp,.swp,.pc,.pcl,.aux,.dvi,.log,.toc
 set tabline=%!MyTabLine()
 set tabstop=2
-set tags=./tags,./TAGS,tags,TAGS,../tags
+set tags=./tags,./TAGS,tags,TAGS,./tmp/tags,../tags
 set textwidth=70
-set timeoutlen=300
+set timeoutlen=600
 set visualbell
 set nowritebackup
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
@@ -248,12 +278,12 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +1 envars.sh
-badd +0 options.zsh
+badd +1 options.zsh
+badd +0 envars.sh
 badd +0 aliases.sh
 badd +0 functions.sh
-args envars.sh options.zsh aliases.sh functions.sh
-edit envars.sh
+args options.zsh envars.sh aliases.sh functions.sh
+edit options.zsh
 set splitbelow splitright
 wincmd _ | wincmd |
 split
@@ -288,19 +318,19 @@ setlocal nocindent
 setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
-setlocal colorcolumn=
+set colorcolumn=80
+setlocal colorcolumn=80
 setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
 setlocal commentstring=#%s
 setlocal complete=.,w,b,u,t,i
 setlocal concealcursor=
 setlocal conceallevel=0
-setlocal completefunc=
+setlocal completefunc=neocomplcache#manual_complete
 setlocal nocopyindent
 setlocal cryptmethod=
 setlocal nocursorbind
 setlocal nocursorcolumn
-set cursorline
-setlocal cursorline
+setlocal nocursorline
 setlocal define=
 setlocal dictionary=
 setlocal nodiff
@@ -319,7 +349,8 @@ setlocal foldmarker={{{,}}}
 setlocal foldmethod=manual
 setlocal foldminlines=1
 setlocal foldnestmax=20
-setlocal foldtext=foldtext()
+set foldtext=MinimalFoldText()
+setlocal foldtext=MinimalFoldText()
 setlocal formatexpr=
 setlocal formatoptions=tcrq
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
@@ -359,9 +390,9 @@ setlocal nosmartindent
 setlocal softtabstop=0
 setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-setlocal spellfile=
+setlocal spellfile=~/.vim/en.utf-8.add
 setlocal spelllang=en_us
-setlocal statusline=
+setlocal statusline=%!Pl#Statusline(0,1)
 setlocal suffixesadd=
 setlocal swapfile
 setlocal synmaxcol=3000
@@ -398,7 +429,8 @@ setlocal nocindent
 setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
-setlocal colorcolumn=
+set colorcolumn=80
+setlocal colorcolumn=80
 setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
 setlocal commentstring=#%s
 setlocal complete=.,w,b,u,t,i
@@ -409,8 +441,7 @@ setlocal nocopyindent
 setlocal cryptmethod=
 setlocal nocursorbind
 setlocal nocursorcolumn
-set cursorline
-setlocal cursorline
+setlocal nocursorline
 setlocal define=
 setlocal dictionary=
 setlocal nodiff
@@ -429,7 +460,8 @@ setlocal foldmarker={{{,}}}
 setlocal foldmethod=manual
 setlocal foldminlines=1
 setlocal foldnestmax=20
-setlocal foldtext=foldtext()
+set foldtext=MinimalFoldText()
+setlocal foldtext=MinimalFoldText()
 setlocal formatexpr=
 setlocal formatoptions=tcrq
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
@@ -469,7 +501,7 @@ setlocal nosmartindent
 setlocal softtabstop=0
 setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-setlocal spellfile=
+setlocal spellfile=~/.vim/en.utf-8.add
 setlocal spelllang=en
 setlocal statusline=
 setlocal suffixesadd=
@@ -508,7 +540,8 @@ setlocal nocindent
 setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
-setlocal colorcolumn=
+set colorcolumn=80
+setlocal colorcolumn=80
 setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
 setlocal commentstring=#%s
 setlocal complete=.,w,b,u,t,i
@@ -519,8 +552,7 @@ setlocal nocopyindent
 setlocal cryptmethod=
 setlocal nocursorbind
 setlocal nocursorcolumn
-set cursorline
-setlocal cursorline
+setlocal nocursorline
 setlocal define=
 setlocal dictionary=
 setlocal nodiff
@@ -539,7 +571,8 @@ setlocal foldmarker={{{,}}}
 setlocal foldmethod=manual
 setlocal foldminlines=1
 setlocal foldnestmax=20
-setlocal foldtext=foldtext()
+set foldtext=MinimalFoldText()
+setlocal foldtext=MinimalFoldText()
 setlocal formatexpr=
 setlocal formatoptions=tcrq
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
@@ -579,7 +612,7 @@ setlocal nosmartindent
 setlocal softtabstop=0
 setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-setlocal spellfile=
+setlocal spellfile=~/.vim/en.utf-8.add
 setlocal spelllang=en
 setlocal statusline=
 setlocal suffixesadd=
@@ -618,7 +651,8 @@ setlocal nocindent
 setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
-setlocal colorcolumn=
+set colorcolumn=80
+setlocal colorcolumn=80
 setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
 setlocal commentstring=#%s
 setlocal complete=.,w,b,u,t,i
@@ -629,8 +663,7 @@ setlocal nocopyindent
 setlocal cryptmethod=
 setlocal nocursorbind
 setlocal nocursorcolumn
-set cursorline
-setlocal cursorline
+setlocal nocursorline
 setlocal define=
 setlocal dictionary=
 setlocal nodiff
@@ -649,7 +682,8 @@ setlocal foldmarker={{{,}}}
 setlocal foldmethod=manual
 setlocal foldminlines=1
 setlocal foldnestmax=20
-setlocal foldtext=foldtext()
+set foldtext=MinimalFoldText()
+setlocal foldtext=MinimalFoldText()
 setlocal formatexpr=
 setlocal formatoptions=tcrq
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
@@ -689,7 +723,7 @@ setlocal nosmartindent
 setlocal softtabstop=0
 setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-setlocal spellfile=
+setlocal spellfile=~/.vim/en.utf-8.add
 setlocal spelllang=en
 setlocal statusline=
 setlocal suffixesadd=

@@ -3,7 +3,9 @@
 --ignore-dir=resources
 # http://stackoverflow.com/questions/3038966/ack-misses-results-vs-grep
 # https://github.com/protocool/ack-tmbundle/wiki/recognizing-files
---type-add=ruby=.haml,.rake,.erb,.md
+--type-add=ruby=.haml,.rake,.erb,.ru,.md,Gemfile
 --type-add=css=.less,.sass,.scss
+--type-set=doc=.md
+--type-set=js=.js,.json,.coffee,.cson,.cs,.yml,.yaml
 #--type-add=javascript=.coffee
 --type-add=lisp=.clj,.cljs

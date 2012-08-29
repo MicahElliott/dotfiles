@@ -5,6 +5,8 @@
 " Info:        Micah’s main config file
 "-----------------------------------------------------------------------
 
+"echo "in vimrc" | sleep 1
+
 " Some info on getting python support for arch linux:
 " https://gist.github.com/3048622
 
@@ -17,7 +19,7 @@ endif
 set exrc          " use local .exrc file
 set autowrite     " autosave before changing window or shellcmd
 set ignorecase  " search case sensitive
-set tabstop=4     " tab 4 chars (ts)
+set tabstop=2     " tab 4 chars (ts)
 set shiftwidth=2  " autoindent to 4 chars
 set expandtab
 set nobackup
@@ -36,8 +38,8 @@ set modeline      " enable .exrc cmds inside file being edited
 set modelines=5   " number of lines at top to be checked
 set formatoptions=tcrq
                   " r is non-default but important! (:h fo-table)
-set cursorline
-"set cursorcolumn
+set nocursorline
+set nocursorcolumn
 set hidden
 set autoindent    " Mimic previous line
 set incsearch     " Show found string as it's being typed
@@ -46,7 +48,7 @@ set nolinebreak   " Wrap long lines (breakat) -- do not insert <EOL>s
                   "   only affects the way the file is displayed
 set nosmartindent " Too smart for text
 set nosmarttab    " Too smart for text
-set textwidth=72  " Insert <EOL> when reaching this column
+set textwidth=78  " Insert <EOL> when reaching this column
 set wrap          " Display long lines wrapped
 set wrapmargin=0  " Like `textwidth' but use instead (from right border)
 set suffixes=.bak,~,.o,.info,.swp,.swp,.pc,.pcl,.aux,.dvi,.log,.toc
@@ -54,12 +56,43 @@ set hidden
 "set relativenumber
 set colorcolumn=80
 
+" Always show a status bar
+set laststatus=2
+
+" Enable mouse-clicking/viz-highlighting, but mouse-copy only in insert mode.
+" Disabling since painful to have to go to insert mode to mouse-select.
+"set mouse=n
+
+" Get out of insert-mode without (perceived) delay
+" http://ksjoberg.com/vim-esckeys.html
+set noesckeys
+
+" Interesting shortcut hacks for Esc
+imap kj <Esc>
+imap jk <Esc>
+
+" Seems these all need to be in vimrc due to order of vimclojure.
+let vimfiles = $HOME . "/.vim"
+"let vimclojure#SetupKeyMap = 0
+let vimfiles = $HOME . "/.vim"
+let vimclojure#HighlightBuiltins = 1      " Highlight Clojure's builtins
+let vimclojure#ParenRainbow = 1           " Rainbow parentheses'!
+let vimclojure#SplitSize = 10
+let vimclojure#SplitPos = "bottom"
+let vimclojureRoot = vimfiles."/bundle/VimClojure"
+let vimclojure#HighlightContrib = 1
+let vimclojure#DynamicHighlighting = 1
+let vimclojure#FuzzyIndent = 1
+"let vimclojure#WantNailgun = 1
+"let vimclojure#NailgunClient = vimclojureRoot."/lib/nailgun/ng"
+" Java? http://blog.darevay.com/2010/10/how-i-tamed-vimclojure/
+
 let mapleader = ","
 let maplocalleader = ","
                   " ignore command-line completion
 "set term=linux   " override shell's setting--should work everywhere
 "set tags=$VIMTAGS
-set tags=./tags,./TAGS,tags,TAGS,../tags
+set tags=./tags,./TAGS,tags,TAGS,./tmp/tags,../tags
 
 set guicursor=a:blinkwait0,a:block-cursor
 
@@ -89,16 +122,104 @@ set guioptions=acegi
 
 
 "-- Pathogen ---------------------------------------------------------
-filetype off
-"call pathogen#runtime_append_all_bundles()
-call pathogen#infect('~/gitcontainer/vim')
-" For testing my hacks.
-"call pathogen#runtime_prepend_subdirectories('~/gitcontainer/forks')
-filetype plugin indent on
+"filetype off
+""call pathogen#runtime_append_all_bundles()
+"call pathogen#infect('~/gitcontainer/vim')
+"" For testing my hacks.
+""call pathogen#runtime_prepend_subdirectories('~/gitcontainer/forks')
+"filetype plugin indent on
 
+filetype off  " required for vundle!
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle; required!
+Bundle 'gmarik/vundle'
+
+" My Bundles here:
+" Examples for:
+" original repos on github
+Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+" vim-scripts repos
+"Bundle 'FuzzyFinder'
+" non github repos
+"Bundle 'git://git.wincent.com/command-t.git'
+
+Bundle 'tyok/ack.vim.git'
+Bundle 'vim-scripts/Color-Sampler-Pack'
+Bundle 'sjl/badwolf.git'
+Bundle 'nanotech/jellybeans.vim.git'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'kien/ctrlp.vim'
+Bundle 'tpope/vim-cucumber.git'
+Bundle 'tpope/vim-haml.git'
+Bundle 'trapd00r/irc.vim.git'
+Bundle 'claco/jasmine.vim.git'
+Bundle 'tpope/vim-markdown.git'
+Bundle 'juvenn/mustache.vim.git'
+Bundle 'Shougo/neocomplcache.git'
+Bundle 'scrooloose/nerdcommenter.git'
+Bundle 'scrooloose/nerdtree.git'
+Bundle 'tpope/vim-pathogen.git'
+Bundle 'tpope/vim-rails'
+Bundle 'vim-scripts/Rainbow-Parenthesis.git'
+Bundle 'tpope/vim-repeat.git'
+Bundle 'vim-scripts/rubycomplete.vim'
+Bundle 'vim-ruby/vim-ruby.git'
+Bundle 'ervandew/screen'
+Bundle 'bbommarito/vim-slim.git'
+Bundle 'msanders/snipmate.vim.git'
+Bundle 'ervandew/supertab.git'
+Bundle 'tpope/vim-surround.git'
+Bundle 'scrooloose/syntastic.git'
+Bundle 'vim-scripts/taglist.vim.git'
+Bundle 'tomtom/tlib_vim.git'
+Bundle 'vim-scripts/transpose-words.git'
+Bundle 'tpope/vim-unimpaired.git'
+Bundle 'MarcWeber/vim-addon-mw-utils.git'
+Bundle 'jeetsukumaran/vim-buffergator.git'
+Bundle 'vim-scripts/VimClojure.git'
+Bundle 'kchmck/vim-coffee-script.git'
+Bundle 'rson/vim-conque.git'
+Bundle 'henrik/vim-indexed-search.git'
+Bundle 'vim-scripts/vim-json-bundle.git'
+Bundle 'tpope/vim-liquid.git'
+Bundle 'MicahElliott/vim-powerline.git'
+Bundle 'vim-ruby/vim-ruby.git'
+Bundle 'jpalardy/vim-slime.git'
+
+Bundle 'git@github.com:MicahElliott/snipmate-snippets.git'
+Bundle 'git@github.com:MicahElliott/UniCycle.git'
+Bundle 'git@gist.github.com:3049202.git'
+Bundle 'git@gist.github.com:720355.git'
+Bundle 'git@gist.github.com:735852.git'
+
+filetype plugin indent on     " required!
+
+"-- ftplugins ~/.vim/ftplugin ----------------------------------------
+" This vimrc runs before the ftplugins.
+" See individual files with: <C-w>f
+" Particularly interesting:
+" ~/.vim/ftplugin/ruby.vim
+" ~/.vim/ftplugin/clojure.vim
+" ~/.vim/ftplugin/python/mde.vim
+" ~/.vim/ftplugin/bash.vim
+" ~/.vim/ftplugin/coffee.vim
+" ~/.vim/ftplugin/cpp.vim
+" ~/.vim/ftplugin/css.vim
+" ~/.vim/ftplugin/c.vim
+" ~/.vim/ftplugin/mail.vim
+" ~/.vim/ftplugin/make.vim
+" ~/.vim/ftplugin/markdown.vim
+" ~/.vim/ftplugin/python
+" ~/.vim/ftplugin/r/r-mde.vim
+" ~/.vim/ftplugin/ruby.vim
+" ~/.vim/ftplugin/sass.vim
+" ~/.vim/ftplugin/sh.vim
+" ~/.vim/ftplugin/text.vim
+" ~/.vim/ftplugin/zsh.vim
 
 "-- Override settings ------------------------------------------------
-let python_highlight_all = 1
 
 "let g:snippets_dir = '~/.vim/snippets'
 "inoremap <C-j> <C-r>=TriggerSnippet()<CR>
@@ -107,6 +228,13 @@ let python_highlight_all = 1
 " Stupid unicycle somehow breaks FuzzyFinder by mistreating - and .
 " So be sure to toggle it off before invoking FuzzyFinder!
 "let g:unicycle_on = 1
+
+" See: ~/.vim/plugin/mdeneo.vim
+let g:neocomplcache_enable_at_startup = 1
+
+" Not sure if these are doing anything.
+let g:SuperTabMappingForward = '<C-Space>'
+let g:SuperTabMappingBackward = '<S-C-Space>'
 
 let g:buffergator_display_regime = "bufname"
 let g:buffergator_sort_regime = "mru"
@@ -118,7 +246,6 @@ let g:ctrlp_use_caching = 1
 let g:ctrlp_dotfiles = 1
 let g:ctrlp_max_depth = 6
 "let g:ctrlp_working_path_mode = 1
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files']
 let g:ctrlp_max_height = 50
 let g:ctrlp_switch_buffer = 2
 let g:ctrlp_clear_cache_on_exit = 0
@@ -132,6 +259,15 @@ let g:ctrlp_extensions = ['dir']
 let g:ctrlp_open_multiple_files = 'hj'
 " Use <C-d> to toggle
 let g:ctrlp_by_filename = 1
+
+"let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files']
+let g:ctrlp_user_command = {
+  \ 'types': {
+    \ 1: ['.git', 'cd %s && git ls-files'],
+    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+    \ },
+  \ 'fallback': 'find %s -type f -maxdepth 6 -xdev'
+  \ }
 
 " NERDCommenter
 let g:NERDCreateDefaultMappings = 0
@@ -149,22 +285,6 @@ let g:slime_paste_file = "$HOME/.slime_paste"
 let syntastic_enable_signs = 1
 let syntastic_auto_jump = 1
 
-" Clojure
-" Disable all vimclojure default key mappings.
-"let vimclojure#SetupKeyMap = 0
-let vimfiles = $HOME . "/.vim"
-let vimclojure#HighlightBuiltins = 1      " Highlight Clojure's builtins
-let vimclojure#ParenRainbow = 1           " Rainbow parentheses'!
-let vimclojure#SplitSize = 10
-let vimclojure#SplitPos = "bottom"
-let vimclojureRoot = vimfiles."/bundle/VimClojure"
-let vimclojure#HighlightContrib = 1
-let vimclojure#DynamicHighlighting = 1
-let vimclojure#FuzzyIndent = 1
-"let vimclojure#WantNailgun = 1
-"let vimclojure#NailgunClient = vimclojureRoot."/lib/nailgun/ng"
-" Java? http://blog.darevay.com/2010/10/how-i-tamed-vimclojure/
-
 "set verbose
 
 "-- Color Schemes ----------------------------------------------------
@@ -175,6 +295,8 @@ let vimclojure#FuzzyIndent = 1
 " No effect for cterm
 "let g:molokai_original = 1
 colorscheme molokai
+"colorscheme badwolf
+"colorscheme jellybeans
 "colorscheme vibrantink
 "colorscheme vividchalk
 "colorscheme desert256
@@ -188,6 +310,9 @@ colorscheme comments
 colorscheme missing
 colorscheme overrides
 
+"let Powerline_colorscheme = 'skwp'
+let Powerline_symbols = 'unicode'
+
 " Has no effect.
 "source ~/.vim/ftplugin/comments.vim
 
@@ -197,6 +322,12 @@ match ExtraWhitespace /\s\+$/
 
 
 "-- Map (Leader) -------------------------------------------------------
+
+" eXchange words
+" https://github.com/vim-scripts/transpose-words
+nmap <Leader>x <Plug>Transposewords
+
+nmap <C-w>o <C-w>_
 
 nmap <buffer> dl :Conflict2DiffGetLeft<CR>
 nmap <buffer> dr :Conflict2DiffGetRight<CR>
@@ -243,26 +374,9 @@ map <Leader>k <plug>NERDCommenterToggle
 "map <leader>k$ <plug>NERDCommenterToEOL
 "map <leader>kA <plug>NERDCommenterAppend
 
-" Rails (MVCh)
-" There are several more of these available; see rails.txt.
-nmap <Leader>m :Rmodel<CR>
-nmap <Leader>v :Rview<CR>
-nmap <Leader>c :Rcontroller<CR>
-nmap <Leader>h :Rhelper<CR>
+nmap <S-q> :CtrlPMRU<CR>
+
 nmap <Leader>q <C-W>q
-
-nmap <Leader>P :call PareditToggle()<CR>
-
-" SLIMV: a video: http://vimeo.com/38372260
-" But not going to use it.
-" Problems with slimv repl:
-" * completion doesn't really work
-" * has some silly par* modes
-" * overrides (or plays poorly with) lots of mappings
-" * only way to get history is via up/down arrows
-" * probably plays poorly with vimclojure
-" * docs are generic to lisp; no real tutorial
-"let g:slimv_swank_clojure = '! xterm -e lein swank &'
 
 " Toggles for “quickwin”, used by grep, ack, make, etc.
 " Might not use this much.
@@ -291,7 +405,7 @@ nmap <C-N> :10tab tabnew<C-M>
 
 
 "-- Abbreviation -------------------------------------------------------
-iabbr :) ☻
+"iabbr :) ☻
 iabbr (c) ©
 
 
@@ -313,7 +427,7 @@ endif " if has("autocmd")
 
 set previewheight=50
 au BufEnter ?* call PreviewHeightWorkAround()
-func PreviewHeightWorkAround()
+func! PreviewHeightWorkAround()
     if &previewwindow
         exec 'setlocal winheight='.&previewheight
     endif
@@ -331,20 +445,20 @@ map <M-7> 7gt
 map <M-8> 8gt
 map <M-9> 9gt
 " Tabbing, for rxvt-unicode/urxvt for alt/meta recognition
-map 1 1gt
-map 2 2gt
-map 3 3gt
-map 4 4gt
-map 5 5gt
-map 6 6gt
-map 7 7gt
-map 8 8gt
-map 9 9gt
+nmap 1 1gt
+nmap 2 2gt
+nmap 3 3gt
+nmap 4 4gt
+nmap 5 5gt
+nmap 6 6gt
+nmap 7 7gt
+nmap 8 8gt
+nmap 9 9gt
 
 "###################################
 " Return to previously visited tab (<alt><tab>).
 " http://vim.1045645.n5.nabble.com/jump-to-last-visited-tabpage-td1172955.html
-map <Tab> :exe "tabn " . g:ltv<CR>
+nmap <Tab> :exe "tabn " . g:ltv<CR>
 " referred to by TabLeave autocmd.
 function! Setlasttabpagevisited()
   let g:ltv = tabpagenr()

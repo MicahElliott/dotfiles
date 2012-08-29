@@ -4,7 +4,8 @@
 
 ### Highest importance, 1-char shortcuts.
 # A -- apt package mgmt
-alias a='sudo aptitude'
+#alias a='sudo aptitude'
+alias a='awk'
 # C -- cat/pygmentize
 # None seem to have markdown support
 alias c='/usr/bin/coderay' # uses bold unlike pygmentize
@@ -17,8 +18,8 @@ alias e='epiphany'
 # F -- fc history display
 alias f='fc -ldD'
 # G -- grep searching
-#alias g='egrep --color=always'
-alias g='ack'
+#alias g='ack'
+alias g='egrep --color=always'
 alias gr='g -ir'
 # H -- help system
 alias h=help
@@ -55,15 +56,25 @@ alias rb=rbenv
 alias rl=bin/rails
 alias rk=bin/rake
 alias rs=bin/rspec
-alias rg=bin/guard
+# See function
+#alias rg=bin/guard
 alias cu=cucumber
+alias rbw='rbenv which'
+alias rbwa='rbenv whence'
 
 alias go=$BROWSER
 
 alias zg='zgrep -E --color=always'
 
+alias sl='slocate'
+
 alias el='elinks -no-numbering -no-references -dump-width 200 -dump'
 alias dump=el
+
+# Masks the ss socket tool.
+alias ss='gnumeric'
+
+alias ec='ebook-convert'
 
 # DILEMMA: Sometimes we need functions to do the job when an alias
 # won't suffice. So should aliases and functions files be combined??
@@ -195,6 +206,7 @@ alias ad='git add'
 alias fe='git fetch -v'
 alias fed='git fetch --dry-run'
 alias re='git rebase -v'
+#alias cl='git clone'
 alias lsf='git ls-files'
 alias gls='git ls-files'
 alias gpu='git push origin master'
@@ -245,6 +257,7 @@ alias ve-cdve='cdvirtualenv'
 # Editing of config stuff.
 alias vi-shell='v -S ~/config/shell/Session.vim'
 alias vi-mbg='v -S ~/proj/Membean/Session.vim'
+alias vi-sudo='sudoedit'
 
 alias re-env=". $my_zshdir/envars.sh"
 alias re-funcs=". $my_zshdir/functions.sh"

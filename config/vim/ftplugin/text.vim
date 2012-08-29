@@ -1,4 +1,4 @@
-" txtrc
+" text ftplugin
 
 " Mimic previous line
 set autoindent
@@ -24,14 +24,14 @@ set nolinebreak
 " How many spaces for a `>>' or `<<'
 set shiftwidth=4
 
+" How many spaces for a <Tab>
+set tabstop=4
+
 " Too smart for text
 set nosmartindent
 
 " Too smart for text
 set nosmarttab
-
-" How many spaces for a <Tab>
-set tabstop=4
 
 " Insert <EOL> when reaching this column
 "set textwidth=70
@@ -46,8 +46,8 @@ set wrapmargin=0
 set comments-=s1:/*,mb:*,ex:*/
 set comments+=:..:+,fb:*
 
-" Turn off spell checking.
-set nospell
+" Spell checking.
+set spell
 
 " Underline with `='
 map U= o=60I=khljlD0

@@ -1,9 +1,9 @@
 " Micah's python plugin.
 
-if exists("loaded_mde")
-  finish
-endif
-let loaded_mde = 1
+"if exists("loaded_mde")
+  "finish
+"endif
+"let loaded_mde = 1
 
 source ~/.vim/ftplugin/comments.vim
 source ~/gitcontainer/vim/Rainbow-Parenthesis/syntax/RainbowParenthsis.vim
@@ -34,6 +34,5 @@ set textwidth=72
 
 "au BufNewFile *.py  0read ~/.vim/skel/skel.py
 "au BufNewFile *.py r ~/.vim/skel/skel.test.py
-
 
 let python_highlight_all = 1
