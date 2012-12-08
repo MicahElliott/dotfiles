@@ -1,6 +1,6 @@
 #! /bin/zsh
 
-# Ping callcentric to check status of phone registration.
+# callcentric — ping callcentric to check status of phone registration
 #
 # Probably should be placed in a crontab and send email or some such
 # notification message.
@@ -20,9 +20,9 @@ password=$CALLCENTRIC_PASSWORD
 cookie=$(mktemp -p /tmp) || exit
 statusfile=/tmp/callcentric.status
 
-##if [[ -f $cookie ]]; then
-##    echo "Reusing cookie: $cookie"
-##else
+#if [[ -f $cookie ]]; then
+# echo "Reusing cookie: $cookie"
+#else
     echo "Generating cookie…"
     curl -s --insecure --cookie-jar $cookie \
         'https://www.callcentric.com/login' -d "l_login=$username" \
