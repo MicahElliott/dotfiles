@@ -27,7 +27,7 @@ set shiftwidth=2
 set tabstop=2
 
 " Insert <EOL> when reaching this column
-set textwidth=70
+set textwidth=0
 
 " Display long lines wrapped
 set wrap
@@ -41,6 +41,3 @@ set nospell
 
 " Useless.
 let b:is_bash = 1
-
-source ~/.vim/syntax/comments.vim
-source ~/gitcontainer/vim/Rainbow-Parenthesis/syntax/RainbowParenthsis.vim

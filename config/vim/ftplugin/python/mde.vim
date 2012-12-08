@@ -5,8 +5,8 @@
 "endif
 "let loaded_mde = 1
 
-source ~/.vim/ftplugin/comments.vim
-source ~/gitcontainer/vim/Rainbow-Parenthesis/syntax/RainbowParenthsis.vim
+"source ~/.vim/ftplugin/comments.vim
+"source ~/gitcontainer/vim/Rainbow-Parenthesis/syntax/RainbowParenthsis.vim
 
 set tabstop=4
 set shiftwidth=4

@@ -2,9 +2,6 @@
 "
 "echo "Loading Micah's ruby plugin..."
 
-source ~/.vim/syntax/comments.vim
-source ~/gitcontainer/vim/Rainbow-Parenthesis/syntax/RainbowParenthsis.vim
-
 set tabstop=2
 set shiftwidth=2
 set autoindent

@@ -1,0 +1,9 @@
+# Enable multiple syntax files
+
+Key is use of oldie-goldie
+[aftersyntax](http://www.vim.org/scripts/script.php?script_id=3064), which
+I've just frozen locally as part of my vim.
+
+Goal is to enable things like `comments.vim` to be used by any source file.
+It requires that every language filetype has an appropriately named file, so
+I'm just using silly symlinks for every language I want to enable.

@@ -53,15 +53,29 @@ set wrap          " Display long lines wrapped
 set wrapmargin=0  " Like `textwidth' but use instead (from right border)
 set suffixes=.bak,~,.o,.info,.swp,.swp,.pc,.pcl,.aux,.dvi,.log,.toc
 set hidden
+
+set lazyredraw    " Don't redraw while executing macros (better performance)
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
 "set relativenumber
-set colorcolumn=80
+" Cool, but messes up urxvt copying (extra trailing spaces)
+"set colorcolumn=80
 
 " Always show a status bar
 set laststatus=2
+set cmdheight=2  " for more debug info?
+
+" Fast saving
+nmap <leader>w :w!<cr>
 
 " Enable mouse-clicking/viz-highlighting, but mouse-copy only in insert mode.
 " Disabling since painful to have to go to insert mode to mouse-select.
 "set mouse=n
+
+" http://vim.1045645.n5.nabble.com/Search-within-results-from-More-prompt-td5710213.html
+set wildmenu
+set wildmode=longest:full,full
 
 " Get out of insert-mode without (perceived) delay
 " http://ksjoberg.com/vim-esckeys.html
@@ -139,7 +153,7 @@ Bundle 'gmarik/vundle'
 " My Bundles here:
 " Examples for:
 " original repos on github
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 " vim-scripts repos
 "Bundle 'FuzzyFinder'
 " non github repos
@@ -147,9 +161,11 @@ Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 
 Bundle 'tyok/ack.vim.git'
 Bundle 'vim-scripts/Color-Sampler-Pack'
-Bundle 'sjl/badwolf.git'
-Bundle 'nanotech/jellybeans.vim.git'
-Bundle 'altercation/vim-colors-solarized'
+"Bundle 'sjl/badwolf.git'
+"Bundle 'nanotech/jellybeans.vim.git'
+"Bundle 'altercation/vim-colors-solarized'
+"Bundle 'jpo/vim-railscasts-theme.git'
+Bundle 'sickill/vim-monokai.git'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-cucumber.git'
 Bundle 'tpope/vim-haml.git'
@@ -157,19 +173,20 @@ Bundle 'trapd00r/irc.vim.git'
 Bundle 'claco/jasmine.vim.git'
 Bundle 'tpope/vim-markdown.git'
 Bundle 'juvenn/mustache.vim.git'
-Bundle 'Shougo/neocomplcache.git'
+"Bundle 'Shougo/neocomplcache.git'
 Bundle 'scrooloose/nerdcommenter.git'
 Bundle 'scrooloose/nerdtree.git'
-Bundle 'tpope/vim-pathogen.git'
+"Bundle 'tpope/vim-pathogen.git'
 Bundle 'tpope/vim-rails'
-Bundle 'vim-scripts/Rainbow-Parenthesis.git'
+Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'tpope/vim-repeat.git'
-Bundle 'vim-scripts/rubycomplete.vim'
+"Bundle 'vim-scripts/rubycomplete.vim'
 Bundle 'vim-ruby/vim-ruby.git'
 Bundle 'ervandew/screen'
 Bundle 'bbommarito/vim-slim.git'
-Bundle 'msanders/snipmate.vim.git'
-Bundle 'ervandew/supertab.git'
+"Bundle 'msanders/snipmate.vim.git'
+" Kills some of the completion features, like C-p
+"Bundle 'ervandew/supertab.git'
 Bundle 'tpope/vim-surround.git'
 Bundle 'scrooloose/syntastic.git'
 Bundle 'vim-scripts/taglist.vim.git'
@@ -185,14 +202,20 @@ Bundle 'henrik/vim-indexed-search.git'
 Bundle 'vim-scripts/vim-json-bundle.git'
 Bundle 'tpope/vim-liquid.git'
 Bundle 'MicahElliott/vim-powerline.git'
-Bundle 'vim-ruby/vim-ruby.git'
 Bundle 'jpalardy/vim-slime.git'
+" Visual block editing (mirror):
+" http://vim.wikia.com/wiki/Applying_substitutes_to_a_visual_block
+Bundle 'taku-o/vim-vis'
+Bundle 'vim-scripts/AnsiEsc.vim.git'
 
-Bundle 'git@github.com:MicahElliott/snipmate-snippets.git'
+"Bundle 'git@github.com:MicahElliott/snipmate-snippets.git'
 Bundle 'git@github.com:MicahElliott/UniCycle.git'
+" Automagic Clojure folding on defns and defmacros
 Bundle 'git@gist.github.com:3049202.git'
+" Vim “adobe” color scheme
 Bundle 'git@gist.github.com:720355.git'
-Bundle 'git@gist.github.com:735852.git'
+" Special comments support to v3.0.6 for vim python syntax.
+"Bundle 'git@gist.github.com:735852.git'
 
 filetype plugin indent on     " required!
 
@@ -225,12 +248,8 @@ filetype plugin indent on     " required!
 "inoremap <C-j> <C-r>=TriggerSnippet()<CR>
 "snoremap <C-j> <Esc>i<Right><C-r>=TriggerSnippet()<CR>
 
-" Stupid unicycle somehow breaks FuzzyFinder by mistreating - and .
-" So be sure to toggle it off before invoking FuzzyFinder!
-"let g:unicycle_on = 1
-
 " See: ~/.vim/plugin/mdeneo.vim
-let g:neocomplcache_enable_at_startup = 1
+"let g:neocomplcache_enable_at_startup = 1
 
 " Not sure if these are doing anything.
 let g:SuperTabMappingForward = '<C-Space>'
@@ -295,6 +314,7 @@ let syntastic_auto_jump = 1
 " No effect for cterm
 "let g:molokai_original = 1
 colorscheme molokai
+"colorscheme Tomorrow-Night
 "colorscheme badwolf
 "colorscheme jellybeans
 "colorscheme vibrantink
@@ -306,6 +326,7 @@ colorscheme molokai
 "let g:solarized_contrast="high"
 "colorscheme solarized
 "se background=dark
+" FIXME
 colorscheme comments
 colorscheme missing
 colorscheme overrides
@@ -315,6 +336,7 @@ let Powerline_symbols = 'unicode'
 
 " Has no effect.
 "source ~/.vim/ftplugin/comments.vim
+"source ~/config/vim/bundle/git@gist.github.com:720355/syntax/comments.vim
 
 " Catching bad whitespace.
 "hi ExtraWhitespace ctermbg=9 guibg=red
@@ -332,6 +354,10 @@ nmap <C-w>o <C-w>_
 nmap <buffer> dl :Conflict2DiffGetLeft<CR>
 nmap <buffer> dr :Conflict2DiffGetRight<CR>
 nmap <buffer> dq :Conflict2DiffFinish<CR>
+
+if &diff
+    colorscheme ron
+endif
 
 " Clear the hlsearch.
 nmap <leader>z :noh<CR>
@@ -418,6 +444,7 @@ au BufNewFile *.c read ~/.vim/skel/skel.c | source ~/.vim/skel/skel.c.sh
 au BufNewFile *.h read ~/.vim/skel/skel.h | source ~/.vim/skel/skel.h.sh
 au BufNewFile *.py  0read ~/.vim/skel/skel.py
 au BufNewFile *.rb  0read ~/.vim/skel/skel.rb
+au BufNewFile *.coffee  0read ~/.vim/skel/skel.coffee
 au BufNewFile *.zsh  0read ~/.vim/skel/skel.zsh
 au BufNewFile makefile read ~/.vim/skel/skel.mk | source ~/.vim/skel/skel.mk.sh
 au BufNewFile *.docbook,*.docbk,*.db 0r ~/.vim/skel/skel.docbook
@@ -472,15 +499,46 @@ augroup END
 autocmd VimEnter * let g:ltv = 1
 "##################################
 
-"-- Misc -------------------------------------------------------------
+"-- Function key mappings --------------------------------------------
 
 " Right next to <S-Insert> (the actual xterm paste sequence.
-set pastetoggle=<S-Home>
+"set pastetoggle=<S-Home>
+" Doesn't work, so use something similar/close that only works in normal mode
+"map <F12> :set paste!<CR>i
+" only works in command mode
+map <F2> :set cursorcolumn<CR>:set cursorline<CR>:set colorcolumn=80<CR>
+map <F3> :set nocursorcolumn<CR>:set nocursorline<CR>:set colorcolumn=0<CR>
+nnoremap <F5> "=strftime("%F")<CR>P
+" Won't work; don't know why!
+"inoremap <F5> <C-R>=strftime("%F")<CR>
+map <F8> :set paste!<CR>
+map <F9> :set spell!<CR>
+
+" http://vim.wikia.com/wiki/Identify_the_syntax_highlighting_group_used_at_the_cursor
+map <F12> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+  \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+  \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+"-- Misc -------------------------------------------------------------
 
 " This seems horrible, but since filetype.vim is looked at *after*
 " system syntax file, there's no other place to set it for sh/zsh.
 " Sure hope it doesn't affect anything else.
 let b:is_bash = 1
+
+" Will this have a bad effect on Clojure's rainbows??
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+ \ if line("'\"") > 0 && line("'\"") <= line("$") |
+ \   exe "normal! g`\"" |
+ \ endif
+" Remember info about open buffers on close
+set viminfo^=%
 
 "-- Obscure overrides of Vim builtins --------------------------------
 
@@ -497,8 +555,3 @@ let vimpager_scrolloff = 5
 " repercussions, which AFAICT are none.
 "se backupcopy=yes
 set nowritebackup
-
-" No effect this early in load cycle, so has to go individually in all
-" the ftplugin files that want to use it. :(
-"echo "doing rainbow" | sleep 1
-"source ~/.vim/bundle/Rainbow-Parenthesis/syntax/RainbowParenthsis.vim
