@@ -6,6 +6,10 @@
 # func. Some could also be scripts. Mostly these should be functions
 # if they affect the environment in some way.
 
+out()  { print $@ ; }
+warn() { print "$fg[yel]WARNING:$reset_color" $@ >&2 }
+err()  { print "$fg[red]ERROR:$reset_color" $@ >&2 }
+
 # Tar conveniences.
 tarc() { tar czvf $1.tar.gz $1; }
 tarx() { tar xzvf $1; }
@@ -342,3 +346,86 @@ bl() { slocate -d books.udb -ir $1 |s 's:.*torrent/::' }
 isgmail() { host $1 |awk '/mail/ {print $7}' |grep -q google }
 
 isprogressive() { identify -verbose $1 |grep -q 'Interlace: JPEG' }
+zstyle ':completion:*:*:isprogressive:*' file-patterns '*.jpg'
+
+# cat a json file as pretty json or cson
+cjs2() { json2cson $1 |pygmentize -l coffeescript }
+zstyle ':completion:*:*:ccs:*' file-patterns '*.json'
+cjs() { json_reformat <$1 |coderay -json }
+zstyle ':completion:*:*:cjs:*' file-patterns '*.{json,js}'
+ccs() { python3 =pygmentize -l coffeescript $1 }
+
+### Change urxvt/xterm bg color
+# Depends on colortrans.py to get a hex color from rgb.
+bgset() {
+  local hex=$(colortrans.py $1 2>/dev/null)
+  print "setting bg to $hex"
+  # http://www.steike.com/code/xterm-colors/
+  print "\e]11;#${hex}\007"
+}
+
+# See biggest packages
+pacbiggest() {
+  pacman -Qi |
+    awk '/Name/ { name=$3 } /Size/ { printf "%.3fMB\t%s\n", $4/1024, name }' |
+    sort -rh | head -n 20
+}
+
+# Rename a file with an infix number/marker, like: foo.1.yml
+# Assumptions:
+# - file's number must be second-to-last extension.
+# - file has extension
+# Examples:
+# % touch a.b
+# % ren a.b
+# => mv a.b a.1.b
+# % touch f.j.k f.j.1.k f.j.2.k
+# % ren f.j.k
+# => mv f.j.k f.j.2.k
+# % touch p.q p.3.q
+# % ren p.q
+# => mv p.q p.4.q
+ren() {
+  #local n=${2?provide numeric id}
+  local n=1 oldn=$1:r:e fname=$1 ext=$1:e base1=$1:r
+  if [[ $fname =~ '\.\d+\.' ]]; then
+    print "Can't rename a file with a number in it." >&2
+    print "Try: $0 ${fname/\.[0-9]}" >&2
+    return
+  fi
+  # Remove .N version info from file.
+  base=${${base1/.[0-9]##}:r}
+  # Find highest numbered file.
+  files=( $base.*.$ext )
+  latest=$files[-1]
+  if [[ $oldn =~ '^\d+$' ]]; then
+    n=$(( oldn + 1 ))
+    base=$fname:r:r
+  else
+    base=$fname:r
+  fi
+  print mv $fname $base.$n.$ext
+}
+
+ren() {
+  set -x
+  local newhi=1 fname=$1 ext=$1:e base=$1:r
+  [[ ! -f $fname ]]         && { err "Not a file: $fname"; return 1 }
+  [[ $fname =~ '\.\d+\.' ]] && { err "Can’t rename file with verno."; return 1 }
+  # Find existing versioned files.
+  # a.b.c -> a.b.*.c
+  # http://www.zsh.org/mla/users/2010/msg00132.html
+  if () { setopt localoptions nonomatch nocshnullglob
+          [ -f $base.*.$ext([1]) ] }; then
+    #newhi=( $base.*.$ext([-1]) )
+    vers=( $base.*.$ext )
+    #newhi=$(( $#vers + 1 ))  # not safe if missing vers in sequence
+    latest=$vers[-1]
+    hi=$latest:r:e
+    newhi=$(( hi + 1 ))
+  fi
+  newfname=$base.$newhi.$ext
+  [[ -f $newfname ]] && { err "Should not already exist: $newfname"; return 1 }
+  print mv $fname $newfname
+  mv $fname $newfname
+}

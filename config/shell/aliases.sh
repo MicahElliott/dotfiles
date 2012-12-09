@@ -19,7 +19,8 @@ alias e='epiphany'
 alias f='fc -ldD'
 # G -- grep searching
 #alias g='ack'
-alias g='egrep --color=always'
+# PCRE and color for grep
+alias g='grep --color=always -P'
 alias gr='g -ir'
 # H -- help system
 alias h=help
@@ -37,8 +38,8 @@ alias o='xdg-open'
 # P -- print, eg. envars
 alias p='print -l'
 alias q='exit'
-# R -- rake
-#alias r='rake'
+# R -- littler
+disable r
 # S -- regex-enabled sed
 alias s='sed -r'
 alias sn='sed -nr'
@@ -72,7 +73,8 @@ alias el='elinks -no-numbering -no-references -dump-width 200 -dump'
 alias dump=el
 
 # Masks the ss socket tool.
-alias ss='gnumeric'
+alias ss2='gnumeric'
+alias ss='soffice --calc'
 
 alias ec='ebook-convert'
 
@@ -119,9 +121,6 @@ alias info='info --vi-keys'
 alias view='vim -R'
 #alias v='export VIMTAGS=$(pwd)/tags'
 alias cx='chmod +x'
-alias vp='versatile purple1'
-alias vb='versatile blue1'
-alias vg='versatile green1'
 #alias less='vimpager'
 alias less='less'
 alias tree='tree -C --charset utf8'
@@ -190,7 +189,8 @@ alias jobdone="date |mail -s 'job done' $EMAIL"
 alias day="date '+%Y%m%d'"
 alias dt='date "+%Y%m%d"'
 
-alias gm='gnome-mplayer'
+alias mp='mplayer'
+alias vp='smplayer'
 
 # VCS commands are 2 chars.
 # NOTE: it would be better to have these as functions that knew which
@@ -213,6 +213,7 @@ alias gpu='git push origin master'
 
 # Home git mgmt
 alias dotfiles='git --git-dir=$HOME/.dotfiles.git/.git --work-tree=$HOME'
+alias dit='dotfiles'
 alias dad='dotfiles add'
 alias dlo='dotfiles log --stat'
 alias dci='dotfiles commit'
@@ -225,6 +226,8 @@ alias dign='comm -13 <(dls $(p .*(.))|sort) <(p .*(.)|sort)'  # ignored files
 
 alias ri='ri -f ansi'
 alias top='htop -d 5'
+
+alias pw=pwd
 
 alias mysql='mysql --auto-rehash'
 
@@ -280,3 +283,4 @@ alias trash-auto=autotrash
 alias node='NODE_NO_READLINE=1 rlwrap -pgreen -S "node> " node'
 alias coffee='NODE_NO_READLINE=1 rlwrap -pyellow -S "coffee> " coffee'
 
+alias printerconfig=system-config-printer

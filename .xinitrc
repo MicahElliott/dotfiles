@@ -66,8 +66,8 @@ udiskie &
 
 # these needed to be in .i3/config
 #trayer --edge top --align right --SetDockType true --expand true --width 6 --transparent true --alpha 0 --tint 0x000000 --height 16 &
-#nm-applet &
-wicd-client &
+nm-applet &
+#wicd-client &
 
 # IM client (mem hog)
 #gajim &

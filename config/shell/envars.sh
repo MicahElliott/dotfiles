@@ -10,7 +10,7 @@ unset USERNAME
 my_zshdir=~/config/shell
 
 HISTIGNORE='k:ls:lm:bg:fg:jobs:pwd:kill:declare:history:cd:cd :&: *:'
-HISTSIZE=10000
+HISTSIZE=20000
 HISTFILESIZE=$HISTSIZE
 #export HISTFILE=~/.history/bh-$$
 
@@ -157,6 +157,12 @@ eval "$(TERM=xterm dircolors -b $DIR_COLORS)"
 HELPDIR=~/local/doc/zsh/help  # was prescribed as /usr/share/zsh/help
 
 L="/media/LACIE"
+
+# Handy custom envars.
+dn=/dev/null
+
+# Archlinux dictionary
+dict=/usr/share/dict/american-english
 
 # How color sequences work:
 # echo $'\e[1;4;5;38;5;118;42m'" hi there "

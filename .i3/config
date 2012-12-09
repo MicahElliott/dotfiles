@@ -12,6 +12,7 @@ set $mod Mod4
 exec xset +fp ~/gitcontainer/projects/orp-font/misc
 #exec xset +fp ~/gits/projects/orp-font/misc
 exec xset +fp /usr/share/fonts/local
+exec xset r rate 250 60 # super fast delay and rate!
 
 # Keyboard indicator icon
 exec fbxkb
@@ -271,3 +272,8 @@ for_window [class="(?i)chromium"] border normal
 for_window [class="(?i)thunar"] floating enable; border normal
 for_window [class="(?i)gimp"] floating enable; border normal
 for_window [class="(?i)gnumeric"] border normal
+for_window [class="(?i)soffice"] border normal
+for_window [class="(?i)feh"] floating enable; border normal
+for_window [class="(?i)smplayer"] floating enable; border normal
+for_window [class="(?i)vlc"] floating enable; border normal
+for_window [class="(?i)nautilus"] border normal

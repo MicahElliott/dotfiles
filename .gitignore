@@ -10,6 +10,10 @@
 /opt
 /xfer
 /Desktop
+/config/vim/bundle/
+/config/vim/tmp/
+/export
+/Dropbox
 
 # Specific files
 tags
@@ -22,6 +26,8 @@ mde.*
 /*.ogg
 /*.json
 /*.xml
+/*.png
+/*.jpg
 
 # Dot *files*
 .*_history
@@ -45,6 +51,15 @@ mde.*
 .viminfo
 .Xauthority
 .zcompdump
+.zdirs
+.aliases.cache
+.asoundrc
+.dbshell
+.googsystrayrc
+.mailstat
+.mongorc.js
+.passwd-s3fs
+.rnd
 
 # Dot *dirs*
 .*/

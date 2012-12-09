@@ -12,6 +12,9 @@
 #
 # Using convention that ‘my_*’ vars are things that I have set.
 
+# Timing
+##zmodload zsh/zprof
+
 my_shdir=~/config/shell
 
 # This order can be important. I like to make sure all the envars are
@@ -49,3 +52,6 @@ function {
     ##print "startup time: $startup"
 }
 unset t0
+
+# Timing
+##zprof

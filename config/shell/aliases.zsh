@@ -1,8 +1,7 @@
 # Zsh-specific aliases (not supported by bash)
-
 #print "in aliases.zsh"
 
-# Programs to auto-run per extension.
+### Programs to auto-run per extension.
 # So just putting "foo.txt" on CLI will expand to "vim foo.txt"
 alias -s txt=vim
 alias -s mkd=vim
@@ -12,17 +11,16 @@ alias -s haml=vim
 alias -s vim=vim
 alias -s sass=vim
 alias -s scss=vim
-alias -s png=eog
-alias -s jpg=eog
-alias -s flv=vlc
-alias -s mp4=vlc
-alias -s webm=chromium-browser
+alias -s png=feh
+alias -s jpg=feh
+alias -s flv=vp
+alias -s mp4=vp
+alias -s webm=$BROWSER
 alias -s xcf=gimp
 alias -s gz='tar xzvf'
-alias -s bz2='tar jzvf'
+alias -s bz2='tar xjvf'
 alias -s pdf=evince
 alias -s deb='sudo dpkg -i'
-
 alias -s feature='cucumber'
 
 # Places to cd
@@ -35,7 +33,14 @@ alias h=run-help
 alias de='vared dirstack'
 
 ### Globals
-alias -g C='| wc -l'  # grep foo ~/.zsh/* C
+alias -g A='| a'
 alias -g B='| bcat'
-alias -g L='| less'
+alias -g C='| wc -l'
+alias -g D='| dump'
 alias -g G='| g -i'
+alias -g H='| head'
+alias -g L='| less'
+alias -g P='| $PAGER'
+alias -g S='| sort -n'
+alias -g T='| tail'
+alias -g U='| uniq'
