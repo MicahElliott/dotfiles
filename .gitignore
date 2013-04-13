@@ -66,3 +66,4 @@ mde.*
 
 # Keepers
 !.i3
+!.zfunc

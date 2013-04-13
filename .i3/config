@@ -14,13 +14,25 @@ exec xset +fp ~/gitcontainer/projects/orp-font/misc
 exec xset +fp /usr/share/fonts/local
 exec xset r rate 250 60 # super fast delay and rate!
 
-# Keyboard indicator icon
-exec fbxkb
+# NOTE: some of these are being set in .xinitrc; could maybe move some here.
+
+# Keyboard indicator icon; always on wrong statusbar
+#exec fbxkb
 
 # Seems to work but stupid icon is too big so doesn't show up!
 #exec nm-applet
 
-exec volumeicon
+# Too simple maybe?
+#exec volumeicon
+
+# Wow, fancy!
+exec volti
+
+# Too big and no real controls.
+#exec gvolwheel
+
+# EXP: only an icon; no functionality
+#exec cbatticon
 
 # Auto-mount usb disks, etc.
 #exec udiskie
@@ -146,11 +158,12 @@ bindsym $mod+Shift+parenleft move container to workspace 9
 bindsym $mod+Shift+parenright move container to workspace 10
 
 # reload the configuration file
-bindsym $mod+Shift+C reload
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+R restart
+bindsym $mod+Shift+w restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+E exit
+bindsym $mod+Shift+e exit
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -204,15 +217,19 @@ bar {
 }
 
 # Neat! Can have 2 bars.
-bar {
-        output VGA1
-        mode hide
-        status_command i3status --config ~/.i3status-vga1.conf
-}
+# :( but often dies, and icons often shift around running xrandr
+#bar {
+        #output VGA1
+        #mode hide
+        #status_command i3status --config ~/.i3status-vga1.conf
+#}
 
 bindsym $mod+b border toggle
 # Remove to return to "normal" border.
-new_window 1pixel
+#new_window 1pixel
+# NEW
+#new_window pixel 2 # awesome if it works!
+new_window pixel 3
 
 #                       border  background  text
 #client.focused           #2B6473 #2B6473 #FFA000

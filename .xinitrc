@@ -54,13 +54,7 @@ xmodmap -e "keycode 49 = Escape"
 #clipit &
 parcellite &
 
-#eval $(ssh-agent)
-eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
-
-#feh --bg-fill /usr/share/archwall/Arch-Black.png
-feh --bg-fill ~/Pictures/transcat.jpg
-# Supposedly nitrogen is better than feh for multiple screens.
-#nitrogen --restore &
+# XXX: KEYCHAIN WAS HERE
 
 udiskie &
 
@@ -80,6 +74,14 @@ batti &
 # CPU frequency. Wish it would do htop. Not sure why load is getting
 # high (0.4+), despite gatotray saying quiescent.
 gatotray &
+
+#feh --bg-fill /usr/share/archwall/Arch-Black.png
+feh --bg-fill ~/Pictures/transcat.jpg
+# Supposedly nitrogen is better than feh for multiple screens.
+#nitrogen --restore &
+
+#eval $(ssh-agent)
+eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
 
 # Kill <C-s> terminal pause
 # http://stackoverflow.com/questions/791765/unable-to-forward-search-bash-history-similarly-as-with-ctrl-r
