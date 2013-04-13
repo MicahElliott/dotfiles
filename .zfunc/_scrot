@@ -1,0 +1,20 @@
+#compdef scrot
+
+# Ranges don't work but at least display lo/hi range.
+# APP is bad since I can't find something like _scripts/_commands
+
+local opts
+opts=(
+  {-h,--help}'[display this help and exit]'
+  {-v,--version}'[output version information and exit]'
+  {-b,--border}'[when selecting a window, grab wm border too]'
+  {-c,--count}'[show a countdown before taking the shot]'
+  {-e,--exec}'[run APP on the resulting screenshot]:command:_files'
+  {-d,--delay}'[wait NUM seconds before taking a shot]:number:(1 100)'
+  {-q,--quality}'[image quality (1-100) high value means high size, low compression (default: 75)]:number:(1 100)'
+  {-m,--multidisp}'[for multiple heads, grab shot from each and join them together]'
+  {-s,--select}'[interactively choose a window or rectnagle with the mouse]'
+  {-t,--thumb}'[generate thumbnail too. NUM is percentage of orig]:number:(1 100)'
+)
+
+_arguments -s -S : $opts

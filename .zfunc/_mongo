@@ -1,0 +1,28 @@
+#compdef mongo
+
+# TODO:
+# - complete host/db spec
+# foo                   foo database on local machine
+# 192.169.0.5/foo       foo database on 192.168.0.5 machine
+# 192.169.0.5:9999/foo  foo database on 192.168.0.5 machine on port 9999
+
+# TODO: generalize for mongodump/mongorestore, mongoexport/mongoimport
+
+local opts
+opts=(
+  --shell'[run the shell after executing files]'
+  --nodb"[dont connect to mongod on startup]"
+  --norc'[will not run the ".mongorc.js" file on start up]'
+  --quiet'[be less chatty]'
+  --port'[port to connect to]:port'
+  --host'[server to connect to]:host'
+  --eval'[evaluate javascript]:js'
+  {-u,--username}'[username for authentication]:username'
+  {-p,--password}'[password for authentication]:password'
+  {-h,--help}'[show this usage information]'
+  --version'[show version information]'
+  --verbose'[increase verbosity]'
+  --ipv6'[enable IPv6 support (disabled by default)]'
+)
+
+_arguments -s -S : $opts

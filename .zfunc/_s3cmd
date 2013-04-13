@@ -1,0 +1,53 @@
+#
+#compdef s3cmd s3.sh
+#
+# % s3.sh ls
+# 2012-09-03 21:47  s3://books.membean.com
+# 2011-06-20 19:28  s3://mb-t1
+#
+# % s3.sh ls s3://media1.membean.com/video/
+#                        DIR   s3://media1.membean.com/video/examplevids/
+# 2011-01-10 19:46         0   s3://media1.membean.com/video/
+# 2011-03-14 01:55     25133   s3://media1.membean.com/video/commercial.jpg
+# 2011-01-16 04:51   5754774   s3://media1.membean.com/video/commercial.mp4
+
+
+# % base
+# s3://books.membean.com
+# s3://mb-t1
+# ...
+#
+# % base s3://media1.membean.com/vi
+# s3://media1.membean.com/video/
+# s3://media1.membean.com/visuals/
+# ...
+base() {
+  set -x
+  local pth pths
+  local head tails p2s
+  pths=()
+  #${(f)"$(s3.sh ls $words[3])"}
+  print aa $1 aa
+  print aa ${1[-1]} aa
+  if [[ -z $1 ]]; then
+    pths=( $(s3.sh ls |sed -r 's|.* s3://|s3://|') )
+  elif [[ ${1[-1]} == '/' ]]; then
+    print cc
+    pths=( $(s3.sh ls $1 |sed -r 's|.* s3://|s3://|') )
+  else
+    print dd
+    pths=( $(s3.sh ls $1:h |sed -r 's|.* s3://|s3://|') )
+    head=$1:h
+    tails=( $pths:t )
+    p2s=()
+    for p in $tails; p2s+=$head/$p
+  fi
+  print $pths[2]
+  print -l $pths
+  print -l ${(f)pths}
+  set +x
+}
+
+#compadd ${(f)"$(s3.sh ls $words[3])"}
+
+# vim:se ft=zsh:

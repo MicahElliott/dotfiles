@@ -1,0 +1,7 @@
+#compdef run-help
+
+cmds=( $(run-help |sed -nr '3,$p') )
+
+#compadd $cmds  # not necessary
+
+_describe 'help built-in commands' cmds

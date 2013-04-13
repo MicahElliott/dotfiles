@@ -1,0 +1,5 @@
+#compdef pdfcat pdfcat.zsh
+
+#_arguments -S -s '1:scode'
+
+_files -g '*.pdf'

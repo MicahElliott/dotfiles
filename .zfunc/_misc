@@ -1,0 +1,10 @@
+#compdef rmdir lowriter paste split csplit yardoc
+
+# Trying to complete any command that is missing completion. -- is a really
+# slick trick but doesn't quite work since might not be a way to complete
+# file args. E.g., ‘rmdir «tab»’ always inserts a -. Might be possible though.
+#
+# cd /usr/share/zsh/functions/Completion/Unix
+# g -- '_arguments.* --' *
+
+_arguments -- '*:input files:_files' '--foo' # last arg not working

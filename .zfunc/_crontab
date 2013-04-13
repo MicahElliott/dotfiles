@@ -1,0 +1,15 @@
+#compdef crontab
+
+# Since all opts are mutually exclusive should stop after accepting one.
+
+local opts
+opts=(
+  -e"[edit user's crontab]"
+  -l"[list user's crontab]"
+  -r"[delete user's crontab]"
+  -i"[prompt before deleting user's crontab]"
+  -n"[set host in cluster to run users' crontabs]"
+  -c"[get host in cluster to run users' crontabs]"
+)
+
+_arguments -s -S : $opts

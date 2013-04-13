@@ -1,0 +1,23 @@
+## Not working
+#compdef mv
+
+# FIXME: Not sure how to do this optional arg like CONTROL
+#   --backup[=CONTROL]'[make a backup of each existing destination file]:control'
+opts=(
+  -b'[like --backup but does not accept an argument]'
+  {-f,--force}'[do not prompt before overwriting]'
+  {-i,--interactive}'[prompt before overwrite]'
+  {-n,--no-clobber}'[do not overwrite an existing file]'
+  --strip-trailing-slashes'[remove any trailing slashes from each SOURCE argument]'
+  {-S,--suffix=SUFFIX}'[override the usual backup suffix]'
+  {-t,--target-directory=}'[move all SOURCE arguments into DIRECTORY]:directory:_files'
+  {-T,--no-target-directory}'[treat DEST as a normal file]'
+  {-u,--update}'[move only when the SOURCE file is newer than DEST or newer]'
+  {-v,--verbose}'[explain what is being done]'
+  --help'[display this help and exit]'
+  --version'[output version information and exit]'
+  '1:input file:_files'
+  '2:destination file:_files'
+)
+
+_arguments -s -S : $opts
