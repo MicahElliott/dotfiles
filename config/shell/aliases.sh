@@ -52,8 +52,11 @@ alias wa='whence -av'
 alias w1='whence'
 # X -- exit (see func)
 alias x='exit'
+# Y -- yaourt package manager
+alias y=yaourt
 
 alias rb=rbenv
+alias ru=ruby
 alias rl=bin/rails
 alias rk=bin/rake
 alias rs=bin/rspec
@@ -87,6 +90,7 @@ alias hi=history
 # Don't need a history write alias, thanks to incappendhistory option.
 alias hr='fc -RI'
 alias hl='fc -RI'
+alias hg='histgrep.zsh' # masking mercurial, oh well
 
 # Make all ls have color.
 alias ls='ls --color=auto'
@@ -135,7 +139,7 @@ alias tm='tmux'
 tmn() { tmux -L $PWD:t new }
 
 # Latest download, see also "latest" func.
-alias dl='ls "$HOME/Downloads/$(ls -rt $HOME/Downloads/ |tail -1)"'
+#alias dl='ls "$HOME/Downloads/$(ls -rt $HOME/Downloads/ |tail -1)"'
 
 # rubygems
 ##alias gs='gem search -r --details' # Too slow
@@ -145,8 +149,9 @@ alias gs='gem search -r'
 
 # bundler
 # http://ryan.mcgeary.org/2011/02/09/vendor-everything-still-applies/
+# http://stackoverflow.com/a/9791080/326516
 alias b="bundle"
-alias bi="b install --path vendor --binstubs"
+alias bi="b install --path vendor/bundle --binstubs"
 # Not useful? http://gembundler.com/bundle_package.html
 alias bil="bi --local"
 alias bu="b update"
@@ -188,6 +193,8 @@ alias jobdone="date |mail -s 'job done' $EMAIL"
 #alias latest='ls ~/Downloads/$(ls -rt ~/Downloads/ |tail -1)'
 alias day="date '+%Y%m%d'"
 alias dt='date "+%Y%m%d"'
+alias dt-='date -I'
+alias dd='date -d'  # okay to mask dd since use infrequently
 
 alias mp='mplayer'
 alias vp='smplayer'
@@ -214,11 +221,13 @@ alias gpu='git push origin master'
 # Home git mgmt
 alias dotfiles='git --git-dir=$HOME/.dotfiles.git/.git --work-tree=$HOME'
 alias dit='dotfiles'
-alias dad='dotfiles add'
+alias dad2='dotfiles add'  # completion does not work
+alias dad='dotfiles stage' # so use semi-working synonym
 alias dlo='dotfiles log --stat'
 alias dci='dotfiles commit'
 alias ddi='dotfiles diff'
 alias dst='dotfiles status'
+alias drm='dotfiles rm'  # maybe add --cached
 alias dpu='dotfiles push origin master'
 alias dfe='dotfiles fetch -v'
 alias dls='dotfiles ls-files'
@@ -227,7 +236,9 @@ alias dign='comm -13 <(dls $(p .*(.))|sort) <(p .*(.)|sort)'  # ignored files
 alias ri='ri -f ansi'
 alias top='htop -d 5'
 
+# Vim-like
 alias pw=pwd
+alias se=setopt
 
 alias mysql='mysql --auto-rehash'
 
@@ -268,6 +279,8 @@ alias re-funcs=". $my_zshdir/functions.sh"
 #alias re-aliases=". $my_zshdir/aliases.sh"
 alias re-opts=". $my_zshdir/options.zsh"
 
+alias fn='declare -f'
+
 alias mkf="mkfifo $TMPDIR/refresher.fifo && cat > $TMPDIR/refresher.fifo &"
 
 alias vlcshot='print ~/.local/share/vlc/$(ls -t ~/.local/share/vlc/ |head -1)'
@@ -282,5 +295,7 @@ alias trash-auto=autotrash
 # http://blog.doteight.com/blog/2011/01/16/rlwrap-and-node/
 alias node='NODE_NO_READLINE=1 rlwrap -pgreen -S "node> " node'
 alias coffee='NODE_NO_READLINE=1 rlwrap -pyellow -S "coffee> " coffee'
+alias cs=coffee
+alias jsh=jshon
 
 alias printerconfig=system-config-printer

@@ -30,6 +30,13 @@ re-aliases() {
     . $my_zshdir/aliases.zsh
 }
 
+re-comps() {
+  # Pain to test
+  rm ~/.zcompdump
+  # or could do: urxvtcd
+  exec zsh
+}
+
 #grep() {
 #    local EXCLUDE
 #    # Check for existence of "exclude" files, even symlinks.
@@ -337,7 +344,7 @@ rbg() {
 # mkdir & chdir in one
 mcd() { mkdir $1 && cd $1 }
 
-cl() { git clone $1; cd $1:t:r }
+cl() { git clone $1 && cd $1:t:r }
 
 rg() { rk db:test:prepare; ./bin/guard }
 
@@ -354,6 +361,12 @@ zstyle ':completion:*:*:ccs:*' file-patterns '*.json'
 cjs() { json_reformat <$1 |coderay -json }
 zstyle ':completion:*:*:cjs:*' file-patterns '*.{json,js}'
 ccs() { python3 =pygmentize -l coffeescript $1 }
+
+py2en() {
+  print "Enabling python2 in path via /var/tmp/bin hack."
+  path=(/var/tmp/bin $path)
+  python -V
+}
 
 ### Change urxvt/xterm bg color
 # Depends on colortrans.py to get a hex color from rgb.
@@ -386,30 +399,8 @@ pacbiggest() {
 # % ren p.q
 # => mv p.q p.4.q
 ren() {
-  #local n=${2?provide numeric id}
-  local n=1 oldn=$1:r:e fname=$1 ext=$1:e base1=$1:r
-  if [[ $fname =~ '\.\d+\.' ]]; then
-    print "Can't rename a file with a number in it." >&2
-    print "Try: $0 ${fname/\.[0-9]}" >&2
-    return
-  fi
-  # Remove .N version info from file.
-  base=${${base1/.[0-9]##}:r}
-  # Find highest numbered file.
-  files=( $base.*.$ext )
-  latest=$files[-1]
-  if [[ $oldn =~ '^\d+$' ]]; then
-    n=$(( oldn + 1 ))
-    base=$fname:r:r
-  else
-    base=$fname:r
-  fi
-  print mv $fname $base.$n.$ext
-}
-
-ren() {
-  set -x
-  local newhi=1 fname=$1 ext=$1:e base=$1:r
+  #set -x
+  local newhi=1 fname=$1 ext=$1:e base=$1:r vers latest hi newfname
   [[ ! -f $fname ]]         && { err "Not a file: $fname"; return 1 }
   [[ $fname =~ '\.\d+\.' ]] && { err "Can’t rename file with verno."; return 1 }
   # Find existing versioned files.
@@ -429,3 +420,16 @@ ren() {
   print mv $fname $newfname
   mv $fname $newfname
 }
+
+# Debugging aid; use with:
+# _foo() { compstatus; _foo() { compstatus; compadd ${(f)"$(foo.zsh $words[2])"} }
+# compdef _foo foo.zsh
+compstatus() { print "words: $words\nCURRENT: $CURRENT\n" |osd_cat -d1 -s1 }
+
+# Shoving here since not working as file in fpath.
+#_mm() { compadd ${(f)"$(./completeid.zsh $words[2])"} }
+#compdef _mm mmr mmu mmd
+
+# Recent downloads
+dl()  { print ~/Downloads/*(.om[0,1])  }
+dlx() { print ~/Downloads/*(.om[0,$1]) }

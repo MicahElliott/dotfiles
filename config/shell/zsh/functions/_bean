@@ -1,11 +1,10 @@
 #compdef bean
 
+print "in _bean" |osd_cat -d1
+
 #files="~/proj/cliguy/*bean*"
-
     #'*:files:_files'
-
 #_arguments '-b[binary]' '-c:count' ':files:_files -g "/tmp/*.txt"'
-
 #_files -g "/tmp/*.txt"
 #_files -/
 
@@ -14,6 +13,8 @@ for f in ~/proj/cliguy/*bean*.mkd; do
     beans+=$f:t:r
 done
 #files=$(ls /tmp/*.txt)
+
+_describe "my bean completer"
 
 #_arguments '-format:paper size:(letter A4)' '-copy:output file:(300 600)'
 _arguments "*:a bean file:($beans)"

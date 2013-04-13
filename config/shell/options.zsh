@@ -14,13 +14,19 @@
 # so have a local personal dir similar.
 #fpath=( $fpath ~/config/shell/funcs )
 # My funcs.
-fpath+=( ~/config/shell/zsh/functions )
+fpath=( ~/config/shell/zsh/functions $fpath )
 # My prompts.
-fpath+=( ~/config/shell/zsh/prompts )
+fpath=( ~/config/shell/zsh/prompts $fpath )
 # Contrib funcs.
-fpath+=( ~/contrib/zsh/functions )
+fpath=( ~/contrib/zsh/functions $fpath )
+# Membean
+fpath=( ~/proj/Membean/misc/zsh $fpath )
 # Necessary?
 #fpath+=( ~/config/shell/ )
+
+# Zsh book pg 334
+fpath=( ~/.zfunc $fpath )
+autoload -- ~/.zfunc/[^_]*(:t)
 
 # Funny stuff like this might be necessary for activating new funcs:
 ##local f
@@ -74,7 +80,22 @@ unalias run-help
 autoload run-help
 
 # Arch zsh packages.
+# https://github.com/zsh-users/zsh-syntax-highlighting/tree/master/highlighters
+# Options:
+# https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/highlighters/main/main-highlighter.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlight/zsh-syntax-highlighting.zsh
+ZSH_HIGHLIGHT_HIGHLIGHTERS=( main brackets pattern )
+# Hmm, just basic colors? rgybmc
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=yellow
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=bold
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]=fg=yellow
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=yellow
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=magenta
+ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]=fg=cyan
+ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg=cyan
+#ZSH_HIGHLIGHT_STYLES[assign]=none
+ZSH_HIGHLIGHT_STYLES[assign]=fg=blue
+
 # Doesn't seem to work.
 #source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 # SLOW!!
@@ -110,6 +131,28 @@ zle -N insert-composed-char
 # Map it to <F5>
 #bindkey '\e[15~' insert-composed-char  # F5
 bindkey '^K' insert-composed-char  # same as vim
+
+### Custom inserts
+# CTRLs available: ^r ^t ^y ^o ^p ^a ^f ^b ^n
+# ALT/ESC example: bindkey '^[f' foo
+# Ideas:
+# https://github.com/tomsquest/dotfiles/blob/master/zsh/bindkey.zsh
+# http://michael-prokop.at/computer/config/.zsh/zsh_keybindings
+# Insert an mc3 query.
+#insert_query () { zle beginning-of-line; zle -U "mc3q '{}' _id" }
+#insert-mc3q() { LBUFFER="opts=--csv mc3q '{"; RBUFFER=":\"\"}' _id |csv2tsv.rb S" }
+insert-mc3q() { LBUFFER="opts=--csv mc3q '{"; RBUFFER="://i}' _id |csv2tsv.rb S" }
+zle -N insert-mc3q
+bindkey '^f' insert-mc3q
+insert-mc3s() { LBUFFER="mc3s "; RBUFFER=" J" }
+zle -N insert-mc3s
+bindkey '^[f' insert-mc3s
+bindkey '^[s' insert-mc3s
+# Calculator
+insert-calc() { LBUFFER='p $(('; RBUFFER='))' }
+zle -N insert-calc
+#bindkey '^f' insert-mc3q
+bindkey '^[c' insert-calc
 
 # Set vi mode.
 #bindkey -e
@@ -228,6 +271,10 @@ zle-line-init () {
   echo -ne "\033]12;Grey\007"
 }
 zle -N zle-line-init
+
+# Set tabs to non-standard (non-8) width.
+# See: `man 1p tabs` for some interesting options!
+tabs -16
 
 # Misc completions (should I have a zstyle.zsh file?)
 # FIXME: Not completing dirs

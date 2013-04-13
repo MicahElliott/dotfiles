@@ -12,6 +12,7 @@ syn match AllCaps         ".*[A-Z][A-Z][A-Z].*"
 syn match TooManyNames    "^[A-z,-]\+ [^ ]\+ \([A-z,-]\+\)"
 syn match ExtraSpace      "\s\s\+"
 syn match JunkInName     "^[^=][^A-z ,-]"
+" Neat! Use this elsewhere too!
 " http://vim.1045645.n5.nabble.com/highlighting-quot-weird-quot-characters-td1160262.html
 syn match NonAsciiJunk    /[^ -~]/
 syn match NameExtension   "\v,* (II|III|IV|V|Jr|Jr\.)$"

@@ -42,6 +42,8 @@ export LESS_TERMCAP_ue=$'\e[0m'           # end
 export LESS_TERMCAP_so=$'\e[1;38;5;226;48;5;236m'    # footer, search, etc
 export LESS_TERMCAP_se=$'\e[0m'           # end
 
+export READNULLCMD=less
+
 export EMAIL="mde@MicahElliott.com"
 export REPLYTO=$EMAIL
 export HGUSER="Micah Elliott ($(hostname -s)) <mde@MicahElliott.com>"
@@ -94,11 +96,15 @@ which ruby >/dev/null && {
     # Try: gem help environment
     #export GEM_HOME=$HOME/.gem/ruby/$rubyver
 }
+export RUBYLIB=$HOME/proj/Membean/misc/bin
 
 # rbenv
 export PATH=$HOME/.rbenv/bin:$PATH
 # SLOW!!
 #eval "$(rbenv init -)"
+
+# Node http://tnovelli.net/blog/blog.2011-08-27.node-npm-user-install.html
+export PATH=$HOME/.local/bin:$PATH
 
 #export RAILS_ROOT=~/proj/Membean/mbg
 #PATH+=:$RAILS_ROOT/script
@@ -109,6 +115,7 @@ export PERL5LIB=$PERL5LIB:/usr/share/R/share/perl
 
 # Membean
 export PATH=$HOME/proj/Membean/misc/bin:$PATH
+export PATH=$HOME/proj/Membean/misc/srm:$PATH
 export PATH=$HOME/proj/Membean/mbg/script:$PATH
 export MB=~/proj/Membean/mbg
 export MB_MBG=$HOME/proj/Membean/mbg
@@ -117,13 +124,13 @@ export MB_MISC=$HOME/proj/Membean/misc
 export MB_YAML=$HOME/proj/Membean/mb-cont-yaml
 
 # Haskell cabal stuff.
-export PATH=$HOME/.cabal/bin:$PATH
+#export PATH=$HOME/.cabal/bin:$PATH
 
 # Android SDK
-export PATH=$PATH:$HOME/opt/android-sdk-linux_86/tools
+#export PATH=$PATH:$HOME/opt/android-sdk-linux_86/tools
 
 # Recent Groovy
-export PATH=$HOME/opt/groovy-1.8.1/bin:$PATH
+#export PATH=$HOME/opt/groovy-1.8.1/bin:$PATH
 
 # Clojure
 #export PATH=$HOME/.cljr/bin:$PATH
@@ -136,7 +143,7 @@ export PATH=$PATH:./bin
 export MAKE=make
 
 # Sencha crap.
-export PATH=$PATH:$HOME/opt/SenchaArchitect:$HOME/opt/SenchaSDKTools-2.0.0-beta3
+#export PATH=$PATH:$HOME/opt/SenchaArchitect:$HOME/opt/SenchaSDKTools-2.0.0-beta3
 
 #export dir_stack=$HOME
 
@@ -181,6 +188,7 @@ dict=/usr/share/dict/american-english
 
 #export JENKINS_USER=micah
 
+export SRM_REMOTE=1
 
 #-- Bottom Matter ----------------------------------------------------
 

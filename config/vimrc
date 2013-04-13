@@ -53,6 +53,7 @@ set wrap          " Display long lines wrapped
 set wrapmargin=0  " Like `textwidth' but use instead (from right border)
 set suffixes=.bak,~,.o,.info,.swp,.swp,.pc,.pcl,.aux,.dvi,.log,.toc
 set hidden
+set nrformats-=octal  " Enable in/decrementing with ^A/^X with leading 0s
 
 set lazyredraw    " Don't redraw while executing macros (better performance)
 " Set utf8 as standard encoding and en_US as the standard language
@@ -64,7 +65,10 @@ set encoding=utf8
 
 " Always show a status bar
 set laststatus=2
-set cmdheight=2  " for more debug info?
+"set cmdheight=2  " for more debug info?
+
+" Always show help in vertical window
+"cnoremap h vert help
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -207,6 +211,12 @@ Bundle 'jpalardy/vim-slime.git'
 " http://vim.wikia.com/wiki/Applying_substitutes_to_a_visual_block
 Bundle 'taku-o/vim-vis'
 Bundle 'vim-scripts/AnsiEsc.vim.git'
+Bundle 'nono/vim-handlebars.git'
+Bundle 'groenewege/vim-less'
+Bundle 'johnhamelink/blade.vim'
+Bundle 'digitaltoad/vim-jade'
+Bundle 'tomasr/molokai.git'
+Bundle 'jelera/vim-javascript-syntax'
 
 "Bundle 'git@github.com:MicahElliott/snipmate-snippets.git'
 Bundle 'git@github.com:MicahElliott/UniCycle.git'
@@ -255,6 +265,7 @@ filetype plugin indent on     " required!
 let g:SuperTabMappingForward = '<C-Space>'
 let g:SuperTabMappingBackward = '<S-C-Space>'
 
+let g:buffergator_suppress_keymaps = 1
 let g:buffergator_display_regime = "bufname"
 let g:buffergator_sort_regime = "mru"
 let g:buffergator_viewport_split_policy = "L" "left
@@ -264,7 +275,6 @@ let g:buffergator_viewport_split_policy = "L" "left
 let g:ctrlp_use_caching = 1
 let g:ctrlp_dotfiles = 1
 let g:ctrlp_max_depth = 6
-"let g:ctrlp_working_path_mode = 1
 let g:ctrlp_max_height = 50
 let g:ctrlp_switch_buffer = 2
 let g:ctrlp_clear_cache_on_exit = 0
@@ -279,14 +289,16 @@ let g:ctrlp_open_multiple_files = 'hj'
 " Use <C-d> to toggle
 let g:ctrlp_by_filename = 1
 
+" Set root to CWD. Another good option is 'r' for VCS mode.
+let g:ctrlp_working_path_mode = 0
 "let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files']
-let g:ctrlp_user_command = {
-  \ 'types': {
-    \ 1: ['.git', 'cd %s && git ls-files'],
-    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-    \ },
-  \ 'fallback': 'find %s -type f -maxdepth 6 -xdev'
-  \ }
+"let g:ctrlp_user_command = {
+  "\ 'types': {
+    "\ 1: ['.git', 'cd %s && git ls-files'],
+    "\ 2: ['.hg', 'hg --cwd %s locate -I .'],
+    "\ },
+  "\ 'fallback': 'find %s -type f -maxdepth 6 -xdev'
+  "\ }
 
 " NERDCommenter
 let g:NERDCreateDefaultMappings = 0
@@ -302,7 +314,7 @@ let g:slime_target = "tmux"
 let g:slime_paste_file = "$HOME/.slime_paste"
 
 let syntastic_enable_signs = 1
-let syntastic_auto_jump = 1
+"let syntastic_auto_jump = 1
 
 "set verbose
 
@@ -342,6 +354,42 @@ let Powerline_symbols = 'unicode'
 "hi ExtraWhitespace ctermbg=9 guibg=red
 match ExtraWhitespace /\s\+$/
 
+"-- Register Macros --------------------------------------------------
+" http://vim.wikia.com/wiki/Macros
+
+" Commify/Uncommify: John Doe -> Doe, John
+let @c='dWf:i, pxa'
+let @v='dWA phDa'
+
+" first initial, Last name
+" John Doe -> jdoe
+let @w='ylA: pByw$pBgu$a'
+
+" Full name with underscore: John Doe -> john_doe
+let @u='y$A: pBhr_Bgu$a'
+
+"  John Doe -> johnd
+let @y='A:0yWA pBByf:ApxBlDXBgu$a'
+
+" John Doe -> doej
+let @e='A:  BlDXBgu$a'
+
+" Downcase just the email
+let @d='f:gu$a'
+
+" Join
+let @j='A:Ja'
+
+" SRM entry
+"let @s='/stages:WJJla, [ ]hi "", ""[15~k5BBli'
+"let @s='/stages:WJJla, [ ]hi "", ""<F5>BBli'
+"let @s='/stages:WJJla, [ ]hi "", ""'
+let @s='/stages:OW%ok%JJla, ["", "", ""imicahBhhhA ]BBBl'
+let @n='/notes:WC[[]]hi"", "", ""imicahBBBlll'
+let @a="0f:ll%hi, ['', '', '']%ll"
+
+let @l='/address: Wlv$hhy:r !./addr2latlng.coffee """I  geoloc: '
+
 
 "-- Map (Leader) -------------------------------------------------------
 
@@ -364,7 +412,7 @@ nmap <leader>z :noh<CR>
 
 " Center the screen by having top marked.
 " Could even auto-detect a "top" marker like ";;;"
-nmap <leader>t 'tz^M''
+"nmap <leader>t 'tz^M''
 
 " BufExplorer
 "map <Leader>b :BufExplorerHorizontalSplit<CR>
@@ -381,7 +429,10 @@ set grepprg=ack\ -a
 
 nmap <Leader>s :SyntasticCheck<CR>
 
-"nmap <Leader>b :BuffergatorToggle<CR>
+nmap <Leader>b :BuffergatorToggle<CR>
+" BuffersGatorToggle not working for some reason
+nmap <Leader>t :BuffergatorTabsOpen<CR>
+nmap <Leader>T :BuffergatorTabsClose<CR>
 
 map <Leader>k <plug>NERDCommenterToggle
 "map <Leader>k <plug>NERDCommenterAlignLeft
@@ -444,8 +495,8 @@ au BufNewFile *.c read ~/.vim/skel/skel.c | source ~/.vim/skel/skel.c.sh
 au BufNewFile *.h read ~/.vim/skel/skel.h | source ~/.vim/skel/skel.h.sh
 au BufNewFile *.py  0read ~/.vim/skel/skel.py
 au BufNewFile *.rb  0read ~/.vim/skel/skel.rb
-au BufNewFile *.coffee  0read ~/.vim/skel/skel.coffee
-au BufNewFile *.zsh  0read ~/.vim/skel/skel.zsh
+au BufNewFile *.coffee,*.cf,*.co,*.cs  0read ~/.vim/skel/skel.coffee
+au BufNewFile *.zsh,*.z  0read ~/.vim/skel/skel.zsh
 au BufNewFile makefile read ~/.vim/skel/skel.mk | source ~/.vim/skel/skel.mk.sh
 au BufNewFile *.docbook,*.docbk,*.db 0r ~/.vim/skel/skel.docbook
 au BufNewFile *.html 0r ~/.vim/skel/skel.html
@@ -527,10 +578,52 @@ map <F12> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 let b:is_bash = 1
 
 " Will this have a bad effect on Clojure's rainbows??
+" Conflicts a bit with vim-javascript-syntax
+" setTimeout(function () {}, 5);
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+
+"-- Colors -----------------------------------------------------------
+" See overrides.vim for more usage.
+" Molokai:
+" 161     pink (red)
+" 166/208 orange
+" 226     yellow (not actually in molokai)
+" 81      cyan
+" 118     green
+" 67      blue
+" 135     purple
+" Additions:
+" 52      darkred
+" 94      darkyellow (brown)
+" 28      darkgreen
+" 25      darkblue
+" 92      darkpurple
+
+"      vim            gvim
+let g:rbpt_colorpairs = [
+    \ ['92',       'RoyalBlue3'],
+    \ ['161',    'SeaGreen3'],
+    \ ['118',    'DarkOrchid3'],
+    \ ['135',   'firebrick3'],
+    \ ['81',    'RoyalBlue3'],
+    \ ['166',     'SeaGreen3'],
+    \ ['67', 'DarkOrchid3'],
+    \ ['226',       'firebrick3'],
+    \ ['92',        'RoyalBlue3'],
+    \ ['161',      'SeaGreen3'],
+    \ ['118', 'DarkOrchid3'],
+    \ ['135',    'firebrick3'],
+    \ ['81',   'RoyalBlue3'],
+    \ ['166',    'SeaGreen3'],
+    \ ['67',     'DarkOrchid3'],
+    \ ['226',      'firebrick3'],
+    \ ]
+" outermost parens is last entry
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
@@ -539,6 +632,22 @@ autocmd BufReadPost *
  \ endif
 " Remember info about open buffers on close
 set viminfo^=%
+
+
+"function! FeedVisualCmd(cmdpat)
+    "let [qr, qt] = [getreg('"'), getregtype('"')]
+    "silent norm! gvy
+    "let cmd = printf(a:cmdpat, shellescape(@"))
+    "call setreg('"', qr, qt)
+    ""echo system(cmd)
+    "let res = system(cmd)
+    ""read res
+    "if v:shell_error
+        "echohl ErrorMsg | echom 'Failed to run ' . cmd | echohl NONE
+    "endif
+"endfunction
+"" (geo) Locate
+"vnoremap <leader>l :<c-u>call FeedVisualCmd('./addr2latlng.coffee "%s"')<cr>
 
 "-- Obscure overrides of Vim builtins --------------------------------
 
