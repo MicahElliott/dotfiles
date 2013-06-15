@@ -1,13 +1,9 @@
 " ruby
 "
 "echo "Loading Micah's ruby plugin..."
+"sleep 1
 
-set tabstop=2
-set shiftwidth=2
-set autoindent
-set expandtab
-set textwidth=72
-set nospell
+source ~/.vim/ftplugin/defaults.vim
 
 " These don't quite work; simple full words get used often in comments.
 "iabbrev def def<CR>end<Esc>kA

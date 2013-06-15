@@ -25,11 +25,6 @@ hgrep() { history |grep --color=auto "$1"; }
 pygrep() { egrep --color=auto "$@" *.py; }
 plgrep() { egrep --color=auto "$@" *.pl *.pm; }
 
-re-aliases() {
-    . $my_zshdir/aliases.sh
-    . $my_zshdir/aliases.zsh
-}
-
 re-comps() {
   # Pain to test
   rm ~/.zcompdump
@@ -302,7 +297,7 @@ chpwd_functions+=gitenter
 mc() { mvn clean   $@ 2>&1 |mvn-hilite.awk }  # delete build output
 mt() { mvn test    $@ 2>&1 |mvn-hilite.awk }  # run unit tests
 mi() { mvn install $@ 2>&1 |mvn-hilite.awk }  # artifact to local repo
-md() { mvn deploy  $@ 2>&1 |mvn-hilite.awk }  # project documentation
+#md() { mvn deploy  $@ 2>&1 |mvn-hilite.awk }  # project documentation
 ms() { mvn site    $@ 2>&1 |mvn-hilite.awk }  # project documentation
 
 # http://www.zsh.org/mla/users/2011/msg00527.html
@@ -317,6 +312,10 @@ gi() { gem install $@; rbenv rehash; rehash }
 # Initialize rbenv.
 # Too slow to do for every shell by default so making manual.
 rbi() { eval "$(rbenv init -)" }
+
+# nvm: a little slow
+ni()  { [[ -s ~/.nvm/nvm.sh ]] && . ~/.nvm/nvm.sh }
+jsi() { [[ -s ~/.nvm/nvm.sh ]] && . ~/.nvm/nvm.sh }
 
 # Create a gemset.
 rbg() {
@@ -433,3 +432,5 @@ compstatus() { print "words: $words\nCURRENT: $CURRENT\n" |osd_cat -d1 -s1 }
 # Recent downloads
 dl()  { print ~/Downloads/*(.om[0,1])  }
 dlx() { print ~/Downloads/*(.om[0,$1]) }
+
+md() { mkdir $1; cd $1 }

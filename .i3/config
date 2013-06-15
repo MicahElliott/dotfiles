@@ -17,16 +17,22 @@ exec xset r rate 250 60 # super fast delay and rate!
 # NOTE: some of these are being set in .xinitrc; could maybe move some here.
 
 # Keyboard indicator icon; always on wrong statusbar
-#exec fbxkb
-
-# Seems to work but stupid icon is too big so doesn't show up!
-#exec nm-applet
+exec fbxkb
 
 # Too simple maybe?
 #exec volumeicon
-
 # Wow, fancy!
 exec volti
+
+# New from .xinitrc
+exec parcellite
+exec nm-applet
+#exec wicd-client
+exec batti
+exec gatotray
+# FIXME: check to see if this works, like in .xinitrc
+exec eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
+exec stty -ixon
 
 # Too big and no real controls.
 #exec gvolwheel
@@ -44,8 +50,11 @@ font -misc-orp-bold-r-*--*-*-*-*-*-*-iso10646-1
 #font -*-tamsyn-bold-*-*-*-20-*-*-*-*-*-*-*
 
 # Volume control
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 2+ unmute
-bindsym XF86AudioLowerVolume exec amixer -q set Master 2- unmute
+# http://blog.bstpierre.org/controlling-audio-with-i3
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -- -5%
+#bindsym XF86AudioRaiseVolume exec amixer -q set Master 2+ unmute
+#bindsym XF86AudioLowerVolume exec amixer -q set Master 2- unmute
 bindsym XF86Battery exec ~/bin/pm.zsh
 
 focus_follows_mouse no
@@ -68,7 +77,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+Q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec dmenu_run -b -nb red
 
 # change focus
 bindsym $mod+h focus left
@@ -229,7 +238,7 @@ bindsym $mod+b border toggle
 #new_window 1pixel
 # NEW
 #new_window pixel 2 # awesome if it works!
-new_window pixel 3
+new_window pixel 2
 
 #                       border  background  text
 #client.focused           #2B6473 #2B6473 #FFA000
@@ -294,3 +303,5 @@ for_window [class="(?i)feh"] floating enable; border normal
 for_window [class="(?i)smplayer"] floating enable; border normal
 for_window [class="(?i)vlc"] floating enable; border normal
 for_window [class="(?i)nautilus"] border normal
+for_window [class="(?i)xvidcap"] floating enable; border normal
+for_window [title=".* Pinboard - Save a Bookmark - Aurora"] floating enable; border normal

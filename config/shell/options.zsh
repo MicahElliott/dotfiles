@@ -83,10 +83,10 @@ autoload run-help
 # https://github.com/zsh-users/zsh-syntax-highlighting/tree/master/highlighters
 # Options:
 # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/highlighters/main/main-highlighter.zsh
-source /usr/share/zsh/plugins/zsh-syntax-highlight/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_HIGHLIGHTERS=( main brackets pattern )
 # Hmm, just basic colors? rgybmc
-ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=yellow
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=cyan
 ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=bold
 ZSH_HIGHLIGHT_STYLES[back-quoted-argument]=fg=yellow
 ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=yellow
@@ -114,6 +114,7 @@ autoload -Uz colors; colors
 # Set prompt to random color.
 #prompt balance $(( $RANDOM % 9 ))
 prompt balance black
+#prompt wunjo
 #prompt off
 
 autoload zmv
@@ -141,18 +142,21 @@ bindkey '^K' insert-composed-char  # same as vim
 # Insert an mc3 query.
 #insert_query () { zle beginning-of-line; zle -U "mc3q '{}' _id" }
 #insert-mc3q() { LBUFFER="opts=--csv mc3q '{"; RBUFFER=":\"\"}' _id |csv2tsv.rb S" }
-insert-mc3q() { LBUFFER="opts=--csv mc3q '{"; RBUFFER="://i}' _id |csv2tsv.rb S" }
+insert-mc3q() { LBUFFER="opts=--csv mc3q '{\""; RBUFFER="\"://i, abandon:{\$ne:true}}' _id TSV" }
 zle -N insert-mc3q
 bindkey '^f' insert-mc3q
 insert-mc3s() { LBUFFER="mc3s "; RBUFFER=" J" }
 zle -N insert-mc3s
 bindkey '^[f' insert-mc3s
-bindkey '^[s' insert-mc3s
 # Calculator
 insert-calc() { LBUFFER='p $(('; RBUFFER='))' }
 zle -N insert-calc
 #bindkey '^f' insert-mc3q
 bindkey '^[c' insert-calc
+# Sed
+insert-sed() { LBUFFER+="s 's/" RBUFFER="//'" }
+zle -N insert-sed
+bindkey '^[s' insert-sed
 
 # Set vi mode.
 #bindkey -e

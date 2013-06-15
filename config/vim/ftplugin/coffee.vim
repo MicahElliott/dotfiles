@@ -1,6 +1,6 @@
 " coffee
 
-source ~/.vim/ftplugin/ruby.vim
+source ~/.vim/ftplugin/defaults.vim
 
 ab cl console.log
 ab pr process.

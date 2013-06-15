@@ -7,8 +7,6 @@
 # ???: Maybe didn't want anything to look like DOS.
 unset USERNAME
 
-my_zshdir=~/config/shell
-
 HISTIGNORE='k:ls:lm:bg:fg:jobs:pwd:kill:declare:history:cd:cd :&: *:'
 HISTSIZE=20000
 HISTFILESIZE=$HISTSIZE
@@ -44,16 +42,16 @@ export LESS_TERMCAP_se=$'\e[0m'           # end
 
 export READNULLCMD=less
 
-export EMAIL="mde@MicahElliott.com"
+export EMAIL=$my_email
 export REPLYTO=$EMAIL
-export HGUSER="Micah Elliott ($(hostname -s)) <mde@MicahElliott.com>"
+export HGUSER="$my_fullname ($(hostname -s)) <$my_email>"
 export HGMERGE=vimdiff
 export HGEDITOR=hgeditor
 export INPUTRC=~/.inputrc
 
 # Python
 #export PYTHONPATH="$HOME/local/lib/python:$HOME/local/lib/python/site-packages:$HOME/local/lib/python2.6/site-packages:$HOME/contrib/lib:."
-# Micah's personal python modules.
+# My personal python modules.
 #export PYTHONPATH=$PYTHONPATH:"$HOME/lib/python"
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export VIRTUALENV_USE_DISTRIBUTE=1
@@ -100,8 +98,18 @@ export RUBYLIB=$HOME/proj/Membean/misc/bin
 
 # rbenv
 export PATH=$HOME/.rbenv/bin:$PATH
-# SLOW!!
+# SLOW!! Does a rehash.
 #eval "$(rbenv init -)"
+
+# chruby, completion, autoswitching (installed via yaourt)
+source /usr/share/chruby/chruby.sh
+RUBIES=( ~/.rbenv/versions/* )
+export RUBIES
+# https://github.com/postmodern/chruby/issues/27#issuecomment-16911865
+compctl -g '~/.rbenv/versions/*(:t)' chruby
+source /usr/share/chruby/auto.sh
+
+# nvm: See ni/jsi funcs. Just a little too slow for every shell.
 
 # Node http://tnovelli.net/blog/blog.2011-08-27.node-npm-user-install.html
 export PATH=$HOME/.local/bin:$PATH
@@ -128,6 +136,8 @@ export MB_YAML=$HOME/proj/Membean/mb-cont-yaml
 
 # Android SDK
 #export PATH=$PATH:$HOME/opt/android-sdk-linux_86/tools
+export PATH=$PATH:/opt/android-sdk/platform-tools
+export PATH=$PATH:/opt/android-sdk/tools
 
 # Recent Groovy
 #export PATH=$HOME/opt/groovy-1.8.1/bin:$PATH
@@ -186,7 +196,7 @@ dict=/usr/share/dict/american-english
 #    trap "kill $SSH_AGENT_PID" 0
 #fi
 
-#export JENKINS_USER=micah
+#export JENKINS_USER=$my_fname
 
 export SRM_REMOTE=1
 

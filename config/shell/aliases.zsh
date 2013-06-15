@@ -3,6 +3,7 @@
 
 ### Programs to auto-run per extension.
 # So just putting "foo.txt" on CLI will expand to "vim foo.txt"
+# See ~/.dircolors for many more
 alias -s txt=vim
 alias -s mkd=vim
 alias -s csv=vim
@@ -31,6 +32,7 @@ alias -s feature='cucumber'
 alias h=run-help
 
 alias de='vared dirstack'
+alias dired='vared dirstack'
 
 ### Globals
 alias -g A='| a'
@@ -45,3 +47,5 @@ alias -g P='| $PAGER'
 alias -g S='| sort -n'
 alias -g T='| tail'
 alias -g U='| uniq'
+alias -g TSV="|sed -rn '2,$ p' |csv2tsv.rb S"
+#alias -g TSV='|sn "2,$p" |csv2tsv.rb'

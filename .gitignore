@@ -17,6 +17,8 @@
 /node_modules
 /perl5
 /Music
+/archive
+/VirtualBox VMs
 
 # Specific files
 tags
@@ -63,6 +65,8 @@ mde.*
 .mongorc.js
 .passwd-s3fs
 .rnd
+.fontpage
+.gtk*
 
 # Dot *dirs*
 .*/

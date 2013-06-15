@@ -1,5 +1,8 @@
 ######################################################################
 # Aliases
+
+# DILEMMA: Sometimes we need functions to do the job when an alias
+# won't suffice. So should aliases and functions files be combined??
 ######################################################################
 
 ### Highest importance, 1-char shortcuts.
@@ -9,6 +12,7 @@ alias a='awk'
 # C -- cat/pygmentize
 # None seem to have markdown support
 alias c='/usr/bin/coderay' # uses bold unlike pygmentize
+alias c2='python3 =pygmentize'
 #alias c='pygmentize'
 #alias c='src-hilite-lesspipe.sh'
 # D -- dirs
@@ -44,6 +48,7 @@ disable r
 alias s='sed -r'
 alias sn='sed -nr'
 # T -- tree
+#alias t='tree *~node_modules'
 alias t='tree'
 # V -- edit (see func)
 # W -- command info
@@ -55,43 +60,7 @@ alias x='exit'
 # Y -- yaourt package manager
 alias y=yaourt
 
-alias rb=rbenv
-alias ru=ruby
-alias rl=bin/rails
-alias rk=bin/rake
-alias rs=bin/rspec
-# See function
-#alias rg=bin/guard
-alias cu=cucumber
-alias rbw='rbenv which'
-alias rbwa='rbenv whence'
-
-alias go=$BROWSER
-
-alias zg='zgrep -E --color=always'
-
-alias sl='slocate'
-
-alias el='elinks -no-numbering -no-references -dump-width 200 -dump'
-alias dump=el
-
-# Masks the ss socket tool.
-alias ss2='gnumeric'
-alias ss='soffice --calc'
-
-alias ec='ebook-convert'
-
-# DILEMMA: Sometimes we need functions to do the job when an alias
-# won't suffice. So should aliases and functions files be combined??
-
-alias hi=history
-# Read shared global history's missing recent entries.
-# Won't remember if "history load" or "history read" so creating both.
-# Don't need a history write alias, thanks to incappendhistory option.
-alias hr='fc -RI'
-alias hl='fc -RI'
-alias hg='histgrep.zsh' # masking mercurial, oh well
-
+### Listing
 # Make all ls have color.
 alias ls='ls --color=auto'
 # Micah's custom ls.
@@ -112,42 +81,15 @@ alias ltc='ls -l --time=ctime'
 alias lta='ls -l --time=atime'
 alias ltm='ls -l --time=mtime'
 alias lmp='ls -lBX *.py'
-#alias mc='make clean'
-#alias mn='make -n'
-alias cdl='cd -l'
-alias cde='vim -o2 .enterrc .exitrc'
-#alias c=wcd
-alias pu='pushd'
-alias po='popd'
-alias clean="rm -f *~ .*~ core *.bak"
-alias gdb='gdb -silent'
-alias info='info --vi-keys'
-alias view='vim -R'
-#alias v='export VIMTAGS=$(pwd)/tags'
-alias cx='chmod +x'
-#alias less='vimpager'
-alias less='less'
 alias tree='tree -C --charset utf8'
-alias elinks='TERM=xterm-256color elinks'
 
-alias pg='pgrep'
-alias pk='pkill'
-alias spk='sudo pkill'
-
-alias tm='tmux'
-# Each slime wants its own socket.
-tmn() { tmux -L $PWD:t new }
-
-# Latest download, see also "latest" func.
-#alias dl='ls "$HOME/Downloads/$(ls -rt $HOME/Downloads/ |tail -1)"'
-
-# rubygems
+### Ruby
+#   Rubygems
 ##alias gs='gem search -r --details' # Too slow
 alias gs='gem search -r'
 # See functions for "gi" equivalent.
 #alias gi='gem install'
-
-# bundler
+#   Bundler
 # http://ryan.mcgeary.org/2011/02/09/vendor-everything-still-applies/
 # http://stackoverflow.com/a/9791080/326516
 alias b="bundle"
@@ -158,15 +100,44 @@ alias bu="b update"
 alias be="b exec"
 alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
 
-# Be safe. Unfortunate that stupid --no-clobber won't error when avoiding overwrite.
-alias mv='mv -i'
-alias cp='cp -i'
+alias ri='ri -f ansi'
+alias rb=rbenv
+alias chr=chruby
+alias rv=chruby
+alias ru=ruby
+alias rl=bin/rails
+alias rk=bin/rake
+alias rs=bin/rspec
+#alias rg=bin/guard # see function
+alias cu=cucumber
+alias rbw='rbenv which'
+alias rbwa='rbenv whence'
 
+### Node/JavaScript
+alias jg=grunt
+alias jb=brunch
+alias nv=nvm
+# Node with rlwrap
+# http://blog.doteight.com/blog/2011/01/16/rlwrap-and-node/
+alias node='NODE_NO_READLINE=1 rlwrap -pgreen -S "node> " node'
+alias coffee='NODE_NO_READLINE=1 rlwrap -pyellow -S "coffee> " coffee'
+alias cs=coffee
+alias jsh=jshon
+alias lsc='livescript -d'  # include prelude
+
+### Archlinux
 # pacman/packer shortcuts
 # OOPS: The --noedit kills zsh completion
 #alias packer='packer --noedit'
-alias pm='packer --noedit'
+#alias pm='packer --noedit'
+alias sc='sudo systemctl'
+# Better -S-completion than yaourt
+alias pm='sudo pacman'
+alias yao='yaourt --noconfirm'
+alias sl='slocate'
+alias up='sudo updatedb'
 
+### Ubuntu
 # apt-* shortcuts
 # Will make a good blog post. Note these won't tab-complete in bash.
 # Maybe should just use aptitude for everything? This article says to:
@@ -195,10 +166,12 @@ alias day="date '+%Y%m%d'"
 alias dt='date "+%Y%m%d"'
 alias dt-='date -I'
 alias dd='date -d'  # okay to mask dd since use infrequently
+alias dt2="date-iso2bson.rb <<<\"'`dt-`'\""
 
 alias mp='mplayer'
 alias vp='smplayer'
 
+### Git
 # VCS commands are 2 chars.
 # NOTE: it would be better to have these as functions that knew which
 # VCS to apply to, but only aliases are smart enough to complete well.
@@ -233,15 +206,7 @@ alias dfe='dotfiles fetch -v'
 alias dls='dotfiles ls-files'
 alias dign='comm -13 <(dls $(p .*(.))|sort) <(p .*(.)|sort)'  # ignored files
 
-alias ri='ri -f ansi'
-alias top='htop -d 5'
-
-# Vim-like
-alias pw=pwd
-alias se=setopt
-
-alias mysql='mysql --auto-rehash'
-
+### Python
 # VirtualEnvWrapper (see .../virtualenvwrapper.sh)
 # Seems pretty silly that ~8 ve/vewrapper commands all get shoved into
 # global path space with no name cohesion; hence these aliases.
@@ -268,18 +233,82 @@ alias ve-cdve='cdvirtualenv'
 # Note that all the Python bootstrapping packaging utils get
 # sudo-installed globally into /usr/local/bin.
 
+### Vim
 # Editing of config stuff.
 alias vi-shell='v -S ~/config/shell/Session.vim'
 alias vi-mbg='v -S ~/proj/Membean/Session.vim'
 alias vi-sudo='sudoedit'
 
-alias re-env=". $my_zshdir/envars.sh"
-alias re-funcs=". $my_zshdir/functions.sh"
-# Moved to function to enable re-sourcing both alias files.
-#alias re-aliases=". $my_zshdir/aliases.sh"
-alias re-opts=". $my_zshdir/options.zsh"
+alias view='vim -R'
+# Vim-like
+alias pw=pwd
+alias se=setopt
+#alias v='export VIMTAGS=$(pwd)/tags'
+
+### Shell
+alias re-env=". $my_shdir/envars.sh"
+alias re-funcs=". $my_shdir/functions.sh"
+re-aliases() { . $my_shdir/aliases.sh; . $my_shdir/aliases.zsh }
+alias re-opts=". $my_shdir/options.zsh"
 
 alias fn='declare -f'
+
+alias hi=history
+# Read shared global history's missing recent entries.
+# Won't remember if "history load" or "history read" so creating both.
+# Don't need a history write alias, thanks to incappendhistory option.
+alias hr='fc -RI'
+alias hl='fc -RI'
+alias hg='histgrep.zsh' # masking mercurial, oh well
+
+alias cdl='cd -l'
+alias cde='vim -o2 .enterrc .exitrc'
+#alias md=mkdir
+alias rd=rmdir
+#alias c=wcd
+alias pu='pushd'
+alias po='popd'
+alias cx='chmod +x'
+
+### Other
+alias clean="rm -f *~ .*~ core *.bak"
+alias info='info --vi-keys'
+
+alias zg='zgrep -E --color=always'
+
+alias el='elinks -no-numbering -no-references -dump-width 200 -dump'
+alias dump=el
+
+alias ss2='gnumeric'
+alias ss='soffice --calc'  # masks the ss socket tool.
+
+alias ec='ebook-convert'
+
+alias gdb='gdb -silent'
+#alias less='vimpager'
+alias less='less'
+alias elinks='TERM=xterm-256color elinks'
+
+#alias mc='make clean'
+#alias mn='make -n'
+
+alias pg='pgrep'
+alias pk='pkill'
+alias spk='sudo pkill'
+
+# Be safe. Unfortunate that stupid --no-clobber won't error when avoiding
+# overwrite.
+alias mv='mv -i'
+alias cp='cp -i'
+
+alias tm='tmux'
+# Each slime wants its own socket.
+tmn() { tmux -L $PWD:t new }
+
+# Latest download, see also "latest" func.
+#alias dl='ls "$HOME/Downloads/$(ls -rt $HOME/Downloads/ |tail -1)"'
+
+alias top='htop -d 5'
 
 alias mkf="mkfifo $TMPDIR/refresher.fifo && cat > $TMPDIR/refresher.fifo &"
 
@@ -291,11 +320,17 @@ alias trash-empty=empty-trash
 alias trash-list=restore-list
 alias trash-auto=autotrash
 
-# Node with rlwrap
-# http://blog.doteight.com/blog/2011/01/16/rlwrap-and-node/
-alias node='NODE_NO_READLINE=1 rlwrap -pgreen -S "node> " node'
-alias coffee='NODE_NO_READLINE=1 rlwrap -pyellow -S "coffee> " coffee'
-alias cs=coffee
-alias jsh=jshon
+alias ta='tabs 16'
 
 alias printerconfig=system-config-printer
+
+alias xl=xlsxcat.zsh
+
+alias shoot='scrot -s'
+alias ssr='simplescreenrecorder'
+alias vidcap='simplescreenrecorder'
+
+alias go=$BROWSER
+alias ch='chromium --disable-web-security'
+
+alias mysql='mysql --auto-rehash'

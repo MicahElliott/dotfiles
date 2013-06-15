@@ -201,6 +201,7 @@ Bundle 'MarcWeber/vim-addon-mw-utils.git'
 Bundle 'jeetsukumaran/vim-buffergator.git'
 Bundle 'vim-scripts/VimClojure.git'
 Bundle 'kchmck/vim-coffee-script.git'
+Bundle 'gkz/vim-ls.git'
 Bundle 'rson/vim-conque.git'
 Bundle 'henrik/vim-indexed-search.git'
 Bundle 'vim-scripts/vim-json-bundle.git'
@@ -226,6 +227,7 @@ Bundle 'git@gist.github.com:3049202.git'
 Bundle 'git@gist.github.com:720355.git'
 " Special comments support to v3.0.6 for vim python syntax.
 "Bundle 'git@gist.github.com:735852.git'
+
 
 filetype plugin indent on     " required!
 
@@ -272,6 +274,8 @@ let g:buffergator_viewport_split_policy = "L" "left
 
 " CtrlP
 "set wildignore+=*/tmp*,*.swp,/vendor
+set wildignore+=*/node_modules/*,*/build/*,*/components/*,*/_public/*,*/tmp/*
+"let g:ctrlp_custom_ignore = '\v[\/]node_modules$'
 let g:ctrlp_use_caching = 1
 let g:ctrlp_dotfiles = 1
 let g:ctrlp_max_depth = 6
@@ -287,10 +291,11 @@ let g:ctrlp_extensions = ['dir']
 " Open *h*orizontally and *j*ump to first win.
 let g:ctrlp_open_multiple_files = 'hj'
 " Use <C-d> to toggle
-let g:ctrlp_by_filename = 1
+"let g:ctrlp_by_filename = 1
 
 " Set root to CWD. Another good option is 'r' for VCS mode.
 let g:ctrlp_working_path_mode = 0
+"let g:ctrlp_working_path_mode = 'c'
 "let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files']
 "let g:ctrlp_user_command = {
   "\ 'types': {
@@ -386,7 +391,7 @@ let @j='A:Ja'
 "let @s='/stages:WJJla, [ ]hi "", ""'
 let @s='/stages:OW%ok%JJla, ["", "", ""imicahBhhhA ]BBBl'
 let @n='/notes:WC[[]]hi"", "", ""imicahBBBlll'
-let @a="0f:ll%hi, ['', '', '']%ll"
+let @a="0f:ll%hi, ['', \"\", '']%ll"
 
 let @l='/address: Wlv$hhy:r !./addr2latlng.coffee """I  geoloc: '
 

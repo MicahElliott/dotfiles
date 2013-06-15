@@ -2,18 +2,25 @@
 # .zshrc
 ######################################################################
 
-# Two good reasons for splitting into files, instead of big unified
-# .zshrc:
+# Two reasons for splitting into files, instead of big unified .zshrc:
 #
-#   1. Can separate different things for different shells (zsh, bash)
+# 1. Can separate different things for different shells (zsh, bash)
 #
-#   2. Can have a “reload” util that just re-source-s a subset of the
-#      files.
+# 2. Can have a “reload” util that just re`source`s a subset of the files.
 #
-# Using convention that ‘my_*’ vars are things that I have set.
+# Using convention that ‘my_*’ vars are globally visible things that I have
+# set.
+#
+# Noticed that archlinux et al do the same type of `source`ing of worker
+# scripts in /etc/profile and /etc/profile.d/
 
 # Timing
 ##zmodload zsh/zprof
+
+# Specifics for user, to set subsequent envars
+my_fname=micah
+my_email='mde@micahelliott.com'
+my_fullname='Micah Elliott'
 
 my_shdir=~/config/shell
 
@@ -32,14 +39,13 @@ my_configs=(
 # Time the stuff.
 integer t0=$(date '+%s')
 
-#setopt noclobber
-
 # Source all the Zsh-specific and sh-generic files.
 for f in $my_configs; do
     [[ -f $my_shdir/$f ]] && . $my_shdir/$f
 done
+unset f
 
-# Site-specific.
+# Site-specific
 _siterc="$my_shdir/$(hostname -s).sh"
 [[ -f $_siterc ]] && . $_siterc || :
 unset _siterc

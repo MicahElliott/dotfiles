@@ -9,7 +9,11 @@ xlsxs=( $argv[1,-1] )
 
 for x in $xlsxs; do
   csv=$x:r.csv
-  print '='$x:r
-  ssconvert $x $csv &>/dev/null
-  cat $csv
+  # Use -S for multiple worksheets? Will create csv.0, csv.1, ...
+  ssconvert -S $x $csv &>/dev/null
+  # Assume never more than 10 sheets!
+  for c in $csv.<0-9>; do
+    print '='$c
+    cat $c
+  done
 done

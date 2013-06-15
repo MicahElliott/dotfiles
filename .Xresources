@@ -1,0 +1,6 @@
+! http://superuser.com/questions/243914/xresources-or-xdefaults
+
+! https://github.com/tlatsas/xcolors
+! Nancy theme has 10x settings of others, most of 256
+#include "contrib/x/xcolors/themes/nancy"
+!#include "archive/src/xcolors/themes/tangoesque"

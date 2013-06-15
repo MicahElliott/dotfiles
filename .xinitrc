@@ -1,11 +1,8 @@
-#!/bin/bash
+2013-06-12#!/bin/bash
 
 # .xinitrc — Called by startx
 #
 # LOTS OF IMPORTANT X SETTINGS NECESSARILY HAPPEN IN ~/.i3/config
-
-# Original ArchBang config.
-#exec ck-launch-session dbus-launch openbox-session
 
 export DE=i3
 
@@ -17,12 +14,12 @@ xset +fp ~/gitcontainer/projects/orp-font/misc
 xset +fp /usr/share/fonts/local
 
 # Seems to have no effect.
-#setxkbmap -option grp:switch,grp:shifts_toggle,grp_led:scroll us,eo,it
+###setxkbmap -option grp:switch,grp:shifts_toggle,grp_led:scroll us,eo,it
 
 # For transparentcy see: https://wiki.archlinux.org/index.php/Xcompmgr
 # Though that may hog cpu, so not doing for now.
-#xcompmgr -c &
-#transset-df .8
+###xcompmgr -c &
+###transset-df .8
 
 # To see all the xmodmap mappings: xmodmap -pke
 
@@ -37,7 +34,7 @@ xmodmap -e "remove asciitilde = asciitilde"
 xmodmap -e "remove Alt = Alt_R"
 xmodmap -e "keysym Alt_R = grave asciitilde"
 xmodmap -e "keycode 49 = Escape"
-#xmodmap -e "add Alt = grave asciitilde"
+###xmodmap -e "add Alt = grave asciitilde"
 
 # Other keys worth thinking about switching.
 # Use xev to see keycodes/keysyms. On ario:
@@ -51,16 +48,16 @@ xmodmap -e "keycode 49 = Escape"
 
 # Clipboard manager. parcellite and clipit both work, but parcellite
 # has useful tray icon.
-#clipit &
-parcellite &
+###clipit &
+#parcellite &
 
 # XXX: KEYCHAIN WAS HERE
 
-udiskie &
+#udiskie &
 
 # these needed to be in .i3/config
 #trayer --edge top --align right --SetDockType true --expand true --width 6 --transparent true --alpha 0 --tint 0x000000 --height 16 &
-nm-applet &
+#nm-applet &
 #wicd-client &
 
 # IM client (mem hog)
@@ -68,27 +65,29 @@ nm-applet &
 
 # Battery monitor. Both batti and batterymon seem to work well.
 # batti's icon is more readable in small i3status bar.
-#batterymon
-batti &
+###batterymon
+#batti &
 
 # CPU frequency. Wish it would do htop. Not sure why load is getting
 # high (0.4+), despite gatotray saying quiescent.
-gatotray &
+#gatotray &
 
-#feh --bg-fill /usr/share/archwall/Arch-Black.png
-feh --bg-fill ~/Pictures/transcat.jpg
+###feh --bg-fill /usr/share/archwall/Arch-Black.png
+#feh --bg-fill ~/Pictures/transcat.jpg
 # Supposedly nitrogen is better than feh for multiple screens.
-#nitrogen --restore &
+###nitrogen --restore &
 
-#eval $(ssh-agent)
-eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
+###eval $(ssh-agent)
+#eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
 
 # Kill <C-s> terminal pause
 # http://stackoverflow.com/questions/791765/unable-to-forward-search-bash-history-similarly-as-with-ctrl-r
-stty -ixon
+#stty -ixon
 
-#exec i3
 # ConsoleKit needed for some perms, like automount USBs.
 # http://igurublog.wordpress.com/downloads/script-devmon/#install
-#source /etc/X11/xinit/xinitrc.d/30-dbus
-exec ck-launch-session dbus-launch i3
+# But now consolekit is deprecated for systemd-loginctl:
+# https://wiki.archlinux.org/index.php/ConsoleKit
+###source /etc/X11/xinit/xinitrc.d/30-dbus
+###exec ck-launch-session dbus-launch i3
+exec i3
