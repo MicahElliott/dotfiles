@@ -31,5 +31,7 @@ function! MarkdownLevel()
     endif
     return "="
 endfunction
-au BufEnter *.md setlocal foldexpr=MarkdownLevel()
-au BufEnter *.md setlocal foldmethod=expr
+
+" Turning off folding for now.
+"au BufEnter *.md setlocal foldexpr=MarkdownLevel()
+"au BufEnter *.md setlocal foldmethod=expr

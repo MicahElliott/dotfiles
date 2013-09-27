@@ -1,5 +1,7 @@
 " sh.vim
 
+"source ~/.vim/ftplugin/defaults.vim
+
 "echo "in mde's sh.vim"
 "sleep 2
 
@@ -27,7 +29,7 @@ set shiftwidth=2
 set tabstop=2
 
 " Insert <EOL> when reaching this column
-set textwidth=0
+"set textwidth=0
 
 " Display long lines wrapped
 set wrap

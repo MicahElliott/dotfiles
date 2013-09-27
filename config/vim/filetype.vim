@@ -13,7 +13,7 @@ augroup filetypedetect
   au! BufRead,BufNewFile *.docbook,*.docbk,*.db setfiletype docbook
   au! BufRead,BufNewFile *.ron,*.ronn,README setfiletype markdown
   au! BufRead,BufNewFile *.eo  setfiletype eo
-  au! BufRead,BufNewFile *.cljs  setfiletype clojure
+  au! BufRead,BufNewFile *.cljs,*.wisp  setfiletype clojure
   au Bufenter,Bufnewfile *.clj setl complete+=k~/.clj_completions
   au! BufRead,BufNewFile *.cson,*.cf,*.cs,*.co setfiletype coffee
   " Zsh's syntax file is inferior to sh. Also need to make it think it's
@@ -24,6 +24,7 @@ augroup filetypedetect
   "au! BufWrite *.sass         !compass
   au! BufRead,BufNewFile *.tmp  set filetype=text | set textwidth=0
   au! BufRead,BufNewFile *.clst  set filetype=clst
+  au! BufRead,BufNewFile *.cd  set filetype=cd  " guitar chord files
   au! BufRead,BufNewFile *.blade  set filetype=jade
   au! BufNewFile,BufRead *.emblem set filetype=slim
 augroup END

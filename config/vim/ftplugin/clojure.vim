@@ -1,6 +1,6 @@
 " clojure
 
-source ~/.vim/syntax/comments.vim
+"source ~/.vim/syntax/comments.vim
 
 set keywordprg=~/bin/mdeslime.zsh
 
