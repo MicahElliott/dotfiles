@@ -21,6 +21,13 @@ if [[ $font == big ]]; then
   size=18
   ubuspec="xft:Ubuntu Mono:pixelsize=18"
   #printf '\33]50;%s\007' $ubuspec
+
+  # /usr/share/fonts/TTF/SourceCodePro-Medium.ttf
+  # Not enough difference between bold and med, and a little too wide.
+  #printf '\033]710;xft:Source Code Pro:pixelsize=18\007'
+  #printf '\033]711;xft:Source Code Pro:pixelsize=18:bold\007'
+  #printf '\033]712;xft:Source Code Pro:pixelsize=18:italic\007'
+  #printf '\033]713;xft:Source Code Pro:pixelsize=18:italic\007'
   printf '\033]710;xft:Ubuntu Mono:pixelsize=18\007'
   printf '\033]711;xft:Ubuntu Mono:pixelsize=18:bold\007'
   printf '\033]712;xft:Ubuntu Mono:pixelsize=18:italic\007'
