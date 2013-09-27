@@ -1,5 +1,5 @@
 #! /usr/bin/env coffee
 
-# DESCRIPTION — XXX
+# NAME — DESCRIPTION...
 
 console.log process
