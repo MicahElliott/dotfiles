@@ -12,7 +12,11 @@ set editing-mode vi
 
 # Enable ALT in gnome-terminal, for vim tabbing.
 # OOPS: it still does not work.
-set convert-meta on
+#set convert-meta on
+
+# Enable 8-bit latin1. Big problem with any repl needing latin1 for umlauts
+# etc. http://www.softpanorama.org/Scripting/Shellorama/inputrc.shtml
+set convert-meta off
 
 # Only require 1 tab for completion.
 set show-all-if-ambiguous on

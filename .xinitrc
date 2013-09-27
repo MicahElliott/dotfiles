@@ -1,4 +1,4 @@
-2013-06-12#!/bin/bash
+#!/bin/bash
 
 # .xinitrc — Called by startx
 #
@@ -26,15 +26,20 @@ xset +fp /usr/share/fonts/local
 # Swap Caps_Lock and Control_L.
 xmodmap -e "remove Lock = Caps_Lock"
 xmodmap -e "keysym Caps_Lock = Control_L"
-xmodmap -e "add Control = Control_L"
+xmodmap -e "add    Control = Control_L"
 
 # Swap grave/asciitilde into Alt_R with Escape.
-xmodmap -e "remove grave = grave"
-xmodmap -e "remove asciitilde = asciitilde"
-xmodmap -e "remove Alt = Alt_R"
-xmodmap -e "keysym Alt_R = grave asciitilde"
+xmodmap -e "remove  grave = grave"
+xmodmap -e "remove  asciitilde = asciitilde"
+xmodmap -e "remove  Alt = Alt_R"
+xmodmap -e "keysym  Alt_R = grave asciitilde"
 xmodmap -e "keycode 49 = Escape"
 ###xmodmap -e "add Alt = grave asciitilde"
+
+# Compose key: Control_R
+# http://superuser.com/questions/311612/how-to-get-alt-nnnn-keyboard-shortcuts-to-work-under-linux
+#xmodmap -e "keycode 105 = Multi_key"
+xmodmap -e "keysym Control_R = Multi_key"
 
 # Other keys worth thinking about switching.
 # Use xev to see keycodes/keysyms. On ario:
@@ -77,8 +82,14 @@ xmodmap -e "keycode 49 = Escape"
 # Supposedly nitrogen is better than feh for multiple screens.
 ###nitrogen --restore &
 
+# https://wiki.archlinux.org/index.php/PulseAudio
+# and use `pamixer -- increase 10` (or ponymix)
+/usr/bin/start-pulseaudio-x11
+
 ###eval $(ssh-agent)
 #eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
+eval $( gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh )
+export GNOME_KEYRING_CONTROL SSH_AUTH_SOCK GPG_AGENT_INFO
 
 # Kill <C-s> terminal pause
 # http://stackoverflow.com/questions/791765/unable-to-forward-search-bash-history-similarly-as-with-ctrl-r

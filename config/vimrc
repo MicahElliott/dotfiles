@@ -19,7 +19,8 @@ endif
 set exrc          " use local .exrc file
 set autowrite     " autosave before changing window or shellcmd
 set ignorecase  " search case sensitive
-set tabstop=2     " tab 4 chars (ts)
+"set tabstop=2     " tab 4 chars (ts)
+set tabstop=40     " tab 4 chars (ts)
 set shiftwidth=2  " autoindent to 4 chars
 set expandtab
 set nobackup
@@ -58,6 +59,8 @@ set nrformats-=octal  " Enable in/decrementing with ^A/^X with leading 0s
 set lazyredraw    " Don't redraw while executing macros (better performance)
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
+
+set noswapfile
 
 "set relativenumber
 " Cool, but messes up urxvt copying (extra trailing spaces)
@@ -207,6 +210,7 @@ Bundle 'henrik/vim-indexed-search.git'
 Bundle 'vim-scripts/vim-json-bundle.git'
 Bundle 'tpope/vim-liquid.git'
 Bundle 'MicahElliott/vim-powerline.git'
+Bundle 'stephenmckinney/vim-solarized-powerline'
 Bundle 'jpalardy/vim-slime.git'
 " Visual block editing (mirror):
 " http://vim.wikia.com/wiki/Applying_substitutes_to_a_visual_block
@@ -307,6 +311,7 @@ let g:ctrlp_working_path_mode = 0
 
 " NERDCommenter
 let g:NERDCreateDefaultMappings = 0
+let g:NERDTreeWinSize = 22
 
 " EnhancedCommentify visual bindings:
 " http://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim
@@ -350,6 +355,11 @@ colorscheme overrides
 
 "let Powerline_colorscheme = 'skwp'
 let Powerline_symbols = 'unicode'
+"let Powerline_symbols = 'fancy'
+"let Powerline_colorscheme = 'solarized'
+
+"let g:Powerline_theme='short'
+let g:Powerline_colorscheme='solarized256_light'
 
 " Has no effect.
 "source ~/.vim/ftplugin/comments.vim
@@ -422,10 +432,21 @@ nmap <leader>z :noh<CR>
 " BufExplorer
 "map <Leader>b :BufExplorerHorizontalSplit<CR>
 
+" Trying some auto-surround.
+" Really bad when pasting
+"inoremap ' ''<Esc>i
+"inoremap " ""<Esc>i
+"inoremap [ []<Esc>i
+"inoremap ( ()<Esc>i
+"inoremap < <><Esc>i
+
 " NERDTree
 " Explore (using NT)
 nmap <Leader>n :NERDTreeToggle<CR>
-nmap <Leader>e :NERDTreeToggle<CR>
+
+nmap <Leader>e :lwindow<CR>
+nmap <Leader>E :lclose<CR>
+"nmap <Leader>e :llist<CR>
 
 " Ack (grep)
 nmap <Leader>g :Ack! 
@@ -479,11 +500,19 @@ map <Leader>3 <C-W>3w
 map <Leader>4 <C-W>4w
 "map <Leader>p <C-W>p
 
+" Resize windows (hmm, arrow keys not working)
+nnoremap <C-J> 2<C-W>+
+nnoremap <C-K> 2<C-W>-
+"nnoremap <C-Left> <C-W>2>
+"nnoremap <C-Right> <C-W>2<
+
 " Start new tab with Explorer.
 "nmap <C-N> :tabnew<C-M><leader>f
 "nmap <C-N> :tabnew<C-M><Leader>e
 nmap <C-N> :10tab tabnew<C-M>
 
+inoremap <C-l> <C-x><C-l>
+inoremap <C-f> <C-x><C-f>
 
 
 "-- Abbreviation -------------------------------------------------------

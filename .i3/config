@@ -26,13 +26,16 @@ exec volti
 
 # New from .xinitrc
 exec parcellite
-exec nm-applet
-#exec wicd-client
+#exec nm-applet
+exec wicd-client
 exec batti
 exec gatotray
 # FIXME: check to see if this works, like in .xinitrc
 exec eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
 exec stty -ixon
+
+# Growl On Linux
+exec gol
 
 # Too big and no real controls.
 #exec gvolwheel
@@ -48,6 +51,8 @@ exec stty -ixon
 font -misc-orp-bold-r-*--*-*-*-*-*-*-iso10646-1
 # Big enough to see nm-applet's indicator in i3status
 #font -*-tamsyn-bold-*-*-*-20-*-*-*-*-*-*-*
+# https://faq.i3wm.org/question/183/how-to-get-i3wm-font-anti-aliasing/
+#font xft:Droid Sans Mono 20
 
 # Volume control
 # http://blog.bstpierre.org/controlling-audio-with-i3
@@ -57,7 +62,7 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -- -5%
 #bindsym XF86AudioLowerVolume exec amixer -q set Master 2- unmute
 bindsym XF86Battery exec ~/bin/pm.zsh
 
-focus_follows_mouse no
+focus_follows_mouse yes
 #bindsym $mod+b workspace back_and_forth
 bindsym $mod+Tab workspace back_and_forth
 workspace_auto_back_and_forth yes
@@ -77,7 +82,9 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+Q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run -b -nb red
+#bindsym $mod+d exec dmenu_run -b -nb red
+# try shellex instead: https://github.com/Merovius/shellex
+bindsym $mod+d exec shellex -bg brown -fg yellow
 
 # change focus
 bindsym $mod+h focus left
@@ -238,7 +245,7 @@ bindsym $mod+b border toggle
 #new_window 1pixel
 # NEW
 #new_window pixel 2 # awesome if it works!
-new_window pixel 2
+new_window pixel 3
 
 #                       border  background  text
 #client.focused           #2B6473 #2B6473 #FFA000
@@ -291,7 +298,7 @@ workspace "7" output LVDS1
 
 # App-specific
 # Use `xprop` (and maybe `xwininfo`) to determine class, title, etc.
-for_window [title=".* LibreOffice Writer"] floating enable; border normal
+for_window [title=".* LibreOffice .*"] floating enable; border normal
 for_window [class="Firefox"] border normal
 for_window [class="(?i)google-chrome"] border normal
 for_window [class="(?i)chromium"] border normal
@@ -305,3 +312,6 @@ for_window [class="(?i)vlc"] floating enable; border normal
 for_window [class="(?i)nautilus"] border normal
 for_window [class="(?i)xvidcap"] floating enable; border normal
 for_window [title=".* Pinboard - Save a Bookmark - Aurora"] floating enable; border normal
+for_window [title="Mozilla Persona.*"] floating enable; border normal
+for_window [title="gbdfed*"] floating enable; border normal
+for_window [title="xfce4-notifyd"] floating enable; border normal

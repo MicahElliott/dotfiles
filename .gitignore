@@ -19,6 +19,8 @@
 /Music
 /archive
 /VirtualBox VMs
+/DGuitar*
+/tabs
 
 # Specific files
 tags
@@ -33,6 +35,7 @@ mde.*
 /*.xml
 /*.png
 /*.jpg
+/*.mkv
 
 # Dot *files*
 .*_history
@@ -67,6 +70,8 @@ mde.*
 .rnd
 .fontpage
 .gtk*
+.weatherspect
+.xtermcontrol
 
 # Dot *dirs*
 .*/
