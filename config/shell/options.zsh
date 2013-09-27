@@ -87,7 +87,7 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 ZSH_HIGHLIGHT_HIGHLIGHTERS=( main brackets pattern )
 # Hmm, just basic colors? rgybmc
 ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=cyan
-ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=bold
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=fg=white,standout
 ZSH_HIGHLIGHT_STYLES[back-quoted-argument]=fg=yellow
 ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=yellow
 ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=magenta
@@ -113,7 +113,8 @@ autoload -Uz colors; colors
 #prompt mde
 # Set prompt to random color.
 #prompt balance $(( $RANDOM % 9 ))
-prompt balance black
+#prompt balance black
+prompt cliguy
 #prompt wunjo
 #prompt off
 
@@ -125,7 +126,7 @@ autoload v foofunc
 # Mime types; enable massive set of "alias -s" (MAYBE SLOW)
 #autoload -U zsh-mime-setup; zsh-mime-setup
 
-# Multibyte character input based on mnemonics
+# Multibyte/unicode character input based on mnemonics, a la vim's Ctrl-K
 # http://zsh.sourceforge.net/FAQ/zshfaq05.html
 autoload -Uz insert-composed-char
 zle -N insert-composed-char
@@ -191,6 +192,7 @@ zstyle ':completion:*' group-name ''
 
 # Completers for my own scripts
 zstyle ':completion:*:*:sstrans*:*' file-patterns '*.(lst|clst)'
+zstyle ':completion:*:*:ssnorm*:*' file-patterns '*.tsv'
 
 
 ######################################################################

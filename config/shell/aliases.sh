@@ -34,11 +34,11 @@ alias j='jobs'
 # L -- dir listing
 alias l='ls -hlABFX'
 # M -- audio player
-alias m='mplayer'
+alias m='smplayer'
 # N -- nautilus
 alias n=nautilus
 # O -- open, the right way
-alias o='xdg-open'
+alias o='mimeo'
 # P -- print, eg. envars
 alias p='print -l'
 alias q='exit'
@@ -49,7 +49,8 @@ alias s='sed -r'
 alias sn='sed -nr'
 # T -- tree
 #alias t='tree *~node_modules'
-alias t='tree'
+alias t='tree -C --charset utf8'
+alias th='thunar'
 # V -- edit (see func)
 # W -- command info
 alias w='whence'
@@ -81,7 +82,6 @@ alias ltc='ls -l --time=ctime'
 alias lta='ls -l --time=atime'
 alias ltm='ls -l --time=mtime'
 alias lmp='ls -lBX *.py'
-alias tree='tree -C --charset utf8'
 
 ### Ruby
 #   Rubygems
@@ -109,32 +109,43 @@ alias rl=bin/rails
 alias rk=bin/rake
 alias rs=bin/rspec
 #alias rg=bin/guard # see function
-alias cu=cucumber
+#alias cu=cucumber
 alias rbw='rbenv which'
 alias rbwa='rbenv whence'
 
 ### Node/JavaScript
 alias jg=grunt
 alias jb=brunch
+alias bws='brunch watch --server'
+alias bbo='brunch build --optimize --config config-release.ls'
 alias nv=nvm
 # Node with rlwrap
 # http://blog.doteight.com/blog/2011/01/16/rlwrap-and-node/
 alias node='NODE_NO_READLINE=1 rlwrap -pgreen -S "node> " node'
-alias coffee='NODE_NO_READLINE=1 rlwrap -pyellow -S "coffee> " coffee'
-alias cs=coffee
+#alias coffee='NODE_NO_READLINE=1 rlwrap -pyellow -S "coffee> " coffee'
+# Can't alias coffee since it screws up syntastic.
+alias cs='rlwrap -s 10000 -H ./coffee.hist coffee -i'
 alias jsh=jshon
-alias lsc='livescript -d'  # include prelude
+alias lsc='livescript'
+# rlwrap is broken for lsc; it uses raw mode? Have to either use `rlwrap -a` for
+# history or go without hist and get nice object prop completion
+alias ilsh='rlwrap -a -r -H ./lsc.hist -s 10000 lsc -i'
+# Still get single session history, plus really nice emacs-style obj
+# completions and function showing. Lacks any kind of search (ctrl-r).
+alias ils='livescript -di'
 
-### Archlinux
+### Archlinux / sudo
 # pacman/packer shortcuts
 # OOPS: The --noedit kills zsh completion
 #alias packer='packer --noedit'
 #alias pm='packer --noedit'
 alias sc='sudo systemctl'
+alias spk='sudo pkill'
 # Better -S-completion than yaourt
 alias pm='sudo pacman'
 alias yao='yaourt --noconfirm'
-alias sl='slocate'
+alias yaoup='yao -Syu --aur'
+alias sl='slocate -r'
 alias up='sudo updatedb'
 
 ### Ubuntu
@@ -236,10 +247,17 @@ alias ve-cdve='cdvirtualenv'
 ### Vim
 # Editing of config stuff.
 alias vi-shell='v -S ~/config/shell/Session.vim'
+alias vi-shell='v -o $my_shdir/options.zsh $my_shdir/envars.sh $my_shdir/aliases.sh $my_shdir/aliases.zsh $my_shdir/functions.sh'
 alias vi-mbg='v -S ~/proj/Membean/Session.vim'
 alias vi-sudo='sudoedit'
 
-alias view='vim -R'
+# Seems to need to live as alias, not as file/function
+alias vim2html='vim -c ":TOhtml $1| w |q |q"'
+
+#alias view='vim -R'
+# Don't bother with vim's readonly view
+#disable view
+alias view="feh --title '%f | %wx%h | %S | %t | %m | %n | %p | %u/%l'"
 # Vim-like
 alias pw=pwd
 alias se=setopt
@@ -270,6 +288,13 @@ alias pu='pushd'
 alias po='popd'
 alias cx='chmod +x'
 
+### Enablers
+alias en-py2='py2en'
+alias en-chruby='echo already enabled'
+alias en-rbenv='rbi'
+alias en-nvm='nvi'
+alias en-ffsdk='ffi'
+
 ### Other
 alias clean="rm -f *~ .*~ core *.bak"
 alias info='info --vi-keys'
@@ -294,7 +319,6 @@ alias elinks='TERM=xterm-256color elinks'
 
 alias pg='pgrep'
 alias pk='pkill'
-alias spk='sudo pkill'
 
 # Be safe. Unfortunate that stupid --no-clobber won't error when avoiding
 # overwrite.
@@ -329,8 +353,15 @@ alias xl=xlsxcat.zsh
 alias shoot='scrot -s'
 alias ssr='simplescreenrecorder'
 alias vidcap='simplescreenrecorder'
+alias webcam=wxcam
+alias cam=wxcam
+alias webshoot=wkhtmltoimage
 
 alias go=$BROWSER
 alias ch='chromium --disable-web-security'
 
+alias cu='curl -i'
+
 alias mysql='mysql --auto-rehash'
+
+alias stderred='export LD_PRELOAD="/usr/lib/libstderred.so"'

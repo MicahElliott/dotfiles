@@ -300,9 +300,18 @@ mi() { mvn install $@ 2>&1 |mvn-hilite.awk }  # artifact to local repo
 #md() { mvn deploy  $@ 2>&1 |mvn-hilite.awk }  # project documentation
 ms() { mvn site    $@ 2>&1 |mvn-hilite.awk }  # project documentation
 
+# Simple (broken) version of https://github.com/kennethreitz/autoenv
+autoenv() {
+  if [[ -f .env ]]; then
+    print 'Found .env; sourcing it!'
+    source .env
+  fi
+}
+
 # http://www.zsh.org/mla/users/2011/msg00527.html
 rehash-last-install() { fc -l -1 |grep -q install && { echo rehash-ing; rehash } }
 precmd_functions+=rehash-last-install
+#precmd_functions+=autoenv
 
 
 gw() { grep -E --color $1 /usr/share/dict/words }
@@ -313,9 +322,26 @@ gi() { gem install $@; rbenv rehash; rehash }
 # Too slow to do for every shell by default so making manual.
 rbi() { eval "$(rbenv init -)" }
 
-# nvm: a little slow
-ni()  { [[ -s ~/.nvm/nvm.sh ]] && . ~/.nvm/nvm.sh }
-jsi() { [[ -s ~/.nvm/nvm.sh ]] && . ~/.nvm/nvm.sh }
+# nvm: a little slow to start
+ni()  {
+  en-py2
+  print "Enabling NVM"
+  [[ -s ~/.nvm/nvm.sh ]] && . ~/.nvm/nvm.sh
+  print "Turning off stderr highlighting."
+  unset LD_PRELOAD
+  print -n "Node "; node -v
+  rehash
+}
+jsi() { ni }
+nvi() { ni }
+
+# Firefox addon sdk
+ffi() {
+  en-py2
+  # Have to be in this dir to work??
+  cd ~/archive/src/addon-sdk-1.14
+  . bin/activate
+}
 
 # Create a gemset.
 rbg() {
@@ -397,7 +423,7 @@ pacbiggest() {
 # % touch p.q p.3.q
 # % ren p.q
 # => mv p.q p.4.q
-ren() {
+ren rev () {
   #set -x
   local newhi=1 fname=$1 ext=$1:e base=$1:r vers latest hi newfname
   [[ ! -f $fname ]]         && { err "Not a file: $fname"; return 1 }
@@ -434,3 +460,23 @@ dl()  { print ~/Downloads/*(.om[0,1])  }
 dlx() { print ~/Downloads/*(.om[0,$1]) }
 
 md() { mkdir $1; cd $1 }
+
+command_not_found_handler() {
+  # https://wiki.archlinux.org/index.php/Zsh#The_.22command_not_found.22_hook
+  # Try "darcs" as test.
+  if [[ -x /usr/bin/cnf-lookup ]]; then
+    cnf-lookup -c $1 && return
+  fi
+  # http://www.zsh.org/mla/users/2013/msg00482.html
+  local actual=$1.zsh
+  shift
+  for p in $path; do
+    if [[ -x $p/$actual ]]; then
+      print "Proxying for actual: $actual"
+      $actual $@
+      return
+    fi
+  done
+  return 127
+}
+

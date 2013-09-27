@@ -19,6 +19,7 @@ export VISUAL=$EDITOR
 #export VIMTAGS
 export TMPDIR=~/tmp
 export BROWSER=firefox-aurora  # previously: chromium, google-chrome  
+export CHROME_BIN=/usr/bin/chromium
 export DE=i3 # must be Desktop Environment (was xfce in archbang's .xinitrc)
 export MAILCHECK=60
 
@@ -64,6 +65,7 @@ export RLWRAP_OPTIONS='--multi-line -pyellow --remember --complete-filenames --h
 # Might be enough for cljs.
 export PATH=$PATH:/opt/clojurescript/bin
 
+# TERM should be set in ~/.Xdefaults, if at all.
 #export TERM=linux
 #test "$OSTYPE" = "cygwin" &&
 #    export TERM=dumb ||
@@ -80,7 +82,8 @@ export PATH=$HOME/bin:$HOME/local/bin:$HOME/contrib/bin:$PATH
 # NOTE: stuff like /usr/local/bin should be added by any system, so
 # don't want to duplicate them here.
 # Administrative areas sometimes useful for non-root user.
-export PATH=$PATH:/sbin:/usr/sbin:/usr/local/sbin
+# No longer needed on Arch
+#export PATH=$PATH:/sbin:/usr/sbin:/usr/local/sbin
 
 # Ruby
 # FIXME: some gems want 1.8 (not 1.8.7) in PATH.
@@ -114,6 +117,8 @@ source /usr/share/chruby/auto.sh
 # Node http://tnovelli.net/blog/blog.2011-08-27.node-npm-user-install.html
 export PATH=$HOME/.local/bin:$PATH
 
+export DEBUG='brunch:*'
+
 #export RAILS_ROOT=~/proj/Membean/mbg
 #PATH+=:$RAILS_ROOT/script
 
@@ -146,6 +151,9 @@ export PATH=$PATH:/opt/android-sdk/tools
 #export PATH=$HOME/.cljr/bin:$PATH
 export PATH=$HOME/.lein/bin:$PATH
 
+# Gitcontainer binstubs
+export PATH=$PATH:$HOME/gitcontainer/bin
+
 # Local dir stuff.
 export PATH=$PATH:./bin
 
@@ -165,6 +173,9 @@ export MAKE=make
 # Results in “export LS_COLORS=…”
 eval "$(TERM=xterm dircolors -b $DIR_COLORS)"
 
+export LD_PRELOAD="/usr/lib/libstderred.so"
+
+
 # Why was I doing this? Probably just for bash.
 #PS1="\h$ "
 
@@ -180,6 +191,8 @@ dn=/dev/null
 
 # Archlinux dictionary
 dict=/usr/share/dict/american-english
+
+lh='localhost:3000'
 
 # How color sequences work:
 # echo $'\e[1;4;5;38;5;118;42m'" hi there "
