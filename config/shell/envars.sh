@@ -23,6 +23,11 @@ export CHROME_BIN=/usr/bin/chromium
 export DE=i3 # must be Desktop Environment (was xfce in archbang's .xinitrc)
 export MAILCHECK=60
 
+export IMGEDITOR=gimp
+export IMGVIEWER=feh
+export VPLAYER=smplayer
+export APLAYER=mplayer
+
 # Pager stuff
 #export PAGER=most
 #export PAGER=vimpager

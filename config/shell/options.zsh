@@ -67,7 +67,7 @@ dsrc=~/archive/src
 #WORDCHARS
 
 ######################################################################
-### Funky stuff -- not exactly options/params
+### Funky stuff — not exactly options/params
 
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
@@ -242,6 +242,14 @@ setopt noclobber
 # Fancy regexes in =~
 setopt rematchpcre
 
+setopt shortloops
+
+setopt brace_ccl  # Support chars in range: {a-z}
+                  # Note difference from:   {0..9}
+
+# Trying out 0-based arrays! Matches bash and ls
+setopt kshzerosubscript
+
 # Enable some nice things to go into post-prompt commands.
 typeset -ga preexec_functions
 typeset -ga precmd_functions
@@ -266,7 +274,8 @@ umask 002
 # https://bbs.archlinux.org/viewtopic.php?id=95078
 zle-keymap-select () {
   if [ $KEYMAP = vicmd ]; then
-    echo -ne "\033]12;Red\007"
+    #echo -ne "\033]12;Red\007"
+    echo -ne "\033]12;Green\007"
   else
     echo -ne "\033]12;Grey\007"
   fi
@@ -281,6 +290,13 @@ zle -N zle-line-init
 # Set tabs to non-standard (non-8) width.
 # See: `man 1p tabs` for some interesting options!
 tabs -16
+
+# Disable C-s as XOFF
+# https://coderwall.com/p/ltiqsq
+stty stop ''
+stty start ''
+stty -ixon
+stty -ixoff
 
 # Misc completions (should I have a zstyle.zsh file?)
 # FIXME: Not completing dirs

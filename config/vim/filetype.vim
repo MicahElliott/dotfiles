@@ -16,6 +16,8 @@ augroup filetypedetect
   au! BufRead,BufNewFile *.cljs,*.wisp  setfiletype clojure
   au Bufenter,Bufnewfile *.clj setl complete+=k~/.clj_completions
   au! BufRead,BufNewFile *.cson,*.cf,*.cs,*.co setfiletype coffee
+  au! BufRead,BufNewFile *.ls setfiletype livescript
+  au! BufRead,BufNewFile *.ck setfiletype ck  " ChucK, not working
   " Zsh's syntax file is inferior to sh. Also need to make it think it's
   " more than just sh (bash removes some errors). This actually does no
   " good since system syntax files are read before this.

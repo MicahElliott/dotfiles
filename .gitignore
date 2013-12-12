@@ -21,6 +21,7 @@
 /VirtualBox VMs
 /DGuitar*
 /tabs
+/GNUstep
 
 # Specific files
 tags
@@ -36,6 +37,7 @@ mde.*
 /*.png
 /*.jpg
 /*.mkv
+rogue.scr
 
 # Dot *files*
 .*_history
@@ -72,6 +74,7 @@ mde.*
 .gtk*
 .weatherspect
 .xtermcontrol
+.festivalrc
 
 # Dot *dirs*
 .*/

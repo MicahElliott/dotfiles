@@ -1,4 +1,4 @@
-#! /bin/zsh
+#! /usr/bin/zsh
 
 # NAME — DESCRIPTION...
 

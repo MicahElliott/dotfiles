@@ -4,14 +4,14 @@
 ### Programs to auto-run per extension.
 # So just putting "foo.txt" on CLI will expand to "vim foo.txt"
 # See ~/.dircolors for many more
-alias -s txt=vim
-alias -s mkd=vim
-alias -s csv=vim
-alias -s html=vim
-alias -s haml=vim
-alias -s vim=vim
-alias -s sass=vim
-alias -s scss=vim
+alias -s txt=$EDITOR
+alias -s mkd=$EDITOR
+alias -s csv=$EDITOR
+alias -s html=$EDITOR
+alias -s haml=$EDITOR
+alias -s vim=$EDITOR
+alias -s sass=$EDITOR
+alias -s scss=$EDITOR
 alias -s png=feh
 alias -s jpg=feh
 alias -s flv=vp

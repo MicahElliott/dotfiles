@@ -34,7 +34,7 @@ alias j='jobs'
 # L -- dir listing
 alias l='ls -hlABFX'
 # M -- audio player
-alias m='smplayer'
+alias m=$APLAYER
 # N -- nautilus
 alias n=nautilus
 # O -- open, the right way
@@ -129,10 +129,11 @@ alias jsh=jshon
 alias lsc='livescript'
 # rlwrap is broken for lsc; it uses raw mode? Have to either use `rlwrap -a` for
 # history or go without hist and get nice object prop completion
-alias ilsh='rlwrap -a -r -H ./lsc.hist -s 10000 lsc -i'
+alias ilsh='rlwrap -a -r -H ./lsc.hist -s 10000 lsc'
 # Still get single session history, plus really nice emacs-style obj
 # completions and function showing. Lacks any kind of search (ctrl-r).
-alias ils='livescript -di'
+alias ils='livescript -d'
+alias mo=mocha
 
 ### Archlinux / sudo
 # pacman/packer shortcuts
@@ -179,8 +180,8 @@ alias dt-='date -I'
 alias dd='date -d'  # okay to mask dd since use infrequently
 alias dt2="date-iso2bson.rb <<<\"'`dt-`'\""
 
-alias mp='mplayer'
-alias vp='smplayer'
+alias mp=$APLAYER
+alias vp=$VPLAYER
 
 ### Git
 # VCS commands are 2 chars.
@@ -246,8 +247,8 @@ alias ve-cdve='cdvirtualenv'
 
 ### Vim
 # Editing of config stuff.
-alias vi-shell='v -S ~/config/shell/Session.vim'
-alias vi-shell='v -o $my_shdir/options.zsh $my_shdir/envars.sh $my_shdir/aliases.sh $my_shdir/aliases.zsh $my_shdir/functions.sh'
+#alias vi-shell='v -S ~/config/shell/Session.vim'
+alias vi-shell='v -o ~/.zshrc $my_shdir/options.zsh $my_shdir/envars.sh $my_shdir/aliases.sh $my_shdir/aliases.zsh $my_shdir/functions.sh'
 alias vi-mbg='v -S ~/proj/Membean/Session.vim'
 alias vi-sudo='sudoedit'
 

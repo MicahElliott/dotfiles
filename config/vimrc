@@ -15,12 +15,13 @@ if &t_Co > 2                " check for multi colors
     syntax on                    " colored syntax
 endif
 
-"-- Options ------------------------------------------------------------
+"== Options ====================================================== {{{
 set exrc          " use local .exrc file
 set autowrite     " autosave before changing window or shellcmd
 set ignorecase  " search case sensitive
 "set tabstop=2     " tab 4 chars (ts)
-set tabstop=40     " tab 4 chars (ts)
+"set tabstop=40     " tab 4 chars (ts)
+set tabstop=4     " tab 4 chars (ts)
 set shiftwidth=2  " autoindent to 4 chars
 set expandtab
 set nobackup
@@ -60,11 +61,15 @@ set lazyredraw    " Don't redraw while executing macros (better performance)
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
-set noswapfile
+" Swap file are good for knowing if a file is open elsewhere.
+"set noswapfile
 
 "set relativenumber
 " Cool, but messes up urxvt copying (extra trailing spaces)
 "set colorcolumn=80
+
+set number
+set numberwidth=3
 
 " Always show a status bar
 set laststatus=2
@@ -73,12 +78,11 @@ set laststatus=2
 " Always show help in vertical window
 "cnoremap h vert help
 
-" Fast saving
-nmap <leader>w :w!<cr>
-
 " Enable mouse-clicking/viz-highlighting, but mouse-copy only in insert mode.
-" Disabling since painful to have to go to insert mode to mouse-select.
+" Disabling since painful to have to go to insert mode to mouse-select. IOW,
+" mouse selection won't work unless `mouse=` (nothing).
 "set mouse=n
+set mouse=
 
 " http://vim.1045645.n5.nabble.com/Search-within-results-from-More-prompt-td5710213.html
 set wildmenu
@@ -88,9 +92,9 @@ set wildmode=longest:full,full
 " http://ksjoberg.com/vim-esckeys.html
 set noesckeys
 
-" Interesting shortcut hacks for Esc
-imap kj <Esc>
-imap jk <Esc>
+" Folding
+set foldenable
+set foldmethod=marker
 
 " Seems these all need to be in vimrc due to order of vimclojure.
 let vimfiles = $HOME . "/.vim"
@@ -108,6 +112,13 @@ let vimclojure#FuzzyIndent = 1
 "let vimclojure#NailgunClient = vimclojureRoot."/lib/nailgun/ng"
 " Java? http://blog.darevay.com/2010/10/how-i-tamed-vimclojure/
 
+" Indent guides: https://github.com/nathanaelkane/vim-indent-guides
+" <Leader>ig
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_enable_on_vim_startup = 1
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=233
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=234
+
 let mapleader = ","
 let maplocalleader = ","
                   " ignore command-line completion
@@ -115,34 +126,38 @@ let maplocalleader = ","
 "set tags=$VIMTAGS
 set tags=./tags,./TAGS,tags,TAGS,./tmp/tags,../tags
 
+""" Cursor
+
 set guicursor=a:blinkwait0,a:block-cursor
 
 " Mitigate annoying delay on Esc:
 " http://superuser.com/questions/246540/vim-delay-when-exiting-visual-mode
 set timeoutlen=600 " ms
+
 " http://vim.wikia.com/wiki/Configuring_the_cursor
-" Only xterm supports underscore & blinking
 if &term =~ "xterm\\|rxvt"
-  " use an orange cursor in insert mode
+  " Insert
   let &t_SI = "\<Esc>]12;white\x7"
-  " use a red cursor otherwise
-  let &t_EI = "\<Esc>]12;red\x7"
-  " reset cursor when vim exits
+  let &t_SI .= "\<Esc>[3 q"
+  " Normal
+  let &t_EI = "\<Esc>]12;green\x7"
+  let &t_EI .= "\<Esc>[2 q"
   autocmd VimLeave * silent !echo -ne "\033]112\007"
 endif
 
 setlocal spell spelllang=en_us
 set nospell
 set spellfile=~/.vim/en.utf-8.add
+" }}}
 
-"-- GUI (instead of having a gvimrc) -----------------------------------
+"== GUI (instead of having a gvimrc) ============================= {{{
 "set guifont=Monospace\ 6
 set guifont=ProFontWindows\ 9
 "set guifont=mde
 set guioptions=acegi
+" }}}
 
-
-"-- Pathogen ---------------------------------------------------------
+"== Pathogen ===================================================== {{{
 "filetype off
 ""call pathogen#runtime_append_all_bundles()
 "call pathogen#infect('~/gitcontainer/vim')
@@ -151,7 +166,7 @@ set guioptions=acegi
 "filetype plugin indent on
 
 filetype off  " required for vundle!
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 
 " let Vundle manage Vundle; required!
@@ -169,9 +184,15 @@ Bundle 'gmarik/vundle'
 Bundle 'tyok/ack.vim.git'
 Bundle 'vim-scripts/Color-Sampler-Pack'
 "Bundle 'sjl/badwolf.git'
-"Bundle 'nanotech/jellybeans.vim.git'
-"Bundle 'altercation/vim-colors-solarized'
-"Bundle 'jpo/vim-railscasts-theme.git'
+Bundle 'nanotech/jellybeans.vim.git'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'jpo/vim-railscasts-theme.git'
+
+Bundle 'morhetz/gruvbox'
+Bundle 'zeis/vim-kolor'
+Bundle 'chriskempson/tomorrow-theme'
+Bundle 'dsolstad/vim-wombat256i'
+
 Bundle 'sickill/vim-monokai.git'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-cucumber.git'
@@ -223,6 +244,23 @@ Bundle 'digitaltoad/vim-jade'
 Bundle 'tomasr/molokai.git'
 Bundle 'jelera/vim-javascript-syntax'
 
+Bundle 'nathanaelkane/vim-indent-guides.git'
+
+Bundle 'vim-scripts/ck.vim'
+
+" FIXME: Might not want autoclose
+Bundle 'Townk/vim-autoclose'
+
+" Too complex to setup, maybe
+Bundle 'Shougo/neocomplete.vim'
+
+Bundle 'godlygeek/tabular.git'
+
+Bundle 'nelstrom/vim-markdown-folding'
+
+Bundle 'tpope/vim-abolish'
+
+"-- Gists ------------------------------------------------------------
 "Bundle 'git@github.com:MicahElliott/snipmate-snippets.git'
 Bundle 'git@github.com:MicahElliott/UniCycle.git'
 " Automagic Clojure folding on defns and defmacros
@@ -234,8 +272,9 @@ Bundle 'git@gist.github.com:720355.git'
 
 
 filetype plugin indent on     " required!
+" }}}
 
-"-- ftplugins ~/.vim/ftplugin ----------------------------------------
+"== ftplugins ~/.vim/ftplugin ==================================== {{{
 " This vimrc runs before the ftplugins.
 " See individual files with: <C-w>f
 " Particularly interesting:
@@ -257,8 +296,9 @@ filetype plugin indent on     " required!
 " ~/.vim/ftplugin/sh.vim
 " ~/.vim/ftplugin/text.vim
 " ~/.vim/ftplugin/zsh.vim
+" }}}
 
-"-- Override settings ------------------------------------------------
+"== Override settings ============================================ {{{
 
 "let g:snippets_dir = '~/.vim/snippets'
 "inoremap <C-j> <C-r>=TriggerSnippet()<CR>
@@ -327,8 +367,9 @@ let syntastic_enable_signs = 1
 "let syntastic_auto_jump = 1
 
 "set verbose
+" }}}
 
-"-- Color Schemes ----------------------------------------------------
+"== Color Schemes ================================================ {{{
 " Listed in order of preference.
 "colorscheme adobe
 "colorscheme herald
@@ -339,6 +380,13 @@ colorscheme molokai
 "colorscheme Tomorrow-Night
 "colorscheme badwolf
 "colorscheme jellybeans
+
+"colorscheme gruvbox
+"colorscheme kolor
+"colorscheme tomorrow
+"colorscheme wombat256i
+
+"colorscheme railscasts
 "colorscheme vibrantink
 "colorscheme vividchalk
 "colorscheme desert256
@@ -349,6 +397,7 @@ colorscheme molokai
 "colorscheme solarized
 "se background=dark
 " FIXME
+" Has some molokai overrides to remove bad recording red
 colorscheme comments
 colorscheme missing
 colorscheme overrides
@@ -368,8 +417,9 @@ let g:Powerline_colorscheme='solarized256_light'
 " Catching bad whitespace.
 "hi ExtraWhitespace ctermbg=9 guibg=red
 match ExtraWhitespace /\s\+$/
+" }}}
 
-"-- Register Macros --------------------------------------------------
+"== Register Macros ============================================== {{{
 " http://vim.wikia.com/wiki/Macros
 
 " Commify/Uncommify: John Doe -> Doe, John
@@ -404,9 +454,24 @@ let @n='/notes:WC[[]]hi"", "", ""imicahBBBlll'
 let @a="0f:ll%hi, ['', \"\", '']%ll"
 
 let @l='/address: Wlv$hhy:r !./addr2latlng.coffee """I  geoloc: '
+" }}}
 
+"== Map (Leader) ================================================= {{{
 
-"-- Map (Leader) -------------------------------------------------------
+nnoremap <Space> za
+
+" Fast saving
+nmap <leader>w :w!<cr>
+
+" Tabular
+" http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
+" I suppose `a` is for "align"
+if exists(":Tabularize")
+  nmap <Leader>a= :Tabularize /=<CR>
+  vmap <Leader>a= :Tabularize /=<CR>
+  nmap <Leader>a: :Tabularize /:\zs<CR>
+  vmap <Leader>a: :Tabularize /:\zs<CR>
+endif
 
 " eXchange words
 " https://github.com/vim-scripts/transpose-words
@@ -491,9 +556,9 @@ nmap <Leader>q <C-W>q
 " UniCycle typography
 map <Leader>u :UniCycleToggle<CR>
 
+" }}}
 
-"-- Window Navigation --------------------------------------------
-
+"== Window Navigation ============================================ {{{
 map <Leader>1 <C-W>1w
 map <Leader>2 <C-W>2w
 map <Leader>3 <C-W>3w
@@ -513,14 +578,17 @@ nmap <C-N> :10tab tabnew<C-M>
 
 inoremap <C-l> <C-x><C-l>
 inoremap <C-f> <C-x><C-f>
+" }}}
 
-
-"-- Abbreviation -------------------------------------------------------
+"== Abbreviation ================================================= {{{
 "iabbr :) ☻
 iabbr (c) ©
 
+iabbr js JavaScript
+iabbr ls LiveScript
+" }}}
 
-"-- Autocmd ------------------------------------------------------------
+"== Autocmd ====================================================== {{{
 " au! " remove existing auto-commands to avoid double-sourcing
 if has("autocmd")
 " Use the skeletons
@@ -529,11 +597,13 @@ au BufNewFile *.c read ~/.vim/skel/skel.c | source ~/.vim/skel/skel.c.sh
 au BufNewFile *.h read ~/.vim/skel/skel.h | source ~/.vim/skel/skel.h.sh
 au BufNewFile *.py  0read ~/.vim/skel/skel.py
 au BufNewFile *.rb  0read ~/.vim/skel/skel.rb
-au BufNewFile *.coffee,*.cf,*.co,*.cs  0read ~/.vim/skel/skel.coffee
+au BufNewFile *.coffee,*.cf,*.co,*.cs  0read ~/.vim/skel/skel.coffee'
+au BufNewFile *.ls  0read ~/.vim/skel/skel.ls
 au BufNewFile *.zsh,*.z  0read ~/.vim/skel/skel.zsh
 au BufNewFile makefile read ~/.vim/skel/skel.mk | source ~/.vim/skel/skel.mk.sh
 au BufNewFile *.docbook,*.docbk,*.db 0r ~/.vim/skel/skel.docbook
 au BufNewFile *.html 0r ~/.vim/skel/skel.html
+au BufNewFile *.jade 0r ~/.vim/skel/skel.jade
 endif " if has("autocmd")
 
 
@@ -544,8 +614,9 @@ func! PreviewHeightWorkAround()
         exec 'setlocal winheight='.&previewheight
     endif
 endfunc
+" }}}
 
-"-- Tab Navigation --------------------------------------------
+"== Tab Navigation =============================================== {{{
 " Tabbing like Firefox, xterm only.
 map <M-1> 1gt
 map <M-2> 2gt
@@ -583,8 +654,9 @@ autocmd TabLeave * call Setlasttabpagevisited()
 augroup END
 autocmd VimEnter * let g:ltv = 1
 "##################################
+" }}}
 
-"-- Function key mappings --------------------------------------------
+"== Function key mappings ======================================== {{{
 
 " Right next to <S-Insert> (the actual xterm paste sequence.
 "set pastetoggle=<S-Home>
@@ -603,8 +675,9 @@ map <F9> :set spell!<CR>
 map <F12> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
   \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
   \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+" }}}
 
-"-- Misc -------------------------------------------------------------
+"== Misc ========================================================= {{{
 
 " This seems horrible, but since filetype.vim is looked at *after*
 " system syntax file, there's no other place to set it for sh/zsh.
@@ -619,7 +692,10 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-"-- Colors -----------------------------------------------------------
+runtime! macros/matchit.vim
+" }}}
+
+"== Colors ======================================================= {{{
 " See overrides.vim for more usage.
 " Molokai:
 " 161     pink (red)
@@ -683,7 +759,9 @@ set viminfo^=%
 "" (geo) Locate
 "vnoremap <leader>l :<c-u>call FeedVisualCmd('./addr2latlng.coffee "%s"')<cr>
 
-"-- Obscure overrides of Vim builtins --------------------------------
+" }}}
+
+"== Obscure overrides of Vim builtins ============================ {{{
 
 "se lines=12
 " http://www.shallowsky.com/linux/noaltscreen.html
@@ -698,3 +776,4 @@ let vimpager_scrolloff = 5
 " repercussions, which AFAICT are none.
 "se backupcopy=yes
 set nowritebackup
+" }}}

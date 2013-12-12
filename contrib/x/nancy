@@ -73,13 +73,16 @@
 *pointerColor:   #ff0000
 *pointerColor2:  #ffffff
 
-*color0:         #1b1d1e
+! Geez, they messed with black??
+!*color0:         #1b1d1e
+*color0:         #000000
 *color1:         #f92672
 *color2:         #82b414
 *color3:         #fd971f
 *color4:         #4e82aa
 *color5:         #8c54fe
-*color6:         #465457
+!*color6:         #465457
+*color6:         #00B7EB
 *color7:         #ccccc6
 *color8:         #505354
 *color9:         #ff5995
@@ -87,7 +90,8 @@
 *color11:        #feed6c
 *color12:        #0c73c2
 *color13:        #9e6ffe
-*color14:        #899ca1
+!*color14:        #899ca1
+*color14:        #00ffff
 *color15:        #f8f8f2
 
 *color16:        #000000

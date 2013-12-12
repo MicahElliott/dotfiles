@@ -1,1 +1,2 @@
-options(pager="~/.vim/tools/rpager.sh")
+# No support for ~ or $HOME
+options(pager="/home/mde/config/vim/tools/rpager.sh")

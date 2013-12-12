@@ -8,8 +8,8 @@
 #
 # 2. Can have a “reload” util that just re`source`s a subset of the files.
 #
-# Using convention that ‘my_*’ vars are globally visible things that I have
-# set.
+# Using perlesque convention that ‘my_*’ vars are globally visible things that
+# I have set.
 #
 # Noticed that archlinux et al do the same type of `source`ing of worker
 # scripts in /etc/profile and /etc/profile.d/
