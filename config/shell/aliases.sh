@@ -21,6 +21,7 @@ alias d='dirs -v'
 alias e='epiphany'
 # F -- fc history display
 alias f='fc -ldD'
+alias fm=pcmanfm  # file manager
 # G -- grep searching
 #alias g='ack'
 # PCRE and color for grep
@@ -35,8 +36,8 @@ alias j='jobs'
 alias l='ls -hlABFX'
 # M -- audio player
 alias m=$APLAYER
-# N -- nautilus
-alias n=nautilus
+# N -- 
+#alias n=nautilus
 # O -- open, the right way
 alias o='mimeo'
 # P -- print, eg. envars
@@ -204,6 +205,13 @@ alias gls='git ls-files'
 alias gpu='git push origin master'
 
 # Home git mgmt
+# http://silas.sewell.org/blog/2009/03/08/profile-management-with-git-and-github/
+# You can set up with:
+#   cd ~
+#   git clone git://github.com/MicahElliott/dotfiles ~/.dotfiles.git
+#   mv .dotfiles.git/* .
+#
+# If you want to ever make changes (recommended!), you should fork and clone your own.
 alias dotfiles='git --git-dir=$HOME/.dotfiles.git/.git --work-tree=$HOME'
 alias dit='dotfiles'
 alias dad2='dotfiles add'  # completion does not work

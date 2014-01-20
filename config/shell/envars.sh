@@ -139,7 +139,9 @@ export MB=~/proj/Membean/mbg
 export MB_MBG=$HOME/proj/Membean/mbg
 export MB_WORDSTUDY=$HOME/proj/Membean/wordstudy
 export MB_MISC=$HOME/proj/Membean/misc
-export MB_YAML=$HOME/proj/Membean/mb-cont-yaml
+export mb_s3_imgs=s3://media1.membean.com/public/images/wordimages/bkgd2
+export mb_s3_vids=s3://media1.membean.com/video/examplevids
+export mb_s3_audio=s3://media1.membean.com/audio
 
 # Haskell cabal stuff.
 #export PATH=$HOME/.cabal/bin:$PATH

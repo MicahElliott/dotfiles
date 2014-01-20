@@ -159,7 +159,8 @@ bindsym Control+6 workspace 6
 bindsym Control+7 workspace 7
 bindsym Control+8 workspace 8
 bindsym Control+9 workspace 9
-#bindsym Control+0 workspace 10 # browsers need this for font sizing
+# browsers need this for font sizing, but oh well!
+bindsym Control+0 workspace 10
 
 # move focused container to workspace
 bindsym $mod+Shift+exclam move container to workspace 1
@@ -267,7 +268,9 @@ client.urgent        #D11931     #D11931     #ffffff
 # colours arch linux
 # Important that vert/horiz blue is still apparent.
 # yellow
-client.focused           #ffff00     #ffff00     #0033ff
+#client.focused           #ffff00     #ffff00     #0033ff
+# green
+client.focused           #99ff33     #99ff33     #0033ff
 # orange
 client.focused_inactive  #ff9900     #ff9900     #0044ff
 # purple
@@ -288,11 +291,19 @@ workspace "4" output VGA1
 workspace "6" output VGA1
 workspace "8" output VGA1
 workspace "10" output VGA1
+#workspace "10" output HDMI1
+
+#workspace "2" output HDMI1
+#workspace "4" output HDMI1
+#workspace "6" output HDMI1
+#workspace "8" output HDMI1
+#workspace "10" output HDMI1
 
 workspace "1" output LVDS1
 workspace "3" output LVDS1
 workspace "5" output LVDS1
 workspace "7" output LVDS1
+workspace "9" output LVDS1
 
 
 
@@ -320,3 +331,5 @@ for_window [title="- Shutter"] floating enable; border normal
 # key-mon
 for_window [title="Keyboard Status Monitor"] floating enable
 for_window [title="Text Import - "] floating enable
+for_window [title="Cinelerra: "] floating enable; border normal
+for_window [title="xfce4-notifyd"] floating enable; border none
