@@ -105,16 +105,17 @@ which ruby >/dev/null && {
 export RUBYLIB=$HOME/proj/Membean/misc/bin
 
 # rbenv
-export PATH=$HOME/.rbenv/bin:$PATH
+#export PATH=$HOME/.rbenv/bin:$PATH
 # SLOW!! Does a rehash.
 #eval "$(rbenv init -)"
 
 # chruby, completion, autoswitching (installed via yaourt)
 source /usr/share/chruby/chruby.sh
-RUBIES=( ~/.rbenv/versions/* )
+#RUBIES=( ~/.rbenv/versions/* )
+RUBIES=( ~/.rubies/* )
 export RUBIES
 # https://github.com/postmodern/chruby/issues/27#issuecomment-16911865
-compctl -g '~/.rbenv/versions/*(:t)' chruby
+compctl -g '~/.rubies/*(:t)' chruby
 source /usr/share/chruby/auto.sh
 
 # nvm: See ni/jsi funcs. Just a little too slow for every shell.
@@ -180,7 +181,8 @@ export MAKE=make
 # Results in “export LS_COLORS=…”
 eval "$(TERM=xterm dircolors -b $DIR_COLORS)"
 
-export LD_PRELOAD="/usr/lib/libstderred.so"
+# Not compiling
+#export LD_PRELOAD="/usr/lib/libstderred.so"
 
 
 # Why was I doing this? Probably just for bash.

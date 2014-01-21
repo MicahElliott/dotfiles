@@ -102,7 +102,7 @@ alias be="b exec"
 alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
 
 alias ri='ri -f ansi'
-alias rb=rbenv
+alias rb=chruby
 alias chr=chruby
 alias rv=chruby
 alias ru=ruby
@@ -111,8 +111,6 @@ alias rk=bin/rake
 alias rs=bin/rspec
 #alias rg=bin/guard # see function
 #alias cu=cucumber
-alias rbw='rbenv which'
-alias rbwa='rbenv whence'
 
 ### Node/JavaScript
 alias jg=grunt
@@ -300,7 +298,6 @@ alias cx='chmod +x'
 ### Enablers
 alias en-py2='py2en'
 alias en-chruby='echo already enabled'
-alias en-rbenv='rbi'
 alias en-nvm='nvi'
 alias en-ffsdk='ffi'
 

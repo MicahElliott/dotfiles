@@ -316,11 +316,11 @@ precmd_functions+=rehash-last-install
 
 gw() { grep -E --color $1 /usr/share/dict/words }
 
-gi() { gem install $@; rbenv rehash; rehash }
+gi() { gem install $@; rehash }
 
 # Initialize rbenv.
 # Too slow to do for every shell by default so making manual.
-rbi() { eval "$(rbenv init -)" }
+#rbi() { eval "$(rbenv init -)" }
 
 # nvm: a little slow to start
 ni()  {
