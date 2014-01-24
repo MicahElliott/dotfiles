@@ -26,6 +26,7 @@ augroup filetypedetect
   "au! BufWrite *.sass         !compass
   au! BufRead,BufNewFile *.tmp  set filetype=text | set textwidth=0
   au! BufRead,BufNewFile *.clst  set filetype=clst
+  au! BufRead,BufNewFile *.csv,*.tsv  set filetype=csv
   au! BufRead,BufNewFile *.cd  set filetype=cd  " guitar chord files
   au! BufRead,BufNewFile *.blade  set filetype=jade
   au! BufNewFile,BufRead *.emblem set filetype=slim
