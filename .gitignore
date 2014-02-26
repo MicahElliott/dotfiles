@@ -56,6 +56,10 @@ x
 .gtk-bookmarks
 .gtkrc-2.0
 .*-credentials
+<<<<<<< HEAD
+=======
+.gem/credentials
+>>>>>>> 637f4bf372631c27bdee9c08aa90a0d16818e520
 .lesshst
 .lucli
 .luke
@@ -80,6 +84,10 @@ x
 .festivalrc
 .dockercfg
 .s3cfg
+<<<<<<< HEAD
+=======
+.muttrc
+>>>>>>> 637f4bf372631c27bdee9c08aa90a0d16818e520
 .netrc
 .msmtprc
 
