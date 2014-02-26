@@ -27,27 +27,27 @@ Notable features:
 
 1. Move your own config files temporarily into a scratch area
 
-    cd ~
-    mkdir ~/tmp
-    mv .bash* .zsh* tmp
+        cd ~
+        mkdir ~/tmp
+        mv .bash* .zsh* tmp
 
 1. Install Zsh and make sure it's your default shell
 
-    chsh -s /usr/bin/zsh
+        chsh -s /usr/bin/zsh
 
 1. Sign in to github and fork this repo to make your own which you can modify
 
 1. Clone and set up for repo.
 
-    git clone git@github.com:YOU/dotfiles.git ~/.dotfiles.git
-    mv .dotfiles.git/.* .dotfiles.git/*
-    mv .git .dotfiles.git/
+        git clone git@github.com:YOU/dotfiles.git ~/.dotfiles.git
+        mv .dotfiles.git/.* .dotfiles.git/*
+        mv .git .dotfiles.git/
 
 1. Try it out! (lots of `dotfiles` aliases, like `dst`, `dci`, etc)
 
-    exec zsh
-    alias dotfiles
-    dotfiles «tab»
+        exec zsh
+        alias dotfiles
+        dotfiles «tab»
 
 There are still vim (via vundle) and gist files to grab. I'll clean this up if
 someone requests.
