@@ -18,7 +18,7 @@
 	added = blue
 	untracked = green
 [core]
-	excludesfile = /home/mde/.gitignore
+	excludesfile = ~/.gitignore
 [github]
 	token = 6e3a38f5610c27c6e1d3e13e54567aa5
 	user = MicahElliott

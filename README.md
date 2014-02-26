@@ -2,35 +2,69 @@
 
 Most interesting areas:
 
-* zsh (`.zshrc` top level control, hierarchy, completions)
-* back-compatible with bash (almost)
+* zsh (`.zshrc` top level control and file hierarchy)
 * vim (`.vimrc` and `.vim/`)
 * config (misc)
-* bin
-* extensive `.gitignore`
+* bin scripts (add your own if not gists)
 
 Notable features:
 
-* Designates some standards dirs
+* Many handy settings, aliases, functions, completions, prompts, colors, etc
 
-* Separates own dotfiles (`~/.config`) from tool-installed (`~/.*` and `~/.config`)
+* Designates some standards dirs (via `.gitignore`s)
+
+* Separates own dotfiles (`~/config`) from tool-installed (`~/.*` and `~/.config`)
+
+* `~/.*` configs are symlinks to `config/*` to avoid mixing with uncontrolled system things
 
 * `dotfiles` script as a proxy for git
 
-* `.*` configs are symlinks to `config/*` to avoid mixing of system things
+* Time-able and fast
 
-Breakdown of directory structure:
+* Multi-shell capable; back-compatible with bash (somewhat, should be made so)
 
-    *  README    -- this file
+## Setup
+
+1. Move your own config files temporarily into a scratch area
+
+    cd ~
+    mkdir ~/tmp
+    mv .bash* .zsh* tmp
+
+1. Install Zsh and make sure it's your default shell
+
+    chsh -s /usr/bin/zsh
+
+1. Sign in to github and fork this repo to make your own which you can modify
+
+1. Clone and set up for repo.
+
+    git clone git@github.com:YOU/dotfiles.git ~/.dotfiles.git
+    mv .dotfiles.git/.* .dotfiles.git/*
+    mv .git .dotfiles.git/
+
+1. Try it out! (lots of `dotfiles` aliases, like `dst`, `dci`, etc)
+
+    exec zsh
+    alias dotfiles
+    dotfiles «tab»
+
+There are still vim (via vundle) and gist files to grab. I'll clean this up if
+someone requests.
+
+## Layout
+
+    *  README.md -- this file
     *  bin       -- small (usually standalone) scripts that I have written
     *  config    -- VCS-manageable, user-written CONFIGuration (mostly dot-files)
     *  contrib   -- other people's scripts that need to be under my control
     *  doc       -- text DOCuments I write, books, presentations, personal logs
     *  etc       -- system-specific symlinks to important sytem ETC files
-    ** proj      -- PROJects (or *any* code) I'm working on
+    *  test      --
+    +  proj      -- PROJects (or *any* code) I'm working on
+    +  client    -- work done for development/consulting CLIENTs
     ^  archive   -- tarballs, extracts, checkouts
-    ^  artwork   -- anything related to graphics; binary so not in VCS
-    ^  client    -- work done for development/consulting CLIENTs
+    ^  art       -- anything related to graphics; binary so not in VCS
     ^  exp       -- small-scale code/tests I'm working on only EXPerimentally
     ^  data      -- generated, machine-specific config DATA files
     ^  log       -- holds LOGs: installs, runs, reports
@@ -44,9 +78,10 @@ Breakdown of directory structure:
     !  outgoing  -- temp queue for things (forSOMEONE.tgz) sent to others
     !  tmp       -- a manual trash can
     !  Downloads -- temp holding area
-    &  .config   -- system tools dump things here
+    &  .config   -- system tools dump settings here
+    &  .local    -- system tools dump things here
     &  .*        -- 100s more dot-files/dirs not worth tracking or listing here
 
     Key:  * = $HOME-VCS-managed;         ^ = symlink-mirrored, not suited for VCS;
-         ** = individually VCS-managed;  ! = lose-able;
+          + = individually VCS-managed;  ! = lose-able;
           & = used by system
