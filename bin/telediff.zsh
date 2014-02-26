@@ -1,12 +1,15 @@
 #! /bin/zsh
 
-# telediff — Remote diff two files
+# telediff — remote diff two files
 
 usage="Usage: $0:t HOST:FILE [FILE]
 
 Example:
   % $0:t staging.example.com:misc/bin/db2git.sh foo/mydb2.sh
 "
+
+. utilsrc.zsh
+requires colordiff
 
 [[ -z $1 ]] && { print $usage; exit }
 

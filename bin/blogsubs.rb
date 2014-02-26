@@ -1,6 +1,6 @@
 #! /usr/bin/env ruby
 
-# blogsubs — Parse for feeds and determine number of subscribers
+# blogsubs — parse for feeds and determine number of subscribers
 
 require 'nokogiri'
 require 'open-uri'
