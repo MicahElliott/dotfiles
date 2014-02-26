@@ -4,13 +4,17 @@ Simply features error codes, pwd, and nothing else!
 EOF
 }
 
+
 prompt_cliguy_setup () {
-  unset RPROMPT
+  RPROMPT='%K{226}%F{black} %n %f%k'
+  #RPROMPT='%K{226}%F{black} code4real %f%k'
+  #unset RPROMPT
   #export PROMPT='%F{red}%(?..[%?] )%f%S%~ %B%%%b%s '
   #export PROMPT='%F{red}%B%S%(?..[%?]%s )%b%f%S%s%B%S%F{blue}%~%f%s %S%%%s%b '
   #export PROMPT='%F{red}%B%S%(?..[%?])%s%b%f%S%s%S%F{blue}%K{255}%B%~%k%f%s%S%%%s%b '
   #export PROMPT='%F{red}%B%S%(?..[%?]%s )%b%f%S%s%K{255}%F{blue}%B%~%f %F{231}%%%f%k%b '
-  export PROMPT='%F{red}%B%S%(?..[%?]%s )%b%f%S%s%K{226}%F{blue}%B%~%f %F{231}%%%f%k%b '
+  #export PROMPT='%F{red}%B%S%(?..[%?]%s )%b%f%S%s%K{226}%F{blue}%B%~%f %F{232}%%%f%k%b '
+  export PROMPT='%F{red}%B%S%(?..[%?]%s )%b%f%S%s%K{226}%F{blue}%B%~%f %F{232}%%%f%k%b '
   #export PROMPT='%F{red}%B%S%(?..[%?]%s )%b%f%S%s%F{blue}%B%~%f %S%%%s%b '
   prompt_opts=(cr percent)
 }

@@ -20,15 +20,16 @@ exec xset r rate 250 60 # super fast delay and rate!
 exec fbxkb
 
 # Too simple maybe?
-#exec volumeicon
+exec volumeicon
 # Wow, fancy!
-exec volti
+#exec volti
 
 # New from .xinitrc
 exec parcellite
 #exec nm-applet
 exec wicd-client
 exec batti
+# Frequency not detected??
 exec gatotray
 # FIXME: check to see if this works, like in .xinitrc
 exec eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
@@ -36,6 +37,8 @@ exec stty -ixon
 
 # Growl On Linux
 exec gol
+
+exec shutter
 
 # Too big and no real controls.
 #exec gvolwheel
@@ -85,6 +88,12 @@ bindsym $mod+Shift+Q kill
 #bindsym $mod+d exec dmenu_run -b -nb red
 # try shellex instead: https://github.com/Merovius/shellex
 bindsym $mod+d exec shellex -bg brown -fg yellow
+
+# lock screen
+# https://faq.i3wm.org/question/83/how-to-run-i3lock-after-computer-inactivity/
+#exec xautolock -time 4 -locker i3lock &
+# Not working
+bindsym Control+Alt+$mod+l exec i3lock
 
 # change focus
 bindsym $mod+h focus left
@@ -212,7 +221,8 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 # http://i3wm.org/docs/userguide.html#_configuring_i3bar
 bar {
-        output LVDS1
+        #output LVDS1
+        output EDP1
         #status_command i3status --config ~/.i3status.conf
         status_command my-i3status
         position top
@@ -230,7 +240,8 @@ bar {
           #inactive_workspace #333333 #222222 #888888
           #urgent_workspace   #2f343a #900000 #ffffff
         }
-        tray_output LVDS1
+        #tray_output LVDS1
+        tray_output EDP1
 }
 
 # Neat! Can have 2 bars.
@@ -286,24 +297,30 @@ client.urgent            #D11931     #D11931     #777777
 
 
 
-workspace "2" output VGA1
-workspace "4" output VGA1
-workspace "6" output VGA1
-workspace "8" output VGA1
-workspace "10" output VGA1
+#workspace "2" output VGA1
+#workspace "4" output VGA1
+#workspace "6" output VGA1
+#workspace "8" output VGA1
+#workspace "10" output VGA1
 #workspace "10" output HDMI1
 
-#workspace "2" output HDMI1
-#workspace "4" output HDMI1
-#workspace "6" output HDMI1
-#workspace "8" output HDMI1
-#workspace "10" output HDMI1
+workspace "2"  output HDMI2
+workspace "4"  output HDMI2
+workspace "6"  output HDMI2
+workspace "8"  output HDMI2
+workspace "10" output HDMI2
 
-workspace "1" output LVDS1
-workspace "3" output LVDS1
-workspace "5" output LVDS1
-workspace "7" output LVDS1
-workspace "9" output LVDS1
+#workspace "2"  output DP1
+#workspace "4"  output DP1
+#workspace "6"  output DP1
+#workspace "8"  output DP1
+#workspace "10" output DP1
+
+workspace "1" output eDP1
+workspace "3" output eDP1
+workspace "5" output eDP1
+workspace "7" output eDP1
+workspace "9" output eDP1
 
 
 
@@ -333,3 +350,4 @@ for_window [title="Keyboard Status Monitor"] floating enable
 for_window [title="Text Import - "] floating enable
 for_window [title="Cinelerra: "] floating enable; border normal
 for_window [title="xfce4-notifyd"] floating enable; border none
+#for_window [title="key-mon"] floating enable; border none

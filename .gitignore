@@ -22,6 +22,7 @@
 /DGuitar*
 /tabs
 /GNUstep
+/src
 
 # Specific files
 tags
@@ -38,6 +39,9 @@ mde.*
 /*.jpg
 /*.mkv
 rogue.scr
+x
+*.old
+*.bak
 
 # Dot *files*
 .*_history
@@ -63,7 +67,6 @@ rogue.scr
 .zcompdump
 .zdirs
 .aliases.cache
-.asoundrc
 .dbshell
 .googsystrayrc
 .mailstat
@@ -75,6 +78,10 @@ rogue.scr
 .weatherspect
 .xtermcontrol
 .festivalrc
+.dockercfg
+.s3cfg
+.netrc
+.msmtprc
 
 # Dot *dirs*
 .*/

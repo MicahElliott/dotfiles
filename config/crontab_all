@@ -1,22 +1,12 @@
 PATH=/usr/local/bin:/usr/bin:$HOME/bin:/bin
 #MAILTO=$(echo $USER)
 MAILTO="mde@micahelliott.com"
-#MAILTO="micah@ugraph.com"
 TMPDIR=$HOME/tmp
 
 #GEM_HOME = /home/mde/.gem/ruby/1.8.7
 GEM_PATH = $HOME/gems/nokogiri-1.5.0/lib
 
 # ???: need to make sure envars are passed to sub-crons.
-
-# m h  dom mon dow   command
-
-# Test
-#58 10 * * * ping -c1 -q stagingXXX.membean.com >/dev/null || mutt -s 'Membean Staging unpingable!' mde@micahelliott.com
-#15 12 * * *  $HOME/cron/$(hostname)/5minutely.cron
-
-#* * * * *  $HOME/cron/$(hostname)/5minutely.cron
-
 
 # Run every 5 minutes.
 0-55/5 * * * * $HOME/cron/$(hostname)/5minutely.cron

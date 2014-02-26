@@ -159,6 +159,10 @@ insert-sed() { LBUFFER+="s 's/" RBUFFER="//'" }
 zle -N insert-sed
 bindkey '^[s' insert-sed
 
+insert-while() { LBUFFER='while read -r x; do ' RBUFFER='print $x; done <~/test/aaa.lst' }
+zle -N insert-while
+bindkey '^[w' insert-while
+
 # Set vi mode.
 #bindkey -e
 bindkey -v

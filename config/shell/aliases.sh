@@ -11,8 +11,8 @@
 alias a='awk'
 # C -- cat/pygmentize
 # None seem to have markdown support
-alias c='/usr/bin/coderay' # uses bold unlike pygmentize
-alias c2='python3 =pygmentize'
+alias c2='/usr/bin/coderay' # uses bold unlike pygmentize
+#alias c='python3 =pygmentize'
 #alias c='pygmentize'
 #alias c='src-hilite-lesspipe.sh'
 # D -- dirs
@@ -300,6 +300,7 @@ alias en-py2='py2en'
 alias en-chruby='echo already enabled'
 alias en-nvm='nvi'
 alias en-ffsdk='ffi'
+alias en-docker='sc start docker; sudo sysctl net.ipv4.ip_forward=1'
 
 ### Other
 alias clean="rm -f *~ .*~ core *.bak"
@@ -371,3 +372,5 @@ alias cu='curl -i'
 alias mysql='mysql --auto-rehash'
 
 alias stderred='export LD_PRELOAD="/usr/lib/libstderred.so"'
+
+alias dk='docker'
