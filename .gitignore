@@ -56,6 +56,7 @@ x
 .gtk-bookmarks
 .gtkrc-2.0
 .*-credentials
+.gem/credentials
 .lesshst
 .lucli
 .luke
@@ -80,6 +81,7 @@ x
 .festivalrc
 .dockercfg
 .s3cfg
+.muttrc
 .netrc
 .msmtprc
 
