@@ -4,21 +4,15 @@
 " Version:     0.3
 " Info:        Micah’s main config file
 "-----------------------------------------------------------------------
+let g:textobj#quote#matchit = 1
 
-"echo "in vimrc" | sleep 1
-
-" Some info on getting python support for arch linux:
-" https://gist.github.com/3048622
-
+"== Options {{{
 set t_Co=256
-if &t_Co > 2                " check for multi colors
-    syntax on                    " colored syntax
-endif
+syntax on                    " colored syntax
 
-"== Options ====================================================== {{{
 set exrc          " use local .exrc file
 set autowrite     " autosave before changing window or shellcmd
-set ignorecase  " search case sensitive
+set noignorecase  " search case sensitive
 "set tabstop=2     " tab 4 chars (ts)
 "set tabstop=40     " tab 4 chars (ts)
 set tabstop=4     " tab 4 chars (ts)
@@ -27,7 +21,7 @@ set expandtab
 set nobackup
 set bs=2          " allow backspacing in insert mode
 set nocompatible  " not compatible with vi
-set history=50    " keeps command history
+set history=300    " keeps command history
 set ruler         " show cursor position always
 set showmode
 set showcmd
@@ -38,8 +32,8 @@ set errorbells    " turn on bells
 set visualbell    " some kind of visual bell warning
 set modeline      " enable .exrc cmds inside file being edited
 set modelines=5   " number of lines at top to be checked
-set formatoptions=tcrq
-                  " r is non-default but important! (:h fo-table)
+set formatoptions=tcqron
+                  " only tcq are default but others important! (:h fo-table)
 set nocursorline
 set nocursorcolumn
 set hidden
@@ -50,29 +44,42 @@ set nolinebreak   " Wrap long lines (breakat) -- do not insert <EOL>s
                   "   only affects the way the file is displayed
 set nosmartindent " Too smart for text
 set nosmarttab    " Too smart for text
-set textwidth=78  " Insert <EOL> when reaching this column
+"set textwidth=78  " Insert <EOL> when reaching this column
+set textwidth=0  " Insert <EOL> when reaching this column
 set wrap          " Display long lines wrapped
 set wrapmargin=0  " Like `textwidth' but use instead (from right border)
 set suffixes=.bak,~,.o,.info,.swp,.swp,.pc,.pcl,.aux,.dvi,.log,.toc
 set hidden
 set nrformats-=octal  " Enable in/decrementing with ^A/^X with leading 0s
 
+set dir=$TMPDIR/vimbak
+
 set lazyredraw    " Don't redraw while executing macros (better performance)
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
+" Probably not required
+set shell=/usr/bin/zsh
+
 " Swap file are good for knowing if a file is open elsewhere.
 "set noswapfile
 
-"set relativenumber
 " Cool, but messes up urxvt copying (extra trailing spaces)
 "set colorcolumn=80
 
+" From Damian Conway OSCON
+highlight ColorColumn ctermbg=magenta
+call matchadd('ColorColumn', '\%81v', 100)
+
+" Neat idea, but harder to turn off, and probably performs badly.
+set relativenumber  " cor
+set numberwidth=1
 set number
-set numberwidth=3
+"set numberwidth=3
 
 " Always show a status bar
 set laststatus=2
+"set statusline=%-10.3n  " buffer number
 "set cmdheight=2  " for more debug info?
 
 " Always show help in vertical window
@@ -92,16 +99,31 @@ set wildmode=longest:full,full
 " http://ksjoberg.com/vim-esckeys.html
 set noesckeys
 
+set cryptmethod=blowfish2
+
 " Folding
 set foldenable
 set foldmethod=marker
+"set foldmethod=syntax
+
+set switchbuf=split
+
+" Set very-'magic' permanently (no need to specify \v in pattern)
+" http://stackoverflow.com/questions/3760444/in-vim-is-there-a-way-to-set-very-magic-permanently-and-globally
+"cnoremap s/ s/\v
+
+" Swap : and ;
+" Pretty bad since renders all :foo commands broken
+" Better to just use xmodmap in .xinitrc
+"nnoremap ; :
+"nnoremap : ;
 
 " Seems these all need to be in vimrc due to order of vimclojure.
 let vimfiles = $HOME . "/.vim"
 "let vimclojure#SetupKeyMap = 0
 let vimfiles = $HOME . "/.vim"
 let vimclojure#HighlightBuiltins = 1      " Highlight Clojure's builtins
-let vimclojure#ParenRainbow = 1           " Rainbow parentheses'!
+let vimclojure#ParenRainbow = 1           " Rainbow parentheses!
 let vimclojure#SplitSize = 10
 let vimclojure#SplitPos = "bottom"
 let vimclojureRoot = vimfiles."/bundle/VimClojure"
@@ -115,9 +137,15 @@ let vimclojure#FuzzyIndent = 1
 " Indent guides: https://github.com/nathanaelkane/vim-indent-guides
 " <Leader>ig
 let g:indent_guides_auto_colors = 0
-let g:indent_guides_enable_on_vim_startup = 1
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=233
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=234
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=236
+let g:indent_guides_enable_on_vim_startup = 0  " turn on here
+" disable ,ig
+let g:indent_guides_default_mapping = 0
+
+"hi IndentGuidesOdd ctermbg=red
+"hi IndentGuidesEven ctermbg=blue
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=233
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=234
 
 let mapleader = ","
 let maplocalleader = ","
@@ -132,32 +160,56 @@ set guicursor=a:blinkwait0,a:block-cursor
 
 " Mitigate annoying delay on Esc:
 " http://superuser.com/questions/246540/vim-delay-when-exiting-visual-mode
-set timeoutlen=600 " ms
+"set timeoutlen=600 " ms
+"set ttimeoutlen=0
+set timeoutlen=6000 " ms
+set ttimeoutlen=5000
 
 " http://vim.wikia.com/wiki/Configuring_the_cursor
+" Tmux details: http://reza.jelveh.me/2011/09/18/zsh-tmux-vi-mode-cursor
 if &term =~ "xterm\\|rxvt"
   " Insert
-  let &t_SI = "\<Esc>]12;white\x7"
+  let &t_SI  = "\<Esc>]12;gray\x7"
   let &t_SI .= "\<Esc>[3 q"
   " Normal
-  let &t_EI = "\<Esc>]12;green\x7"
+  let &t_EI  = "\<Esc>]12;green\x7"
   let &t_EI .= "\<Esc>[2 q"
   autocmd VimLeave * silent !echo -ne "\033]112\007"
+elseif &term =~ "screen-it"
+  " Insert
+  let &t_SI  = "\<Esc>Ptmux;\<Esc>\<Esc>]12;gray\x7\<Esc>\\"
+  let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[3 q\<Esc>\\"
+  " Normal
+  let &t_EI  = "\<Esc>Ptmux;\<Esc>\<Esc>]12;cyan\x7\<Esc>\\"
+  let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
+  "autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033]112\007\<Esc>\\"
+  autocmd VimLeave * silent !printf "\033Ptmux;\033\033]12;grey\007\033\\"
 endif
+
+" Consider optimizing for tmux:
+" http://sourceforge.net/p/tmux/mailman/tmux-users/thread/20120726171450.GB21474@s70206.gridserver.com/
 
 setlocal spell spelllang=en_us
 set nospell
 set spellfile=~/.vim/en.utf-8.add
+
+
 " }}}
 
-"== GUI (instead of having a gvimrc) ============================= {{{
+"== GUI (instead of having a gvimrc) {{{
 "set guifont=Monospace\ 6
 set guifont=ProFontWindows\ 9
 "set guifont=mde
 set guioptions=acegi
 " }}}
 
-"== Pathogen ===================================================== {{{
+
+
+
+
+runtime! macros/matchit.vim
+
+"== Vundle {{{
 "filetype off
 ""call pathogen#runtime_append_all_bundles()
 "call pathogen#infect('~/gitcontainer/vim')
@@ -166,114 +218,212 @@ set guioptions=acegi
 "filetype plugin indent on
 
 filetype off  " required for vundle!
-set rtp+=~/.vim/bundle/vundle
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+"call vundle#rc()
+call vundle#begin()
 
 " let Vundle manage Vundle; required!
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
-" My Bundles here:
-" Examples for:
-" original repos on github
-"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-" vim-scripts repos
-"Bundle 'FuzzyFinder'
-" non github repos
-"Bundle 'git://git.wincent.com/command-t.git'
-
-Bundle 'tyok/ack.vim.git'
-Bundle 'vim-scripts/Color-Sampler-Pack'
-"Bundle 'sjl/badwolf.git'
-Bundle 'nanotech/jellybeans.vim.git'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'jpo/vim-railscasts-theme.git'
-
-Bundle 'morhetz/gruvbox'
-Bundle 'zeis/vim-kolor'
-Bundle 'chriskempson/tomorrow-theme'
-Bundle 'dsolstad/vim-wombat256i'
-
-Bundle 'sickill/vim-monokai.git'
-Bundle 'kien/ctrlp.vim'
-Bundle 'tpope/vim-cucumber.git'
-Bundle 'tpope/vim-haml.git'
-Bundle 'trapd00r/irc.vim.git'
-Bundle 'claco/jasmine.vim.git'
-Bundle 'tpope/vim-markdown.git'
-Bundle 'juvenn/mustache.vim.git'
+"Bundle 'tyok/ack.vim.git'
+Plugin 'rking/ag.vim'
+Plugin 'kien/ctrlp.vim'
+"Bundle 'tpope/vim-cucumber.git'
+Plugin 'tpope/vim-haml.git'
+Plugin 'trapd00r/irc.vim.git'
+Plugin 'tpope/vim-markdown.git'
+Plugin 'juvenn/mustache.vim.git'
 "Bundle 'Shougo/neocomplcache.git'
-Bundle 'scrooloose/nerdcommenter.git'
-Bundle 'scrooloose/nerdtree.git'
+"Bundle 'scrooloose/nerdcommenter.git'
+Plugin 'tpope/vim-commentary.git'
+Plugin 'scrooloose/nerdtree.git'
 "Bundle 'tpope/vim-pathogen.git'
-Bundle 'tpope/vim-rails'
-Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'tpope/vim-repeat.git'
+Plugin 'tpope/vim-rails'
+Plugin 'kien/rainbow_parentheses.vim'
+"Plugin 'losingkeys/vim-niji'
+Plugin 'tpope/vim-repeat.git'
 "Bundle 'vim-scripts/rubycomplete.vim'
-Bundle 'vim-ruby/vim-ruby.git'
-Bundle 'ervandew/screen'
-Bundle 'slim-template/vim-slim.git'
-"Bundle 'msanders/snipmate.vim.git'
+Plugin 'vim-ruby/vim-ruby.git'
+Plugin 'ervandew/screen'
+Plugin 'slim-template/vim-slim.git'
 " Kills some of the completion features, like C-p
 "Bundle 'ervandew/supertab.git'
-Bundle 'tpope/vim-surround.git'
-Bundle 'scrooloose/syntastic.git'
-Bundle 'vim-scripts/taglist.vim.git'
-Bundle 'tomtom/tlib_vim.git'
-Bundle 'vim-scripts/transpose-words.git'
-Bundle 'tpope/vim-unimpaired.git'
-Bundle 'MarcWeber/vim-addon-mw-utils.git'
-Bundle 'jeetsukumaran/vim-buffergator.git'
-Bundle 'vim-scripts/VimClojure.git'
-Bundle 'kchmck/vim-coffee-script.git'
-Bundle 'gkz/vim-ls.git'
-Bundle 'henrik/vim-indexed-search.git'
-Bundle 'vim-scripts/vim-json-bundle.git'
-Bundle 'tpope/vim-liquid.git'
-Bundle 'MicahElliott/vim-powerline.git'
-Bundle 'stephenmckinney/vim-solarized-powerline'
-Bundle 'jpalardy/vim-slime.git'
+Plugin 'tpope/vim-surround.git'
+Plugin 'scrooloose/syntastic.git'
+"Bundle 'vim-scripts/taglist.vim.git'
+
+"Bundle 'msanders/snipmate.vim.git'
+" These two required for snipmate
+Plugin 'tomtom/tlib_vim.git'
+Plugin 'MarcWeber/vim-addon-mw-utils.git'
+
+Plugin 'vim-scripts/transpose-words.git'
+Plugin 'tpope/vim-unimpaired.git'
+Plugin 'jeetsukumaran/vim-buffergator.git'
+
+"Bundle 'vim-scripts/VimClojure.git'
+Plugin 'guns/vim-clojure-static.git'
+Plugin 'guns/vim-clojure-highlight.git'
+Plugin 'tpope/vim-leiningen.git'
+"Bundle 'tpope/vim-classpath'
+Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-scriptease'
+
+Plugin 'tpope/vim-projectionist.git'
+Plugin 'tpope/vim-dispatch.git'
+Plugin 'tpope/vim-fireplace.git'
+Plugin 'guns/vim-sexp'
+Plugin 'tpope/vim-sexp-mappings-for-regular-people'
+Plugin 'dgrnbrg/vim-redl'
+
+Plugin 'file:///home/mde/gitcontainer/projects/vim-racket-omni-docs'
+
+Plugin 'wlangstroth/vim-racket'
+"nunmap <buffer> K  " does not work
+
+Plugin 'henrik/vim-indexed-search.git'
+Plugin 'vim-scripts/vim-json-bundle.git'
+"Bundle 'tpope/vim-liquid.git'  " jekyll??
+Plugin 'jpalardy/vim-slime.git'
 " Visual block editing (mirror):
 " http://vim.wikia.com/wiki/Applying_substitutes_to_a_visual_block
-Bundle 'taku-o/vim-vis'
-Bundle 'vim-scripts/AnsiEsc.vim.git'
-Bundle 'nono/vim-handlebars.git'
-Bundle 'groenewege/vim-less'
-Bundle 'johnhamelink/blade.vim'
-Bundle 'digitaltoad/vim-jade'
-Bundle 'tomasr/molokai.git'
-Bundle 'jelera/vim-javascript-syntax'
+Plugin 'taku-o/vim-vis'
+Plugin 'vim-scripts/AnsiEsc.vim.git'
+Plugin 'nono/vim-handlebars.git'
+Plugin 'groenewege/vim-less'
 
-Bundle 'nathanaelkane/vim-indent-guides.git'
+Plugin 'bling/vim-airline'
+"Bundle 'itchyny/lightline.vim'
 
-Bundle 'vim-scripts/ck.vim'
+Plugin 'tmhedberg/matchit'
+Plugin 'kana/vim-textobj-user'
+Plugin 'reedes/vim-textobj-quote'
+
+" Not doing JavaScript/jade/node for a while.
+"Bundle 'johnhamelink/blade.vim'
+"Bundle 'digitaltoad/vim-jade'
+"Bundle 'kchmck/vim-coffee-script.git'
+"Bundle 'gkz/vim-ls.git'
+"Bundle 'jelera/vim-javascript-syntax'
+"Bundle 'claco/jasmine.vim.git'
+
+
+"Bundle 'vim-scripts/Color-Sampler-Pack'
+"Bundle 'sjl/badwolf.git'
+"Bundle 'nanotech/jellybeans.vim.git'
+"Bundle 'altercation/vim-colors-solarized'
+"Bundle 'jpo/vim-railscasts-theme.git'
+"Bundle 'morhetz/gruvbox'
+"Bundle 'zeis/vim-kolor'
+"Bundle 'chriskempson/tomorrow-theme'
+"Bundle 'dsolstad/vim-wombat256i'
+"Bundle 'sickill/vim-monokai.git'
+Plugin 'tomasr/molokai.git'
+
+" Disable for vimdeck
+Plugin 'nathanaelkane/vim-indent-guides.git'
+
+" Chuck syntax
+"Bundle 'vim-scripts/ck.vim'
 
 " FIXME: Might not want autoclose
-Bundle 'Townk/vim-autoclose'
+"Bundle 'Townk/vim-autoclose'
 
 " Too complex to setup, maybe
-Bundle 'Shougo/neocomplete.vim'
+"Bundle 'Shougo/neocomplete.vim'
 
-Bundle 'godlygeek/tabular.git'
+Plugin 'godlygeek/tabular.git'
 
-Bundle 'nelstrom/vim-markdown-folding'
+Plugin 'nelstrom/vim-markdown-folding'
 
-Bundle 'tpope/vim-abolish'
+"Bundle 'chrisbra/csv.vim'
+
+" Just trying to get a feel for cli in vim
+Plugin 'tpope/vim-fugitive'
+
+Plugin 'vim-scripts/Vim-R-plugin'
+
+Plugin 'thinca/vim-ref'
+
+
+" Create symlink to enable local dev
+" ln -s gitcontainer/projects/vim-cterm-highlight ~/.vim/bundle/
+Plugin 'file:///home/mde/gitcontainer/projects/Rocannon'
+" Only enable when working on colorschemes
+"Plugin 'file:///home/mde/gitcontainer/projects/vim-cterm-highlight'
+
+Plugin 'file:///home/mde/gitcontainer/projects/upper-decker'
+
+Plugin 'MicahElliott/vim-clojure-fontlocks'
 
 "-- Gists ------------------------------------------------------------
 "Bundle 'git@github.com:MicahElliott/snipmate-snippets.git'
-Bundle 'git@github.com:MicahElliott/UniCycle.git'
+"Bundle 'git@github.com:MicahElliott/UniCycle.git'
 " Automagic Clojure folding on defns and defmacros
-Bundle 'git@gist.github.com:3049202.git'
-" Vim “adobe” color scheme
-Bundle 'git@gist.github.com:720355.git'
+"Bundle 'git@gist.github.com:3049202.git'
+" also: MicahElliott/vim-colors-mde
+"Bundle '~/gitcontainer/vim/vim-colors-mde'
+Plugin 'file:///home/mde/gitcontainer/vim/vim-colors-mde'
+" Vim “adobe” color scheme (out of date)
+" THIS ONE WAS GOOD
+"Bundle 'git@gist.github.com:720355.git'
 " Special comments support to v3.0.6 for vim python syntax.
 "Bundle 'git@gist.github.com:735852.git'
 
-
+call vundle#end()
 filetype plugin indent on     " required!
 " }}}
 
-"== ftplugins ~/.vim/ftplugin ==================================== {{{
+"== Color Schemes {{{
+set background=dark
+" Listed in order of preference.
+"colorscheme adobe
+"colorscheme herald
+"colorscheme inkpot
+" No effect for cterm
+"let g:molokai_original = 1
+"let g:rehash256 = 1
+" Something bad happens to airline when re-source-ing $MYVIMRC
+colorscheme molokai
+"let g:colors_name = 'mde disabling colors_name here since its funky with airline/mol combo'
+unlet g:colors_name
+"colorscheme Tomorrow-Night
+"colorscheme badwolf
+"colorscheme jellybeans
+
+"colorscheme gruvbox
+"colorscheme kolor
+"colorscheme tomorrow
+"colorscheme wombat256i
+
+"colorscheme railscasts
+"colorscheme vibrantink
+"colorscheme vividchalk
+"colorscheme desert256
+"colorscheme motus
+"set background=light
+"let g:solarized_termcolors=256
+"let g:solarized_contrast="high"
+"colorscheme solarized
+" FIXME
+" Has some molokai overrides to remove bad recording red
+colorscheme comments
+colorscheme missing
+colorscheme overrides
+
+" Has no effect.
+"source ~/.vim/ftplugin/comments.vim
+"source ~/config/vim/bundle/git@gist.github.com:720355/syntax/comments.vim
+
+" Catching bad whitespace.
+"hi ExtraWhitespace ctermbg=9 guibg=red
+match ExtraWhitespace /\s\+$/
+" }}}
+
+" TODO:
+" - Set up real tabl completion, instead of C-Space
+
+"== ftplugins ~/.vim/ftplugin {{{
 " This vimrc runs before the ftplugins.
 " See individual files with: <C-w>f
 " Particularly interesting:
@@ -297,18 +447,61 @@ filetype plugin indent on     " required!
 " ~/.vim/ftplugin/zsh.vim
 " }}}
 
-"== Override settings ============================================ {{{
+"== Override settings {{{
 
-"let g:snippets_dir = '~/.vim/snippets'
+" Airline Theme
+" https://github.com/bling/vim-airline/wiki/Screenshots
+let g:airline_theme = 'light'  " or sol, light, dark, molokai
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+let g:ctermhi_discard_rare = 1
+
+"let b:commentary_format = '"%s'
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+
+let g:airline#extensions#syntastic#enabled = 1
+
+let g:rocannon_bounce_mappings = 1
+
+let g:snippets_dir = '~/.vim/snippets'
 "inoremap <C-j> <C-r>=TriggerSnippet()<CR>
 "snoremap <C-j> <Esc>i<Right><C-r>=TriggerSnippet()<CR>
+
+" Ruby: :h ft-ruby-omni
+let g:rubycomplete_buffer_loading = 1
+let g:rubycomplete_classes_in_global = 1
 
 " See: ~/.vim/plugin/mdeneo.vim
 "let g:neocomplcache_enable_at_startup = 1
 
 " Not sure if these are doing anything.
-let g:SuperTabMappingForward = '<C-Space>'
-let g:SuperTabMappingBackward = '<S-C-Space>'
+"let g:SuperTabMappingForward = '<C-Space>'
+"let g:SuperTabMappingBackward = '<S-C-Space>'
+
+"map <C-Space> <C-x><C-o>
+inoremap <Nul> <C-x><C-o>
+" Just use <C-t> for tab-indenting
+"inoremap <Tab> <C-x><C-o>
+"inoremap <C-Space> <C-x><C-o>
+
+" Make sexp behave in deleting both new parens
+imap <C-h> <BS>
 
 let g:buffergator_suppress_keymaps = 1
 let g:buffergator_display_regime = "bufname"
@@ -317,10 +510,10 @@ let g:buffergator_viewport_split_policy = "L" "left
 
 " CtrlP
 "set wildignore+=*/tmp*,*.swp,/vendor
-set wildignore+=*/node_modules/*,*/build/*,*/components/*,*/_public/*,*/tmp/*
+set wildignore+=*/node_modules/*,*/build/*,*/components/*,*/_public/*,*/tmp/*,*/vendor/*,*/log/*
 "let g:ctrlp_custom_ignore = '\v[\/]node_modules$'
 let g:ctrlp_use_caching = 1
-let g:ctrlp_dotfiles = 1
+let g:ctrlp_show_hidden = 1
 let g:ctrlp_max_depth = 6
 let g:ctrlp_max_height = 50
 let g:ctrlp_switch_buffer = 2
@@ -350,7 +543,7 @@ let g:ctrlp_working_path_mode = 0
 
 " NERDCommenter
 let g:NERDCreateDefaultMappings = 0
-let g:NERDTreeWinSize = 22
+let g:NERDTreeWinSize = 30
 
 " EnhancedCommentify visual bindings:
 " http://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim
@@ -360,65 +553,30 @@ let g:NERDTreeWinSize = 22
 let g:jasmine_use_templates = ""
 
 let g:slime_target = "tmux"
-let g:slime_paste_file = "$HOME/.slime_paste"
+let g:slime_default_config = {"socket_name": "default", "target_pane": ":1.2"}
 
 let syntastic_enable_signs = 1
 "let syntastic_auto_jump = 1
+let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+let g:syntastic_always_populate_loc_list = 1
+
+" https://github.com/reedes/vim-textobj-quote
+let g:textobj#quote#matchit = 1
+let g:textobj#quote#educate = 1
+
+" NOTE: remove these mappings if using the tpope/vim-surround plugin!
+"map <silent> Sq <Plug>SurroundWithSingle
+"map <silent> SQ <Plug>SurroundWithDouble
+"map <silent> <leader>qc <Plug>ReplaceWithCurly
+"map <silent> <leader>qs <Plug>ReplaceWithStraight
+let g:textobj#quote#doubleMotion = 'Q'
+let g:textobj#quote#singleMotion = 'q'
+
 
 "set verbose
 " }}}
 
-"== Color Schemes ================================================ {{{
-" Listed in order of preference.
-"colorscheme adobe
-"colorscheme herald
-"colorscheme inkpot
-" No effect for cterm
-"let g:molokai_original = 1
-colorscheme molokai
-"colorscheme Tomorrow-Night
-"colorscheme badwolf
-"colorscheme jellybeans
-
-"colorscheme gruvbox
-"colorscheme kolor
-"colorscheme tomorrow
-"colorscheme wombat256i
-
-"colorscheme railscasts
-"colorscheme vibrantink
-"colorscheme vividchalk
-"colorscheme desert256
-"colorscheme motus
-"set background=light
-"let g:solarized_termcolors=256
-"let g:solarized_contrast="high"
-"colorscheme solarized
-"se background=dark
-" FIXME
-" Has some molokai overrides to remove bad recording red
-colorscheme comments
-colorscheme missing
-colorscheme overrides
-
-"let Powerline_colorscheme = 'skwp'
-let Powerline_symbols = 'unicode'
-"let Powerline_symbols = 'fancy'
-"let Powerline_colorscheme = 'solarized'
-
-"let g:Powerline_theme='short'
-let g:Powerline_colorscheme='solarized256_light'
-
-" Has no effect.
-"source ~/.vim/ftplugin/comments.vim
-"source ~/config/vim/bundle/git@gist.github.com:720355/syntax/comments.vim
-
-" Catching bad whitespace.
-"hi ExtraWhitespace ctermbg=9 guibg=red
-match ExtraWhitespace /\s\+$/
-" }}}
-
-"== Register Macros ============================================== {{{
+"== Register Macros {{{
 " http://vim.wikia.com/wiki/Macros
 
 " Commify/Uncommify: John Doe -> Doe, John
@@ -455,9 +613,12 @@ let @a="0f:ll%hi, ['', \"\", '']%ll"
 let @l='/address: Wlv$hhy:r !./addr2latlng.coffee """I  geoloc: '
 " }}}
 
-"== Map (Leader) ================================================= {{{
+"== Map (Leader) {{{
 
 nnoremap <Space> za
+
+" I more often want to go to the space between words, to follow with D
+nnoremap gb Bh
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -477,6 +638,7 @@ endif
 nmap <Leader>x <Plug>Transposewords
 
 nmap <C-w>o <C-w>_
+nmap <C-w><C-o> <C-w>_
 
 nmap <buffer> dl :Conflict2DiffGetLeft<CR>
 nmap <buffer> dr :Conflict2DiffGetRight<CR>
@@ -508,14 +670,17 @@ nmap <leader>z :noh<CR>
 " Explore (using NT)
 nmap <Leader>n :NERDTreeToggle<CR>
 
-nmap <Leader>e :lwindow<CR>
-nmap <Leader>E :lclose<CR>
+" Location (errors) window
+nmap <Leader>l :lwindow<CR>
+nmap <Leader>c :cwindow<CR>
+nmap <Leader>C :cclose<CR>
+nmap <Leader>h :helpclose<CR>
 "nmap <Leader>e :llist<CR>
 
-" Ack (grep)
-nmap <Leader>g :Ack! 
+" grep
+nmap <Leader>g :Ag! 
 "let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-set grepprg=ack\ -a
+"set grepprg=ack\ -a
 
 nmap <Leader>s :SyntasticCheck<CR>
 
@@ -555,9 +720,15 @@ nmap <Leader>q <C-W>q
 " UniCycle typography
 map <Leader>u :UniCycleToggle<CR>
 
+" vimmerge/Git mergetool
+" http://blog.binchen.org/posts/use-vimdiff-to-resolve-git-merge-conflicts-effectively.html
+map <silent> <leader>d2 :diffget 2<CR> :diffupdate<CR>
+map <silent> <leader>d3 :diffget 3<CR> :diffupdate<CR>
+map <silent> <leader>d4 :diffget 4<CR> :diffupdate<CR>
+
 " }}}
 
-"== Window Navigation ============================================ {{{
+"== Window Navigation {{{
 map <Leader>1 <C-W>1w
 map <Leader>2 <C-W>2w
 map <Leader>3 <C-W>3w
@@ -579,15 +750,15 @@ inoremap <C-l> <C-x><C-l>
 inoremap <C-f> <C-x><C-f>
 " }}}
 
-"== Abbreviation ================================================= {{{
+"== Abbreviation {{{
 "iabbr :) ☻
 iabbr (c) ©
 
-iabbr js JavaScript
-iabbr ls LiveScript
+"iabbr js JavaScript
+"iabbr ls LiveScript
 " }}}
 
-"== Autocmd ====================================================== {{{
+"== Autocmd {{{
 " au! " remove existing auto-commands to avoid double-sourcing
 if has("autocmd")
 " Use the skeletons
@@ -596,15 +767,26 @@ au BufNewFile *.c read ~/.vim/skel/skel.c | source ~/.vim/skel/skel.c.sh
 au BufNewFile *.h read ~/.vim/skel/skel.h | source ~/.vim/skel/skel.h.sh
 au BufNewFile *.py  0read ~/.vim/skel/skel.py
 au BufNewFile *.rb  0read ~/.vim/skel/skel.rb
-au BufNewFile *.coffee,*.cf,*.co,*.cs  0read ~/.vim/skel/skel.coffee'
+au BufNewFile *.rkt  0read ~/.vim/skel/skel.rkt
+au BufNewFile *.coffee,*.cf,*.co,*.cs  0read ~/.vim/skel/skel.coffee
 au BufNewFile *.ls  0read ~/.vim/skel/skel.ls
 au BufNewFile *.zsh,*.z  0read ~/.vim/skel/skel.zsh
 au BufNewFile makefile read ~/.vim/skel/skel.mk | source ~/.vim/skel/skel.mk.sh
 au BufNewFile *.docbook,*.docbk,*.db 0r ~/.vim/skel/skel.docbook
 au BufNewFile *.html 0r ~/.vim/skel/skel.html
 au BufNewFile *.jade 0r ~/.vim/skel/skel.jade
+au BufNewFile *.asc 0r ~/.vim/skel/skel.asc
+
+" Smart punctuation/typography/unicode curly apostrophes/quotes
+augroup textobj_quote
+  autocmd!
+  autocmd FileType markdown,textile,text,asciidoc,haml call textobj#quote#init()
+  "autocmd FileType text call textobj#quote#init({'educate': 0})
+augroup END
+
 endif " if has("autocmd")
 
+"au BufNewFile *.ans 0read /home/mde/proj/Membean/provn/ansible/skel/skel.ans | echo 'seeing new ans file' | sleep 1
 
 set previewheight=50
 au BufEnter ?* call PreviewHeightWorkAround()
@@ -615,7 +797,7 @@ func! PreviewHeightWorkAround()
 endfunc
 " }}}
 
-"== Tab Navigation =============================================== {{{
+"== Tab Navigation {{{
 " Tabbing like Firefox, xterm only.
 map <M-1> 1gt
 map <M-2> 2gt
@@ -636,143 +818,3 @@ nmap 6 6gt
 nmap 7 7gt
 nmap 8 8gt
 nmap 9 9gt
-
-"###################################
-" Return to previously visited tab (<alt><tab>).
-" http://vim.1045645.n5.nabble.com/jump-to-last-visited-tabpage-td1172955.html
-nmap <Tab> :exe "tabn " . g:ltv<CR>
-" referred to by TabLeave autocmd.
-function! Setlasttabpagevisited()
-  let g:ltv = tabpagenr()
-endfunction
-augroup localtl
-" Remove all localtl autocommands
-au!
-" keep tally of the last tab page visited.
-autocmd TabLeave * call Setlasttabpagevisited()
-augroup END
-autocmd VimEnter * let g:ltv = 1
-"##################################
-" }}}
-
-"== Function key mappings ======================================== {{{
-
-" Right next to <S-Insert> (the actual xterm paste sequence.
-"set pastetoggle=<S-Home>
-" Doesn't work, so use something similar/close that only works in normal mode
-"map <F12> :set paste!<CR>i
-" only works in command mode
-map <F2> :set cursorcolumn<CR>:set cursorline<CR>:set colorcolumn=80<CR>
-map <F3> :set nocursorcolumn<CR>:set nocursorline<CR>:set colorcolumn=0<CR>
-nnoremap <F5> "=strftime("%F")<CR>P
-" Won't work; don't know why!
-"inoremap <F5> <C-R>=strftime("%F")<CR>
-map <F8> :set paste!<CR>
-map <F9> :set spell!<CR>
-
-" http://vim.wikia.com/wiki/Identify_the_syntax_highlighting_group_used_at_the_cursor
-map <F12> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-  \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-  \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-" }}}
-
-"== Misc ========================================================= {{{
-
-" This seems horrible, but since filetype.vim is looked at *after*
-" system syntax file, there's no other place to set it for sh/zsh.
-" Sure hope it doesn't affect anything else.
-let b:is_bash = 1
-
-" Will this have a bad effect on Clojure's rainbows??
-" Conflicts a bit with vim-javascript-syntax
-" setTimeout(function () {}, 5);
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
-
-runtime! macros/matchit.vim
-" }}}
-
-"== Colors ======================================================= {{{
-" See overrides.vim for more usage.
-" Molokai:
-" 161     pink (red)
-" 166/208 orange
-" 226     yellow (not actually in molokai)
-" 81      cyan
-" 118     green
-" 67      blue
-" 135     purple
-" Additions:
-" 52      darkred
-" 94      darkyellow (brown)
-" 28      darkgreen
-" 25      darkblue
-" 92      darkpurple
-
-"      vim            gvim
-let g:rbpt_colorpairs = [
-    \ ['92',       'RoyalBlue3'],
-    \ ['161',    'SeaGreen3'],
-    \ ['118',    'DarkOrchid3'],
-    \ ['135',   'firebrick3'],
-    \ ['81',    'RoyalBlue3'],
-    \ ['166',     'SeaGreen3'],
-    \ ['67', 'DarkOrchid3'],
-    \ ['226',       'firebrick3'],
-    \ ['92',        'RoyalBlue3'],
-    \ ['161',      'SeaGreen3'],
-    \ ['118', 'DarkOrchid3'],
-    \ ['135',    'firebrick3'],
-    \ ['81',   'RoyalBlue3'],
-    \ ['166',    'SeaGreen3'],
-    \ ['67',     'DarkOrchid3'],
-    \ ['226',      'firebrick3'],
-    \ ]
-" outermost parens is last entry
-let g:rbpt_max = 16
-let g:rbpt_loadcmd_toggle = 0
-
-" Return to last edit position when opening files (You want this!)
-autocmd BufReadPost *
- \ if line("'\"") > 0 && line("'\"") <= line("$") |
- \   exe "normal! g`\"" |
- \ endif
-" Remember info about open buffers on close
-set viminfo^=%
-
-
-"function! FeedVisualCmd(cmdpat)
-    "let [qr, qt] = [getreg('"'), getregtype('"')]
-    "silent norm! gvy
-    "let cmd = printf(a:cmdpat, shellescape(@"))
-    "call setreg('"', qr, qt)
-    ""echo system(cmd)
-    "let res = system(cmd)
-    ""read res
-    "if v:shell_error
-        "echohl ErrorMsg | echom 'Failed to run ' . cmd | echohl NONE
-    "endif
-"endfunction
-"" (geo) Locate
-"vnoremap <leader>l :<c-u>call FeedVisualCmd('./addr2latlng.coffee "%s"')<cr>
-
-" }}}
-
-"== Obscure overrides of Vim builtins ============================ {{{
-
-"se lines=12
-" http://www.shallowsky.com/linux/noaltscreen.html
-" Make vim not clear screen on exit.
-set t_ti= t_te=
-" vimpager stuff: https://github.com/rkitover/vimpager/
-" not sure what these really do
-let vimpager_disable_x11 = 1
-let vimpager_scrolloff = 5
-
-" Two ways to address inotify problems. See vim docs to understand their
-" repercussions, which AFAICT are none.
-"se backupcopy=yes
-set nowritebackup
-" }}}
