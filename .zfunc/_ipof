@@ -1,0 +1,8 @@
+#compdef ipof
+
+# Complete the IPs of hosts in ~/.ssh/config. Not smart enough to stop
+# completing after one match.
+
+cmds=( $(awk '/^Host/ {print $2}' ~/.ssh/config) )
+
+_describe 'ssh hosts' cmds
