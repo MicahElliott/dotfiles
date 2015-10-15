@@ -2,9 +2,9 @@
 visible_click_timeout = 0.2
 follow-mouse = 0
 key_timeout = 0.2
-scale = 0.6
+scale = 0.8
 sticky_mode = 0
-theme = clear-command
+theme = clear-ubuntu
 visible-click = 0
 opacity = 1.0
 backgroundless = 0
@@ -27,6 +27,6 @@ map = us.kbd
 swap_buttons = 0
 
 [position]
-x = -1
-y = -1
+x = 645
+y = 661
 

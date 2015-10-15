@@ -4,7 +4,7 @@
 /gitcontainer
 /gits
 /repos
-#/doc
+/doc
 /abs
 /Videos
 /opt
@@ -26,8 +26,21 @@
 /mde-stud
 /bin/cosmos*
 /bin/vault.zsh
+/bin/pwgen.zsh
+ssh_config*
 /pkg
 /*.tar.xz
+/R
+/oldpng
+fetchmailrc-intel
+/save
+log/
+kdenlive/
+discharging
+mde-gpg*
+.muttrc
+muttrc
+mutt/
 
 # Specific files
 tags
@@ -52,6 +65,21 @@ z
 *.gz
 *.bz2
 *.gpg
+.gpg*
+.mailrc
+.mbrowse
+.mirarc
+.notify-osd
+.scudcloud
+.spring.rb
+.utop-history
+.wxcam
+.aws*
+.grcat
+*.tmp
+.asoundrc-disabled
+.zhistory
+.netrwhist
 
 # Dot *files*
 .*_history

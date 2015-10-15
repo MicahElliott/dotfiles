@@ -12,7 +12,7 @@ set $mod Mod4
 exec xset +fp ~/gitcontainer/projects/orp-font/misc
 #exec xset +fp ~/gits/projects/orp-font/misc
 exec xset +fp /usr/share/fonts/local
-exec xset r rate 250 60 # super fast delay and rate!
+exec xset r rate 250 60 # super fast keyboard delay and rate!
 
 # NOTE: some of these are being set in .xinitrc; could maybe move some here.
 
@@ -25,20 +25,23 @@ exec volumeicon
 #exec volti
 
 # New from .xinitrc
-exec parcellite
+#exec parcellite
+exec clipit
 #exec nm-applet
 exec wicd-client
-exec batti
+#exec batti
+exec batterymon
 # Frequency not detected??
 exec gatotray
 # FIXME: check to see if this works, like in .xinitrc
-exec eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
+#exec eval $(keychain --eval -Q --quiet id_rsa)
 exec stty -ixon
 
 # Growl On Linux
 exec gol
 
-exec shutter
+#exec shutter
+#exec screengrab
 
 # Too big and no real controls.
 #exec gvolwheel
@@ -60,10 +63,15 @@ font -misc-orp-bold-r-*--*-*-*-*-*-*-iso10646-1
 # Volume control
 # http://blog.bstpierre.org/controlling-audio-with-i3
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -- -5%
+bindsym XF86AudioLowerVolume exec pactl -- set-sink-volume 0 -0.2
 #bindsym XF86AudioRaiseVolume exec amixer -q set Master 2+ unmute
 #bindsym XF86AudioLowerVolume exec amixer -q set Master 2- unmute
 bindsym XF86Battery exec ~/bin/pm.zsh
+
+bindsym Menu exec mouse-script.zsh
+
+bindsym XF86MonBrightnessDown  exec  xbacklight -dec 10
+bindsym XF86MonBrightnessUp    exec  xbacklight -inc 10
 
 focus_follows_mouse yes
 #bindsym $mod+b workspace back_and_forth
@@ -91,9 +99,10 @@ bindsym $mod+d exec shellex -bg brown -fg yellow
 
 # lock screen
 # https://faq.i3wm.org/question/83/how-to-run-i3lock-after-computer-inactivity/
-#exec xautolock -time 4 -locker i3lock &
+#exec xautolock -time 4 -locker 'i3lock -b -c 0000ff'
+exec xautolock -time 22 -locker "i3lock -b -i $HOME/art/locked2.png"
 # Not working
-bindsym Control+Alt+$mod+l exec i3lock
+bindsym Control+Mod1+$mod+l exec i3lock -b -i $HOME/art/locked2.png
 
 # change focus
 bindsym $mod+h focus left
@@ -187,9 +196,9 @@ bindsym $mod+Shift+parenright move container to workspace 10
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+w restart
+bindsym $mod+Shift+Control+w restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exit
+bindsym $mod+Shift+Control+e exit
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -257,7 +266,8 @@ bindsym $mod+b border toggle
 #new_window 1pixel
 # NEW
 #new_window pixel 2 # awesome if it works!
-new_window pixel 3
+#new_window pixel 3
+new_window pixel 4
 
 #                       border  background  text
 #client.focused           #2B6473 #2B6473 #FFA000
@@ -304,23 +314,47 @@ client.urgent            #D11931     #D11931     #777777
 #workspace "10" output VGA1
 #workspace "10" output HDMI1
 
-workspace "2"  output HDMI2
-workspace "4"  output HDMI2
-workspace "6"  output HDMI2
-workspace "8"  output HDMI2
-workspace "10" output HDMI2
-
 #workspace "2"  output DP1
 #workspace "4"  output DP1
 #workspace "6"  output DP1
 #workspace "8"  output DP1
 #workspace "10" output DP1
 
-workspace "1" output eDP1
-workspace "3" output eDP1
-workspace "5" output eDP1
-workspace "7" output eDP1
-workspace "9" output eDP1
+#workspace "2"  output HDMI2
+#workspace "4"  output HDMI2
+#workspace "6"  output HDMI2
+#workspace "8"  output HDMI2
+#workspace "10" output HDMI2
+#workspace "1" output eDP1
+#workspace "3" output eDP1
+#workspace "5" output eDP1
+#workspace "7" output eDP1
+#workspace "9" output eDP1
+
+#workspace "1"  output eDP1
+#workspace "2"  output eDP1
+#workspace "3"  output eDP1
+#workspace "4"  output HDMI1
+#workspace "5"  output HDMI1
+#workspace "6"  output HDMI1
+#workspace "7"  output HDMI2
+#workspace "8"  output HDMI2
+#workspace "9"  output HDMI2
+#workspace "10" output HDMI2
+
+# workspace "1"  output eDP1
+# workspace "1"  output HDMI2
+
+workspace "1"  output eDP1
+workspace "2"  output eDP1
+workspace "3"  output eDP1
+workspace "4"  output HDMI2
+workspace "5"  output HDMI2
+workspace "6"  output HDMI2
+workspace "7"  output HDMI2
+workspace "8"  output HDMI1
+workspace "9"  output HDMI1
+workspace "10" output HDMI1
 
 
 
@@ -335,7 +369,7 @@ for_window [class="(?i)gimp"] floating enable; border normal
 for_window [class="(?i)gnumeric"] border normal
 for_window [class="(?i)soffice"] border normal
 for_window [class="(?i)feh"] floating enable; border normal
-for_window [class="(?i)smplayer"] floating enable; border normal
+for_window [class="(?i)s?mplayer"] floating enable; border normal
 for_window [class="(?i)vlc"] floating enable; border normal
 for_window [class="(?i)nautilus"] border normal
 for_window [class="(?i)xvidcap"] floating enable; border normal
@@ -350,4 +384,12 @@ for_window [title="Keyboard Status Monitor"] floating enable
 for_window [title="Text Import - "] floating enable
 for_window [title="Cinelerra: "] floating enable; border normal
 for_window [title="xfce4-notifyd"] floating enable; border none
+for_window [title="^qiv: "] floating enable; border normal
+#for_window [title="^ImageMagick: "] floating enable; border normal
+for_window [title="^ImageMagick: "] border none
+for_window [title=" - Geeqie"] border none
+for_window [title="^GPG: "] floating enable; border normal
+for_window [title=" - KeePassX"] floating enable; border normal
+for_window [title=" - R Help"] floating enable; border normal
+for_window [title=" - (ACTIVE)"] floating enable; border normal
 #for_window [title="key-mon"] floating enable; border none

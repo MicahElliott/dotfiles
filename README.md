@@ -13,11 +13,10 @@ Notable features:
 
 * Designates some standards dirs (via `.gitignore`s)
 
-* Separates own dotfiles (`~/config`) from tool-installed (`~/.*` and `~/.config`)
+* Separates own dotfiles (`~/config`) from tool-installed (`~/.*` and
+  `~/.config`) via symlinks; e.g., `~/.vimrc -> ~/config/vimrc`
 
-* `~/.*` configs are symlinks to `config/*` to avoid mixing with uncontrolled system things
-
-* `dotfiles` script as a proxy for git
+* Provides `dotfiles` script (and several `d*` aliases) as a proxy for git
 
 * Time-able and fast
 
@@ -49,8 +48,11 @@ Notable features:
         alias dotfiles
         dotfiles «tab»
 
-There are still vim (via vundle) and gist files to grab. I'll clean this up if
-someone requests.
+There are still vim (via [vundle](https://github.com/gmarik/Vundle.vim)) and
+gist files to grab. I'll clean this up if someone requests.
+
+You can also use the included `binstubs.zsh` to create a single `bin/` for
+your gists.
 
 ## Layout
 

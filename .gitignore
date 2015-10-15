@@ -1,10 +1,13 @@
+# THIS IS NOT FOR DOTFILES!
+# See .dotfilesignore for that.
+#
 # Top level dirs
 *.sw[po]
 /Downloads
 /gitcontainer
 /gits
 /repos
-/doc
+#/doc
 /abs
 /Videos
 /opt
@@ -24,15 +27,18 @@
 /GNUstep
 /src
 /mde-stud
-/bin/cosmos*
+/pkg
+/*.tar.xz
+/config/gitconfig
+/tmp*
+netrc
+gitconfig
 
 # Specific files
 tags
 test-0.mp4
 dead.letter
-foo*
 mde.*
-/*.md
 /*.mp3
 /*.ogg
 /*.json
@@ -48,8 +54,9 @@ z
 *.bak
 *.gz
 *.bz2
-*.asc
 *.gpg
+.gpg*
+*.log
 
 # Dot *files*
 .*_history
@@ -89,7 +96,6 @@ z
 .festivalrc
 .dockercfg
 .s3cfg
-.muttrc
 .netrc
 .msmtprc
 

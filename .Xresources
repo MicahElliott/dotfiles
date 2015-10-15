@@ -3,5 +3,5 @@
 ! https://github.com/tlatsas/xcolors
 ! Nancy theme has 10x settings of others, most of 256
 !#include "contrib/x/xcolors/themes/nancy"
-#include "contrib/x/nancy"
+#include "contrib/x11/nancy"
 !#include "archive/src/xcolors/themes/tangoesque"
