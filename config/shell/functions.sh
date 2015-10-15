@@ -119,18 +119,15 @@ untracked () {
 
 # Initialize a shell (just history for now) for proj work.
 i histinit () {
-    if [[ -z $1 ]] ; then
-        HISTFILE=~/.history/$(basename $PWD)
-    else
-        HISTFILE=~/.history/$1
-    fi
+    # Reuse existing from PWD or create new
+    [[ -z $1 ]] && HISTFILE=~/.history/$PWD:t || HISTFILE=~/.history/$1
     echo "Set HISTFILE=$HISTFILE"
     if [[ -f $HISTFILE ]] ; then
-        fc -RI
-        echo "Loaded prior existing history."
-        history
+        fc -RI  # read incremental (often)
+        echo 'Loaded prior existing history. Tail:'
+        fc -l |tail
     else
-        echo "This is a brand-spankin' new history!"
+        echo 'This is a brand-new history!'
     fi
 }
 
@@ -290,8 +287,8 @@ gitenter() {
         #awk '/url = / {print $3}' $OLDPWD/.git/config
     fi
 }
-typeset -U chpwd_functions
-chpwd_functions+=gitenter
+#typeset -U chpwd_functions
+#chpwd_functions+=gitenter
 
 # Run Maven goals through syntax highlighter.
 mc() { mvn clean   $@ 2>&1 |mvn-hilite.awk }  # delete build output
@@ -310,7 +307,7 @@ autoenv() {
 
 # http://www.zsh.org/mla/users/2011/msg00527.html
 rehash-last-install() { fc -l -1 |grep -q install && { echo rehash-ing; rehash } }
-precmd_functions+=rehash-last-install
+#precmd_functions+=rehash-last-install
 #precmd_functions+=autoenv
 
 
@@ -389,7 +386,7 @@ ccs() { python3 =pygmentize -l coffeescript $1 }
 
 py2en() {
   print "Enabling python2 in path via /var/tmp/bin hack."
-  path=(/var/tmp/bin $path)
+  path=(/var/tmp2/bin $path)
   python -V
 }
 
@@ -485,4 +482,27 @@ c() {
   [[ $1:e == zsh ]] && local arg='-l bash'
   #print 0:$0 1:$1 2:$2
   pygmentize $=arg $1 2>/dev/null || coderay $1 || cat $1
+}
+
+rsync-mde() {
+  if ! mountpoint /mnt/wd; then
+    print "wd not mounted?"
+    print "try: sudo mount /dev/sdb1 /mnt/wd"
+    return 1
+  fi
+  cd ~
+  time rsync -avprP ~/. /mnt/wd/mde-arix |tee ~/log/rsync-mde-arix-`dt`.log
+}
+
+# To be run before startx to set up gpg and ssh agents
+keychains() {
+  # timeout is in minutes
+  eval $(keychain --eval --quick --timeout 360 --agents gpg,ssh id_rsa)
+}
+
+shoot() {
+  local ss=$PWD/snapshot-`dts`.png
+  maim -s $ss
+  print $ss |xsel -bps
+  print "Save snapshot as: $ss"
 }

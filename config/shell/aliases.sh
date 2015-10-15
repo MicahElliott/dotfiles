@@ -8,7 +8,8 @@
 ### Highest importance, 1-char shortcuts.
 # A -- apt package mgmt
 #alias a='sudo aptitude'
-alias a='awk'
+#alias a='awk'
+alias a='alias'
 # C -- cat/pygmentize
 # None seem to have markdown support
 alias c2='/usr/bin/coderay' # uses bold unlike pygmentize
@@ -17,18 +18,21 @@ alias c2='/usr/bin/coderay' # uses bold unlike pygmentize
 #alias c='src-hilite-lesspipe.sh'
 # D -- dirs
 alias d='dirs -v'
-# E -- super-fast-to-start-up browser
-alias e='epiphany'
+# E -- file Explorer
+#alias e='epiphany'
+alias e='nemo --no-desktop'
 # F -- fc history display
 alias f='fc -ldD'
 alias fm=pcmanfm  # file manager
 # G -- grep searching
-#alias g='ack'
+alias g='ag'
 # PCRE and color for grep
-alias g='grep --color=always -P'
+#alias g='grep --color=always -P'
 alias gr='g -ir'
+alias gc='g -C4'
 # H -- help system
-alias h=help
+# I can't seem to get ESC-h working for run-help, so this'll have to do.
+alias h=run-help
 # I -- initialize project working dir (see func)
 # J -- job control
 alias j='jobs'
@@ -37,7 +41,9 @@ alias l='ls -hlABFX'
 # M -- audio player
 alias m=$APLAYER
 # N -- 
+# Might use n (node version tool)
 #alias n=nautilus
+#alias n='nemo --no-desktop'
 # O -- open, the right way
 alias o='mimeo'
 # P -- print, eg. envars
@@ -55,7 +61,8 @@ alias th='thunar'
 # V -- edit (see func)
 # W -- command info
 alias w='whence'
-alias wa='whence -av'
+alias wa='w -av'
+alias wm='w -m'
 alias w1='whence'
 # X -- exit (see func)
 alias x='exit'
@@ -93,8 +100,10 @@ alias gs='gem search -r'
 #   Bundler
 # http://ryan.mcgeary.org/2011/02/09/vendor-everything-still-applies/
 # http://stackoverflow.com/a/9791080/326516
+#alias b="./bin/bundle"
 alias b="bundle"
-alias bi="b install --path vendor/bundle --binstubs"
+alias bi="b install --path vendor"
+#alias bi="b install --path vendor/bundle"
 # Not useful? http://gembundler.com/bundle_package.html
 alias bil="bi --local"
 alias bu="b update"
@@ -120,18 +129,21 @@ alias bbo='brunch build --optimize --config config-release.ls'
 alias nv=nvm
 # Node with rlwrap
 # http://blog.doteight.com/blog/2011/01/16/rlwrap-and-node/
-alias node='NODE_NO_READLINE=1 rlwrap -pgreen -S "node> " node'
+#alias node='NODE_NO_READLINE=1 rlwrap -pgreen -S "node> " node'
 #alias coffee='NODE_NO_READLINE=1 rlwrap -pyellow -S "coffee> " coffee'
 # Can't alias coffee since it screws up syntastic.
 alias cs='rlwrap -s 10000 -H ./coffee.hist coffee -i'
 alias jsh=jshon
-alias lsc='livescript'
+#alias lsc='livescript'
 # rlwrap is broken for lsc; it uses raw mode? Have to either use `rlwrap -a` for
 # history or go without hist and get nice object prop completion
 alias ilsh='rlwrap -a -r -H ./lsc.hist -s 10000 lsc'
 # Still get single session history, plus really nice emacs-style obj
 # completions and function showing. Lacks any kind of search (ctrl-r).
-alias ils='livescript -d'
+#alias ils='livescript -d'
+# It seems to be -a/--always-readline that enables history but kills completion.
+# Funny that coffee does not have these problems.
+alias ils='rlwrap -a -O -A -N -s 40 -H /home/mde/.ils_history -- livescript'
 alias mo=mocha
 
 ### Archlinux / sudo
@@ -139,14 +151,19 @@ alias mo=mocha
 # OOPS: The --noedit kills zsh completion
 #alias packer='packer --noedit'
 #alias pm='packer --noedit'
-alias sc='sudo systemctl'
+alias sc='systemctl'
+alias ssc='sudo systemctl'
+alias jc='journalctl -xa'
+alias sjc='sudo journalctl -xa'
 alias spk='sudo pkill'
 # Better -S-completion than yaourt
 alias pm='sudo pacman'
+alias am='aurget'
 alias yao='yaourt --noconfirm'
 alias yaoup='yao -Syu --aur'
 alias sl='slocate -r'
 alias up='sudo updatedb'
+alias fw='firewall-cmd'
 
 ### Ubuntu
 # apt-* shortcuts
@@ -176,6 +193,7 @@ alias jobdone="date |mail -s 'job done' $EMAIL"
 alias day="date '+%Y%m%d'"
 alias dt='date "+%Y%m%d"'
 alias dt-='date -I'
+alias dts='date +%s'
 alias dd='date -d'  # okay to mask dd since use infrequently
 alias dt2="date-iso2bson.rb <<<\"'`dt-`'\""
 
@@ -188,15 +206,18 @@ alias vp=$VPLAYER
 # VCS to apply to, but only aliases are smart enough to complete well.
 alias st='git status'
 alias di='git diff'
+alias dic='git diff --cached'
 alias lo='git log --stat'
 alias lo2='git log --abbrev-commit --pretty=format:"%Cgreen%h %Cred%ai %Creset%s %Cgreen(%aN)"'
 alias ci='git commit'
+alias cip='git commit -p'
 alias co='git checkout'
 alias br='git branch'
 alias ad='git add'
 alias fe='git fetch -v'
 alias fed='git fetch --dry-run'
 alias re='git rebase -v'
+alias met='git mergetool'
 #alias cl='git clone'
 alias lsf='git ls-files'
 alias gls='git ls-files'
@@ -210,7 +231,9 @@ alias gpu='git push origin master'
 #   mv .dotfiles.git/* .
 #
 # If you want to ever make changes (recommended!), you should fork and clone your own.
-alias dotfiles='git --git-dir=$HOME/.dotfiles.git/.git --work-tree=$HOME'
+#alias dotfiles='git --git-dir=$HOME/.dotfiles.git/.git --work-tree=$HOME'
+# Neat that can have custom ignore file, so as not to muck up globally utilized ~/.gitignore
+alias dotfiles='git --git-dir=$HOME/.dotfiles.git/.git --work-tree=$HOME -c core.excludesfile=$HOME/.dotfilesignore'
 alias dit='dotfiles'
 alias dad2='dotfiles add'  # completion does not work
 alias dad='dotfiles stage' # so use semi-working synonym
@@ -257,6 +280,8 @@ alias ve-cdve='cdvirtualenv'
 alias vi-shell='v -o ~/.zshrc $my_shdir/options.zsh $my_shdir/envars.sh $my_shdir/aliases.sh $my_shdir/aliases.zsh $my_shdir/functions.sh'
 alias vi-mbg='v -S ~/proj/Membean/Session.vim'
 alias vi-sudo='sudoedit'
+alias vi-ans='v -o hosts site.yaml group_vars/all.yaml ssh-inventory.config ansible.cfg'
+alias vi-ssh='v ~/.ssh/config'
 
 # Seems to need to live as alias, not as file/function
 alias vim2html='vim -c ":TOhtml $1| w |q |q"'
@@ -295,6 +320,23 @@ alias pu='pushd'
 alias po='popd'
 alias cx='chmod +x'
 
+alias 1='pu'
+alias 2='pu ~2'
+alias 3='pu ~3'
+alias 4='pu ~4'
+alias 5='pu ~5'
+alias 6='pu ~6'
+alias 7='pu ~7'
+alias 8='pu ~8'
+alias 9='pu ~9'
+
+alias de='vared dirstack'
+alias dired='vared dirstack'
+
+### Racket
+alias rt=racket
+alias ro=raco
+
 ### Enablers
 alias en-py2='py2en'
 alias en-chruby='echo already enabled'
@@ -324,13 +366,15 @@ alias elinks='TERM=xterm-256color elinks'
 #alias mc='make clean'
 #alias mn='make -n'
 
-alias pg='pgrep'
-alias pk='pkill'
+alias pg='pgrep --full --list-full'
+alias pk='pkill --full'
 
 # Be safe. Unfortunate that stupid --no-clobber won't error when avoiding
 # overwrite.
 alias mv='mv -i'
 alias cp='cp -i'
+
+alias pp='print -P'
 
 alias tm='tmux'
 # Each slime wants its own socket.
@@ -357,14 +401,15 @@ alias printerconfig=system-config-printer
 
 alias xl=xlsxcat.zsh
 
-alias shoot='scrot -s'
+#alias shoot='scrot -s'
+#alias shoot="maim -s snapshot-`dts`.png"
 alias ssr='simplescreenrecorder'
 alias vidcap='simplescreenrecorder'
 alias webcam=wxcam
 alias cam=wxcam
 alias webshoot=wkhtmltoimage
 
-alias go=$BROWSER
+#alias go=$BROWSER
 alias ch='chromium --disable-web-security'
 
 alias cu='curl -i'
@@ -373,4 +418,18 @@ alias mysql='mysql --auto-rehash'
 
 alias stderred='export LD_PRELOAD="/usr/lib/libstderred.so"'
 
-alias dk='docker'
+alias dk='sudo docker'
+
+# alias ans=ansible
+
+alias android-pull='adb pull sdcard/DCIM/Camera/ ~/Pictures/n5'
+alias n5=android-pull
+
+# Can't figure out how to disable reboot, and accidentally completing it.
+# https://wiki.archlinux.org/index.php/allow_users_to_shutdown
+alias reboot='print "you probably do not really mean that"'
+
+alias kc=keychains
+
+alias sm="ssh -F ${ANSIBLE_HOSTS:h}/ssh-inventory.config"
+alias scpm="scp -F ${ANSIBLE_HOSTS:h}/ssh-inventory.config"

@@ -1,0 +1,45 @@
+# lynx.cfg file.
+INCLUDE:/etc/lynx.cfg
+
+
+STARTFILE:http://circuit.intel.com/
+DEFAULT_INDEX_FILE:http://www.google.com
+#LYNX_HOST_NAME:www.nmpto-linux3.rr.intel.com
+#LOCAL_HOST_ALIAS:gopher.serer.domain
+#PARTIAL:TRUE
+#PARTIAL_THRES:-1
+DEFAULT_CACHE_SIZE:80
+USE_MOUSE:TRUE
+#SET_COOKIES:TRUE
+#ACCEPT_ALL_COOKIES:TRUE
+VI_KEYS_ALWAYS_ON:TRUE
+
+http_proxy:http://proxy.jf.intel.com:911/
+https_proxy:http://proxy.jf.intel.com:911/
+ftp_proxy:http://proxy.jf.intel.com:911/
+gopher_proxy:http://proxy.jf.intel.com:911/
+news_proxy:http://proxy.jf.intel.com:911/
+newspost_proxy:http://proxy.jf.intel.com:911/
+newsreply_proxy:http://proxy.jf.intel.com:911/
+snews_proxy:http://proxy.jf.intel.com:911/
+snewspost_proxy:http://proxy.jf.intel.com:911/
+snewsreply_proxy:http://proxy.jf.intel.com:911/
+nntp_proxy:http://proxy.jf.intel.com:911/
+wais_proxy:http://proxy.jf.intel.com:911/
+finger_proxy:http://proxy.jf.intel.com:911/
+cso_proxy:http://proxy.jf.intel.com:911/
+no_proxy:http://proxy.jf.intel.com:911/
+
+MINIMAL_COMMENTS:TRUE
+
+# color options are: default nocolor black blue gray(bold) brightblue(bold)
+#	red magenta brightred(bold) brightmagenta green cyan brightgreen
+#	brightcyan brown lightgray yellow(bold) white(bold)
+COLOR:0:lightgray:black
+COLOR:1:brown:black
+COLOR:2:yellow:blue
+#COLOR:3:green:black	#not used
+COLOR:4:magenta:black
+COLOR:5:brightred:black
+COLOR:6:red:black
+COLOR:7:magenta:cyan

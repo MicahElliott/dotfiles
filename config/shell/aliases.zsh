@@ -28,12 +28,6 @@ alias -s feature='cucumber'
 # Actually, these behave better using cdpath (see options.zsh)
 #alias -g mb=~/proj/Membean
 
-# I can't seem to get ESC-h working for run-help, so this'll have to do.
-alias h=run-help
-
-alias de='vared dirstack'
-alias dired='vared dirstack'
-
 ### Globals
 alias -g A='| a'
 alias -g B='| bcat'

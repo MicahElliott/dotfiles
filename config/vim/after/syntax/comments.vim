@@ -1,1 +1,1 @@
-/home/mde/config/vim/bundle/git@gist.github.com:720355/syntax/comments.vim
+/home/mde/config/vim/bundle/vim-colors-mde/syntax/comments.vim

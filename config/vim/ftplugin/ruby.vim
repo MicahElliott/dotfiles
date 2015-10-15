@@ -40,9 +40,9 @@ let g:rct_completion_use_fri = 0  " not really working
 
 " Rails (MVCh)
 " There are several more of these available; see rails.txt.
-nmap <Leader>m :Rmodel<CR>
-nmap <Leader>v :Rview<CR>
-nmap <Leader>c :Rcontroller<CR>
-nmap <Leader>h :Rhelper<CR>
-nmap <Leader>s :Rspec<CR>
-nmap <Leader>j :Rjavascript<CR>
+nmap <Leader>m :Smodel<CR>
+nmap <Leader>v :Sview<CR>
+nmap <Leader>c :Scontroller<CR>
+nmap <Leader>h :Shelper<CR>
+nmap <Leader>s :Sspec<CR>
+nmap <Leader>j :Sjavascript<CR>

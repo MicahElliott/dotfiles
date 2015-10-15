@@ -41,5 +41,7 @@ set nospell
 
 "UniCycleOff
 
+let b:commentary_format = '#%s'
+
 " Useless.
 let b:is_bash = 1

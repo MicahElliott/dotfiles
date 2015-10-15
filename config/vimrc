@@ -162,8 +162,11 @@ set guicursor=a:blinkwait0,a:block-cursor
 " http://superuser.com/questions/246540/vim-delay-when-exiting-visual-mode
 "set timeoutlen=600 " ms
 "set ttimeoutlen=0
-set timeoutlen=6000 " ms
-set ttimeoutlen=5000
+"set timeoutlen=6000 " ms
+"set ttimeoutlen=5000
+
+" http://stackoverflow.com/questions/15550100/exit-visual-mode-without-delay
+set timeoutlen=1000 ttimeoutlen=0
 
 " http://vim.wikia.com/wiki/Configuring_the_cursor
 " Tmux details: http://reza.jelveh.me/2011/09/18/zsh-tmux-vi-mode-cursor
@@ -175,6 +178,8 @@ if &term =~ "xterm\\|rxvt"
   let &t_EI  = "\<Esc>]12;green\x7"
   let &t_EI .= "\<Esc>[2 q"
   autocmd VimLeave * silent !echo -ne "\033]112\007"
+  " In case in zsh insert mode
+  autocmd VimEnter * silent !echo -ne "\033]12;green\007\033[2 q"
 elseif &term =~ "screen-it"
   " Insert
   let &t_SI  = "\<Esc>Ptmux;\<Esc>\<Esc>]12;gray\x7\<Esc>\\"
@@ -184,6 +189,7 @@ elseif &term =~ "screen-it"
   let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
   "autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033]112\007\<Esc>\\"
   autocmd VimLeave * silent !printf "\033Ptmux;\033\033]12;grey\007\033\\"
+  autocmd VimEnter * silent !printf "\033Ptmux;\033\033]12;blue\007\033\033[2 q\033\\"
 endif
 
 " Consider optimizing for tmux:
@@ -284,11 +290,13 @@ Plugin 'wlangstroth/vim-racket'
 Plugin 'henrik/vim-indexed-search.git'
 Plugin 'vim-scripts/vim-json-bundle.git'
 "Bundle 'tpope/vim-liquid.git'  " jekyll??
-Plugin 'jpalardy/vim-slime.git'
+"Plugin 'jpalardy/vim-slime.git'
+Plugin 'epeli/slimux'
 " Visual block editing (mirror):
 " http://vim.wikia.com/wiki/Applying_substitutes_to_a_visual_block
-Plugin 'taku-o/vim-vis'
-Plugin 'vim-scripts/AnsiEsc.vim.git'
+" Conflicts with slimux
+"Plugin 'taku-o/vim-vis': stupid ,swp mapping
+"Plugin 'vim-scripts/AnsiEsc.vim.git'
 Plugin 'nono/vim-handlebars.git'
 Plugin 'groenewege/vim-less'
 
@@ -344,6 +352,10 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'vim-scripts/Vim-R-plugin'
 
 Plugin 'thinca/vim-ref'
+
+" OCaml
+Plugin 'atweiden/merlin.vim'
+Plugin 'def-lkb/vimbufsync'
 
 
 " Create symlink to enable local dev
@@ -500,9 +512,6 @@ inoremap <Nul> <C-x><C-o>
 "inoremap <Tab> <C-x><C-o>
 "inoremap <C-Space> <C-x><C-o>
 
-" Make sexp behave in deleting both new parens
-imap <C-h> <BS>
-
 let g:buffergator_suppress_keymaps = 1
 let g:buffergator_display_regime = "bufname"
 let g:buffergator_sort_regime = "mru"
@@ -552,8 +561,26 @@ let g:NERDTreeWinSize = 30
 
 let g:jasmine_use_templates = ""
 
-let g:slime_target = "tmux"
-let g:slime_default_config = {"socket_name": "default", "target_pane": ":1.2"}
+"let g:slime_target = "tmux"
+"let g:slime_default_config = {"socket_name": "default", "target_pane": ":1.2"}
+
+let g:slimux_racket_keybindings = 0
+let g:slimux_racket_xrepl = 1
+
+" https://github.com/epeli/slimux
+nnoremap <buffer> <silent> <leader>ss :SlimuxREPLSendLine<CR>
+nnoremap <buffer> <silent> <leader>sl :SlimuxREPLSendLine<CR>
+"nnoremap <buffer> <silent> <leader>sl :SlimuxShellLast<CR>
+vnoremap <buffer> <silent> <leader>sv :SlimuxREPLSendSelection<CR>
+nnoremap <buffer> <silent> <leader>sc :SlimuxREPLConfigure<CR>
+nnoremap <buffer> <silent> <leader>sf :SlimuxRacketEvalDefun<CR>
+nnoremap <buffer> <silent> <leader>sb :SlimuxRacketEvalBuffer<CR>
+nnoremap <buffer> <silent> <leader>sp :SlimuxShellPrompt<CR>
+nnoremap <buffer> <silent> <leader>sk :SlimuxSendKeysPrompt<CR>
+nnoremap <buffer> <silent> <leader>sK :SlimuxSendKeysLast<CR>
+nnoremap <buffer> <silent> <leader>st :SlimuxRacketTop<CR>
+nnoremap <buffer> <silent> <leader>sw :SlimuxRacketDoc<CR>
+nnoremap <buffer> <silent> <leader>sq :SlimuxRacketBreak<CR>
 
 let syntastic_enable_signs = 1
 "let syntastic_auto_jump = 1
@@ -640,10 +667,6 @@ nmap <Leader>x <Plug>Transposewords
 nmap <C-w>o <C-w>_
 nmap <C-w><C-o> <C-w>_
 
-nmap <buffer> dl :Conflict2DiffGetLeft<CR>
-nmap <buffer> dr :Conflict2DiffGetRight<CR>
-nmap <buffer> dq :Conflict2DiffFinish<CR>
-
 if &diff
     colorscheme ron
 endif
@@ -682,12 +705,13 @@ nmap <Leader>g :Ag!
 "let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 "set grepprg=ack\ -a
 
-nmap <Leader>s :SyntasticCheck<CR>
+" Conflicts with slimux
+"nmap <Leader>s :SyntasticCheck<CR>
 
-nmap <Leader>b :BuffergatorToggle<CR>
+nmap <Leader>b :BuffergatorTabsToggle<CR>
 " BuffersGatorToggle not working for some reason
-nmap <Leader>t :BuffergatorTabsOpen<CR>
-nmap <Leader>T :BuffergatorTabsClose<CR>
+"nmap <Leader>t :BuffergatorTabsOpen<CR>
+"nmap <Leader>T :BuffergatorTabsClose<CR>
 
 map <Leader>k <plug>NERDCommenterToggle
 "map <Leader>k <plug>NERDCommenterAlignLeft
@@ -722,18 +746,21 @@ map <Leader>u :UniCycleToggle<CR>
 
 " vimmerge/Git mergetool
 " http://blog.binchen.org/posts/use-vimdiff-to-resolve-git-merge-conflicts-effectively.html
-map <silent> <leader>d2 :diffget 2<CR> :diffupdate<CR>
-map <silent> <leader>d3 :diffget 3<CR> :diffupdate<CR>
-map <silent> <leader>d4 :diffget 4<CR> :diffupdate<CR>
+" Conflicts with slimux
+"map <silent> <leader>d2 :diffget 2<CR> :diffupdate<CR>
+"map <silent> <leader>d3 :diffget 3<CR> :diffupdate<CR>
+"map <silent> <leader>d4 :diffget 4<CR> :diffupdate<CR>
+"nmap <buffer> dl :Conflict2DiffGetLeft<CR>
+"nmap <buffer> dr :Conflict2DiffGetRight<CR>
+"nmap <buffer> dq :Conflict2DiffFinish<CR>
+
+"let g:slime_no_mappings = 1
+"xmap <leader>s <Plug>SlimeRegionSend
+"nmap <leader>s <Plug>SlimeMotionSend
+"nmap <leader>ss <Plug>SlimeLineSend
+
 
 " }}}
-
-"== Window Navigation {{{
-map <Leader>1 <C-W>1w
-map <Leader>2 <C-W>2w
-map <Leader>3 <C-W>3w
-map <Leader>4 <C-W>4w
-"map <Leader>p <C-W>p
 
 " Resize windows (hmm, arrow keys not working)
 nnoremap <C-J> 2<C-W>+
@@ -797,24 +824,319 @@ func! PreviewHeightWorkAround()
 endfunc
 " }}}
 
+"== Window Navigation {{{
+"map <Leader>1 <C-W>1w
+"map <Leader>2 <C-W>2w
+"map <Leader>3 <C-W>3w
+"map <Leader>4 <C-W>4w
+""map <Leader>p <C-W>p
+
 "== Tab Navigation {{{
+map <Leader>1 1gt
+map <Leader>2 2gt
+map <Leader>3 3gt
+map <Leader>4 4gt
+map <Leader>5 5gt
+map <Leader>6 6gt
+map <Leader>7 7gt
+
+"map <Leader>p <C-W>p
 " Tabbing like Firefox, xterm only.
-map <M-1> 1gt
-map <M-2> 2gt
-map <M-3> 3gt
-map <M-4> 4gt
-map <M-5> 5gt
-map <M-6> 6gt
-map <M-7> 7gt
-map <M-8> 8gt
-map <M-9> 9gt
+"map <M-1> 1gt
+"map <M-2> 2gt
+"map <M-3> 3gt
+"map <M-4> 4gt
+"map <M-5> 5gt
+"map <M-6> 6gt
+"map <M-7> 7gt
+"map <M-8> 8gt
+"map <M-9> 9gt
 " Tabbing, for rxvt-unicode/urxvt for alt/meta recognition
-nmap 1 1gt
-nmap 2 2gt
-nmap 3 3gt
-nmap 4 4gt
-nmap 5 5gt
-nmap 6 6gt
-nmap 7 7gt
-nmap 8 8gt
-nmap 9 9gt
+" Really bad behavior muddled with Alt/Meta/Esc, weird unicode
+"nmap 1 1gt
+"nmap 2 2gt
+"nmap 3 3gt
+"nmap 4 4gt
+"nmap 5 5gt
+"nmap 6 6gt
+"nmap 7 7gt
+"nmap 8 8gt
+"nmap 9 9gt
+
+" Make sexp behave in deleting both new parens
+imap <C-h> <BS>
+
+"let g:sexp_filetypes = ''
+"function! s:vim_sexp_mappings()
+"  imap <silent><buffer> [               <Plug>(sexp_insert_opening_round)
+"  imap <silent><buffer> ]               <Plug>(sexp_insert_closing_round)
+"endfun
+"augroup VIM_SEXP_MAPPING
+"  autocmd!
+"  autocmd FileType clojure,scheme,racket call s:vim_sexp_mappings()
+"augroup END
+
+
+"let g:sexp_insert_opening_round = '['
+"let g:sexp_mappings = { 'sexp_insert_opening_round': '[' }
+"let g:sexp_mappings = {
+"    \
+"    \ 'sexp_select_prev_element':  '',
+"    \ 'sexp_select_next_element':  '',
+"    \
+"    \ 'sexp_move_to_prev_top_element':      '',
+"    \ 'sexp_move_to_next_top_element':      '',
+"    \
+"    \ 'sexp_move_to_prev_bracket':      '[',
+"    \ 'sexp_move_to_next_bracket':      ']',
+"    \
+"    \ 'sexp_insert_opening_round':      '[',
+"    \ 'sexp_insert_closing_round':      ']',
+"    \ 'sexp_insert_opening_square':     '(',
+"    \ 'sexp_insert_closing_square':     ')',
+"    \ }
+
+"let g:sexp_insert_opening_square =     '('
+"let g:sexp_insert_closing_square =     ')'
+"let g:sexp_insert_opening_round =     '['
+"let g:sexp_insert_closing_round =     ']'
+
+
+" More urxvt meta/alt hacks; useful for vim-sexp
+" http://vim.wikia.com/wiki/Get_Alt_key_to_work_in_terminal
+" http://stackoverflow.com/a/27206531/326516
+" Couldn't get `urxvt --meta8` to work
+" Really bad alt/meta: <esc-k> becomes ë
+"set <m-h>=h
+"set <m-l>=l
+" Effectively the same as h and l
+"set <m-j>=j
+"set <m-k>=k
+"set <m-s-h>=H
+"set <m-s-l>=L
+"set <m-s-j>=J
+"set <m-s-k>=K
+" sexp for regular people's W B E are better than these
+"set <m-b>=b
+"set <m-w>=w
+"set <m-e>=e
+
+"###################################
+" Return to previously visited tab (<alt><tab>).
+" http://vim.1045645.n5.nabble.com/jump-to-last-visited-tabpage-td1172955.html
+"nmap <Tab> :exe "tabn " . g:ltv<CR>
+nmap <leader>t :exe "tabn " . g:ltv<CR>
+" referred to by TabLeave autocmd.
+function! Setlasttabpagevisited()
+  let g:ltv = tabpagenr()
+endfunction
+augroup localtl
+  " Remove all localtl autocommands
+  au!
+  " keep tally of the last tab page visited.
+  autocmd TabLeave * call Setlasttabpagevisited()
+augroup END
+autocmd VimEnter * let g:ltv = 1
+"##################################
+" }}}
+
+"== Function key mappings {{{
+
+" Right next to <S-Insert> (the actual xterm paste sequence.
+"set pastetoggle=<S-Home>
+" Doesn't work, so use something similar/close that only works in normal mode
+"map <F12> :set paste!<CR>i
+" only works in command mode
+map <F2> :set cursorcolumn<CR>:set cursorline<CR>:set colorcolumn=80<CR>
+map <F3> :set nocursorcolumn<CR>:set nocursorline<CR>:set colorcolumn=0<CR>
+" Insert date stamp (Ctrl-P needs F5 for refresh)
+"nnoremap <F5> "=strftime("%F")<CR>P
+nnoremap <leader>dt "=strftime("%F")<CR>P
+" Won't work; don't know why!
+"inoremap <F5> <C-R>=strftime("%F")<CR>
+map <F8> :set paste!<CR>
+map <F9> :set spell!<CR>
+
+inoremap M- —
+inoremap N- —
+inoremap '9 ’
+inoremap '6 ‘
+inoremap "9 ”
+inoremap "6 “
+
+" http://vim.wikia.com/wiki/Identify_the_syntax_highlighting_group_used_at_the_cursor
+map <F12> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+  \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+  \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+" }}}
+
+"== Misc {{{
+
+" This seems horrible, but since filetype.vim is looked at *after*
+" system syntax file, there's no other place to set it for sh/zsh.
+" Sure hope it doesn't affect anything else.
+let b:is_bash = 1
+
+" Will this have a bad effect on Clojure's rainbows??
+" Conflicts a bit with vim-javascript-syntax
+" Conflicts with ocaml
+" setTimeout(function () {}, 5);
+"au VimEnter * RainbowParenthesesToggle
+"au Syntax * RainbowParenthesesLoadRound
+"au Syntax * RainbowParenthesesLoadSquare
+"au Syntax * RainbowParenthesesLoadBraces
+let g:niji_match_all_filetypes = 1
+
+let g:clojure_align_multiline_strings = 1
+" }}}
+
+"== Colors {{{
+" See overrides.vim for more usage.
+" Molokai:
+" 161     pink (red)
+" 166/208 orange
+" 226     yellow (not actually in molokai)
+" 81      cyan
+" 118     green
+" 67      blue
+" 135     purple
+" Additions:
+" 52      darkred
+" 94      darkyellow (brown)
+" 28      darkgreen
+" 25      darkblue
+" 92      darkpurple
+
+"      vim            gvim
+let g:rbpt_colorpairs = [
+    \ ['92',       'RoyalBlue3'],
+    \ ['161',    'SeaGreen3'],
+    \ ['118',    'DarkOrchid3'],
+    \ ['135',   'firebrick3'],
+    \ ['81',    'RoyalBlue3'],
+    \ ['166',     'SeaGreen3'],
+    \ ['67', 'DarkOrchid3'],
+    \ ['226',       'firebrick3'],
+    \ ['92',        'RoyalBlue3'],
+    \ ['161',      'SeaGreen3'],
+    \ ['118', 'DarkOrchid3'],
+    \ ['135',    'firebrick3'],
+    \ ['81',   'RoyalBlue3'],
+    \ ['166',    'SeaGreen3'],
+    \ ['67',     'DarkOrchid3'],
+    \ ['226',      'firebrick3'],
+    \ ]
+" outermost parens is last entry
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+" Maybe 6 levels is enough?
+"hi level16c cterm=bold ctermfg=226
+"hi level15c cterm=bold ctermfg=67
+"hi level14c cterm=bold ctermfg=166
+"hi level13c cterm=bold ctermfg=81
+"hi level12c cterm=bold ctermfg=135
+"hi level11c cterm=bold ctermfg=118
+
+"hi level16c cterm=bold ctermfg=226
+"hi level15c cterm=bold ctermfg=172
+"hi level14c cterm=bold ctermfg=161
+"hi level13c cterm=bold ctermfg=81
+"hi level12c cterm=bold ctermfg=93
+"hi level11c cterm=bold ctermfg=68
+
+" roygbiv
+"hi level16c cterm=bold ctermfg=93
+"hi level15c cterm=bold ctermfg=164
+"hi level14c cterm=bold ctermfg=27
+"hi level13c cterm=bold ctermfg=64
+"hi level12c cterm=bold ctermfg=162
+"hi level11c cterm=bold ctermfg=172
+"hi level10c cterm=bold ctermfg=190
+
+" roygbiv (backward)
+"hi level16c cterm=bold ctermfg=162
+"hi level15c cterm=bold ctermfg=172
+"hi level14c cterm=bold ctermfg=190
+"hi level13c cterm=bold ctermfg=64
+"hi level12c cterm=bold ctermfg=27
+"hi level11c cterm=bold ctermfg=164
+"hi level10c cterm=bold ctermfg=93
+
+" red: 162
+" orange: 202
+" yellow: 190
+" green: 22
+" blue: 27
+" purple: 93
+" magenta: 164
+
+" pretty (yellow as outermost)
+hi level16c cterm=bold ctermfg=190
+hi level15c cterm=bold ctermfg=202
+hi level14c cterm=bold ctermfg=93
+hi level13c cterm=bold ctermfg=27
+hi level12c cterm=bold ctermfg=164
+hi level11c cterm=bold ctermfg=22
+hi level10c cterm=bold ctermfg=196
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+ \ if line("'\"") > 0 && line("'\"") <= line("$") |
+ \   exe "normal! g`\"" |
+ \ endif
+" Remember info about open buffers on close
+set viminfo^=%
+
+
+"function! FeedVisualCmd(cmdpat)
+    "let [qr, qt] = [getreg('"'), getregtype('"')]
+    "silent norm! gvy
+    "let cmd = printf(a:cmdpat, shellescape(@"))
+    "call setreg('"', qr, qt)
+    ""echo system(cmd)
+    "let res = system(cmd)
+    ""read res
+    "if v:shell_error
+        "echohl ErrorMsg | echom 'Failed to run ' . cmd | echohl NONE
+    "endif
+"endfunction
+"" (geo) Locate
+"vnoremap <leader>l :<c-u>call FeedVisualCmd('./addr2latlng.coffee "%s"')<cr>
+
+" }}}
+
+"== Obscure overrides of Vim builtins {{{
+
+"se lines=12
+" http://www.shallowsky.com/linux/noaltscreen.html
+" Make vim not clear screen on exit.
+set t_ti= t_te=
+" vimpager stuff: https://github.com/rkitover/vimpager/
+" not sure what these really do
+let vimpager_disable_x11 = 1
+let vimpager_scrolloff = 5
+
+" :help fold-text
+" http://stackoverflow.com/questions/5983396/change-the-text-in-folds
+" Learn more about 'fillchars', 'foldtext'
+set foldtext=MdeFold()
+fun! MdeFold()
+  let line = getline(v:foldstart)
+  let sub  = substitute(line, '{{{\d\=', '', 'g')
+  return sub . '<' . (v:foldend - v:foldstart) . '> '
+endfun
+set fillchars=fold:·
+
+" Two ways to address inotify problems. See vim docs to understand their
+" repercussions, which AFAICT are none.
+"se backupcopy=yes
+set nowritebackup
+" }}}
+
+" http://stackoverflow.com/questions/11858927
+fun Eatchar(pat)
+  let c = nr2char(getchar(0))
+  return (c =~ a:pat) ? '' : c
+endfunc
+
+"au BufWritePost *.rb !print "wrote some ruby" >>~/tmp/ruby.log

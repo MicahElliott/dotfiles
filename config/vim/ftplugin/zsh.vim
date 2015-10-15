@@ -1,8 +1,10 @@
-" sh.vim
+" zsh.vim
+"
+" NOTE: PROBABLY NOT IN USE SINCE VIM'S BASH SYNTAX IS BETTER
 
 "source ~/.vim/ftplugin/defaults.vim
 
-"echo "in mde's sh.vim"
+"echo "in mde's zsh.vim"
 "sleep 2
 
 " Mimic previous line

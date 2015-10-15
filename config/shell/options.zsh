@@ -24,6 +24,8 @@ fpath=( ~/proj/Membean/misc/zsh $fpath )
 # Necessary?
 #fpath+=( ~/config/shell/ )
 
+#fpath+=~/gitcontainer/projects/zsh-ansible
+
 # Zsh book pg 334
 fpath=( ~/.zfunc $fpath )
 autoload -- ~/.zfunc/[^_]*(:t)
@@ -69,7 +71,6 @@ dsrc=~/archive/src
 ######################################################################
 ### Funky stuff — not exactly options/params
 
-# End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/mde/.zshrc'
 
@@ -79,6 +80,22 @@ autoload -Uz compinit; compinit
 unalias run-help
 autoload run-help
 
+# According to:
+# http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#SEC267
+# you need to set HELPDIR to make mini-help with run-help work.
+#print "ENABLE: run-help, if not on system (ex: /usr/share/zsh/5.0.5/help/)"
+#print "  by downloading/extracting zsh sources.\n"
+# Manual steps:
+#   cd ~/tmp"
+#   wget 'http://downloads.sourceforge.net/project/zsh/zsh/5.0.5/zsh-5.0.5.tar.bz2'"
+#   tar xjvf 'http://downloads.sourceforge.net/project/zsh/zsh/5.0.5/zsh-5.0.5.tar.bz2'"
+#   perl zsh-5.0.5/Util/helpfiles zshbuiltins ~/local/doc/zsh/help"
+#HELPDIR=~/local/doc/zsh/help
+HELPDIR=/usr/share/zsh/5.1.1/help
+[[ -d $HELPDIR ]] || print "WARNING: change HELPDIR in options.zsh from non-existent $HELPDIR"
+bindkey "^[h" run-help
+bindkey "^[H" run-help
+
 # Arch zsh packages.
 # https://github.com/zsh-users/zsh-syntax-highlighting/tree/master/highlighters
 # Options:
@@ -87,7 +104,7 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 ZSH_HIGHLIGHT_HIGHLIGHTERS=( main brackets pattern )
 # Hmm, just basic colors? rgybmc
 ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=cyan
-ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=fg=white,standout
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=fg=cyan,bold
 ZSH_HIGHLIGHT_STYLES[back-quoted-argument]=fg=yellow
 ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=yellow
 ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=magenta
@@ -114,7 +131,8 @@ autoload -Uz colors; colors
 # Set prompt to random color.
 #prompt balance $(( $RANDOM % 9 ))
 #prompt balance black
-prompt cliguy
+prompt cliguy green
+#prompt membean
 #prompt wunjo
 #prompt off
 
@@ -158,10 +176,17 @@ bindkey '^[c' insert-calc
 insert-sed() { LBUFFER+="s 's/" RBUFFER="//'" }
 zle -N insert-sed
 bindkey '^[s' insert-sed
+# Auto-clipboard
+  #zle vi-insert
+insert-clip() { LBUFFER="print \"$LBUFFER" RBUFFER+='" |xsel' }
+zle -N insert-clip
+# Note that -a effects cmd mode
+bindkey -a '^[x' insert-clip
 
-insert-while() { LBUFFER='while read -r x; do ' RBUFFER='print $x; done <~/test/aaa.lst' }
-zle -N insert-while
-bindkey '^[w' insert-while
+# Disabling: funny alt-mode behavrior after quick esc-w for word-jumping
+#insert-while() { LBUFFER='while read -r x; do ' RBUFFER='print $x; done <~/test/aaa.lst' }
+#zle -N insert-while
+#bindkey '^[w' insert-while
 
 # Set vi mode.
 #bindkey -e
@@ -184,19 +209,19 @@ zstyle ':completion:*' menu select
 # http://linuxshellaccount.blogspot.com/2008/12/color-completion-using-zsh-modules-on.html
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-# http://www.masterzen.fr/category/system-administration/zsh-system-administration/
+# http://www.masterzen.fr/2009/04/19/in-love-with-zsh-part-one/
 #zstyle ':completion:*' group-name ''
 # formatting and messages
-zstyle ':completion:*' verbose yes
-zstyle ':completion:*:descriptions' format "$fg[yellow]%B--- %d%b"
-zstyle ':completion:*:messages' format '%d'
-zstyle ':completion:*:warnings' format "$fg[red]No matches for:$reset_color %d"
-zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
-zstyle ':completion:*' group-name ''
+zstyle ':completion:*'              verbose     yes
+zstyle ':completion:*:descriptions' format     "$fg[yellow]%B--- %d%b"
+zstyle ':completion:*:messages'     format     '%d'
+zstyle ':completion:*:warnings'     format     "$fg[red]No matches for:$reset_color %d"
+zstyle ':completion:*:corrections'  format     '%B%d (errors: %e)%b'
+zstyle ':completion:*'              group-name ''
 
 # Completers for my own scripts
 zstyle ':completion:*:*:sstrans*:*' file-patterns '*.(lst|clst)'
-zstyle ':completion:*:*:ssnorm*:*' file-patterns '*.tsv'
+zstyle ':completion:*:*:ssnorm*:*'  file-patterns '*.tsv'
 
 
 ######################################################################
@@ -237,9 +262,6 @@ setopt correct
 # Neat! Can say "subdir/myutil" to invoke myutil.
 setopt pathdirs
 
-# Enable char ranges in brace expansions: for c in {a-z}; do ...
-setopt braceccl
-
 # Don’t overwrite existing files.
 setopt noclobber
 
@@ -248,11 +270,14 @@ setopt rematchpcre
 
 setopt shortloops
 
-setopt brace_ccl  # Support chars in range: {a-z}
+setopt braceccl  # Support chars in range: {a-z}
                   # Note difference from:   {0..9}
 
+# Obviate tee, plus other niceties
+setopt multios
+
 # Trying out 0-based arrays! Matches bash and ls
-setopt kshzerosubscript
+#setopt kshzerosubscript
 
 # Enable some nice things to go into post-prompt commands.
 typeset -ga preexec_functions
@@ -264,32 +289,61 @@ typeset -ga precmd_functions
 # Zsh-specific envar overrides for history control. Behave more like
 # options than envars.
 # http://zsh.sourceforge.net/FAQ/zshfaq03.html#l38
-SAVEHIST=10000
-HISTFILE=$HOME/.zsh_history
-HISTSIZE=10000
+SAVEHIST=20000
+HISTFILE=~/.zhistory
+HISTIGNORE='k:ls:lm:bg:fg:jobs:pwd:kill:declare:history:cd:cd :&: *:'
+HISTSIZE=20000
+HISTFILESIZE=$HISTSIZE
+
+# Stop Esc-* from acting like Alt
+# http://www.johnhawthorn.com/2012/09/vi-escape-delays/
+KEYTIMEOUT=1
+
+# Make debug prompt more useful by showing time per command
+export PS4='%B%* %2N:%i>%b '
+
+export ANSIBLE_HOSTS=~/proj/Membean/provn/ansible/hosts
 
 # Consider MIME filetype enabling. SLOW!
 # http://www.bash2zsh.com/essays/essay1_file_manager.html
 #autoload -U zsh-mime-setup; zsh-mime-setup
 
-umask 002
+#umask 002
 
 # Modal cursor color for vi's insert/normal modes.
+# http://stackoverflow.com/questions/30985436/
 # https://bbs.archlinux.org/viewtopic.php?id=95078
-zle-keymap-select () {
-  if [ $KEYMAP = vicmd ]; then
-    #echo -ne "\033]12;Red\007"
-    echo -ne "\033]12;Green\007"
-  else
-    echo -ne "\033]12;Grey\007"
-  fi
-}
-zle -N zle-keymap-select
+# http://unix.stackexchange.com/questions/115009/how-to-change-the-cursor-theme-in-cli
 zle-line-init () {
   zle -K viins
-  echo -ne "\033]12;Grey\007"
+  #echo -ne "\033]12;Grey\007"
+  #echo -n 'grayline1'
+  echo -ne "\033]12;Gray\007"
+  echo -ne "\033[4 q"
+  #print 'did init' >/dev/pts/16
 }
 zle -N zle-line-init
+zle-keymap-select () {
+  if [[ $KEYMAP == vicmd ]]; then
+    if [[ -z $TMUX ]]; then
+      printf "\033]12;Green\007"
+      printf "\033[2 q"
+    else
+      printf "\033Ptmux;\033\033]12;red\007\033\\"
+      printf "\033Ptmux;\033\033[2 q\033\\"
+    fi
+  else
+    if [[ -z $TMUX ]]; then
+      printf "\033]12;Grey\007"
+      printf "\033[4 q"
+    else
+      printf "\033Ptmux;\033\033]12;grey\007\033\\"
+      printf "\033Ptmux;\033\033[4 q\033\\"
+    fi
+  fi
+  #print 'did select' >/dev/pts/16
+}
+zle -N zle-keymap-select
 
 # Set tabs to non-standard (non-8) width.
 # See: `man 1p tabs` for some interesting options!
@@ -309,3 +363,5 @@ zstyle ':completion:*:*:bkgd:*' file-patterns '*.jpg'
 zstyle ':completion:*:*:feh:*' file-patterns '*.(jpg|png)'
 zstyle ':completion:*:*:mb-purge-non-deliverables*:*' file-patterns '*.txt'
 zstyle ':completion:*:*:(v|vim):*' ignored-patterns '*.(o|so|mp3|jpg|png|pdf|xcf)'
+
+#fontset.zsh big

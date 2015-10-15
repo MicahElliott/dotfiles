@@ -244,7 +244,7 @@ set list
 
 "
 "set textwidth=78 formatoptions=tcqn autoindent
-set formatoptions=tcqn autoindent
+"set formatoptions=tcqn autoindent
 
 if version >= 700
     "Prevent simple numbers at the start of lines to be confused with list items:

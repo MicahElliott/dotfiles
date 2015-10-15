@@ -35,18 +35,25 @@ my_configs=(
     aliases.zsh
     functions.sh
 )
+my_plugins=( $my_shdir/zsh/plugins/*.zsh )
 
 # Time the stuff.
 integer t0=$(date '+%s')
 
 # Source all the Zsh-specific and sh-generic files.
 for f in $my_configs; do
+    ##print starting $f
     [[ -f $my_shdir/$f ]] && . $my_shdir/$f
+    ##print finished $f
 done
-unset f
+for plugin in $my_plugins; do
+  #print "Enabling plugin: $plugin:t:r"
+  #. $plugin
+done
+unset f plugin
 
 # Site-specific
-_siterc="$my_shdir/$(hostname -s).sh"
+_siterc="$my_shdir/$(hostname).sh"
 [[ -f $_siterc ]] && . $_siterc || :
 unset _siterc
 
@@ -61,3 +68,6 @@ unset t0
 
 # Timing
 ##zprof
+
+#export NVM_DIR="/home/mde/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

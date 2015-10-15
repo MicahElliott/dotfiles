@@ -17,7 +17,7 @@ augroup filetypedetect
   au Bufenter,Bufnewfile *.clj setl complete+=k~/.clj_completions
   au! BufRead,BufNewFile *.cson,*.cf,*.cs,*.co setfiletype coffee
   au! BufRead,BufNewFile *.ls setfiletype livescript
-  au! BufRead,BufNewFile *.ck setfiletype ck  " ChucK, not working
+  au! BufRead,BufNewFile *.ck set filetype=ck  " ChucK, not working
   " Zsh's syntax file is inferior to sh. Also need to make it think it's
   " more than just sh (bash removes some errors). This actually does no
   " good since system syntax files are read before this.
@@ -30,4 +30,7 @@ augroup filetypedetect
   au! BufRead,BufNewFile *.cd  set filetype=cd  " guitar chord files
   au! BufRead,BufNewFile *.blade  set filetype=jade
   au! BufNewFile,BufRead *.emblem set filetype=slim
+  au! BufNewFile,BufRead *.wiki set filetype=wiki
+  au! BufNewFile,BufRead *.adoc,*.ad,*.asc set filetype=asciidoc
+  au! BufNewFile,BufRead *.scrbl,*.pm set filetype=scribble
 augroup END

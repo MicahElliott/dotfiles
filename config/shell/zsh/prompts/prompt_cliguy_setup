@@ -1,22 +1,51 @@
 prompt_cliguy_help () {
   cat <<'EOF'
-Simply features error codes, pwd, and nothing else!
+Features error codes, pwd, jobs, git-status, chruby, nvm
 EOF
 }
 
+#setopt prompt_subst
+autoload -Uz vcs_info
+
+precmd() {
+  # Workaround for missing "untracked"
+  # http://briancarper.net/blog/570/git-info-in-your-zsh-prompt
+  if [[ -z $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
+    zstyle ':vcs_info:*:prompt:*' formats ' %K{56}%F{white}%%Bg:%b%%b%F{red}%u%f%F{blue}%c%f%k'  '%R/%S'
+  else
+    zstyle ':vcs_info:*:prompt:*' formats ' %K{56}%F{white}%%Bg:%b%%b%F{green}●%f%F{red}%u%f%F{blue}%c%f%k'  '%R/%S'
+  fi
+  vcs_info 'prompt'
+  PROMPT_NODE=${NODE_PATH:+" %K{22}%Bn:${${NODE_PATH/*nvm?v/}/?lib*}%b%k"}
+  PROMPT_RUBY=${RUBY_VERSION:+" %K{88}%Br:$RUBY_VERSION%b%k"}
+}
 
 prompt_cliguy_setup () {
-  RPROMPT='%K{226}%F{black} %n %f%k'
-  #RPROMPT='%K{226}%F{black} code4real %f%k'
+  zstyle ':vcs_info:*:prompt:*' enable git
+  # check-for-changes can be really slow; disable if working with big repos.
+  zstyle ':vcs_info:*:prompt:*' check-for-changes true
+  # Set up strings to be used below.
+  zstyle ':vcs_info:*:prompt:*' stagedstr     '●' # alternative: ±
+  zstyle ':vcs_info:*:prompt:*' unstagedstr   '●'
+  #zstyle ':vcs_info:*:prompt:*' actionformats '%b%u%c(%a%)//'   '%R/%S'
+  #zstyle ':vcs_info:*:prompt:*' formats       ' %K{56}%F{white}%%Bg:%b%%b%F{red}%u%f%F{blue}%c%f%k'  '%R/%S'
+  # FIXME: copied from formats
+  zstyle ':vcs_info:*:prompt:*' actionformats ' %K{56}%F{white}%%Bg:%b%%b(%a)%F{red}%u%f%F{blue}%c%f%k'  '%R/%S'
+  # For when no vcs found.
+  zstyle ':vcs_info:*:prompt:*' nvcsformats   ""  "%~"
+
+  PROMPT_JOBS='%1(j.%K{white}%F{black}%Bj:%j%b%k%f .)'
+  PROMPT_ERROR='%(?..%F{red}%B%S[%?]%s%b%f)'
+  #PROMPT_PTH='%K{154}%F{blue}%B%~%b%f%k'
+  PROMPT_PTH='%(?.%K{154}%F{blue}.%K{red}%F{232} )%B%~%b%f%k'
+  PROMPT_ICON='%F{245}%B%#%b%f'
+
+  #RPROMPT='%K{154}%F{black} %n %f%k'
+  RPROMPT='%(?.%B%K{154}%F{232} %n %f%k%b.$PROMPT_ERROR)'
+  #RPROMPT='%(?.%B%K{154}%F{232} code4real %f%k%b.$PROMPT_ERROR)'
   #unset RPROMPT
-  #export PROMPT='%F{red}%(?..[%?] )%f%S%~ %B%%%b%s '
-  #export PROMPT='%F{red}%B%S%(?..[%?]%s )%b%f%S%s%B%S%F{blue}%~%f%s %S%%%s%b '
-  #export PROMPT='%F{red}%B%S%(?..[%?])%s%b%f%S%s%S%F{blue}%K{255}%B%~%k%f%s%S%%%s%b '
-  #export PROMPT='%F{red}%B%S%(?..[%?]%s )%b%f%S%s%K{255}%F{blue}%B%~%f %F{231}%%%f%k%b '
-  #export PROMPT='%F{red}%B%S%(?..[%?]%s )%b%f%S%s%K{226}%F{blue}%B%~%f %F{232}%%%f%k%b '
-  export PROMPT='%F{red}%B%S%(?..[%?]%s )%b%f%S%s%K{226}%F{blue}%B%~%f %F{232}%%%f%k%b '
-  #export PROMPT='%F{red}%B%S%(?..[%?]%s )%b%f%S%s%F{blue}%B%~%f %S%%%s%b '
-  prompt_opts=(cr percent)
+
+  PROMPT='$PROMPT_ERROR$PROMPT_JOBS$PROMPT_PTH$PROMPT_NODE$PROMPT_RUBY$vcs_info_msg_0_ $PROMPT_ICON '
 }
 
 prompt_cliguy_setup "$@"

@@ -8,6 +8,7 @@ set syntax=markdown
 set shiftwidth=4
 set tabstop=4
 set textwidth=78
+set noic
 
 " http://stackoverflow.com/questions/3828606/vim-markdown-folding
 function! MarkdownLevel()

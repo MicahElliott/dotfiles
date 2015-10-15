@@ -7,10 +7,11 @@
 # ???: Maybe didn't want anything to look like DOS.
 unset USERNAME
 
-HISTIGNORE='k:ls:lm:bg:fg:jobs:pwd:kill:declare:history:cd:cd :&: *:'
-HISTSIZE=20000
-HISTFILESIZE=$HISTSIZE
-#export HISTFILE=~/.history/bh-$$
+# Unnecessary??
+#export GPG_TTY=$(tty)
+
+#print "Enabling gpg-agent env stuff"
+#. ~/.gpg-agent-info
 
 # Mail agents need to see these
 export EDITOR=vim
@@ -18,7 +19,7 @@ export XEDITOR=$EDITOR
 export VISUAL=$EDITOR
 #export VIMTAGS
 export TMPDIR=~/tmp
-export BROWSER=firefox-aurora  # previously: chromium, google-chrome  
+export BROWSER=firefox  # previously: chromium, google-chrome
 export CHROME_BIN=/usr/bin/chromium
 export DE=i3 # must be Desktop Environment (was xfce in archbang's .xinitrc)
 export MAILCHECK=60
@@ -46,11 +47,14 @@ export LESS_TERMCAP_ue=$'\e[0m'           # end
 export LESS_TERMCAP_so=$'\e[1;38;5;226;48;5;236m'    # footer, search, etc
 export LESS_TERMCAP_se=$'\e[0m'           # end
 
+export TMUXCOLOR=white
+
 export READNULLCMD=less
 
 export EMAIL=$my_email
 export REPLYTO=$EMAIL
-export HGUSER="$my_fullname ($(hostname -s)) <$my_email>"
+# BAD IDEA TO USE hostname -s !!
+export HGUSER="$my_fullname ($(hostname)) <$my_email>"
 export HGMERGE=vimdiff
 export HGEDITOR=hgeditor
 export INPUTRC=~/.inputrc
@@ -118,6 +122,9 @@ export RUBIES
 compctl -g '~/.rubies/*(:t)' chruby
 source /usr/share/chruby/auto.sh
 
+#export RAILS_ROOT=~/proj/Membean/mbg
+#PATH+=:$RAILS_ROOT/script
+
 # nvm: See ni/jsi funcs. Just a little too slow for every shell.
 
 # Node http://tnovelli.net/blog/blog.2011-08-27.node-npm-user-install.html
@@ -125,8 +132,8 @@ export PATH=$HOME/.local/bin:$PATH
 
 export DEBUG='brunch:*'
 
-#export RAILS_ROOT=~/proj/Membean/mbg
-#PATH+=:$RAILS_ROOT/script
+# https://github.com/visionmedia/n
+export N_PREFIX=~/local
 
 # R
 export PATH=$PATH:/usr/lib/R/bin
@@ -165,6 +172,10 @@ export PATH=$PATH:$HOME/gitcontainer/bin
 # Local dir stuff.
 export PATH=$PATH:./bin
 
+# Racket tools
+export PATH=/opt/racket/bin:$PATH
+path+=$HOME/gitcontainer/projects/reptl
+
 # Get rake to STFU.
 export MAKE=make
 
@@ -188,18 +199,16 @@ eval "$(TERM=xterm dircolors -b $DIR_COLORS)"
 # Why was I doing this? Probably just for bash.
 #PS1="\h$ "
 
-# According to:
-# http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#SEC267
-# you need to set HELPDIR to make mini-help with run-help work.
-HELPDIR=~/local/doc/zsh/help  # was prescribed as /usr/share/zsh/help
-
 L="/media/LACIE"
 
 # Handy custom envars.
 dn=/dev/null
+sc=~/.ssh/config
 
 # Archlinux dictionary
 dict=/usr/share/dict/american-english
+# More generic symlink to actual dictionary
+words=/usr/share/dict/words
 
 lh='localhost:3000'
 
