@@ -4,7 +4,7 @@
 
 usage="descmulti"
 
-. utilsrc.zsh
+. helpers.zsh
 
 requires desc.zsh
 

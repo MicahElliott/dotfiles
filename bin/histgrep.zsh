@@ -5,7 +5,7 @@
 pat=${1?Must provide pattern}
 autoload colors; colors
 
-IFS=$'\n' items=( $(grep -P -- $pat ~/.zsh_history |grep -v ':0;#') )
+IFS=$'\n' items=( $(grep -P --binary-files=text -- $pat ~/.zhistory |grep -v ':0;#') )
 
 # Don't show current invocation.
 for i in $items[1,-2]; do

@@ -7,6 +7,7 @@
 i3status --config ~/.i3status.conf | while :
 do
   read line
-  mem=$(mempercent)
+  #mem=$(mempercent)
+  mem=$(mempercent.awk)
   echo "MEM:$mem | $line" || exit 1
 done
