@@ -1,3 +1,4 @@
+# -*- mode: sh -*-
 # Zsh-specific options and params setup.
 # See zshoptions for setopt stuff.
 # See zshparam for envars that affect environment.
@@ -19,10 +20,12 @@ fpath=( ~/config/shell/zsh/functions $fpath )
 fpath=( ~/config/shell/zsh/prompts $fpath )
 # Contrib funcs.
 fpath=( ~/contrib/zsh/functions $fpath )
-# Membean
-fpath=( ~/proj/Membean/misc/zsh $fpath )
+
 # Necessary?
 #fpath+=( ~/config/shell/ )
+
+# fpath+=/home/mde/gitcontainer/projects/hap
+# path+=/home/mde/gitcontainer/projects/hap
 
 #fpath+=~/gitcontainer/projects/zsh-ansible
 
@@ -54,7 +57,7 @@ autoload -- ~/.zfunc/[^_]*(:t)
 # This is awesome! Tab-completion works to expand these!
 # Needs to only include dirs that don’t have lots of subdirs.
 # Test the reach of this with ‘mkdir foo; cd foo; cd <tab>; rmdir foo’
-cdpath=( ~/proj/Membean ~/proj /media/LACIE
+cdpath=(  ~/proj /media/LACIE
          ~/gitcontainer/collections/reference ~/gitcontainer/gists ~/config
          ~/clients )
 # cd-able locations. Also awesome. Going with convention of 'd' prefix
@@ -66,7 +69,19 @@ dsg=~/clients/huawei/dev/eBento2-ServicesGateway-testg
 dsrc=~/archive/src
 
 # Doesn't seem to work for vi-movement.
-#WORDCHARS
+# Good for emacs word-separation (like vim's `iskeyword`
+# http://stackoverflow.com/questions/444951/zsh-stop-backward-kill-word-on-directory-delimiter
+WORDCHARS='_'
+
+# Set output of time cmd
+# Default %J %U user %S system %P cpu %*E total
+TIMEFMT='%U user, %S kernel, %P cpu, %M mbmaxmem, %X kbheap, %D kbstack, %K kbspacetot, %*E totelapsed'
+
+# https://stackoverflow.com/questions/10847255/how-to-make-zsh-forward-word-behaviour-same-as-in-bash-emacs
+# Emacs-like navigation
+# Corresponding function in ~/contrib/zsh/functions/forward-word-match
+autoload -U select-word-style
+select-word-style bash
 
 ######################################################################
 ### Funky stuff — not exactly options/params
@@ -80,6 +95,11 @@ autoload -Uz compinit; compinit
 unalias run-help
 autoload run-help
 
+# Trying auto-completion
+# https://unix.stackexchange.com/questions/84844/make-zsh-completion-show-the-first-guess-on-the-same-line-like-fishs
+# autoload predict-on
+# predict-on
+
 # According to:
 # http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#SEC267
 # you need to set HELPDIR to make mini-help with run-help work.
@@ -91,8 +111,9 @@ autoload run-help
 #   tar xjvf 'http://downloads.sourceforge.net/project/zsh/zsh/5.0.5/zsh-5.0.5.tar.bz2'"
 #   perl zsh-5.0.5/Util/helpfiles zshbuiltins ~/local/doc/zsh/help"
 #HELPDIR=~/local/doc/zsh/help
-HELPDIR=/usr/share/zsh/5.1.1/help
-[[ -d $HELPDIR ]] || print "WARNING: change HELPDIR in options.zsh from non-existent $HELPDIR"
+# Probably no longer needed:
+# HELPDIR=/usr/share/zsh/5.4.2/help
+# [[ -d $HELPDIR ]] || print "WARNING: change HELPDIR in options.zsh from non-existent $HELPDIR"
 bindkey "^[h" run-help
 bindkey "^[H" run-help
 
@@ -134,7 +155,7 @@ autoload -Uz colors; colors
 prompt cliguy green
 #prompt membean
 #prompt wunjo
-#prompt off
+# prompt off
 
 autoload zmv
 
@@ -150,7 +171,7 @@ autoload -Uz insert-composed-char
 zle -N insert-composed-char
 # Map it to <F5>
 #bindkey '\e[15~' insert-composed-char  # F5
-bindkey '^K' insert-composed-char  # same as vim
+#bindkey '^K' insert-composed-char  # same as vim
 
 ### Custom inserts
 # CTRLs available: ^r ^t ^y ^o ^p ^a ^f ^b ^n
@@ -159,29 +180,29 @@ bindkey '^K' insert-composed-char  # same as vim
 # https://github.com/tomsquest/dotfiles/blob/master/zsh/bindkey.zsh
 # http://michael-prokop.at/computer/config/.zsh/zsh_keybindings
 # Insert an mc3 query.
-#insert_query () { zle beginning-of-line; zle -U "mc3q '{}' _id" }
-#insert-mc3q() { LBUFFER="opts=--csv mc3q '{"; RBUFFER=":\"\"}' _id |csv2tsv.rb S" }
-insert-mc3q() { LBUFFER="opts=--csv mc3q '{\""; RBUFFER="\"://i, abandon:{\$ne:true}}' _id TSV" }
-zle -N insert-mc3q
-bindkey '^f' insert-mc3q
-insert-mc3s() { LBUFFER="mc3s "; RBUFFER=" J" }
-zle -N insert-mc3s
-bindkey '^[f' insert-mc3s
-# Calculator
-insert-calc() { LBUFFER='p $(('; RBUFFER='))' }
-zle -N insert-calc
+##insert_query () { zle beginning-of-line; zle -U "mc3q '{}' _id" }
+##insert-mc3q() { LBUFFER="opts=--csv mc3q '{"; RBUFFER=":\"\"}' _id |csv2tsv.rb S" }
+#insert-mc3q() { LBUFFER="opts=--csv mc3q '{\""; RBUFFER="\"://i, abandon:{\$ne:true}}' _id TSV" }
+#zle -N insert-mc3q
 #bindkey '^f' insert-mc3q
-bindkey '^[c' insert-calc
-# Sed
-insert-sed() { LBUFFER+="s 's/" RBUFFER="//'" }
-zle -N insert-sed
-bindkey '^[s' insert-sed
-# Auto-clipboard
-  #zle vi-insert
-insert-clip() { LBUFFER="print \"$LBUFFER" RBUFFER+='" |xsel' }
-zle -N insert-clip
-# Note that -a effects cmd mode
-bindkey -a '^[x' insert-clip
+#insert-mc3s() { LBUFFER="mc3s "; RBUFFER=" J" }
+#zle -N insert-mc3s
+#bindkey '^[f' insert-mc3s
+## Calculator
+#insert-calc() { LBUFFER='p $(('; RBUFFER='))' }
+#zle -N insert-calc
+##bindkey '^f' insert-mc3q
+#bindkey '^[c' insert-calc
+## Sed
+#insert-sed() { LBUFFER+="s 's/" RBUFFER="//'" }
+#zle -N insert-sed
+#bindkey '^[s' insert-sed
+## Auto-clipboard
+#  #zle vi-insert
+#insert-clip() { LBUFFER="print \"$LBUFFER" RBUFFER+='" |xsel' }
+#zle -N insert-clip
+## Note that -a effects cmd mode
+#bindkey -a '^[x' insert-clip
 
 # Disabling: funny alt-mode behavrior after quick esc-w for word-jumping
 #insert-while() { LBUFFER='while read -r x; do ' RBUFFER='print $x; done <~/test/aaa.lst' }
@@ -190,12 +211,12 @@ bindkey -a '^[x' insert-clip
 
 # Set vi mode.
 #bindkey -e
-bindkey -v
+#bindkey -v
 # Not necesssary and not recommended (according to zshoptions);
 # might also be getting settings from inputrc.
 #setopt vi
 # Workaround for funny Ubuntu setting.
-bindkey '\e/' vi-history-search-backward
+#bindkey '\e/' vi-history-search-backward
 
 # zsh-specific command finder
 # Two bugs!
@@ -291,7 +312,7 @@ typeset -ga precmd_functions
 # http://zsh.sourceforge.net/FAQ/zshfaq03.html#l38
 SAVEHIST=20000
 HISTFILE=~/.zhistory
-HISTIGNORE='k:ls:lm:bg:fg:jobs:pwd:kill:declare:history:cd:cd :&: *:'
+HISTIGNORE='k:ls:lm:bg:fg:jobs:pwd:declare:history:fc:d:&: *:'
 HISTSIZE=20000
 HISTFILESIZE=$HISTSIZE
 
@@ -302,7 +323,7 @@ KEYTIMEOUT=1
 # Make debug prompt more useful by showing time per command
 export PS4='%B%* %2N:%i>%b '
 
-export ANSIBLE_HOSTS=~/proj/Membean/provn/ansible/hosts
+#export ANSIBLE_INVENTORY=~/proj/XXX/provn/ansible/hosts
 
 # Consider MIME filetype enabling. SLOW!
 # http://www.bash2zsh.com/essays/essay1_file_manager.html
@@ -315,16 +336,17 @@ export ANSIBLE_HOSTS=~/proj/Membean/provn/ansible/hosts
 # https://bbs.archlinux.org/viewtopic.php?id=95078
 # http://unix.stackexchange.com/questions/115009/how-to-change-the-cursor-theme-in-cli
 zle-line-init () {
-  zle -K viins
+  #
+  #zle -K viins
+  zle -K vicmd  # start in cmd (normal) mode
   #echo -ne "\033]12;Grey\007"
   #echo -n 'grayline1'
-  echo -ne "\033]12;Gray\007"
-  echo -ne "\033[4 q"
+  #echo -ne "\033]12;Gray\007"
+  #echo -ne "\033[4 q"
   #print 'did init' >/dev/pts/16
 }
-zle -N zle-line-init
 zle-keymap-select () {
-  if [[ $KEYMAP == vicmd ]]; then
+  if [[ $KEYMAP == vicmd ]]; then  # normal/cmd mode
     if [[ -z $TMUX ]]; then
       printf "\033]12;Green\007"
       printf "\033[2 q"
@@ -332,7 +354,7 @@ zle-keymap-select () {
       printf "\033Ptmux;\033\033]12;red\007\033\\"
       printf "\033Ptmux;\033\033[2 q\033\\"
     fi
-  else
+  else  # insert mode
     if [[ -z $TMUX ]]; then
       printf "\033]12;Grey\007"
       printf "\033[4 q"
@@ -343,11 +365,21 @@ zle-keymap-select () {
   fi
   #print 'did select' >/dev/pts/16
 }
-zle -N zle-keymap-select
+
+zle-start-in-cmd-mode () {
+  print 'entering cmd mode'
+  zle vi-cmd-mode
+}
+
+if [[ $TERM == rxvt-unicode-256color ]]; then
+  #zle -N zle-keymap-select
+  #zle -N zle-line-init
+  #zle -N zle-start-in-cmd-mode
+fi
 
 # Set tabs to non-standard (non-8) width.
 # See: `man 1p tabs` for some interesting options!
-tabs -16
+#tabs -16
 
 # Disable C-s as XOFF
 # https://coderwall.com/p/ltiqsq
@@ -355,6 +387,9 @@ stty stop ''
 stty start ''
 stty -ixon
 stty -ixoff
+
+# Stop that dang bell (must be done in x)
+# xset -b
 
 # Misc completions (should I have a zstyle.zsh file?)
 # FIXME: Not completing dirs
@@ -364,4 +399,16 @@ zstyle ':completion:*:*:feh:*' file-patterns '*.(jpg|png)'
 zstyle ':completion:*:*:mb-purge-non-deliverables*:*' file-patterns '*.txt'
 zstyle ':completion:*:*:(v|vim):*' ignored-patterns '*.(o|so|mp3|jpg|png|pdf|xcf)'
 
+# Direnv (probably not slow but should keep an eye on it)
+eval "$(direnv hook zsh)"
+
 #fontset.zsh big
+
+# # ansi-term should track cwd
+# # http://stackoverflow.com/questions/3508387/
+# if [ -n "$INSIDE_EMACS" ]; then
+#   chpwd() { print -P "\033AnSiTc %d" }
+#   print -P "\033AnSiTu %n"
+#   print -P "\033AnSiTc %d"
+#   export TERM=xterm-256color
+# fi

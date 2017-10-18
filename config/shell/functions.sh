@@ -501,8 +501,22 @@ keychains() {
 }
 
 shoot() {
-  local ss=$PWD/snapshot-`dts`.png
+  # local ss=$PWD/snapshot-`dts`.png
+  local ss=~/snaps/snapshot-`dts`.png
   maim -s $ss
   print $ss |xsel -bps
+  read -q '?gimp (y/N)> ' && gimp $ss
   print "Save snapshot as: $ss"
 }
+
+seconds-since-midnight() {
+  # Seconds since midnight
+  # http://unix.stackexchange.com/questions/146550/
+  zmodload zsh/datetime
+  now=$EPOCHSECONDS
+  strftime -s today %F $now
+  strftime -rs midnight %F $today
+  echo $((now - midnight))
+}
+
+# pw() { pwd |xsel -b}

@@ -24,10 +24,6 @@ alias -s pdf=evince
 alias -s deb='sudo dpkg -i'
 alias -s feature='cucumber'
 
-# Places to cd
-# Actually, these behave better using cdpath (see options.zsh)
-#alias -g mb=~/proj/Membean
-
 ### Globals
 alias -g A='| a'
 alias -g B='| bcat'
@@ -41,5 +37,6 @@ alias -g P='| $PAGER'
 alias -g S='| sort -n'
 alias -g T='| tail'
 alias -g U='| uniq'
+alias -g X='| xsel -b'
 alias -g TSV="|sed -rn '2,$ p' |csv2tsv.rb S"
 #alias -g TSV='|sn "2,$p" |csv2tsv.rb'

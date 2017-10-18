@@ -20,7 +20,9 @@ alias c2='/usr/bin/coderay' # uses bold unlike pygmentize
 alias d='dirs -v'
 # E -- file Explorer
 #alias e='epiphany'
-alias e='nemo --no-desktop'
+#alias e='nemo --no-desktop'
+# alias e='emacs --daemon'
+alias e='emacsclient -c'
 # F -- fc history display
 alias f='fc -ldD'
 alias fm=pcmanfm  # file manager
@@ -37,10 +39,11 @@ alias h=run-help
 # J -- job control
 alias j='jobs'
 # L -- dir listing
-alias l='ls -hlABFX'
+alias l='ls -hlkABFX --color=auto'
+# alias l='exa -lBF -sextension --git --group-directories-first'
 # M -- audio player
 alias m=$APLAYER
-# N -- 
+# N --
 # Might use n (node version tool)
 #alias n=nautilus
 #alias n='nemo --no-desktop'
@@ -50,13 +53,14 @@ alias o='mimeo'
 alias p='print -l'
 alias q='exit'
 # R -- littler
-disable r
+#disable r
 # S -- regex-enabled sed
 alias s='sed -r'
 alias sn='sed -nr'
 # T -- tree
 #alias t='tree *~node_modules'
 alias t='tree -C --charset utf8'
+alias td='t -d'
 alias th='thunar'
 # V -- edit (see func)
 # W -- command info
@@ -71,15 +75,18 @@ alias y=yaourt
 
 ### Listing
 # Make all ls have color.
-alias ls='ls --color=auto'
+# alias ls='ls --color=auto'
 # Micah's custom ls.
 #alias lm='ls -hlABFX'
 # sort by Extension.
-alias le='ls -hlABFX'
+# alias le='ls -hlABFX'
 # Human readable size ordering.
-alias lh='ls -hlrS'
+# alias lh='exa -la -ssize --git'
+alias lh='ls -lhkABF --color=auto'
+alias ls='ls --color=auto'
 # order by Time.
-alias lt='ls -hlrt'
+# alias lt='exa -lra -tmodified --git'
+alias lt='ls -lrtkhABF --color=auto'
 ltt() { print -l ${1}*(.Om[-15,-1]) }
 alias l.='ls -lBd .[a-zA-Z]*'
 alias la='ls -a'
@@ -102,10 +109,8 @@ alias gs='gem search -r'
 # http://stackoverflow.com/a/9791080/326516
 #alias b="./bin/bundle"
 alias b="bundle"
-alias bi="b install --path vendor"
-#alias bi="b install --path vendor/bundle"
-# Not useful? http://gembundler.com/bundle_package.html
-alias bil="bi --local"
+# alias bi="b install --path vendor"
+alias bi="b install"
 alias bu="b update"
 alias be="b exec"
 alias binit="bi && b package && echo 'vendor/ruby' >> .gitignore"
@@ -120,6 +125,7 @@ alias rk=bin/rake
 alias rs=bin/rspec
 #alias rg=bin/guard # see function
 #alias cu=cucumber
+alias rubocop='rubocop --rails'  # get some extra checks
 
 ### Node/JavaScript
 alias jg=grunt
@@ -152,9 +158,10 @@ alias mo=mocha
 #alias packer='packer --noedit'
 #alias pm='packer --noedit'
 alias sc='systemctl'
+alias scu='sc --user'
 alias ssc='sudo systemctl'
-alias jc='journalctl -xa'
-alias sjc='sudo journalctl -xa'
+alias jc='journalctl -xal'
+alias sjc='sudo journalctl -xal'
 alias spk='sudo pkill'
 # Better -S-completion than yaourt
 alias pm='sudo pacman'
@@ -190,12 +197,33 @@ alias a-add-PPA='sudo add-apt-repository'
 alias jobdone="date |mail -s 'job done' $EMAIL"
 
 #alias latest='ls ~/Downloads/$(ls -rt ~/Downloads/ |tail -1)'
-alias day="date '+%Y%m%d'"
-alias dt='date "+%Y%m%d"'
-alias dt-='date -I'
-alias dts='date +%s'
-alias dd='date -d'  # okay to mask dd since use infrequently
-alias dt2="date-iso2bson.rb <<<\"'`dt-`'\""
+alias dt='date +%Y%m%d'    # frequent 8-digit stamp: 20160114
+alias dt8=dt
+alias day=dt
+alias dts='date +%s'       # seconds since epoch: 1452795263
+alias dte=dts
+alias dt10=dts
+alias dtep='print "use this to parse: date -d @123..."'  # parse the epoch
+alias dtp='date -d '       # parse
+alias dttm='date --utc +%Y%m%d%H%M%S'  # datetime: 20160114192940
+alias dt14=dttm
+#alias dd='date -d'  # okay to mask dd since use infrequently
+alias dt13=dtb
+alias dto='date +%Y%j'     # ordinal date: 2016016 (16th day of year)
+alias dt7=dto
+# https://en.wikipedia.org/wiki/ISO_week_date
+alias dtwk='date +W%V'     # week date: W02
+alias dtyrwk='date +%GW%V' # year week date: 2016W02
+# ISO 8601
+alias dtw='date +%G-W%V-%' # year week: 2016-W02-4
+alias dti='date -I'        # ISO-8601: 2016-01-14
+alias dt-=dti
+alias dtI='date -u +%Y%m%dT%H%M%S'        # 20160111T173110Z
+alias dtI-='date -u +%Y-%m-%dT%H:%M:%SZ'  # 2016-01-11T17:31:10Z
+alias dtI0='date -u -Iseconds'            # 2016-01-11T17:31:10+0000
+alias dto-='date +%Y-%j'                  # ordinal date: 2016-016
+# Weird mongo
+alias dtb="date-iso2bson.rb <<<\"'`dt-`'\""  # for mongo bson
 
 alias mp=$APLAYER
 alias vp=$VPLAYER
@@ -278,7 +306,6 @@ alias ve-cdve='cdvirtualenv'
 # Editing of config stuff.
 #alias vi-shell='v -S ~/config/shell/Session.vim'
 alias vi-shell='v -o ~/.zshrc $my_shdir/options.zsh $my_shdir/envars.sh $my_shdir/aliases.sh $my_shdir/aliases.zsh $my_shdir/functions.sh'
-alias vi-mbg='v -S ~/proj/Membean/Session.vim'
 alias vi-sudo='sudoedit'
 alias vi-ans='v -o hosts site.yaml group_vars/all.yaml ssh-inventory.config ansible.cfg'
 alias vi-ssh='v ~/.ssh/config'
@@ -354,7 +381,7 @@ alias el='elinks -no-numbering -no-references -dump-width 200 -dump'
 alias dump=el
 
 alias ss2='gnumeric'
-alias ss='soffice --calc'  # masks the ss socket tool.
+alias spread='soffice --calc'  # masks the ss socket tool.
 
 alias ec='ebook-convert'
 
@@ -374,7 +401,17 @@ alias pk='pkill --full'
 alias mv='mv -i'
 alias cp='cp -i'
 
+# Type `zmv` alone for origin of this alias; pretty nice!
+# mmv *.jpg *-large.jpg
+alias mmv='noglob zmv -W'
+# nmv -n (*)-edited.jpg \$1.jpg
+alias nmv='noglob zmv'
+alias zcp='zmv -C'
+
 alias pp='print -P'
+
+alias ap=ansible-playbook
+alias ap19=ansible-playbook-19
 
 alias tm='tmux'
 # Each slime wants its own socket.
@@ -418,7 +455,21 @@ alias mysql='mysql --auto-rehash'
 
 alias stderred='export LD_PRELOAD="/usr/lib/libstderred.so"'
 
+### Docker
 alias dk='sudo docker'
+alias dkb='dk build'
+alias dkh='dk history'
+alias dka='dk attach'
+alias dki='dk image'
+alias dkc='dk container'
+alias dkl='dk logs'
+alias dkn='dk network'
+alias dkp='dk ps'
+alias dkr='dk run'
+alias dks='dk search'
+alias dkt='dk top'
+alias dkv='dk volume'
+
 
 # alias ans=ansible
 
@@ -431,5 +482,9 @@ alias reboot='print "you probably do not really mean that"'
 
 alias kc=keychains
 
-alias sm="ssh -F ${ANSIBLE_HOSTS:h}/ssh-inventory.config"
-alias scpm="scp -F ${ANSIBLE_HOSTS:h}/ssh-inventory.config"
+alias sm="ssh -F ${ANSIBLE_INVENTORY:h}/ssh-inventory.config"
+alias scpm="scp -F ${ANSIBLE_INVENTORY:h}/ssh-inventory.config"
+
+alias s3='aws s3 --acl=public-read'
+alias s3cp='aws s3 cp --acl=public-read'
+alias s3ls='aws s3 ls'

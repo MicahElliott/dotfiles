@@ -4,6 +4,13 @@
 # Things that are only used by Zsh should not be exported.
 ######################################################################
 
+# Work stuff, not in git
+export WORK_ENV=~/config/shell/work.sh
+if [[ ! -f $WORK_ENV ]]; then
+    print "Missing non-git $WORK_ENV environment file." 2>&1
+fi
+. $WORK_ENV
+
 # ???: Maybe didn't want anything to look like DOS.
 unset USERNAME
 
@@ -14,7 +21,9 @@ unset USERNAME
 #. ~/.gpg-agent-info
 
 # Mail agents need to see these
-export EDITOR=vim
+#export EDITOR=vim
+export EDITOR=emacsclient
+export ALTERNATE_EDITOR=''
 export XEDITOR=$EDITOR
 export VISUAL=$EDITOR
 #export VIMTAGS
@@ -81,8 +90,15 @@ export PATH=$PATH:/opt/clojurescript/bin
 #    export TERM=xterm
 #export TERM=xterm
 #export TERM=xterm-256color
-export XTERM=urxvtcd
+#export XTERM=urxvtcd
 export TERMINAL=$XTERM
+
+# Needed for eshell
+#CDPATH=$cdpath
+#export CDPATH
+
+export mp=~/proj
+export gp=~/gitcontainer/projects
 
 # Home path areas
 # NOTE: ~/local is early since it should only be used to replace sys utils
@@ -106,7 +122,6 @@ which ruby >/dev/null && {
     # Try: gem help environment
     #export GEM_HOME=$HOME/.gem/ruby/$rubyver
 }
-export RUBYLIB=$HOME/proj/Membean/misc/bin
 
 # rbenv
 #export PATH=$HOME/.rbenv/bin:$PATH
@@ -122,15 +137,12 @@ export RUBIES
 compctl -g '~/.rubies/*(:t)' chruby
 source /usr/share/chruby/auto.sh
 
-#export RAILS_ROOT=~/proj/Membean/mbg
-#PATH+=:$RAILS_ROOT/script
-
 # nvm: See ni/jsi funcs. Just a little too slow for every shell.
 
 # Node http://tnovelli.net/blog/blog.2011-08-27.node-npm-user-install.html
 export PATH=$HOME/.local/bin:$PATH
 
-export DEBUG='brunch:*'
+#export DEBUG='brunch:*'
 
 # https://github.com/visionmedia/n
 export N_PREFIX=~/local
@@ -138,18 +150,6 @@ export N_PREFIX=~/local
 # R
 export PATH=$PATH:/usr/lib/R/bin
 export PERL5LIB=$PERL5LIB:/usr/share/R/share/perl
-
-# Membean
-export PATH=$HOME/proj/Membean/misc/bin:$PATH
-export PATH=$HOME/proj/Membean/misc/srm:$PATH
-export PATH=$HOME/proj/Membean/mbg/script:$PATH
-export MB=~/proj/Membean/mbg
-export MB_MBG=$HOME/proj/Membean/mbg
-export MB_WORDSTUDY=$HOME/proj/Membean/wordstudy
-export MB_MISC=$HOME/proj/Membean/misc
-export mb_s3_imgs=s3://media1.membean.com/public/images/wordimages/bkgd2
-export mb_s3_vids=s3://media1.membean.com/video/examplevids
-export mb_s3_audio=s3://media1.membean.com/audio
 
 # Haskell cabal stuff.
 #export PATH=$HOME/.cabal/bin:$PATH
@@ -169,6 +169,9 @@ export PATH=$HOME/.lein/bin:$PATH
 # Gitcontainer binstubs
 export PATH=$PATH:$HOME/gitcontainer/bin
 
+# Haskell
+export PATH=$PATH:$HOME/.cabal/bin
+
 # Local dir stuff.
 export PATH=$PATH:./bin
 
@@ -176,8 +179,17 @@ export PATH=$PATH:./bin
 export PATH=/opt/racket/bin:$PATH
 path+=$HOME/gitcontainer/projects/reptl
 
+# OCaml (or: eval `opam config env`)
+export MANPATH="/home/mde/.opam/system/man:$MANPATH"
+export PATH="/home/mde/.opam/system/bin:$PATH"
+export CAML_LD_LIBRARY_PATH="/home/mde/.opam/system/lib/stublibs:/usr/lib/ocaml/stublibs"
+export PERL5LIB="/home/mde/.opam/system/lib/perl5:/usr/share/R/share/perl:/usr/share/R/share/perl:$PERL5LIB"
+export OCAML_TOPLEVEL_PATH="/home/mde/.opam/system/lib/toplevel"
+
 # Get rake to STFU.
 export MAKE=make
+
+export VAGRANT_DEFAULT_PROVIDER=libvirt
 
 # Sencha crap.
 #export PATH=$PATH:$HOME/opt/SenchaArchitect:$HOME/opt/SenchaSDKTools-2.0.0-beta3
