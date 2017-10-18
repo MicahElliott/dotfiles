@@ -5,10 +5,12 @@
 # http://www.pixelbeat.org/settings/.inputrc
 ##source /etc/inputrc
 
-set editing-mode vi
+# Sad that Chet won't support starting in normal mode:
+# https://lists.gnu.org/archive/html/bug-readline/2014-10/msg00001.html
+#set editing-mode vi
 #set editing-mode emacs
 
-#set bell-style visible
+set bell-style visible
 
 # Enable ALT in gnome-terminal, for vim tabbing.
 # OOPS: it still does not work.
@@ -28,4 +30,4 @@ set blink-matching-paren on
 
 set history-size 10000
 
-"\C-e": rlwrap-call-editor
+#"\C-e": rlwrap-call-editor

@@ -1,8 +1,11 @@
 " clojure
 
+"echo "in ftplugin"
+
 "source ~/.vim/syntax/comments.vim
 
-set keywordprg=~/bin/mdeslime.zsh
+" Fireplace should handle K
+"set keywordprg=~/bin/mdeslime.zsh
 
 abbr (p (println
 
@@ -32,3 +35,8 @@ nmap <Leader>r :ReplHere<CR>
 
 " Work around sexp only honoring <BS>
 imap <buffer> <C-h> <Plug>(sexp_insert_backspace)
+
+"au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces

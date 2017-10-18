@@ -35,7 +35,8 @@ my_configs=(
     aliases.zsh
     functions.sh
 )
-my_plugins=( $my_shdir/zsh/plugins/*.zsh )
+#my_plugins=( $my_shdir/zsh/plugins/*.zsh )
+my_plugins=( )
 
 # Time the stuff.
 integer t0=$(date '+%s')

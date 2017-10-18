@@ -11,7 +11,7 @@ setl commentstring=;%s
 syn match racketGlobal /\C[A-Z]\+/ display
 hi racketGlobal ctermfg=159
 
-au VimEnter * RainbowParenthesesToggle
+"au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces

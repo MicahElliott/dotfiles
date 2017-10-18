@@ -180,11 +180,12 @@ if &term =~ "xterm\\|rxvt"
   autocmd VimLeave * silent !echo -ne "\033]112\007"
   " In case in zsh insert mode
   autocmd VimEnter * silent !echo -ne "\033]12;green\007\033[2 q"
-elseif &term =~ "screen-it"
-  " Insert
+"elseif &term =~ "screen-it"
+elseif &term =~ "tmux-256color"
+  " Insert (underline: 3 q
   let &t_SI  = "\<Esc>Ptmux;\<Esc>\<Esc>]12;gray\x7\<Esc>\\"
   let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[3 q\<Esc>\\"
-  " Normal
+  " Normal (block: 2 q)
   let &t_EI  = "\<Esc>Ptmux;\<Esc>\<Esc>]12;cyan\x7\<Esc>\\"
   let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
   "autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033]112\007\<Esc>\\"
@@ -271,7 +272,7 @@ Plugin 'jeetsukumaran/vim-buffergator.git'
 Plugin 'guns/vim-clojure-static.git'
 Plugin 'guns/vim-clojure-highlight.git'
 Plugin 'tpope/vim-leiningen.git'
-"Bundle 'tpope/vim-classpath'
+Plugin 'tpope/vim-classpath'
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-scriptease'
 
@@ -281,6 +282,7 @@ Plugin 'tpope/vim-fireplace.git'
 Plugin 'guns/vim-sexp'
 Plugin 'tpope/vim-sexp-mappings-for-regular-people'
 Plugin 'dgrnbrg/vim-redl'
+Plugin 'guns/vim-slamhound'
 
 Plugin 'file:///home/mde/gitcontainer/projects/vim-racket-omni-docs'
 
@@ -351,11 +353,19 @@ Plugin 'tpope/vim-fugitive'
 
 Plugin 'vim-scripts/Vim-R-plugin'
 
-Plugin 'thinca/vim-ref'
+" BAD: Overrides fireplace's K keywordprg
+"Plugin 'thinca/vim-ref'
 
 " OCaml
 Plugin 'atweiden/merlin.vim'
 Plugin 'def-lkb/vimbufsync'
+
+" ,,s to trigger
+Plugin 'easymotion/vim-easymotion'
+
+" Cursor switching? Supposedly plays nice with tmux.
+"Plugin 'sjl/vitality.vim'
+"Plugin 'dmedvinsky/uritality.vim'
 
 
 " Create symlink to enable local dev
@@ -366,7 +376,8 @@ Plugin 'file:///home/mde/gitcontainer/projects/Rocannon'
 
 Plugin 'file:///home/mde/gitcontainer/projects/upper-decker'
 
-Plugin 'MicahElliott/vim-clojure-fontlocks'
+"Plugin 'MicahElliott/vim-clojure-fontlocks'
+Plugin 'file:///home/mde/gitcontainer/projects/vim-clojure-fontlocks'
 
 "-- Gists ------------------------------------------------------------
 "Bundle 'git@github.com:MicahElliott/snipmate-snippets.git'
@@ -598,6 +609,24 @@ let g:textobj#quote#educate = 1
 "map <silent> <leader>qs <Plug>ReplaceWithStraight
 let g:textobj#quote#doubleMotion = 'Q'
 let g:textobj#quote#singleMotion = 'q'
+
+" Easy motion
+"map <Leader> <Plug>(easymotion-prefix)
+"map <Leader> <Plug>(easymotion-prefix)
+" <Leader>f{char} to move to {char}
+" f is for Find
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+
+" Redl
+"<Plug>clj_repl_enter.    CR
+"imap <silent> <C-S-k> <Plug>clj_repl_uphist.
+"imap <silent> <C-S-j> <Plug>clj_repl_downhist.
+"<Plug>clj_repl_eval.     C-e
+"<Plug>clj_eepl_hat.      ^
+"<Plug>clj_repl_Ins.      I
+"<Plug>clj_repl_uphist.   C-Up
+"<Plug>clj_repl_downhist. C-Down
 
 
 "set verbose
@@ -925,6 +954,7 @@ imap <C-h> <BS>
 " Return to previously visited tab (<alt><tab>).
 " http://vim.1045645.n5.nabble.com/jump-to-last-visited-tabpage-td1172955.html
 "nmap <Tab> :exe "tabn " . g:ltv<CR>
+nmap <Leader><Tab> :exe "tabn " . g:ltv<CR>
 nmap <leader>t :exe "tabn " . g:ltv<CR>
 " referred to by TabLeave autocmd.
 function! Setlasttabpagevisited()

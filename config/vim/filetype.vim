@@ -33,4 +33,5 @@ augroup filetypedetect
   au! BufNewFile,BufRead *.wiki set filetype=wiki
   au! BufNewFile,BufRead *.adoc,*.ad,*.asc set filetype=asciidoc
   au! BufNewFile,BufRead *.scrbl,*.pm set filetype=scribble
+  au! BufNewFile,BufRead *.crontab set filetype=crontab
 augroup END
