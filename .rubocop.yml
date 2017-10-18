@@ -1,2 +1,63 @@
+AllCops:
+  Exclude:
+    - bin/*
+    - config/**/*
+    - coverage/**/*
+    - db/**/*
+    - doc/**/*
+    - log/**/*
+    - public/**/*
+    - script/**/*
+    - tmp/**/*
+    - vendor/**/*
+
+MethodCalledOnDoEndBlock:
+  Enabled: true
+
+Documentation:
+  Exclude:
+    - app/api/**/*
+    - app/controllers/**/*
+    - app/helpers/**/*
+
+ClassAndModuleChildren:
+  Enabled: false
+
+Style/DotPosition:
+  EnforcedStyle: trailing
+
+Rails:
+  Enabled: true
+
+AllCops:
+  TargetRailsVersion: 5.0
+
+
+# Can be helpful to have smart quotes, better punctuation
 Style/AsciiComments:
   Enabled: false
+
+Style/MutableConstant:
+  Enabled: false
+
+Style/SpecialGlobalVars:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 100
+
+Style/GlobalVars:
+  Enabled: false
+
+Style/Semicolon:
+  Enabled: false
+
+# Can't figure out what default is, but seems too low.
+Metrics/AbcSize:
+  Max: 50
+
+Style/ParallelAssignment:
+  Enabled: false
+
+# Rails/Output:
+  # Enabled: false

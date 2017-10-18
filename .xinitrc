@@ -39,7 +39,7 @@ xset +fp /usr/share/fonts/local
 
 
 ### All xmodmaps now in standalone script
-~/bin/modmap.zsh
+~/bin/qwerkey.zsh
 # To see all the xmodmap mappings: xmodmap -pke
 
 # Swap Caps_Lock and Control_L.
@@ -146,4 +146,5 @@ pulseaudio --log-level=4 --log-target=stderr &
 # https://wiki.archlinux.org/index.php/ConsoleKit
 ###source /etc/X11/xinit/xinitrc.d/30-dbus
 ###exec ck-launch-session dbus-launch i3
-exec i3
+# exec i3
+exec i3 -V >> ~/log/i3log-$(date +'%F-%k-%M-%S') 2>&1

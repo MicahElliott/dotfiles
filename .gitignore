@@ -3,6 +3,8 @@
 #
 # Top level dirs
 *.sw[po]
+# direnv files
+.envrc
 /Downloads
 /gitcontainer
 /gits
@@ -25,24 +27,25 @@
 /DGuitar*
 /tabs
 /GNUstep
-/src
 /mde-stud
 /pkg
 /*.tar.xz
 /config/gitconfig
 /tmp*
+tmp
+.nix-*
 netrc
 gitconfig
+/config/shell/work.sh
 
 # Specific files
 tags
 test-0.mp4
 dead.letter
-mde.*
+# mde.*
 /*.mp3
 /*.ogg
 /*.json
-/*.xml
 /*.png
 /*.jpg
 /*.mkv
@@ -57,6 +60,7 @@ z
 *.gpg
 .gpg*
 *.log
+*.orig
 
 # Dot *files*
 .*_history
@@ -98,6 +102,22 @@ z
 .s3cfg
 .netrc
 .msmtprc
+.projectile
+.yarnrc
+yarn.lock
+installed.lst
+snaps
+.mycli-history
+.myclirc
+.octave_hist
+.profile
+.s3fs
+.wget-hsts
+.aspell.*
+.asql.aliases
+.goaccessrc
+.h2.server*
+.multirust
 
 # Dot *dirs*
 .*/

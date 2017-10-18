@@ -1,8 +1,7 @@
-# i3 config file (v4)
+# i3 config file tuned for ZeLDA
 #
-# Please see http://i3wm.org/docs/userguide.html for a complete reference!
-#
-# Nice example: http://www.fastlinux.eu/linux/downloads/i3/.i3/config
+# Complete i3 reference: http://i3wm.org/docs/userguide.html for a complete reference!
+# ZeLDA layout for Planck keyboards: https://github.com/MicahElliott/ZeLDA
 
 #set $mod Mod1
 set $mod Mod4
@@ -12,23 +11,30 @@ set $mod Mod4
 exec xset +fp ~/gitcontainer/projects/orp-font/misc
 #exec xset +fp ~/gits/projects/orp-font/misc
 exec xset +fp /usr/share/fonts/local
-exec xset r rate 250 60 # super fast keyboard delay and rate!
+exec xset -b
+
+# https://wiki.archlinux.org/index.php/Keyboard_configuration_in_Xorg#Using_xset
+#              msdelay rate
+#exec xset r rate 250    60    # super fast keyboard cursor delay and rate!
+exec xset r rate 250    2     # super slow (vim training)
+
+# Not sure if this works; might have to paste manually
+exec xmodmap -e 'keycode 138 = Multi_key'
 
 # NOTE: some of these are being set in .xinitrc; could maybe move some here.
 
-# Keyboard indicator icon; always on wrong statusbar
-exec fbxkb
+# Keyboard indicator icon; always on wrong statusbar and memory hog!
+# exec fbxkb
 
 # Too simple maybe?
 exec volumeicon
 # Wow, fancy!
 #exec volti
 
-# New from .xinitrc
 #exec parcellite
 exec clipit
 #exec nm-applet
-exec wicd-client
+##exec wicd-client
 #exec batti
 exec batterymon
 # Frequency not detected??
@@ -39,6 +45,11 @@ exec stty -ixon
 
 # Growl On Linux
 exec gol
+
+# Alternative to standard notify-send
+# https://github.com/knopwob/dunst
+# https://faq.i3wm.org/question/5187/how-to-get-dunst-working/
+exec --no-startup-id dunst
 
 #exec shutter
 #exec screengrab
@@ -68,13 +79,15 @@ bindsym XF86AudioLowerVolume exec pactl -- set-sink-volume 0 -0.2
 #bindsym XF86AudioLowerVolume exec amixer -q set Master 2- unmute
 bindsym XF86Battery exec ~/bin/pm.zsh
 
-bindsym Menu exec mouse-script.zsh
+# bindsym Menu exec mouse-script.zsh
+
+# bindsym Mod3+y fullscreen toggle
 
 bindsym XF86MonBrightnessDown  exec  xbacklight -dec 10
 bindsym XF86MonBrightnessUp    exec  xbacklight -inc 10
 
 focus_follows_mouse yes
-#bindsym $mod+b workspace back_and_forth
+
 bindsym $mod+Tab workspace back_and_forth
 workspace_auto_back_and_forth yes
 
@@ -89,131 +102,113 @@ floating_modifier $mod
 bindsym $mod+Return exec i3-sensible-terminal
 #bindsym $mod+Return exec urxvtcd
 
-# kill focused window
-bindsym $mod+Shift+Q kill
-
 # start dmenu (a program launcher)
 #bindsym $mod+d exec dmenu_run -b -nb red
 # try shellex instead: https://github.com/Merovius/shellex
-bindsym $mod+d exec shellex -bg brown -fg yellow
+bindsym $mod+n exec shellex -bg brown -fg yellow
 
 # lock screen
 # https://faq.i3wm.org/question/83/how-to-run-i3lock-after-computer-inactivity/
 #exec xautolock -time 4 -locker 'i3lock -b -c 0000ff'
 exec xautolock -time 22 -locker "i3lock -b -i $HOME/art/locked2.png"
-# Not working
 bindsym Control+Mod1+$mod+l exec i3lock -b -i $HOME/art/locked2.png
 
 # change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym $mod+e focus up
+bindsym $mod+d focus down
+bindsym $mod+s focus left
+bindsym $mod+f focus right
 
 # move focused window
-bindsym $mod+Shift+H move left
-bindsym $mod+Shift+J move down
-bindsym $mod+Shift+K move up
-bindsym $mod+Shift+L move right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+e move up
+bindsym $mod+Shift+d move down
+bindsym $mod+Shift+s move left
+bindsym $mod+Shift+f move right
 
 # split in horizontal orientation
-bindsym $mod+g split h
+bindsym $mod+h split horizontal
 
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+v split vertical
 
-# enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen
+# enter fullscreen mode for the focused container (All of screen)
+bindsym $mod+a fullscreen
 
 # change container layout (stacked, tabbed, default)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout default
+# bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+g layout default
+bindsym $mod+z layout stacking
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
-
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
-bindsym $mod+Shift+a focus child
-
+# bindsym $mod+a focus parent
+# bindsym $mod+Shift+a focus child
 # focus the child container
 #bindcode $mod+d focus child
 
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
-
-# alternative ctrl-based workspace switching
-bindsym Control+1 workspace 1
-bindsym Control+2 workspace 2
-bindsym Control+3 workspace 3
-bindsym Control+4 workspace 4
-bindsym Control+5 workspace 5
-bindsym Control+6 workspace 6
-bindsym Control+7 workspace 7
-bindsym Control+8 workspace 8
-bindsym Control+9 workspace 9
-# browsers need this for font sizing, but oh well!
-bindsym Control+0 workspace 10
+bindsym $mod+u workspace 7
+bindsym $mod+i workspace 8
+bindsym $mod+o workspace 9
+bindsym $mod+j workspace 4
+bindsym $mod+k workspace 5
+bindsym $mod+l workspace 6
+bindsym $mod+m workspace 1
+bindsym $mod+comma workspace 2
+bindsym $mod+period workspace 3
+bindsym $mod+p workspace 10
 
 # move focused container to workspace
-bindsym $mod+Shift+exclam move container to workspace 1
-bindsym $mod+Shift+at move container to workspace 2
-bindsym $mod+Shift+numbersign move container to workspace 3
-bindsym $mod+Shift+dollar move container to workspace 4
-bindsym $mod+Shift+percent move container to workspace 5
-bindsym $mod+Shift+asciicircum move container to workspace 6
-bindsym $mod+Shift+ampersand move container to workspace 7
-bindsym $mod+Shift+asterisk move container to workspace 8
-bindsym $mod+Shift+parenleft move container to workspace 9
-bindsym $mod+Shift+parenright move container to workspace 10
+bindsym $mod+Shift+M move container to workspace 1
+bindsym $mod+Shift+comma move container to workspace 2
+bindsym $mod+Shift+period move container to workspace 3
+bindsym $mod+Shift+J move container to workspace 4
+bindsym $mod+Shift+K move container to workspace 5
+bindsym $mod+Shift+L move container to workspace 6
+bindsym $mod+Shift+U move container to workspace 7
+bindsym $mod+Shift+I move container to workspace 8
+bindsym $mod+Shift+O move container to workspace 9
+bindsym $mod+Shift+P move container to workspace 10
+
+# kill focused window
+# bindsym $mod+Shift+Q kill
+bindsym $mod+Shift+X kill
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
-bindsym $mod+Shift+r reload
+# bindsym $mod+Shift+O reload
+bindsym $mod+Shift+R reload
+# bindsym $mod+Shift+r reload
+
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+Control+w restart
+bindsym $mod+Shift+Control+W restart
+bindsym $mod+Shift+Control+R restart
+
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+Control+e exit
+bindsym $mod+Shift+Control+BackSpace exit
+bindsym $mod+Shift+Control+Q exit
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
+        # vim-style
         bindsym h resize shrink width 3 px or 3 ppt
         bindsym j resize grow height 3 px or 3 ppt
         bindsym k resize shrink height 3 px or 3 ppt
         bindsym l resize grow width 3 px or 3 ppt
 
-        # same bindings, but for the arrow keys
+        # ZeLDA FESD
+        bindsym s resize shrink width 3 px or 3 ppt
+        bindsym d resize grow height 3 px or 3 ppt
+        bindsym e resize shrink height 3 px or 3 ppt
+        bindsym f resize grow width 3 px or 3 ppt
+
+        # same bindings, but for the typical arrow keys
         bindsym 113 resize shrink width 3 px or 3 ppt
         bindsym 116 resize grow height 3 px or 3 ppt
         bindsym 111 resize shrink height 3 px or 3 ppt
@@ -224,6 +219,7 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
+
 bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
@@ -232,8 +228,12 @@ bindsym $mod+r mode "resize"
 bar {
         #output LVDS1
         output EDP1
-        #status_command i3status --config ~/.i3status.conf
+        # Enable font awesome for icons
+        # font pango:DejaVu Sans Mono, Icons 8
+        font pango:DejaVu Sans Mono, Awesome 8
+        # status_command i3status --config ~/.i3status.conf
         status_command my-i3status
+        # status_command net-speed.sh
         position top
         mode dock
         modifier Mod4
@@ -264,7 +264,6 @@ bar {
 bindsym $mod+b border toggle
 # Remove to return to "normal" border.
 #new_window 1pixel
-# NEW
 #new_window pixel 2 # awesome if it works!
 #new_window pixel 3
 new_window pixel 4
@@ -306,45 +305,7 @@ client.urgent            #D11931     #D11931     #777777
 #client.urgent        #D11931     #D11931     #ffffff
 
 
-
-#workspace "2" output VGA1
-#workspace "4" output VGA1
-#workspace "6" output VGA1
-#workspace "8" output VGA1
-#workspace "10" output VGA1
-#workspace "10" output HDMI1
-
-#workspace "2"  output DP1
-#workspace "4"  output DP1
-#workspace "6"  output DP1
-#workspace "8"  output DP1
-#workspace "10" output DP1
-
-#workspace "2"  output HDMI2
-#workspace "4"  output HDMI2
-#workspace "6"  output HDMI2
-#workspace "8"  output HDMI2
-#workspace "10" output HDMI2
-#workspace "1" output eDP1
-#workspace "3" output eDP1
-#workspace "5" output eDP1
-#workspace "7" output eDP1
-#workspace "9" output eDP1
-
-#workspace "1"  output eDP1
-#workspace "2"  output eDP1
-#workspace "3"  output eDP1
-#workspace "4"  output HDMI1
-#workspace "5"  output HDMI1
-#workspace "6"  output HDMI1
-#workspace "7"  output HDMI2
-#workspace "8"  output HDMI2
-#workspace "9"  output HDMI2
-#workspace "10" output HDMI2
-
-# workspace "1"  output eDP1
-# workspace "1"  output HDMI2
-
+# Possible outputs: VGA1, HDMI1, HDMI2, eDP1
 workspace "1"  output eDP1
 workspace "2"  output eDP1
 workspace "3"  output eDP1
