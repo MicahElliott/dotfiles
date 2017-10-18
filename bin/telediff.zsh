@@ -15,6 +15,9 @@ requires colordiff
 
 [[ -z $1 ]] || [[ -z $2 ]] && { print $usage; exit }
 
+ssh='ssh'
+# ssh='ssh -F /path/to/ansible/repo/ssh-inventory.config'
+
 rspec="$2"
 host=${rspec[(ws.:.)1]}
 rpath=${rspec[(ws.:.)2]}
@@ -23,7 +26,7 @@ rpath=${rspec[(ws.:.)2]}
 lpath=$1
 
 print comparing: $lpath $host:$rpath
-colordiff -u $lpath <(ssh $host "cat $rpath") || {
+colordiff -u $lpath <($=ssh $host "cat $rpath") || {
   print "\n\nYou might want to copy your version across:"
   print "  scp $lpath $host:$rpath"
 }

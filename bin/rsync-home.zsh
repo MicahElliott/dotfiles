@@ -22,15 +22,22 @@ time rsync -avprP \
   --exclude .keychain \
   --exclude .java \
   --exclude .icons \
+  --exclude .dropbox \
+  --exclude .gimp \
+  --exclude .macromedia \
+  --exclude .thumbnails \
+  --exclude .thunderbird \
   --exclude .nvm \
   --exclude .opam \
   --exclude .racket \
   --exclude kdenlive \
   --exclude .mozilla \
+  --exclude .lein \
+  --exclude Dropbox \
   --exclude local \
   --exclude constellation \
   --exclude huge \
   --exclude tmp \
   --exclude scratch \
   --exclude mde/src \
-  ~ /mnt/usbstick/mde-`hostname` |tee ~/rsync-mde-`hostname`-$dt.log
+  ~ /mnt/usbstick/mde-`hostname` |tee ~/log/rsync-mde-`hostname`-$dt.log

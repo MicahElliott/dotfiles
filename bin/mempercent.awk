@@ -22,3 +22,5 @@ BEGIN { ARGV[1] = "/proc/meminfo"; ARGC = 2 }
   #print ans
 #}
 END { printf "%0.0f%%\n", (tot - avail) / tot * 100 }
+# END { printf "\033[34m0.0foo\n\033[0m" }
+# END { printf "%c[1;32m foo\n", 27 }

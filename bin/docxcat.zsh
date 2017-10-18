@@ -4,13 +4,17 @@
 
 docx=${1?Must provide docx}
 
+print 'Just use docx2txt.sh'
+exit 1
+
 for f in $argv; do
   # Stupid thing won't send messages to stderr.
   #lowriter --nologo --headless --convert-to pdf $f
   #pdfcat.zsh $f:r.pdf
   # More reliable way?
   unoconv -f doc $f
-  antiword $f:r.doc
+  # Make line length extra wide=
+  # antiword -w 5000 $f:r.doc
 done
 
 # Not tested yet.

@@ -4,10 +4,19 @@
 # Used in bottom screen bar.
 # See i3status(1).
 
-i3status --config ~/.i3status.conf | while :
+# Some silliness learned from:
+# https://github.com/i3/i3status/blob/master/contrib/net-speed.sh
+i3status | (read line && echo "$line" && read line && echo "$line" && read line && echo "$line" && while :
+# i3status --config ~/.i3status.conf | while :
 do
   read line
   #mem=$(mempercent)
   mem=$(mempercent.awk)
-  echo "MEM:$mem | $line" || exit 1
-done
+  # weather=$(cat /tmp/weather.txt)
+  weather=$(cat /tmp/wunderbar.txt)
+  # echo "$weather | MEM:$mem | $line" || exit 1
+  # echo "MEM:$mem | $line" || exit 1
+  # echo ',[{"name":"disk_info","instance":"/","markup":"pango","full_text":"xx <span size=\"x-large\" color=\"red\">YY</span>' $weather '<b>51</b>.7 GiB"}]'
+  # echo ',[{"markup":"pango","full_text":"xx <span size=\"x-large\" color=\"red\">YY</span>' $weather '<b>51</b>.7 GiB"},'"${line#,\[}"
+  echo ',[{"markup":"pango","full_text":"'$weather'"},{"markup":"pango", "full_text": "MEM:'$mem'"},'${line#,\[}
+done)
