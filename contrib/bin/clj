@@ -9,6 +9,6 @@ breakchars="(){}[],^%$#@\"\";:''|\\"
 #exec rlwrap --remember -c -b "$breakchars" -f "$HOME"/.clj_completions java -cp . -jar ~/local/lib/clojure.jar
 #exec rlwrap --multi-line -p'red' --remember -c -b "(){}[],^%$#@\"\";:''|\\" -f "$HOME"/.clj_completions java -cp . -jar ~/local/lib/clojure.jar $@
 #exec rlwrap --multi-line -p'red' --remember -c -b "(){}[],^%$#@\"\";:''|\\" -f "$HOME"/.clj_completions java -cp . -jar /usr/share/clojure/clojure.jar $@
-echo "WARNING: your system 'clj' is probably a better way to invoke clojure."
+##echo "WARNING: your system 'clj' is probably a better way to invoke clojure."
 exec rlwrap --multi-line -p'red' --remember -c -b "(){}[],^%$#@\"\";:''|\\" -f "$HOME"/.clj_completions java -cp $CLASSPATH:/usr/share/clojure/clojure.jar clojure.main $@
 #exec rlwrap --multi-line -p'red' --remember -c -b "(){}[],^%$#@\"\";:''|\\" -f "$HOME"/.clj_completions drip -cp $CLASSPATH:/usr/share/clojure/clojure.jar clojure.main $@
