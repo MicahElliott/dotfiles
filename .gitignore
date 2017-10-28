@@ -61,6 +61,7 @@ z
 .gpg*
 *.log
 *.orig
+/.z
 
 # Dot *files*
 .*_history
