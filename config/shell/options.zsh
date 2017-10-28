@@ -320,10 +320,13 @@ HISTFILESIZE=$HISTSIZE
 # http://www.johnhawthorn.com/2012/09/vi-escape-delays/
 KEYTIMEOUT=1
 
+# Automatically show time info for long-running commands.
+REPORTTIME=1
+
 # Make debug prompt more useful by showing time per command
 export PS4='%B%* %2N:%i>%b '
 
-#export ANSIBLE_INVENTORY=~/proj/XXX/provn/ansible/hosts
+# export ANSIBLE_INVENTORY=~/proj/XXX/provn/ansible/hosts
 
 # Consider MIME filetype enabling. SLOW!
 # http://www.bash2zsh.com/essays/essay1_file_manager.html
@@ -335,16 +338,16 @@ export PS4='%B%* %2N:%i>%b '
 # http://stackoverflow.com/questions/30985436/
 # https://bbs.archlinux.org/viewtopic.php?id=95078
 # http://unix.stackexchange.com/questions/115009/how-to-change-the-cursor-theme-in-cli
-zle-line-init () {
+# zle-line-init () {
   #
   #zle -K viins
-  zle -K vicmd  # start in cmd (normal) mode
+  # zle -K vicmd  # start in cmd (normal) mode
   #echo -ne "\033]12;Grey\007"
   #echo -n 'grayline1'
   #echo -ne "\033]12;Gray\007"
   #echo -ne "\033[4 q"
   #print 'did init' >/dev/pts/16
-}
+# }
 zle-keymap-select () {
   if [[ $KEYMAP == vicmd ]]; then  # normal/cmd mode
     if [[ -z $TMUX ]]; then
@@ -412,3 +415,31 @@ eval "$(direnv hook zsh)"
 #   print -P "\033AnSiTc %d"
 #   export TERM=xterm-256color
 # fi
+
+######################################################################
+# FUZZY COMPLETION: FZF
+# C-T for normal finding
+# C-r for history search
+# M-c for cd
+# https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh
+# https://github.com/junegunn/fzf/wiki/Configuring-fuzzy-completion
+# Remove default transpose-chars binding that conflicts with fzf
+bindkey -r '^T'
+. /usr/share/fzf/key-bindings.zsh
+. /usr/share/fzf/completion.zsh
+export FZF_DEFAULT_COMMAND="fzf --preview 'head -100 {}'"
+# export FZF_COMPLETION_TRIGGER=''
+# If you want TAB to do FZF.
+# bindkey '^I' fzf-completion
+# Guessing this makes normal TAB completion continue to work as usual.
+# bindkey '^I' $fzf_default_completion
+export FZF_CTRL_T_OPTS="--preview '(highlight -O xterm256 -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+# export FZF_CTRL_T_OPTS="--preview 'cat {} | head -200'"
+
+
+# Z cd jump around tracking, silently observing
+# https://github.com/rupa/z
+. /usr/share/z/z.sh
+
+export ZPLUG_HOME=~/.zplug
+. $ZPLUG_HOME/init.zsh
