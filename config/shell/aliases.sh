@@ -27,7 +27,8 @@ alias e='emacsclient -c'
 alias f='fc -ldD'
 alias fm=pcmanfm  # file manager
 # G -- grep searching
-alias g='ag'
+# alias g='ag'
+alias g='rg'
 # PCRE and color for grep
 #alias g='grep --color=always -P'
 alias gr='g -ir'

@@ -368,7 +368,7 @@ mcd() { mkdir $1 && cd $1 }
 
 cl() { git clone $1 && cd $1:t:r }
 
-rg() { rk db:test:prepare; ./bin/guard }
+# rg() { rk db:test:prepare; ./bin/guard }
 
 bl() { slocate -d books.udb -ir $1 |s 's:.*torrent/::' }
 
