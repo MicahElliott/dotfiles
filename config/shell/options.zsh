@@ -121,7 +121,11 @@ bindkey "^[H" run-help
 # https://github.com/zsh-users/zsh-syntax-highlighting/tree/master/highlighters
 # Options:
 # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/highlighters/main/main-highlighter.zsh
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [[ -f /etc/redhat-release ]]; then
+    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+else
+    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 ZSH_HIGHLIGHT_HIGHLIGHTERS=( main brackets pattern )
 # Hmm, just basic colors? rgybmc
 ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=cyan
