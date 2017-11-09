@@ -1,1 +1,8 @@
-/home/mde/gitcontainer/gists/Xdefaults/.Xdefaults
+URxvt.font: 9x15
+! urxvt.background: rgba:0000/0000/0000/cc00
+! urxvt.foreground: #fff
+
+! URxvt.background: #000000
+! URxvt.font: 10x20
+! URxvt.font: xft:monaco:size=10
+! URxvt.letterSpace: -1

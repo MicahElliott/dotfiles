@@ -129,13 +129,13 @@ which ruby >/dev/null && {
 #eval "$(rbenv init -)"
 
 # chruby, completion, autoswitching (installed via yaourt)
-source /usr/share/chruby/chruby.sh
+#source /usr/share/chruby/chruby.sh
 #RUBIES=( ~/.rbenv/versions/* )
-RUBIES=( ~/.rubies/* )
-export RUBIES
+# RUBIES=( ~/.rubies/* )
+# export RUBIES
 # https://github.com/postmodern/chruby/issues/27#issuecomment-16911865
-compctl -g '~/.rubies/*(:t)' chruby
-source /usr/share/chruby/auto.sh
+# compctl -g '~/.rubies/*(:t)' chruby
+# source /usr/share/chruby/auto.sh
 
 # nvm: See ni/jsi funcs. Just a little too slow for every shell.
 
