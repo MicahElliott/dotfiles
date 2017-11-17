@@ -118,10 +118,14 @@ which ruby >/dev/null && {
     # Hack for 1.8.x (see http://gist.github.com/54177)
     #export RUBYOPT="rubygems"
     #export PATH=$PATH:$HOME/.gem/ruby/$rubyver/bin
+    path+=~/.gem/ruby/2.2.0/bin
+    # path+=~/.gem/ruby/2.4.0/bin
     ##export PATH=$PATH:/var/lib/gems/$rubyver/bin
     # Try: gem help environment
     #export GEM_HOME=$HOME/.gem/ruby/$rubyver
 }
+
+path+=~/contrib/mountebank
 
 # rbenv
 #export PATH=$HOME/.rbenv/bin:$PATH
@@ -129,18 +133,23 @@ which ruby >/dev/null && {
 #eval "$(rbenv init -)"
 
 # chruby, completion, autoswitching (installed via yaourt)
-#source /usr/share/chruby/chruby.sh
+source /usr/share/chruby/chruby.sh
 #RUBIES=( ~/.rbenv/versions/* )
 # RUBIES=( ~/.rubies/* )
 # export RUBIES
 # https://github.com/postmodern/chruby/issues/27#issuecomment-16911865
 # compctl -g '~/.rubies/*(:t)' chruby
-# source /usr/share/chruby/auto.sh
+source /usr/share/chruby/auto.sh
 
 # nvm: See ni/jsi funcs. Just a little too slow for every shell.
 
 # Node http://tnovelli.net/blog/blog.2011-08-27.node-npm-user-install.html
 export PATH=$HOME/.local/bin:$PATH
+
+# https://stackoverflow.com/questions/18088372/how-to-npm-install-global-not-as-root
+export NPM_PACKAGES="${HOME}/.npm-packages"
+export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
+export PATH="$NPM_PACKAGES/bin:$PATH"
 
 #export DEBUG='brunch:*'
 

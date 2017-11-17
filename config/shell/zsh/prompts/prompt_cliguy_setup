@@ -16,7 +16,7 @@ precmd() {
     zstyle ':vcs_info:*:prompt:*' formats ' %K{56}%F{white}%%Bg:%b%%b%F{green}●%f%F{red}%u%f%F{blue}%c%f%k'  '%R/%S'
   fi
   vcs_info 'prompt'
-  PROMPT_NODE=${NODE_PATH:+" %K{22}%Bn:${${NODE_PATH/*nvm?v/}/?lib*}%b%k"}
+  # PROMPT_NODE=${NODE_PATH:+" %K{22}%Bn:${${NODE_PATH/*nvm?v/}/?lib*}%b%k"}
   PROMPT_RUBY=${RUBY_VERSION:+" %K{88}%Br:$RUBY_VERSION%b%k"}
 }
 

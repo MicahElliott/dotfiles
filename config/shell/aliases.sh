@@ -126,7 +126,7 @@ alias rk=bin/rake
 alias rs=bin/rspec
 #alias rg=bin/guard # see function
 #alias cu=cucumber
-alias rubocop='rubocop --rails'  # get some extra checks
+# alias rubocop='rubocop --rails'  # get some extra checks
 
 ### Node/JavaScript
 alias jg=grunt
@@ -489,3 +489,5 @@ alias scpm="scp -F ${ANSIBLE_INVENTORY:h}/ssh-inventory.config"
 alias s3='aws s3 --acl=public-read'
 alias s3cp='aws s3 cp --acl=public-read'
 alias s3ls='aws s3 ls'
+
+alias ddb='aws dynamodb --endpoint-url http://localhost:8000 --profile mdelocal'

@@ -124,7 +124,8 @@ bindkey "^[H" run-help
 if [[ -f /etc/redhat-release ]]; then
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 else
-    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    # source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 ZSH_HIGHLIGHT_HIGHLIGHTERS=( main brackets pattern )
 # Hmm, just basic colors? rgybmc
@@ -443,7 +444,9 @@ export FZF_CTRL_T_OPTS="--preview '(highlight -O xterm256 -l {} 2> /dev/null || 
 
 # Z cd jump around tracking, silently observing
 # https://github.com/rupa/z
-. /usr/share/z/z.sh
+# . /usr/share/z/z.sh
+. /usr/lib/z.sh
 
 export ZPLUG_HOME=~/.zplug
-. $ZPLUG_HOME/init.zsh
+# . $ZPLUG_HOME/init.zsh
+. /usr/share/zsh/scripts/zplug/init.zsh

@@ -85,6 +85,11 @@ z
 .slime_paste
 .viminfo
 .Xauthority
+.Xclients
+.xsession-errors
+/contrib/mountebank
+/misc
+.curlrc
 .zcompdump
 .zdirs
 .aliases.cache
