@@ -481,7 +481,8 @@ c() {
   # Also consider vimcat!
   [[ $1:e == zsh ]] && local arg='-l bash'
   #print 0:$0 1:$1 2:$2
-  pygmentize $=arg $1 2>/dev/null || coderay $1 || cat $1
+  # pygmentize $=arg $1 2>/dev/null || coderay $1 || cat $1
+  highlight -O xterm256 $@
 }
 
 rsync-mde() {

@@ -7,7 +7,7 @@
                   ;; [jonase/eastwood "0.2.3"]
                   ;; Exec tasks when files are modified
                   ;; [lein-auto "0.1.3"]
-                  [refactor-nrepl "2.4.0-SNAPSHOT"]
+                  ;; [refactor-nrepl "2.4.0-SNAPSHOT"]
                   ;; [refactor-nrepl "RELEASE"]
                   [cider/cider-nrepl "0.16.0-SNAPSHOT"]
                   ;; [cider/cider-nrepl "RELEASE"]

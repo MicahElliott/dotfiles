@@ -89,6 +89,7 @@ z
 .xsession-errors
 /contrib/mountebank
 /misc
+.z.*
 .curlrc
 .zcompdump
 .zdirs

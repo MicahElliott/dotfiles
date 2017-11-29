@@ -486,8 +486,10 @@ alias kc=keychains
 alias sm="ssh -F ${ANSIBLE_INVENTORY:h}/ssh-inventory.config"
 alias scpm="scp -F ${ANSIBLE_INVENTORY:h}/ssh-inventory.config"
 
-alias s3='aws s3 --acl=public-read'
+# alias s3='aws s3 --acl=public-read'
 alias s3cp='aws s3 cp --acl=public-read'
 alias s3ls='aws s3 ls'
+# s3rver testing; neat!
+alias s3='aws --profile mdelocal --endpoint-url=http://localhost:4568 s3'
 
 alias ddb='aws dynamodb --endpoint-url http://localhost:8000 --profile mdelocal'

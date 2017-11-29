@@ -438,7 +438,8 @@ export FZF_DEFAULT_COMMAND="fzf --preview 'head -100 {}'"
 # bindkey '^I' fzf-completion
 # Guessing this makes normal TAB completion continue to work as usual.
 # bindkey '^I' $fzf_default_completion
-export FZF_CTRL_T_OPTS="--preview '(highlight -O xterm256 -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+# export FZF_CTRL_T_OPTS="--preview '(highlight -O xterm256 -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+export FZF_CTRL_T_OPTS="--preview '(rougify {} || cat {} || tree -C {}) 2> /dev/null | head -200'"
 # export FZF_CTRL_T_OPTS="--preview 'cat {} | head -200'"
 
 
