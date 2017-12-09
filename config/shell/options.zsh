@@ -77,6 +77,8 @@ WORDCHARS='_'
 # Default %J %U user %S system %P cpu %*E total
 TIMEFMT='%U user, %S kernel, %P cpu, %M mbmaxmem, %X kbheap, %D kbstack, %K kbspacetot, %*E totelapsed'
 
+export TERMINAL=mate-terminal
+
 # https://stackoverflow.com/questions/10847255/how-to-make-zsh-forward-word-behaviour-same-as-in-bash-emacs
 # Emacs-like navigation
 # Corresponding function in ~/contrib/zsh/functions/forward-word-match
