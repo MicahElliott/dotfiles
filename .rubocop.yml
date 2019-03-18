@@ -61,3 +61,10 @@ Style/ParallelAssignment:
 
 # Rails/Output:
   # Enabled: false
+
+Metrics/BlockLength:
+  CountComments: false
+  Max: 100
+
+Layout/MultilineMethodCallBraceLayout:
+  EnforcedStyle: same_line

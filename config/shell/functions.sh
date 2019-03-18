@@ -521,3 +521,5 @@ seconds-since-midnight() {
 }
 
 # pw() { pwd |xsel -b}
+# Grab a random clojure file, for starting emacs randomly: e `randfile`&
+randfile() { ls src/**/*.clj test/**/*.clj |shuf |sn 1p }

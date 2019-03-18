@@ -283,6 +283,7 @@ alias dign='comm -13 <(dls $(p .*(.))|sort) <(p .*(.)|sort)'  # ignored files
 # Should conider removing synonyms/redundancy, but will keep for now.
 # Minimal useful set: new, use, deactivate
 #   Creation/deletion.
+alias ve='virtualenv --system-site-packages'
 alias ve-new='mkvirtualenv --distribute --no-site-packages'
 alias ve-make='ve-new'  # Like “rvm install” but no installation necessary.
 alias ve-cp='cpvirtualenv'
@@ -299,6 +300,20 @@ alias ve-adddir='add2virtualenv'
 #   Obscure. Probably don’t ever want to work out of these.
 alias ve-cdpackages='cdsitepackages'
 alias ve-cdve='cdvirtualenv'
+
+# Pipenv
+alias pe=pipenv
+alias pe-check='pipenv check'
+alias pe-clean='pipenv clean'
+alias pe-graph='pipenv graph'
+alias pe-install='pipenv install'
+alias pe-uninstall='pipenv uninstall'
+alias pe-lock='pipenv lock'
+alias pe-open='pipenv open'
+alias pe-run='pipenv run'
+alias pe-shell='pipenv shell'
+alias pe-sync='pipenv sync'
+alias pe-update='pipenv update'
 
 # Note that all the Python bootstrapping packaging utils get
 # sudo-installed globally into /usr/local/bin.
@@ -452,12 +467,15 @@ alias ch='chromium --disable-web-security'
 
 alias cu='curl -i'
 
+alias my-curl="curl -s -v -H 'Cache-Control: no-cache' -H 'Content-Type: application/json'"
+
 alias mysql='mysql --auto-rehash'
 
 alias stderred='export LD_PRELOAD="/usr/lib/libstderred.so"'
 
 ### Docker
-alias dk='sudo docker'
+# alias dk='sudo docker'
+alias dk='docker'
 alias dkb='dk build'
 alias dkh='dk history'
 alias dka='dk attach'

@@ -1,6 +1,14 @@
-URxvt.font: 9x15
+! URxvt.font: 9x15
+! URxvt.font: 8x13
 ! urxvt.background: rgba:0000/0000/0000/cc00
 ! urxvt.fore/<<<ground: #fff
+
+! URxvt.font: 8x13
+
+urxvt.font: xft:Fantasque Sans Mono:pixelsize=14
+urxvt.boldfont: xft:Fantasque Sans Mono:pixelsize=14:bold
+urxvt.italicfont: xft:Fantasque Sans Mono:pixelsize=14:italic
+urxvt.bolditalicfont: xft:Fantasque Sans Mono:pixelsize=14:style=bold italic
 
 ! URxvt.background: #000000
 ! URxvt.font: 10x20
@@ -66,15 +74,15 @@ URxvt.font: 9x15
 !*font: xft:-unknown-DejaVu Sans Mono-normal-normal-normal-*-11-*-*-*-m-0-iso10646-1
 
 ! THESE ARE GOOD!!!
-URxvt.font:       -misc-orp-medium-r-*-*-12-*-75-75-*-60-iso10646-*
+!URxvt.font:       -misc-orp-medium-r-*-*-12-*-75-75-*-60-iso10646-*
 !!*boldFont:      -misc-orp-bold-r-*-*-*-*-*-*-*-*-iso10646-1
-URxvt.boldFont:       -misc-orp-bold-r-*-*-*-*-*-*-*-*-*-*
+! URxvt.boldFont:       -misc-orp-bold-r-*-*-*-*-*-*-*-*-*-*
 ! Based on `misc-orp`, emacs looks for:
 !*boldFont:       -misc-orp-medium-r-semicondensed--12-110-75-75-c-60-iso10646-1
 !!*italicFont: -misc-orp-*-i-*-*-*-*-*-*-*-*-iso10646-1
-URxvt.italicFont: -misc-orp-medium-i-*-*-*-*-*-*-*-*-*-*
+! URxvt.italicFont: -misc-orp-medium-i-*-*-*-*-*-*-*-*-*-*
 !!*italicFont: -misc-orp-medium-i-*-*-12-*-*-*-*-*-*-1
-URxvt.boldItalicFont: -misc-orp-bold-i-*-*-*-*-*-*-*-*-iso10646-1
+! URxvt.boldItalicFont: -misc-orp-bold-i-*-*-*-*-*-*-*-*-iso10646-1
 
 
 !URxvt*font: xft:Luculent:pixelsize=10:antialias=false:hinting=true
@@ -100,7 +108,7 @@ URxvt.boldItalicFont: -misc-orp-bold-i-*-*-*-*-*-*-*-*-iso10646-1
 
 ! Run to see: ~/gitcontainer/projects/orp-font/xfont-test.zsh
 !URxvt*font: xft:DejaVu Sans Mono:pixelsize=10
-URxvt*font: xft:Mononoki:pixelsize=10
+! URxvt*font: xft:Mononoki:pixelsize=10
 !URxvt*font: xft:Essential PragmataPro:pixelsize=10
 !URxvt*font:     xft:ttyp0:antialias=false:pixelsize=bold, xft:DejaVu Sans Mono:style=Book:pixelsize=12
 !urxvt*boldfont: xft:DejaVu Sans Mono:pixelsize=10:oblique
@@ -136,10 +144,10 @@ URxvt*font: xft:Mononoki:pixelsize=10
 !Xft.dpi:        96
 ! This makes big changes!
 !Xft.antialias:  false
-Xft.antialias:  true
+! Xft.antialias:  true
 !Xft.rgba:       rgb
-Xft.hinting:    false
-Xft.hintstyle:  hintslight
+! Xft.hinting:    false
+! Xft.hintstyle:  hintslight
 !Xft.hintstyle:  hintfull
 
 !Emacs.font: xft:-unknown-Essential PragmataPro-normal-normal-normal-*-10-*-*-*-m-0-iso10646-1
@@ -158,7 +166,7 @@ Xft.hintstyle:  hintslight
 ! Maybe consolas 12 is great, but somehow kinda works at 10!
 ! Consolas is slightly wide but very short; probably can't do better.
 ! http://stackoverflow.com/questions/4689/recommended-fonts-for-programming
-Emacs.font: xft:-*-Consolas-normal-normal-normal-*-10-*-*-*-m-0-iso10646-1
+! Emacs.font: xft:-*-Consolas-normal-normal-normal-*-10-*-*-*-m-0-iso10646-1
 !Emacs.font: xft:-*-Andale Mono-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1
 !Emacs.font: xft:-*-Envy Code R-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1
 !Emacs.font: xft:-*-Pragmata-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1
@@ -277,7 +285,7 @@ URxvt.iso14755: false
 
 !!! Background
 ! Black
-!*background: #000000
+*background: #000000
 ! Green
 !*background: #022C0A
 ! Brown
@@ -454,12 +462,16 @@ URxvt.searchable-scrollback: CM-s
 !URxvt.skipScroll: True
 !URxvt.jumpScroll: True
 
-! https://github.com/majutsushi/urxvt-font-size
+! Font size (zoom)
 ! Might only work with misc font (or one that has many sizes); witnessed this.
-URxvt.keysym.C-Up:     perl:font-size:increase
-URxvt.keysym.C-Down:   perl:font-size:decrease
-URxvt.keysym.C-S-Up:   perl:font-size:incglobal
-URxvt.keysym.C-S-Down: perl:font-size:decglobal
+! https://github.com/majutsushi/urxvt-font-size
+URxvt.keysym.C-Up:     font-size:increase
+URxvt.keysym.C-Down:   font-size:decrease
+URxvt.keysym.C-S-M-+:  font-size:increase
+URxvt.keysym.C-_:   font-size:decrease
+URxvt.keysym.C-S-Up:   font-size:incglobal
+URxvt.keysym.C-S-Down: font-size:decglobal
+URxvt.font-size.step:  4
 
 URxvt.keysym.M-t: perl:tabbedex:new_tab
 
@@ -531,6 +543,23 @@ urxvt.keysym.M-C-3: command: \
 URxvt.keysym.M-C-4: command: \
   \033]710;9x15bold\007 \
   \033]711;9x15bold\007
+
+! http://unix.stackexchange.com/questions/14430
+URxvt.keysym.M-C-3: command: \
+  \033]710;9x15bold\007 \
+  \033]711;9x15bold\007
+
+urxvt.keysym.M-C-3: command: \
+  \033]710;xft:Ubuntu Mono:pixelsize=13\007 \
+  \033]711;xft:Ubuntu Mono:pixelsize=13:bold\007 \
+  \033]712;xft:Ubuntu Mono:pixelsize=13:italic\007 \
+  \033]713;xft:Ubuntu Mono:pixelsize=13:style=bold italic\007
+
+urxvt.keysym.M-C-3: command: \
+  \033]710;xft:Fantasque Sans Mono:pixelsize=14\007 \
+  \033]711;xft:Fantasque Sans Mono:pixelsize=14:bold\007 \
+  \033]712;xft:Fantasque Sans Mono:pixelsize=14:italic\007 \
+  \033]713;xft:Fantasque Sans Mono:pixelsize=14:style=bold italic\007
 
 !!! XFTs
 ! fonts with bold&italic:

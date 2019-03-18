@@ -16,7 +16,7 @@ exec xset -b
 # https://wiki.archlinux.org/index.php/Keyboard_configuration_in_Xorg#Using_xset
 #              msdelay rate
 #exec xset r rate 250    60    # super fast keyboard cursor delay and rate!
-exec xset r rate 250    2     # super slow (vim training)
+#exec xset r rate 250    2     # super slow (vim training)
 
 # Not sure if this works; might have to paste manually
 exec xmodmap -e 'keycode 138 = Multi_key'
@@ -36,7 +36,7 @@ exec clipit
 #exec nm-applet
 ##exec wicd-client
 #exec batti
-exec batterymon
+#exec batterymon
 # Frequency not detected??
 exec gatotray
 # FIXME: check to see if this works, like in .xinitrc
@@ -65,7 +65,7 @@ exec --no-startup-id dunst
 
 # font for window titles. ISO 10646 = Unicode
 #font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-font -misc-orp-bold-r-*--*-*-*-*-*-*-iso10646-1
+#font -misc-orp-bold-r-*--*-*-*-*-*-*-iso10646-1
 # Big enough to see nm-applet's indicator in i3status
 #font -*-tamsyn-bold-*-*-*-20-*-*-*-*-*-*-*
 # https://faq.i3wm.org/question/183/how-to-get-i3wm-font-anti-aliasing/
@@ -104,8 +104,9 @@ bindsym $mod+Return exec i3-sensible-terminal
 
 # start dmenu (a program launcher)
 #bindsym $mod+d exec dmenu_run -b -nb red
+bindsym $mod+n exec dmenu_run -b -nb darkred
 # try shellex instead: https://github.com/Merovius/shellex
-bindsym $mod+n exec shellex -bg brown -fg yellow
+#bindsym $mod+n exec shellex -bg brown -fg yellow
 
 # lock screen
 # https://faq.i3wm.org/question/83/how-to-run-i3lock-after-computer-inactivity/
@@ -227,10 +228,10 @@ bindsym $mod+r mode "resize"
 # http://i3wm.org/docs/userguide.html#_configuring_i3bar
 bar {
         #output LVDS1
-        output EDP1
+        #output EDP1
         # Enable font awesome for icons
         # font pango:DejaVu Sans Mono, Icons 8
-        font pango:DejaVu Sans Mono, Awesome 8
+        #font pango:DejaVu Sans Mono, Awesome 8
         # status_command i3status --config ~/.i3status.conf
         status_command my-i3status
         # status_command net-speed.sh
@@ -250,7 +251,7 @@ bar {
           #urgent_workspace   #2f343a #900000 #ffffff
         }
         #tray_output LVDS1
-        tray_output EDP1
+        #tray_output EDP1
 }
 
 # Neat! Can have 2 bars.
@@ -306,16 +307,16 @@ client.urgent            #D11931     #D11931     #777777
 
 
 # Possible outputs: VGA1, HDMI1, HDMI2, eDP1
-workspace "1"  output eDP1
-workspace "2"  output eDP1
-workspace "3"  output eDP1
-workspace "4"  output HDMI2
-workspace "5"  output HDMI2
-workspace "6"  output HDMI2
-workspace "7"  output HDMI2
-workspace "8"  output HDMI1
-workspace "9"  output HDMI1
-workspace "10" output HDMI1
+#workspace "1"  output eDP1
+#workspace "2"  output eDP1
+#workspace "3"  output eDP1
+#workspace "4"  output HDMI2
+#workspace "5"  output HDMI2
+#workspace "6"  output HDMI2
+#workspace "7"  output HDMI2
+#workspace "8"  output HDMI1
+#workspace "9"  output HDMI1
+#workspace "10" output HDMI1
 
 
 

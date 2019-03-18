@@ -1,42 +1,67 @@
-{:user {:plugins [
-                  ;; [lein-pprint "1.1.2"]
-                  ;; [lein-try "0.4.3"]
-                  ;; [lein-bin  "0.3.5"]
-                  ;; [lein-midje "3.2.1"]
-                  [lein-kibit "0.1.5"]
-                  ;; [jonase/eastwood "0.2.3"]
-                  ;; Exec tasks when files are modified
-                  ;; [lein-auto "0.1.3"]
-                  ;; [refactor-nrepl "2.4.0-SNAPSHOT"]
-                  ;; [refactor-nrepl "RELEASE"]
-                  [cider/cider-nrepl "0.16.0-SNAPSHOT"]
-                  ;; [cider/cider-nrepl "RELEASE"]
-                  ;; [http-kit/lein-template "1.0.0-SNAPSHOT"]
-                  [com.jakemccrary/lein-test-refresh "0.20.0"]
-                  ;; Auto-run expectations
-                  ;; [lein-autoexpect "1.9.0"]
-                  ;; Better stacktraces, colors, etc
-                  [venantius/ultra "0.5.1"]
-                 ]
-        :dependencies [[pjstadig/humane-test-output "0.8.0"]]
-        :injections [(require 'pjstadig.humane-test-output)
-                     (pjstadig.humane-test-output/activate!)]
-        :license {:author "Micah Elliott" :email "mde@micahelliott.com"}}
- :repl {:dependencies [;; rips your namespace form apart and reconstructs it
+{:user {:plugins      [
+                       ;; [lein-pprint "1.1.2"]
+                       ;; [lein-try "0.4.3"]
+                       ;; [lein-bin  "0.3.5"]
+                       ;; [lein-midje "3.2.1"]
+                       [lein-kibit "0.1.6"]
+                       ;; [jonase/eastwood "0.3.4"]
+                       ;; Exec tasks when files are modified
+                       [lein-auto "0.1.3"]
+                       ;; [refactor-nrepl "2.4.0"]
+                       ;; [cider/cider-nrepl "0.18.0"]
+                       ;; [cider/cider-nrepl "RELEASE"]
+                       ;; [http-kit/lein-template "1.0.0-SNAPSHOT"]
+                       [com.jakemccrary/lein-test-refresh "0.23.0"]
+                       ;; Auto-run expectations
+                       ;; [lein-auto expect "1.9.0"]
+                       ;; Better stacktraces, colors, etc
+                       ;; [venantius/ultra "0.5.2"]
+                       ;; Find and automatically update project dependencies
+                       [lein-ancient "0.6.15"]
+                       ;; Enable requiring new libs without restarting repl
+                       ;; [alembic "0.3.2"]
+                       ;; Find dead/unused code
+                       ;; [venantius/yagni "0.1.7"]
+                       ;; Find repeats in code
+                       ;; [lein-repetition-hunter "0.1.0-SNAPSHOT"]
+                       ;; Create NSs with short names
+                       ;; [com.gredericks/lein-shorthand "0.4.1"]
+                       ]
+        :dependencies [
+                       [spyscope "0.1.7-SNAPSHOT"]
+                       [jsofra/data-scope "0.1.2"]
+                       [pjstadig/humane-test-output "0.9.0"]
+                       [clj-stacktrace "0.2.8"]
+                       ;; [alembic "0.3.2"]
+                       ;; [repetition-hunter "1.0.0"]
+                       ]
+        :injections   [(require 'spyscope.core)
+                       (require 'data-scope.inspect)
+                       (require 'data-scope.pprint)
+                       ;; Look neat but wonder if these are expensive to load
+                       (require 'data-scope.charts)
+                       (require 'data-scope.graphs)
+                       (require 'pjstadig.humane-test-output)
+                       (pjstadig.humane-test-output/activate!)
+                       (let [orig (ns-resolve (doto 'clojure.stacktrace require) 'print-cause-trace)
+                             new  (ns-resolve (doto 'clj-stacktrace.repl require) 'pst)]
+                         (alter-var-root orig (constantly (deref new))) )
+                       ]
+        ;; :shorthand {. [clojure.pprint alembic.still/distill alembic.still/lein]}
+        :license      {:author "Micah Elliott" :email "mde@micahelliott.com"}}
+ :repl {:plugins      [
+                       ;; [refactor-nrepl "2.4.0"]
+                       ;; Maybe don't need this since Cider may handle it
+                       ;; [cider/cider-nrepl "0.18.0"]
+                       ]
+        :dependencies [;; rips your namespace form apart and reconstructs it
                        ;; Not needed since cljrefactor
                        ;; [slamhound "RELEASE"]
-                       ;; enable requiring new libs without restarting repl
-                       [alembic "RELEASE"]
-                       ;; [spyscope "0.1.5"]
+                       ;; [spyscope "0.1.7-SNAPSHOT"]
                        ;; [org.thnetos/cd-client "0.3.6"] ; May break redl/nrepl
-                       [clj-stacktrace "0.2.8"]
-                      ]
-        :injections [
-                     ;; (require 'spyscope.core)  ; needed by redl
-                     ;; (require '[redl complete core])
-                     ;; (let [orig (ns-resolve (doto 'clojure.stacktrace require) 'print-cause-trace)
-                     ;;       new  (ns-resolve (doto 'clj-stacktrace.repl require) 'pst)]
-                     ;;   (alter-var-root orig (constantly (derefnew))) )
-                    ]
-        :plugins [
-                 ]}}
+                       ]
+        :injections   [
+                       ;; (require 'spyscope.core)  ; needed by redl
+                       ;; (require '[redl complete core])
+                       ]
+        }}
