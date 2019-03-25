@@ -39,7 +39,7 @@ Notable features:
 1. Clone and set up for repo.
 
         git clone git@github.com:YOU/dotfiles.git ~/.dotfiles.git
-        mv .dotfiles.git/.* .dotfiles.git/*
+        mv .dotfiles.git/.* .dotfiles.git/* .
         mv .git .dotfiles.git/
 
 1. Try it out! (lots of `dotfiles` aliases, like `dst`, `dci`, etc)

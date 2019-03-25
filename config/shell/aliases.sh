@@ -5,6 +5,9 @@
 # won't suffice. So should aliases and functions files be combined??
 ######################################################################
 
+# MacOS hack
+if [[ $ostype = 'Darwin' ]]; then alias ls=gls; fi
+
 ### Highest importance, 1-char shortcuts.
 # A -- apt package mgmt
 #alias a='sudo aptitude'

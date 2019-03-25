@@ -24,6 +24,12 @@ my_fullname='Micah Elliott'
 
 my_shdir=~/config/shell
 
+case $(uname) in
+    Linux)   ostype=Linux ;;
+    FreeBSD) ostype=FreeBSD ;;
+    Darwin)  ostype=Darwin ;;
+esac
+
 # This order can be important. I like to make sure all the envars are
 # set so subsequent functions etc can make use of them.
 # Doing actions.sh early to avoid 3rd-party stuff overriding anything.

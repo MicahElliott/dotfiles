@@ -8,8 +8,9 @@
 export WORK_ENV=~/config/shell/work.sh
 if [[ ! -f $WORK_ENV ]]; then
     print "Missing non-git $WORK_ENV environment file." 2>&1
+else
+    . $WORK_ENV
 fi
-. $WORK_ENV
 
 # ???: Maybe didn't want anything to look like DOS.
 unset USERNAME
