@@ -249,7 +249,8 @@ alias re='git rebase -v'
 alias met='git mergetool'
 #alias cl='git clone'
 alias lsf='git ls-files'
-alias gls='git ls-files'
+# Masks gnu-ls
+# alias gls='git ls-files'
 alias gpu='git push origin master'
 
 # Home git mgmt
