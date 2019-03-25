@@ -34,6 +34,7 @@ my_configs=(
     aliases.sh
     aliases.zsh
     functions.sh
+    macos.sh
 )
 #my_plugins=( $my_shdir/zsh/plugins/*.zsh )
 my_plugins=( )
