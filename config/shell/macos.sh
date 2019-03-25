@@ -9,6 +9,7 @@ if [[ "$OSTYPE" = 'darwin16.0' ]]; then
 
     alias ls=gls
     alias date=gdate
+    alias dircolors=gdircolors
 
 else
     : echo "skipping mac setup"

@@ -28,13 +28,13 @@ my_shdir=~/config/shell
 # set so subsequent functions etc can make use of them.
 # Doing actions.sh early to avoid 3rd-party stuff overriding anything.
 my_configs=(
+    macos.sh
     envars.sh
     actions.sh  # super fast
     options.zsh # potential to be slow
     aliases.sh
     aliases.zsh
     functions.sh
-    macos.sh
 )
 #my_plugins=( $my_shdir/zsh/plugins/*.zsh )
 my_plugins=( )
@@ -49,8 +49,8 @@ for f in $my_configs; do
     ##print finished $f
 done
 for plugin in $my_plugins; do
-  #print "Enabling plugin: $plugin:t:r"
-  #. $plugin
+    #print "Enabling plugin: $plugin:t:r"
+    #. $plugin
 done
 unset f plugin
 
