@@ -1,5 +1,7 @@
 if [[ "$OSTYPE" = 'darwin16.0' ]]; then
 
+    print "Doing MacOS setup."
+
     path+=$HOME/homebrew/bin
 
     alias ed='Emacs --daemon'
