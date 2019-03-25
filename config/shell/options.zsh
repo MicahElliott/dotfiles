@@ -127,6 +127,10 @@ bindkey "^[H" run-help
 # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/highlighters/main/main-highlighter.zsh
 if [[ -f /etc/redhat-release ]]; then
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [[ $ostype = 'Darwin' ]]
+     export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=$HOME/homebrew/share/zsh-syntax-highlighting-highlighters
+     source $HOME/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 else
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     # source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -450,8 +454,8 @@ export FZF_CTRL_T_OPTS="--preview '(rougify {} || cat {} || tree -C {}) 2> /dev/
 # Z cd jump around tracking, silently observing
 # https://github.com/rupa/z
 # . /usr/share/z/z.sh
-. /usr/lib/z.sh
+# . /usr/lib/z.sh
 
 export ZPLUG_HOME=~/.zplug
 # . $ZPLUG_HOME/init.zsh
-. /usr/share/zsh/scripts/zplug/init.zsh
+# . /usr/share/zsh/scripts/zplug/init.zsh

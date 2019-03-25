@@ -13,8 +13,8 @@ if [[ $ostype = 'Darwin' ]]; then
     alias date=gdate
     alias dircolors=gdircolors
 
-    export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=$HOME/homebrew/share/zsh-syntax-highlighting-highlighters
-    source $HOME/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    # export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=$HOME/homebrew/share/zsh-syntax-highlighting-highlighters
+    # source $HOME/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 else
     : echo "skipping mac setup"
