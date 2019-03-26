@@ -128,7 +128,7 @@ bindkey "^[H" run-help
 if [[ -f /etc/redhat-release ]]; then
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 elif [[ $ostype = 'Darwin' ]]; then
-     export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=$HOME/homebrew/share/zsh-syntax-highlighting-highlighters
+     export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=$HOME/homebrew/share/zsh-syntax-highlighting/highlighters
      source $HOME/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 else
