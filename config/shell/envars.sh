@@ -133,14 +133,20 @@ path+=~/contrib/mountebank
 # SLOW!! Does a rehash.
 #eval "$(rbenv init -)"
 
-# chruby, completion, autoswitching (installed via yaourt)
-source /usr/share/chruby/chruby.sh
-#RUBIES=( ~/.rbenv/versions/* )
-# RUBIES=( ~/.rubies/* )
-# export RUBIES
-# https://github.com/postmodern/chruby/issues/27#issuecomment-16911865
-# compctl -g '~/.rubies/*(:t)' chruby
-source /usr/share/chruby/auto.sh
+if [[ $ostype = 'Darwin' ]]; then
+    source $HOME/homebrew/opt/chruby/share/chruby/chruby.sh
+    source $HOME/homebrew/opt/chruby/share/chruby/auto.sh
+else
+    # chruby, completion, autoswitching (installed via yaourt)
+    source /usr/share/chruby/chruby.sh
+    #RUBIES=( ~/.rbenv/versions/* )
+    # RUBIES=( ~/.rubies/* )
+    # export RUBIES
+    # https://github.com/postmodern/chruby/issues/27#issuecomment-16911865
+    # compctl -g '~/.rubies/*(:t)' chruby
+    source /usr/share/chruby/auto.sh
+
+fi
 
 # nvm: See ni/jsi funcs. Just a little too slow for every shell.
 export NVM_DIR="$HOME/.nvm"
