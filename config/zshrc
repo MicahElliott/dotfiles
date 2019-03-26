@@ -46,7 +46,7 @@ my_configs=(
 my_plugins=( )
 
 # Time the stuff.
-integer t0=$(gdate '+%s')
+integer t0=$(date '+%s')
 
 # Source all the Zsh-specific and sh-generic files.
 for f in $my_configs; do
@@ -67,7 +67,7 @@ unset _siterc
 
 function {
     local -i t1 startup
-    t1=$(gdate '+%s')
+    t1=$(date '+%s')
     startup=$(( t1 - t0 ))
     [[ $startup -gt 1 ]] && print "Hmm, poor shell startup time: $startup"
     ##print "startup time: $startup"
@@ -77,5 +77,5 @@ unset t0
 # Timing
 ##zprof
 
-#export NVM_DIR="/home/mde/.nvm"
+#export NVM_DIR="$HOME/.nvm"
 #[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

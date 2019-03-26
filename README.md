@@ -3,7 +3,6 @@
 Most interesting areas:
 
 * zsh (`.zshrc` top level control and file hierarchy)
-* vim (`.vimrc` and `.vim/`)
 * config (misc)
 * bin scripts (add your own if not gists)
 
@@ -11,7 +10,7 @@ Notable features:
 
 * Many handy settings, aliases, functions, completions, prompts, colors, etc
 
-* Designates some standards dirs (via `.gitignore`s)
+* Designates some standard dirs (via `.gitignore`s)
 
 * Separates own dotfiles (`~/config`) from tool-installed (`~/.*` and
   `~/.config`) via symlinks; e.g., `~/.vimrc -> ~/config/vimrc`

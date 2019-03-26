@@ -193,11 +193,11 @@ export PATH=/opt/racket/bin:$PATH
 path+=$HOME/gitcontainer/projects/reptl
 
 # OCaml (or: eval `opam config env`)
-export MANPATH="/home/mde/.opam/system/man:$MANPATH"
-export PATH="/home/mde/.opam/system/bin:$PATH"
-export CAML_LD_LIBRARY_PATH="/home/mde/.opam/system/lib/stublibs:/usr/lib/ocaml/stublibs"
-export PERL5LIB="/home/mde/.opam/system/lib/perl5:/usr/share/R/share/perl:/usr/share/R/share/perl:$PERL5LIB"
-export OCAML_TOPLEVEL_PATH="/home/mde/.opam/system/lib/toplevel"
+export MANPATH="$HOME/.opam/system/man:$MANPATH"
+export PATH="$HOME/.opam/system/bin:$PATH"
+export CAML_LD_LIBRARY_PATH="$HOME/.opam/system/lib/stublibs:/usr/lib/ocaml/stublibs"
+export PERL5LIB="$HOME/.opam/system/lib/perl5:/usr/share/R/share/perl:/usr/share/R/share/perl:$PERL5LIB"
+export OCAML_TOPLEVEL_PATH="$HOME/.opam/system/lib/toplevel"
 
 # Get rake to STFU.
 export MAKE=make

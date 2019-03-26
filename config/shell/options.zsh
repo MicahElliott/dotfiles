@@ -91,7 +91,7 @@ select-word-style bash
 ### Funky stuff — not exactly options/params
 
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/mde/.zshrc'
+zstyle :compinstall filename $HOME/.zshrc
 
 autoload -Uz compinit; compinit
 
@@ -127,7 +127,7 @@ bindkey "^[H" run-help
 # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/highlighters/main/main-highlighter.zsh
 if [[ -f /etc/redhat-release ]]; then
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-elif [[ $ostype = 'Darwin' ]]
+elif [[ $ostype = 'Darwin' ]]; then
      export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=$HOME/homebrew/share/zsh-syntax-highlighting-highlighters
      source $HOME/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
