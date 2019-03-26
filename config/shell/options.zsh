@@ -438,8 +438,13 @@ eval "$(direnv hook zsh)"
 # https://github.com/junegunn/fzf/wiki/Configuring-fuzzy-completion
 # Remove default transpose-chars binding that conflicts with fzf
 bindkey -r '^T'
-. /usr/share/fzf/key-bindings.zsh
-. /usr/share/fzf/completion.zsh
+if [[ $ostype = 'Darwin' ]]; then
+    . $HOME/homebrew/linked/fzf/shell/key-bindings.zsh
+    . $HOME/homebrew/linked/fzf/shell/completion.zsh
+else
+    . /usr/share/fzf/key-bindings.zsh
+    . /usr/share/fzf/completion.zsh
+fi
 export FZF_DEFAULT_COMMAND="fzf --preview 'head -100 {}'"
 # export FZF_COMPLETION_TRIGGER=''
 # If you want TAB to do FZF.
