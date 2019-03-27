@@ -439,8 +439,8 @@ eval "$(direnv hook zsh)"
 # Remove default transpose-chars binding that conflicts with fzf
 bindkey -r '^T'
 if [[ $ostype = 'Darwin' ]]; then
-    . $HOME/homebrew/linked/fzf/shell/key-bindings.zsh
-    . $HOME/homebrew/linked/fzf/shell/completion.zsh
+    . $HOME/homebrew/var/homebrew/linked/fzf/shell/key-bindings.zsh
+    . $HOME/homebrew/var/homebrew/linked/fzf/shell/completion.zsh
 else
     . /usr/share/fzf/key-bindings.zsh
     . /usr/share/fzf/completion.zsh
