@@ -134,8 +134,8 @@ path+=~/contrib/mountebank
 #eval "$(rbenv init -)"
 
 if [[ $ostype = 'Darwin' ]]; then
-    source $HOME/homebrew/opt/chruby/share/chruby/chruby.sh
-    source $HOME/homebrew/opt/chruby/share/chruby/auto.sh
+    source /usr/local/share/chruby/chruby.sh
+    source /usr/local/share/chruby/auto.sh
 else
     # chruby, completion, autoswitching (installed via yaourt)
     source /usr/share/chruby/chruby.sh

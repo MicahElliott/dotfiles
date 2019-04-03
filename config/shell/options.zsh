@@ -128,9 +128,8 @@ bindkey "^[H" run-help
 if [[ -f /etc/redhat-release ]]; then
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 elif [[ $ostype = 'Darwin' ]]; then
-     export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=$HOME/homebrew/share/zsh-syntax-highlighting/highlighters
-     source $HOME/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
+    export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
+    source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 else
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     # source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -439,8 +438,8 @@ eval "$(direnv hook zsh)"
 # Remove default transpose-chars binding that conflicts with fzf
 bindkey -r '^T'
 if [[ $ostype = 'Darwin' ]]; then
-    . $HOME/homebrew/var/homebrew/linked/fzf/shell/key-bindings.zsh
-    . $HOME/homebrew/var/homebrew/linked/fzf/shell/completion.zsh
+    . /usr/local/Cellar/fzf/0.18.0/shell/key-bindings.zsh
+    . /usr/local/Cellar/fzf/0.18.0/shell/completion.zsh
 else
     . /usr/share/fzf/key-bindings.zsh
     . /usr/share/fzf/completion.zsh

@@ -87,7 +87,7 @@ alias y=yaourt
 # Human readable size ordering.
 # alias lh='exa -la -ssize --git'
 alias lh='ls -lhkABF --color=auto'
-alias ls='ls --color=auto'
+# alias ls='ls --color=auto'
 # order by Time.
 # alias lt='exa -lra -tmodified --git'
 alias lt='ls -lrtkhABF --color=auto'
