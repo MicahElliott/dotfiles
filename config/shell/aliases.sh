@@ -413,8 +413,10 @@ alias elinks='TERM=xterm-256color elinks'
 #alias mc='make clean'
 #alias mn='make -n'
 
-alias pg='pgrep --full --list-full'
+# alias pg='pgrep --full --list-full'
+alias pg='pgrep -fL'
 alias pk='pkill --full'
+alias pk='pkill -f'
 
 # Be safe. Unfortunate that stupid --no-clobber won't error when avoiding
 # overwrite.

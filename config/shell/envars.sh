@@ -210,6 +210,14 @@ export MAKE=make
 
 export VAGRANT_DEFAULT_PROVIDER=libvirt
 
+export GOPATH=$HOME/Go
+export GOROOT=/usr/local/opt/go/libexec
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
+
+path+=~/vendor/confluent-5.2.1/bin
+
+
 # Sencha crap.
 #export PATH=$PATH:$HOME/opt/SenchaArchitect:$HOME/opt/SenchaSDKTools-2.0.0-beta3
 
