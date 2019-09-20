@@ -30,17 +30,20 @@ case $(uname) in
     Darwin)  ostype=Darwin ;;
 esac
 
+# source ~/contrib/bin/antigen.zsh
+
 # This order can be important. I like to make sure all the envars are
 # set so subsequent functions etc can make use of them.
 # Doing actions.sh early to avoid 3rd-party stuff overriding anything.
 my_configs=(
     macos.sh
     envars.sh
-    actions.sh  # super fast
+    vendor.sh # activation of other scripts beyond my control
     options.zsh # potential to be slow
     aliases.sh
     aliases.zsh
     functions.sh
+    plugins.zsh
 )
 #my_plugins=( $my_shdir/zsh/plugins/*.zsh )
 my_plugins=( )
@@ -77,8 +80,5 @@ unset t0
 # Timing
 ##zprof
 
-#export NVM_DIR="$HOME/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh

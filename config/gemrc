@@ -1,4 +1,4 @@
 # gem: --user-install --no-ri --no-rdoc
-gem: --no-ri --no-rdoc
-rdoc: --inline-source --line-numbers --format=html --template=hanna
+gem: --no-document
+# rdoc: --inline-source --line-numbers --format=html --template=hanna
 

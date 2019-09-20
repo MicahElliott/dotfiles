@@ -291,11 +291,11 @@ gitenter() {
 #chpwd_functions+=gitenter
 
 # Run Maven goals through syntax highlighter.
-mc() { mvn clean   $@ 2>&1 |mvn-hilite.awk }  # delete build output
-mt() { mvn test    $@ 2>&1 |mvn-hilite.awk }  # run unit tests
-mi() { mvn install $@ 2>&1 |mvn-hilite.awk }  # artifact to local repo
+mvc() { mvn clean   $@ 2>&1 |mvn-hilite.awk }  # delete build output
+mvt() { mvn test    $@ 2>&1 |mvn-hilite.awk }  # run unit tests
+mvi() { mvn install $@ 2>&1 |mvn-hilite.awk }  # artifact to local repo
 #md() { mvn deploy  $@ 2>&1 |mvn-hilite.awk }  # project documentation
-ms() { mvn site    $@ 2>&1 |mvn-hilite.awk }  # project documentation
+mvs() { mvn site    $@ 2>&1 |mvn-hilite.awk }  # project documentation
 
 # Simple (broken) version of https://github.com/kennethreitz/autoenv
 autoenv() {
@@ -523,3 +523,9 @@ seconds-since-midnight() {
 # pw() { pwd |xsel -b}
 # Grab a random clojure file, for starting emacs randomly: e `randfile`&
 randfile() { ls src/**/*.clj test/**/*.clj |shuf |sn 1p }
+
+sshm() { ssh -t $1 'ssh $(consul members | grep mesosslave | grep alive | awk "{print \$1}" | head -n 1)' }
+
+ssh-bastionize() {
+    /usr/local/bin/gsed -i "s/bastion\.mde-.*\.fc-unstable.co.uk/bastion.mde-$(date '+%Y%m%d').fc-unstable.co.uk/" ~/.ssh/config
+}

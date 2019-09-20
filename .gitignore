@@ -32,6 +32,14 @@
 /*.tar.xz
 /config/gitconfig
 /tmp*
+/Applications
+/Go
+/Library
+/Movies
+/Public
+/vendor
+.DS_Store
+*.zwc
 tmp
 .nix-*
 netrc

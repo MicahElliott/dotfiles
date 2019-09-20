@@ -4,7 +4,7 @@
                        ;; [lein-bin  "0.3.5"]
                        ;; [lein-midje "3.2.1"]
                        [lein-kibit "0.1.6"]
-                       ;; [jonase/eastwood "0.3.4"]
+                       [jonase/eastwood "0.3.5"]
                        ;; Exec tasks when files are modified
                        [lein-auto "0.1.3"]
                        ;; [refactor-nrepl "2.4.0"]
@@ -26,26 +26,37 @@
                        ;; [lein-repetition-hunter "0.1.0-SNAPSHOT"]
                        ;; Create NSs with short names
                        ;; [com.gredericks/lein-shorthand "0.4.1"]
+                       [lein-bikeshed "0.5.2"]
+                       [lein-cljfmt "0.6.4"]
                        ]
         :dependencies [
-                       [spyscope "0.1.7-SNAPSHOT"]
                        [jsofra/data-scope "0.1.2"]
                        [pjstadig/humane-test-output "0.9.0"]
                        [clj-stacktrace "0.2.8"]
+                       [com.cemerick/pomegranate "1.1.0"] ; doesn't play nice with data-scope charts
+                       ;; [spyscope "0.1.7-SNAPSHOT"]
                        ;; [alembic "0.3.2"]
                        ;; [repetition-hunter "1.0.0"]
                        ]
-        :injections   [(require 'spyscope.core)
+        :injections   [
+                       ;; (require 'spyscope.core)
                        (require 'data-scope.inspect)
                        (require 'data-scope.pprint)
                        ;; Look neat but wonder if these are expensive to load
-                       (require 'data-scope.charts)
+                       ;; (require 'data-scope.charts)
                        (require 'data-scope.graphs)
                        (require 'pjstadig.humane-test-output)
                        (pjstadig.humane-test-output/activate!)
                        (let [orig (ns-resolve (doto 'clojure.stacktrace require) 'print-cause-trace)
                              new  (ns-resolve (doto 'clj-stacktrace.repl require) 'pst)]
                          (alter-var-root orig (constantly (deref new))) )
+
+                       (defn add-dependency [dep-vec]
+                         (require 'cemerick.pomegranate)
+                         ((resolve 'cemerick.pomegranate/add-dependencies)
+                          :coordinates [dep-vec]
+                          :repositories (merge @(resolve 'cemerick.pomegranate.aether/maven-central)
+                                               {"clojars" "https://clojars.org/repo"})))
                        ]
         ;; :shorthand {. [clojure.pprint alembic.still/distill alembic.still/lein]}
         :license      {:author "Micah Elliott" :email "mde@micahelliott.com"}}

@@ -131,31 +131,6 @@ alias rs=bin/rspec
 #alias cu=cucumber
 # alias rubocop='rubocop --rails'  # get some extra checks
 
-### Node/JavaScript
-alias jg=grunt
-alias jb=brunch
-alias bws='brunch watch --server'
-alias bbo='brunch build --optimize --config config-release.ls'
-alias nv=nvm
-# Node with rlwrap
-# http://blog.doteight.com/blog/2011/01/16/rlwrap-and-node/
-#alias node='NODE_NO_READLINE=1 rlwrap -pgreen -S "node> " node'
-#alias coffee='NODE_NO_READLINE=1 rlwrap -pyellow -S "coffee> " coffee'
-# Can't alias coffee since it screws up syntastic.
-alias cs='rlwrap -s 10000 -H ./coffee.hist coffee -i'
-alias jsh=jshon
-#alias lsc='livescript'
-# rlwrap is broken for lsc; it uses raw mode? Have to either use `rlwrap -a` for
-# history or go without hist and get nice object prop completion
-alias ilsh='rlwrap -a -r -H ./lsc.hist -s 10000 lsc'
-# Still get single session history, plus really nice emacs-style obj
-# completions and function showing. Lacks any kind of search (ctrl-r).
-#alias ils='livescript -d'
-# It seems to be -a/--always-readline that enables history but kills completion.
-# Funny that coffee does not have these problems.
-alias ils='rlwrap -a -O -A -N -s 40 -H /home/mde/.ils_history -- livescript'
-alias mo=mocha
-
 ### Archlinux / sudo
 # pacman/packer shortcuts
 # OOPS: The --noedit kills zsh completion
@@ -322,18 +297,6 @@ alias pe-update='pipenv update'
 # Note that all the Python bootstrapping packaging utils get
 # sudo-installed globally into /usr/local/bin.
 
-### Vim
-# Editing of config stuff.
-#alias vi-shell='v -S ~/config/shell/Session.vim'
-alias vi-shell='v -o ~/.zshrc $my_shdir/options.zsh $my_shdir/envars.sh $my_shdir/aliases.sh $my_shdir/aliases.zsh $my_shdir/functions.sh'
-alias vi-sudo='sudoedit'
-alias vi-ans='v -o hosts site.yaml group_vars/all.yaml ssh-inventory.config ansible.cfg'
-alias vi-ssh='v ~/.ssh/config'
-
-# Seems to need to live as alias, not as file/function
-alias vim2html='vim -c ":TOhtml $1| w |q |q"'
-
-#alias view='vim -R'
 # Don't bother with vim's readonly view
 #disable view
 alias view="feh --title '%f | %wx%h | %S | %t | %m | %n | %p | %u/%l'"
@@ -347,6 +310,7 @@ alias re-env=". $my_shdir/envars.sh"
 alias re-funcs=". $my_shdir/functions.sh"
 re-aliases() { . $my_shdir/aliases.sh; . $my_shdir/aliases.zsh }
 alias re-opts=". $my_shdir/options.zsh"
+alias re-plugins=". $my_shdir/plugins.zsh"
 
 alias fn='declare -f'
 
@@ -494,6 +458,8 @@ alias dkr='dk run'
 alias dks='dk search'
 alias dkt='dk top'
 alias dkv='dk volume'
+
+alias dc='docker-compose'
 
 
 # alias ans=ansible

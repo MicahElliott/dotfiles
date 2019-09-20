@@ -29,7 +29,7 @@ export XEDITOR=$EDITOR
 export VISUAL=$EDITOR
 #export VIMTAGS
 export TMPDIR=~/tmp
-export BROWSER=firefox  # previously: chromium, google-chrome
+# export BROWSER=firefox  # previously: chromium, google-chrome
 export CHROME_BIN=/usr/bin/chromium
 export DE=i3 # must be Desktop Environment (was xfce in archbang's .xinitrc)
 export MAILCHECK=60
@@ -63,10 +63,7 @@ export READNULLCMD=less
 
 export EMAIL=$my_email
 export REPLYTO=$EMAIL
-# BAD IDEA TO USE hostname -s !!
-export HGUSER="$my_fullname ($(hostname)) <$my_email>"
-export HGMERGE=vimdiff
-export HGEDITOR=hgeditor
+
 export INPUTRC=~/.inputrc
 
 # Python
@@ -77,6 +74,8 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 export VIRTUALENV_USE_DISTRIBUTE=1
 export WORKON_HOME=$HOME/.virtualenvs
 export DJANGO_SETTINGS_MODULE=settings
+
+export PATH=$PATH:/miniconda3/bin
 
 export RLWRAP_EDITOR="$EDITOR -c ':set filetype=clojure'"
 export RLWRAP_OPTIONS='--multi-line -pyellow --remember --complete-filenames --histsize 10000'
@@ -126,13 +125,6 @@ which ruby >/dev/null && {
     #export GEM_HOME=$HOME/.gem/ruby/$rubyver
 }
 
-path+=~/contrib/mountebank
-
-# rbenv
-#export PATH=$HOME/.rbenv/bin:$PATH
-# SLOW!! Does a rehash.
-#eval "$(rbenv init -)"
-
 if [[ $ostype = 'Darwin' ]]; then
     source /usr/local/share/chruby/chruby.sh
     source /usr/local/share/chruby/auto.sh
@@ -170,26 +162,18 @@ export N_PREFIX=~/local
 export PATH=$PATH:/usr/lib/R/bin
 export PERL5LIB=$PERL5LIB:/usr/share/R/share/perl
 
-# Haskell cabal stuff.
-#export PATH=$HOME/.cabal/bin:$PATH
-
 # Android SDK
 #export PATH=$PATH:$HOME/opt/android-sdk-linux_86/tools
 export PATH=$PATH:/opt/android-sdk/platform-tools
 export PATH=$PATH:/opt/android-sdk/tools
 
-# Recent Groovy
-#export PATH=$HOME/opt/groovy-1.8.1/bin:$PATH
-
 # Clojure
 #export PATH=$HOME/.cljr/bin:$PATH
 export PATH=$HOME/.lein/bin:$PATH
+export BOOT_CLOJURE_VERSION=1.10.0
 
 # Gitcontainer binstubs
 export PATH=$PATH:$HOME/gitcontainer/bin
-
-# Haskell
-export PATH=$PATH:$HOME/.cabal/bin
 
 # Local dir stuff.
 export PATH=$PATH:./bin
@@ -217,11 +201,8 @@ export PATH=$PATH:$GOROOT/bin
 
 path+=~/vendor/confluent-5.2.1/bin
 
+export EUAT_NAME=mde-$(gdate '+%Y%m%d')
 
-# Sencha crap.
-#export PATH=$PATH:$HOME/opt/SenchaArchitect:$HOME/opt/SenchaSDKTools-2.0.0-beta3
-
-#export dir_stack=$HOME
 
 ## COLORS ############################################################
 # Make dircolors work on non-RH systems.
@@ -231,15 +212,6 @@ path+=~/vendor/confluent-5.2.1/bin
 # Results in “export LS_COLORS=…”
 eval "$(TERM=xterm dircolors -b $DIR_COLORS)"
 
-# Not compiling
-#export LD_PRELOAD="/usr/lib/libstderred.so"
-
-
-# Why was I doing this? Probably just for bash.
-#PS1="\h$ "
-
-L="/media/LACIE"
-
 # Handy custom envars.
 dn=/dev/null
 sc=~/.ssh/config
@@ -248,8 +220,6 @@ sc=~/.ssh/config
 dict=/usr/share/dict/american-english
 # More generic symlink to actual dictionary
 words=/usr/share/dict/words
-
-lh='localhost:3000'
 
 # How color sequences work:
 # echo $'\e[1;4;5;38;5;118;42m'" hi there "
@@ -266,9 +236,6 @@ lh='localhost:3000'
 #    trap "kill $SSH_AGENT_PID" 0
 #fi
 
-#export JENKINS_USER=$my_fname
-
-export SRM_REMOTE=1
 
 #-- Bottom Matter ----------------------------------------------------
 

@@ -99,6 +99,12 @@ autoload -Uz compinit; compinit
 unalias run-help
 autoload run-help
 
+# autosuggestions: https://github.com/zsh-users/zsh-autosuggestions
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# source /usr/local/opt/autoenv/activate.sh
+
+
 # Trying auto-completion
 # https://unix.stackexchange.com/questions/84844/make-zsh-completion-show-the-first-guess-on-the-same-line-like-fishs
 # autoload predict-on
@@ -164,10 +170,14 @@ autoload -Uz colors; colors
 # Set prompt to random color.
 #prompt balance $(( $RANDOM % 9 ))
 #prompt balance black
-prompt cliguy green
+# prompt cliguy green
+# npm install -g pure-prompt
+# https://github.com/sindresorhus/pure
+# prompt pure
 #prompt membean
 #prompt wunjo
 # prompt off
+# prompt powerlevel10k
 
 autoload zmv
 
@@ -451,7 +461,7 @@ export FZF_DEFAULT_COMMAND="fzf --preview 'head -100 {}'"
 # Guessing this makes normal TAB completion continue to work as usual.
 # bindkey '^I' $fzf_default_completion
 # export FZF_CTRL_T_OPTS="--preview '(highlight -O xterm256 -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
-export FZF_CTRL_T_OPTS="--preview '(rougify {} || cat {} || tree -C {}) 2> /dev/null | head -200'"
+export FZF_CTRL_T_OPTS="--height 90% --preview '(bat --style=numbers --color=always {} || cat {} || tree -C {}) 2> /dev/null | head -200'"
 # export FZF_CTRL_T_OPTS="--preview 'cat {} | head -200'"
 
 
@@ -460,6 +470,7 @@ export FZF_CTRL_T_OPTS="--preview '(rougify {} || cat {} || tree -C {}) 2> /dev/
 # . /usr/share/z/z.sh
 # . /usr/lib/z.sh
 
-export ZPLUG_HOME=~/.zplug
-# . $ZPLUG_HOME/init.zsh
-# . /usr/share/zsh/scripts/zplug/init.zsh
+## Python
+# print 'Enabling pyenv; slow??'
+eval "$(pyenv init -)"
+# print 'Done enabling pyenv'
