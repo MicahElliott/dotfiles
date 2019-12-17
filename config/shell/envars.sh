@@ -59,8 +59,6 @@ export LESS_TERMCAP_se=$'\e[0m'           # end
 
 export TMUXCOLOR=white
 
-export READNULLCMD=less
-
 export EMAIL=$my_email
 export REPLYTO=$EMAIL
 

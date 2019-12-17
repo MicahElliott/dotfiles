@@ -81,6 +81,11 @@ TIMEFMT='%U user, %S kernel, %P cpu, %M mbmaxmem, %X kbheap, %D kbstack, %K kbsp
 export TERMINAL=mate-terminal
 # export TERMINAL=urxvtcd
 
+# Not going to work well since input will always be just STDIN, and
+# thus impossible to tell file type, other than reading the shebang,
+# and most files don't have shebang.  IOW, can't read filename
+# extension.
+# https://stackoverflow.com/questions/59381468/access-file-name-extension-with-readnullcmd
 READNULLCMD=bat
 
 # https://stackoverflow.com/questions/10847255/how-to-make-zsh-forward-word-behaviour-same-as-in-bash-emacs
@@ -456,8 +461,8 @@ eval "$(direnv hook zsh)"
 # Remove default transpose-chars binding that conflicts with fzf
 bindkey -r '^T'
 if [[ $ostype = 'Darwin' ]]; then
-    . /usr/local/Cellar/fzf/0.18.0/shell/key-bindings.zsh
-    . /usr/local/Cellar/fzf/0.18.0/shell/completion.zsh
+    . /usr/local/opt/fzf/shell/key-bindings.zsh
+    . /usr/local/opt/fzf/shell/completion.zsh
 else
     . /usr/share/fzf/key-bindings.zsh
     . /usr/share/fzf/completion.zsh

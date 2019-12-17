@@ -19,6 +19,8 @@ alias c2='/usr/bin/coderay' # uses bold unlike pygmentize
 #alias c='python3 =pygmentize'
 #alias c='pygmentize'
 #alias c='src-hilite-lesspipe.sh'
+alias c=bat
+
 # D -- dirs
 alias d='dirs -v'
 # E -- file Explorer
