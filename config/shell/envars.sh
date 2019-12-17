@@ -199,9 +199,10 @@ export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
 
-path+=~/vendor/confluent-5.2.1/bin
+path+=~/vendor/confluent-5.3.1/bin
 
-export EUAT_NAME=mde-$(gdate '+%Y%m%d')
+# export EUAT_NAME=mde-$(gdate '+%Y%m%d')
+export EUAT_NAME=uos-auto
 
 
 ## COLORS ############################################################

@@ -1,6 +1,6 @@
 if [[ $ostype = 'Darwin' ]]; then
 
-    print "Doing MacOS setup."
+    # print "Doing MacOS setup."
 
     path+=$HOME/homebrew/bin
 

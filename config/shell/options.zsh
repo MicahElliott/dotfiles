@@ -81,6 +81,8 @@ TIMEFMT='%U user, %S kernel, %P cpu, %M mbmaxmem, %X kbheap, %D kbstack, %K kbsp
 export TERMINAL=mate-terminal
 # export TERMINAL=urxvtcd
 
+READNULLCMD=bat
+
 # https://stackoverflow.com/questions/10847255/how-to-make-zsh-forward-word-behaviour-same-as-in-bash-emacs
 # Emacs-like navigation
 # Corresponding function in ~/contrib/zsh/functions/forward-word-match
@@ -98,6 +100,7 @@ autoload -Uz compinit; compinit
 ## Help system. See zshcontrib(1) for instructions.
 unalias run-help
 autoload run-help
+autoload -Uz run-help-git
 
 # autosuggestions: https://github.com/zsh-users/zsh-autosuggestions
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -291,6 +294,11 @@ setopt appendhistory banghist histignorealldups histfindnodups
 setopt histignorespace histnostore histreduceblanks histsavenodups
 setopt incappendhistory extendedhistory
 
+# Per-directory history
+# https://github.com/jimhester/per-directory-history/blob/master/per-directory-history.zsh
+# History files are stored in ~/.directory_history/ by default
+export PER_DIRECTORY_HISTORY_TOGGLE='^q'
+
 setopt nocaseglob
 setopt correct
 
@@ -343,7 +351,7 @@ HISTFILESIZE=$HISTSIZE
 KEYTIMEOUT=1
 
 # Automatically show time info for long-running commands.
-REPORTTIME=1
+# REPORTTIME=1
 
 # Make debug prompt more useful by showing time per command
 export PS4='%B%* %2N:%i>%b '
@@ -474,3 +482,6 @@ export FZF_CTRL_T_OPTS="--height 90% --preview '(bat --style=numbers --color=alw
 # print 'Enabling pyenv; slow??'
 eval "$(pyenv init -)"
 # print 'Done enabling pyenv'
+
+# Fuck
+eval $(thefuck --alias fu)

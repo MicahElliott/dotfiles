@@ -10,6 +10,8 @@ out()  { print $@ ; }
 warn() { print "$fg[yel]WARNING:$reset_color" $@ >&2 }
 err()  { print "$fg[red]ERROR:$reset_color" $@ >&2 }
 
+fn() { declare -f $1 |bat -l zsh }
+
 # Tar conveniences.
 tarc() { tar czvf $1.tar.gz $1; }
 tarx() { tar xzvf $1; }
@@ -524,8 +526,13 @@ seconds-since-midnight() {
 # Grab a random clojure file, for starting emacs randomly: e `randfile`&
 randfile() { ls src/**/*.clj test/**/*.clj |shuf |sn 1p }
 
-sshm() { ssh -t $1 'ssh $(consul members | grep mesosslave | grep alive | awk "{print \$1}" | head -n 1)' }
+beep() { terminal-notifier -message 'job is done' -sound default }
 
-ssh-bastionize() {
-    /usr/local/bin/gsed -i "s/bastion\.mde-.*\.fc-unstable.co.uk/bastion.mde-$(date '+%Y%m%d').fc-unstable.co.uk/" ~/.ssh/config
+# show whether history is local or global
+zh() {
+    if [[ "$_per_directory_history_is_global" == 'true' ]]; then
+        print 'global'
+    else
+        print "local: $_per_directory_history_directory"
+    fi
 }

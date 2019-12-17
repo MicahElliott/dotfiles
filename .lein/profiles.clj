@@ -11,7 +11,7 @@
                        ;; [cider/cider-nrepl "0.18.0"]
                        ;; [cider/cider-nrepl "RELEASE"]
                        ;; [http-kit/lein-template "1.0.0-SNAPSHOT"]
-                       [com.jakemccrary/lein-test-refresh "0.23.0"]
+                       [com.jakemccrary/lein-test-refresh "0.24.1"]
                        ;; Auto-run expectations
                        ;; [lein-auto expect "1.9.0"]
                        ;; Better stacktraces, colors, etc
@@ -28,6 +28,7 @@
                        ;; [com.gredericks/lein-shorthand "0.4.1"]
                        [lein-bikeshed "0.5.2"]
                        [lein-cljfmt "0.6.4"]
+                       [lein-count "1.0.9"]
                        ]
         :dependencies [
                        [jsofra/data-scope "0.1.2"]
@@ -43,7 +44,7 @@
                        (require 'data-scope.inspect)
                        (require 'data-scope.pprint)
                        ;; Look neat but wonder if these are expensive to load
-                       ;; (require 'data-scope.charts)
+                       (require 'data-scope.charts)
                        (require 'data-scope.graphs)
                        (require 'pjstadig.humane-test-output)
                        (pjstadig.humane-test-output/activate!)

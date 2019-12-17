@@ -29,7 +29,7 @@ alias e='emacsclient -c'
 # F -- fc history display
 alias f='fc -ldD'
 alias fm=pcmanfm  # file manager
-# G -- grep searching
+# G --  grep searching
 # alias g='ag'
 alias g='rg'
 # PCRE and color for grep
@@ -312,7 +312,7 @@ re-aliases() { . $my_shdir/aliases.sh; . $my_shdir/aliases.zsh }
 alias re-opts=". $my_shdir/options.zsh"
 alias re-plugins=". $my_shdir/plugins.zsh"
 
-alias fn='declare -f'
+# alias fn='declare -f'
 
 alias hi=history
 # Read shared global history's missing recent entries.
@@ -444,22 +444,23 @@ alias mysql='mysql --auto-rehash'
 alias stderred='export LD_PRELOAD="/usr/lib/libstderred.so"'
 
 ### Docker
-# alias dk='sudo docker'
-alias dk='docker'
-alias dkb='dk build'
-alias dkh='dk history'
-alias dka='dk attach'
-alias dki='dk image'
-alias dkc='dk container'
-alias dkl='dk logs'
-alias dkn='dk network'
-alias dkp='dk ps'
-alias dkr='dk run'
-alias dks='dk search'
-alias dkt='dk top'
-alias dkv='dk volume'
-
-alias dc='docker-compose'
+# Use instead: https://github.com/akarzim/zsh-docker-aliases
+# # alias dk='sudo docker'
+# alias dk='docker'
+# alias dkb='dk build'
+# alias dkh='dk history'
+# alias dka='dk attach'
+# alias dki='dk image'
+# alias dkc='dk container'
+# alias dkl='dk logs'
+# alias dkn='dk network'
+# alias dkp='dk ps'
+# alias dkr='dk run'
+# alias dks='dk search'
+# alias dkt='dk top'
+# alias dkv='dk volume'
+# alias dc='docker-compose'
+dkhelp() { alias | grep "^dk$1" }
 
 
 # alias ans=ansible
@@ -483,3 +484,5 @@ alias s3ls='aws s3 ls'
 alias s3='aws --profile mdelocal --endpoint-url=http://localhost:4568 s3'
 
 alias ddb='aws dynamodb --endpoint-url http://localhost:8000 --profile mdelocal'
+
+alias firefox=/Applications/Firefox.app/Contents/MacOS/firefox

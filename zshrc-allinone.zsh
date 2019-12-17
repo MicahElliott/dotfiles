@@ -93,7 +93,7 @@ HISTFILESIZE=$HISTSIZE
 KEYTIMEOUT=1
 
 # Automatically show time info for long-running commands.
-REPORTTIME=1
+REPORTTIME=10
 
 # Make debug prompt more useful by showing time per command
 export PS4='%B%* %2N:%i>%b '
