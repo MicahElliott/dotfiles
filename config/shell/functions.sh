@@ -537,3 +537,12 @@ zh() {
         print "local: $_per_directory_history_directory"
     fi
 }
+
+# Save last command to clipboard.
+save() { fc -l -1 | gsed -r 's/^\s*[0-9]+\s+//' | pbcopy }
+
+### KAFKA
+kcc () { kafka-console-consumer --bootstrap-server localhost:9092 --from-beginning --timeout-ms 1000 --topic $1 }
+
+en-java() { eval "$(jenv init -)" }
+en-python() { eval "$(pyenv init -)" }

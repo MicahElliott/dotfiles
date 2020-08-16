@@ -12,6 +12,7 @@ alias -s haml=$EDITOR
 alias -s vim=$EDITOR
 alias -s sass=$EDITOR
 alias -s scss=$EDITOR
+alias -s log=$EDITOR
 alias -s png=feh
 alias -s jpg=feh
 alias -s flv=vp

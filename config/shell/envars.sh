@@ -44,7 +44,7 @@ export APLAYER=mplayer
 #export PAGER=vimpager
 export PAGER=less
 # Enable ipython to display color sequences in PAGER (http://zi.ma/9e4f04)
-export LESS='-F -R -S -X'
+export LESS='-R -S -X'
 # Make less more friendly for non-text input files, see lesspipe(1)
 # Set LESSOPEN/LESSCLOSE.
 [[ -x /usr/bin/lesspipe ]] && eval "$(lesspipe)"
@@ -197,10 +197,16 @@ export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
 
+path+=~/vendor/flutter/bin
+
 path+=~/vendor/confluent-5.3.1/bin
+path+=~/vendor/confluent-cli
+
+# Rabbitmq
+path+=/usr/local/opt/rabbitmq/sbin
 
 # export EUAT_NAME=mde-$(gdate '+%Y%m%d')
-export EUAT_NAME=uos-auto
+export EUAT_NAME=us-originations
 
 
 ## COLORS ############################################################

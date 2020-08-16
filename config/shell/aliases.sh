@@ -313,6 +313,7 @@ alias re-funcs=". $my_shdir/functions.sh"
 re-aliases() { . $my_shdir/aliases.sh; . $my_shdir/aliases.zsh }
 alias re-opts=". $my_shdir/options.zsh"
 alias re-plugins=". $my_shdir/plugins.zsh"
+alias zp=re-plugins
 
 # alias fn='declare -f'
 
@@ -445,26 +446,6 @@ alias mysql='mysql --auto-rehash'
 
 alias stderred='export LD_PRELOAD="/usr/lib/libstderred.so"'
 
-### Docker
-# Use instead: https://github.com/akarzim/zsh-docker-aliases
-# # alias dk='sudo docker'
-# alias dk='docker'
-# alias dkb='dk build'
-# alias dkh='dk history'
-# alias dka='dk attach'
-# alias dki='dk image'
-# alias dkc='dk container'
-# alias dkl='dk logs'
-# alias dkn='dk network'
-# alias dkp='dk ps'
-# alias dkr='dk run'
-# alias dks='dk search'
-# alias dkt='dk top'
-# alias dkv='dk volume'
-# alias dc='docker-compose'
-dkhelp() { alias | grep "^dk$1" }
-
-
 # alias ans=ansible
 
 alias android-pull='adb pull sdcard/DCIM/Camera/ ~/Pictures/n5'
@@ -488,3 +469,37 @@ alias s3='aws --profile mdelocal --endpoint-url=http://localhost:4568 s3'
 alias ddb='aws dynamodb --endpoint-url http://localhost:8000 --profile mdelocal'
 
 alias firefox=/Applications/Firefox.app/Contents/MacOS/firefox
+
+
+my_zk=localhost
+my_bss=localhost:9092
+my_schema_registry=http://schema-registry.service.consul
+# my_brokers=kafka.service.consul:9092
+my_brokers=localhost:9092
+# my_schema_registry=http://schema-registry.service.consul
+# alias k-topics='kafka-topics --zookeeper zookeeper-aws.service.consul:2181 --list'
+alias k-topics='kafka-topics --zookeeper $my_zk --list | fzf'
+alias k-avro-consumer='kafka-avro-console-consumer --bootstrap-server $my_bss --property schema.registry.url=$my_schema_registry --from-beginning --topic '
+
+alias k-groups='kafka-consumer-groups --bootstrap-server $my_bss --group finops.kstreams --reset-offsets --to-latest --topic '
+alias k-producer='kafka-console-producer --broker-list $my_brokers --topic '
+
+k-consumer() {
+    [[ -z $1 ]] && { echo 'USAGE: k-consumer <topic>'; echo 'Prints the last 30 records'; return }
+    kafka-console-consumer --from-beginning --bootstrap-server $my_bss --timeout-ms 5000 --topic $1 | tail -30
+}
+
+alias k-consumer-fzf='k-consumer $(k-topics)'
+
+alias k-topic-create='kafka-topics --zookeeper $my_zk --create --partitions 1 --replication-factor 1  --topic'
+
+k-producer-x() {
+    if [[ -z $1 ]]; then
+        print 'USAGE: k-producer <topic>'
+    fi
+    kafka-console-producer --broker-list $my_brokers  --property parse.key=true --property key.schema='{"type":"string"}' --property "key.separator=|" --topic $1
+}
+
+k-consumer-avro() {
+     kafka-avro-console-consumer --from-beginning --bootstrap-server $my_bss --timeout-ms 1000 --topic $1
+}

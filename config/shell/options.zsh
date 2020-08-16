@@ -5,7 +5,6 @@
 # Note that vars like CDPATH/cdpath, PATH/pathstay in sync when you edit
 # just one. Lower-cased is the convenient array form.
 
-
 ######################################################################
 ### Params (need to come before autoload stuff)
 
@@ -57,7 +56,7 @@ autoload -- ~/.zfunc/[^_]*(:t)
 # This is awesome! Tab-completion works to expand these!
 # Needs to only include dirs that don’t have lots of subdirs.
 # Test the reach of this with ‘mkdir foo; cd foo; cd <tab>; rmdir foo’
-cdpath=(  ~/proj /media/LACIE
+cdpath=( ~/proj ~/work /media/LACIE
          ~/gitcontainer/collections/reference ~/gitcontainer/gists ~/config
          ~/clients )
 # cd-able locations. Also awesome. Going with convention of 'd' prefix
@@ -100,7 +99,24 @@ select-word-style bash
 # The following lines were added by compinstall
 zstyle :compinstall filename $HOME/.zshrc
 
-autoload -Uz compinit; compinit
+# Only run compinit once per day, otherwise SLOW
+# https://gist.github.com/ctechols/ca1035271ad134841284#gistcomment-2308206
+# https://www.danielmoch.com/posts/2018/11/zsh-compinit-rtfm/
+# autoload -Uz compinit; compinit
+# autoload -Uz compinit
+# for dump in ~/.zcompdump(N.mh+24); do
+#   compinit
+# done
+# compinit -C
+
+autoload -Uz compinit
+if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
+    print 'Doing full compinit.'
+    compinit
+else
+    print 'Doing minimal compinit to speed up this session.'
+    compinit -C
+fi
 
 ## Help system. See zshcontrib(1) for instructions.
 unalias run-help
@@ -108,7 +124,7 @@ autoload run-help
 autoload -Uz run-help-git
 
 # autosuggestions: https://github.com/zsh-users/zsh-autosuggestions
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # source /usr/local/opt/autoenv/activate.sh
 
@@ -135,31 +151,6 @@ source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey "^[h" run-help
 bindkey "^[H" run-help
 
-# Arch zsh packages.
-# https://github.com/zsh-users/zsh-syntax-highlighting/tree/master/highlighters
-# Options:
-# https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/highlighters/main/main-highlighter.zsh
-if [[ -f /etc/redhat-release ]]; then
-    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-elif [[ $ostype = 'Darwin' ]]; then
-    export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
-    source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-else
-    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-    # source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-ZSH_HIGHLIGHT_HIGHLIGHTERS=( main brackets pattern )
-# Hmm, just basic colors? rgybmc
-ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=cyan
-ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=fg=cyan,bold
-ZSH_HIGHLIGHT_STYLES[back-quoted-argument]=fg=yellow
-ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=yellow
-ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=magenta
-ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]=fg=cyan
-ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg=cyan
-#ZSH_HIGHLIGHT_STYLES[assign]=none
-ZSH_HIGHLIGHT_STYLES[assign]=fg=blue
-
 # Doesn't seem to work.
 #source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 # SLOW!!
@@ -168,7 +159,8 @@ ZSH_HIGHLIGHT_STYLES[assign]=fg=blue
 # Prompt.
 setopt promptsubst
 autoload -Uz promptinit; promptinit
-autoload -Uz vcs_info; vcs_info
+# FIXME: slow, but probably need vcs_info
+# autoload -Uz vcs_info; vcs_info # SLOW
 autoload -Uz colors; colors
 #prompt walters red
 #prompt fade
@@ -451,42 +443,13 @@ eval "$(direnv hook zsh)"
 #   export TERM=xterm-256color
 # fi
 
-######################################################################
-# FUZZY COMPLETION: FZF
-# C-T for normal finding
-# C-r for history search
-# M-c for cd
-# https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh
-# https://github.com/junegunn/fzf/wiki/Configuring-fuzzy-completion
-# Remove default transpose-chars binding that conflicts with fzf
-bindkey -r '^T'
-if [[ $ostype = 'Darwin' ]]; then
-    . /usr/local/opt/fzf/shell/key-bindings.zsh
-    . /usr/local/opt/fzf/shell/completion.zsh
-else
-    . /usr/share/fzf/key-bindings.zsh
-    . /usr/share/fzf/completion.zsh
-fi
-export FZF_DEFAULT_COMMAND="fzf --preview 'head -100 {}'"
-# export FZF_COMPLETION_TRIGGER=''
-# If you want TAB to do FZF.
-# bindkey '^I' fzf-completion
-# Guessing this makes normal TAB completion continue to work as usual.
-# bindkey '^I' $fzf_default_completion
-# export FZF_CTRL_T_OPTS="--preview '(highlight -O xterm256 -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
-export FZF_CTRL_T_OPTS="--height 90% --preview '(bat --style=numbers --color=always {} || cat {} || tree -C {}) 2> /dev/null | head -200'"
-# export FZF_CTRL_T_OPTS="--preview 'cat {} | head -200'"
-
 
 # Z cd jump around tracking, silently observing
 # https://github.com/rupa/z
 # . /usr/share/z/z.sh
 # . /usr/lib/z.sh
 
-## Python
-# print 'Enabling pyenv; slow??'
-eval "$(pyenv init -)"
-# print 'Done enabling pyenv'
-
 # Fuck
 eval $(thefuck --alias fu)
+
+[[ -s /usr/local/etc/grc.zsh ]] && source /usr/local/etc/grc.zsh

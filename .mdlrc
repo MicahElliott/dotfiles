@@ -1,2 +1,2 @@
 'all'
-exclude_rule 'MD046'
+rules "~MD033", "MD046"

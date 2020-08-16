@@ -1,0 +1,2 @@
+{:ignored-unused-namespaces [clojure.test]
+ :known-macros [deftest]}
