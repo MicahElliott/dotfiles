@@ -36,6 +36,7 @@
                        [clj-stacktrace "0.2.8"]
                        [com.cemerick/pomegranate "1.1.0"] ; doesn't play nice with data-scope charts
                        ;; [spyscope "0.1.7-SNAPSHOT"]
+                       [hashp "0.2.0"]
                        ;; [alembic "0.3.2"]
                        ;; [repetition-hunter "1.0.0"]
                        ]
@@ -46,6 +47,7 @@
                        ;; Look neat but wonder if these are expensive to load
                        (require 'data-scope.charts)
                        (require 'data-scope.graphs)
+                       (require 'hashp.core)
                        (require 'pjstadig.humane-test-output)
                        (pjstadig.humane-test-output/activate!)
                        (let [orig (ns-resolve (doto 'clojure.stacktrace require) 'print-cause-trace)

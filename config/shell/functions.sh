@@ -545,4 +545,22 @@ save() { fc -l -1 | gsed -r 's/^\s*[0-9]+\s+//' | pbcopy }
 kcc () { kafka-console-consumer --bootstrap-server localhost:9092 --from-beginning --timeout-ms 1000 --topic $1 }
 
 en-java() { eval "$(jenv init -)" }
+print "enabling java"
+en-java
+
 en-python() { eval "$(pyenv init -)" }
+
+vterm_printf(){ printf "\e]%s\e\\" "$1" }
+
+vterm_cmd() {
+    local vterm_elisp
+    vterm_elisp=""
+    while [ $# -gt 0 ]; do
+        vterm_elisp="$vterm_elisp""$(printf '"%s" ' "$(printf "%s" "$1" | sed -e 's|\\|\\\\|g' -e 's|"|\\"|g')")"
+        shift
+    done
+    vterm_printf "51;E$vterm_elisp"
+}
+
+ff() { vterm_cmd find-file "$(realpath "${@:-.}")" }
+say() { vterm_cmd message "%s" "$*" }

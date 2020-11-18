@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # -*- mode: sh -*-
 
 ######################################################################
@@ -38,13 +45,13 @@ esac
 # set so subsequent functions etc can make use of them.
 # Doing actions.sh early to avoid 3rd-party stuff overriding anything.
 my_configs=(
-    macos.sh
     envars.sh
     vendor.sh # activation of other scripts beyond my control
     options.zsh # potential to be slow
     aliases.sh
     aliases.zsh
     functions.sh
+    macos.sh
     # Load plugins manually since zplug is sooo slow.
     # And this makes it possible to run basic shells in vterm etc.
     # plugins.zsh
@@ -73,6 +80,13 @@ _siterc="$my_shdir/$(hostname).sh"
 [[ -f $_siterc ]] && . $_siterc || :
 unset _siterc
 
+# VTerm promt/dir tracking
+# https://github.com/akermu/emacs-libvterm#directory-tracking-and-prompt-tracking
+vterm_prompt_end() { vterm_printf "51;A$(whoami)@$(hostname):$(pwd)" }
+setopt PROMPT_SUBST
+PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
+
+
 function {
     local -i t1 startup
     t1=$(date '+%s')
@@ -84,3 +98,6 @@ unset t0
 
 # Timing
 ##zprof
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

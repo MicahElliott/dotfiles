@@ -20,7 +20,7 @@ source ~/.zplug/init.zsh
 # zplug themes/agnoster, from:oh-my-zsh, as:theme
 # zplug 'dracula/zsh', as:theme
 
-
+# Prompt setting is now manual, via ~/bin/p10k.zsh, to enable flexibly
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block, everything else may go below.
@@ -28,8 +28,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ -f ~/.p10k.zsh ]] && { source ~/.p10k.zsh; p10k finalize }
-zplug "romkatv/powerlevel10k", as:theme
+# [[ -f ~/.p10k.zsh ]] && { source ~/.p10k.zsh; p10k finalize }
+# [[ -f ~/.p10k.zsh ]] && { }
+# zplug "romkatv/powerlevel10k", as:theme
+
+pimp () { source ~/powerlevel10k/powerlevel10k.zsh-theme }
 
 
 CASE_SENSITIVE="true"
@@ -83,6 +86,13 @@ export FZF_CTRL_T_OPTS="--height 90% --preview '(bat --style=numbers --color=alw
 # export FZF_CTRL_T_OPTS="--preview 'cat {} | head -200'"
 # zplug "junegunn/fzf", use:"shell/*.zsh"
 zplug junegunn/fzf
+. ~/.fzf.zsh
+
+# navigation
+# export _Z_DATA=$ZPLUG_REPOS/rupa/z/data
+# zplug "rupa/z", use:z.sh
+# Native Zsh version of Z
+zplug "agkozak/zsh-z"
 
 zplug zsh-users/zsh-autosuggestions
 zplug zsh-users/zsh-completions
@@ -103,6 +113,8 @@ zplug MicahElliott/97df9ca799e49c0fcc0a981bf021f813, from:gist, as:plugin, use:z
 zplug "k4rthik/git-cal", as:command, frozen:1
 
 zplug "nnao45/zsh-kubectl-completion"
+
+zplug "lukechilds/zsh-nvm"
 
 # zplug " Valodim/zsh-curl-completion"
 

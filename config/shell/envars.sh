@@ -106,7 +106,7 @@ export PATH=$HOME/bin:$HOME/local/bin:$HOME/contrib/bin:$PATH
 # don't want to duplicate them here.
 # Administrative areas sometimes useful for non-root user.
 # No longer needed on Arch
-#export PATH=$PATH:/sbin:/usr/sbin:/usr/local/sbin
+export PATH=$PATH:/sbin:/usr/sbin:/usr/local/sbin
 
 # Ruby
 # FIXME: some gems want 1.8 (not 1.8.7) in PATH.
@@ -138,6 +138,7 @@ else
 
 fi
 
+# Node
 # nvm: See ni/jsi funcs. Just a little too slow for every shell.
 export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -145,6 +146,9 @@ export NVM_DIR="$HOME/.nvm"
 
 # Node http://tnovelli.net/blog/blog.2011-08-27.node-npm-user-install.html
 export PATH=$HOME/.local/bin:$PATH
+export PATH="$HOME/.npm/bin:$PATH"
+export N_PREFIX=$HOME/.n
+export PATH="$PATH:$N_PREFIX/bin"
 
 # https://stackoverflow.com/questions/18088372/how-to-npm-install-global-not-as-root
 export NPM_PACKAGES="${HOME}/.npm-packages"
@@ -197,13 +201,14 @@ export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
 
-path+=~/vendor/flutter/bin
+# path+=~/vendor/flutter/bin
 
-path+=~/vendor/confluent-5.3.1/bin
-path+=~/vendor/confluent-cli
+# path+=~/vendor/confluent-5.3.1/bin
+# path+=~/vendor/confluent-cli
 
 # Rabbitmq
 path+=/usr/local/opt/rabbitmq/sbin
+
 
 # export EUAT_NAME=mde-$(gdate '+%Y%m%d')
 export EUAT_NAME=us-originations

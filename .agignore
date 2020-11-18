@@ -1,1 +1,4 @@
-/tmp
+*.xml
+/env/
+/target/
+migrations/

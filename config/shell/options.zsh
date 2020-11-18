@@ -110,13 +110,7 @@ zstyle :compinstall filename $HOME/.zshrc
 # compinit -C
 
 autoload -Uz compinit
-if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
-    print 'Doing full compinit.'
-    compinit
-else
-    print 'Doing minimal compinit to speed up this session.'
-    compinit -C
-fi
+compinit
 
 ## Help system. See zshcontrib(1) for instructions.
 unalias run-help
@@ -451,5 +445,12 @@ eval "$(direnv hook zsh)"
 
 # Fuck
 eval $(thefuck --alias fu)
+
+# Doing FZF here and also in zplug, since don't always want to use zplug.
+# bindkey -r '^T'
+# export FZF_DEFAULT_COMMAND="fzf --preview 'head -100 {}'"
+# export FZF_COMPLETION_TRIGGER=,
+# export FZF_CTRL_T_OPTS="--height 90% --preview '(bat --style=numbers --color=always {} || cat {} || tree -C {}) 2> /dev/null | head -200'"
+# . ~/.fzf.zsh
 
 [[ -s /usr/local/etc/grc.zsh ]] && source /usr/local/etc/grc.zsh
