@@ -227,7 +227,9 @@ dn=/dev/null
 sc=~/.ssh/config
 
 # Archlinux dictionary
-dict=/usr/share/dict/american-english
+# dict=/usr/share/dict/american-english
+freqs=~/contrib/unigram_freq.csv
+freqs2=~/contrib/unigram_freq2.lst
 # More generic symlink to actual dictionary
 words=/usr/share/dict/words
 

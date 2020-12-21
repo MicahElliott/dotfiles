@@ -423,6 +423,25 @@ zstyle ':completion:*:*:feh:*' file-patterns '*.(jpg|png)'
 zstyle ':completion:*:*:mb-purge-non-deliverables*:*' file-patterns '*.txt'
 zstyle ':completion:*:*:(v|vim):*' ignored-patterns '*.(o|so|mp3|jpg|png|pdf|xcf)'
 
+# Auto-expand any alias (also: C-x a)
+# https://superuser.com/questions/1514569/how-to-expand-aliases-inline-in-zsh
+zstyle ':completion:*' completer _expand_alias _complete _ignored
+
+# Automatically expand global aliases
+# https://blog.patshead.com/2012/11/automatically-expaning-zsh-global-aliases---simplified.html
+globalias() {
+   if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
+     zle _expand_alias
+     zle expand-word
+   fi
+   zle self-insert
+}
+zle -N globalias
+bindkey " " globalias
+bindkey "^ " magic-space           # control-space to bypass completion
+bindkey -M isearch " " magic-space
+
+
 # Direnv (probably not slow but should keep an eye on it)
 eval "$(direnv hook zsh)"
 

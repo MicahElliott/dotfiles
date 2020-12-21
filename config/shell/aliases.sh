@@ -61,7 +61,7 @@ alias q='exit'
 # R -- littler
 #disable r
 # S -- regex-enabled sed
-alias s='sed -r'
+alias s="gsed -r 's///'"
 alias sn='sed -nr'
 # T -- tree
 #alias t='tree *~node_modules'
