@@ -45,13 +45,13 @@ esac
 # set so subsequent functions etc can make use of them.
 # Doing actions.sh early to avoid 3rd-party stuff overriding anything.
 my_configs=(
-    envars.sh
-    vendor.sh # activation of other scripts beyond my control
-    options.zsh # potential to be slow
-    aliases.sh
-    aliases.zsh
-    functions.sh
-    macos.sh
+    $my_shdir/macos.sh # no-op if not darwin
+    $my_shdir/envars.sh
+    $my_shdir/vendor.sh # activation of other scripts beyond my control
+    $my_shdir/options.zsh # potential to be slow
+    $my_shdir/aliases.sh
+    $my_shdir/aliases.zsh
+    $my_shdir/functions.sh
     # Load plugins manually since zplug is sooo slow.
     # And this makes it possible to run basic shells in vterm etc.
     # plugins.zsh
@@ -66,7 +66,7 @@ integer t0=$(date '+%s')
 # Source all the Zsh-specific and sh-generic files.
 for f in $my_configs; do
     ##print starting $f
-    [[ -f $my_shdir/$f ]] && . $my_shdir/$f
+    [[ -f $f ]] && . $f
     ##print finished $f
 done
 for plugin in $my_plugins; do
@@ -82,7 +82,9 @@ unset _siterc
 
 # VTerm promt/dir tracking
 # https://github.com/akermu/emacs-libvterm#directory-tracking-and-prompt-tracking
-vterm_prompt_end() { vterm_printf "51;A$(whoami)@$(hostname):$(pwd)" }
+# Start with a really simple prompt, enabling jumping with: C-c C-t ... C-c C-p
+PROMPT='%1~ %# '
+vterm_prompt_end() { vterm_printf "51;A$(pwd)" }
 setopt PROMPT_SUBST
 PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
 
