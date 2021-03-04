@@ -20,6 +20,10 @@ if [[ $ostype = 'Darwin' ]]; then
     path=( /usr/local/opt/coreutils/libexec/gnubin $path )
     MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
+    # BROWSER=
+    alias firefox=/Applications/Firefox.app/Contents/MacOS/firefox
+    export BROWSER=/Applications/Firefox.app/Contents/MacOS/firefox
+
     dict=~/contrib/oed-words.txt
 
 else

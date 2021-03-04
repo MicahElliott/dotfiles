@@ -468,7 +468,6 @@ alias s3='aws --profile mdelocal --endpoint-url=http://localhost:4568 s3'
 
 alias ddb='aws dynamodb --endpoint-url http://localhost:8000 --profile mdelocal'
 
-alias firefox=/Applications/Firefox.app/Contents/MacOS/firefox
 
 
 my_zk=localhost

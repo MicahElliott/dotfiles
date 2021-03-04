@@ -173,6 +173,9 @@ export PATH=$PATH:/opt/android-sdk/tools
 #export PATH=$HOME/.cljr/bin:$PATH
 export PATH=$HOME/.lein/bin:$PATH
 export BOOT_CLOJURE_VERSION=1.10.0
+# Stop java 14 warnings: Options -Xverify:none and -noverify were deprecated in JDK 13
+# https://github.com/technomancy/leiningen/issues/2611#issuecomment-577288859
+export LEIN_JVM_OPTS="-XX:TieredStopAtLevel=1"
 
 # Gitcontainer binstubs
 export PATH=$PATH:$HOME/gitcontainer/bin
@@ -200,6 +203,10 @@ export GOPATH=$HOME/Go
 export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
+
+# SDKMAN https://github.com/sdkman/sdkman-cli
+export SDKMAN_DIR=~/.sdkman
+[[ -s ~/.sdkman/bin/sdkman-init.sh ]] && source ~/.sdkman/bin/sdkman-init.sh
 
 # path+=~/vendor/flutter/bin
 

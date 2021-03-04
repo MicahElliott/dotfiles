@@ -85,8 +85,8 @@ unset _siterc
 # Start with a really simple prompt, enabling jumping with: C-c C-t ... C-c C-p
 PROMPT='%1~ %# '
 vterm_prompt_end() { vterm_printf "51;A$(pwd)" }
-setopt PROMPT_SUBST
 PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
+setopt PROMPT_SUBST
 
 
 function {

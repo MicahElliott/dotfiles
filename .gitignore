@@ -37,7 +37,6 @@
 /Library
 /Movies
 /Public
-/vendor
 .DS_Store
 *.zwc
 tmp

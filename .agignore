@@ -1,4 +1,8 @@
 *.xml
 /env/
 /target/
-migrations/
+#migrations/
+/resources/migrations
+/resources/public/
+#/resources/
+*.tsv

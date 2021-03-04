@@ -549,8 +549,9 @@ print "enabling java"
 en-java
 
 en-python() { eval "$(pyenv init -)" }
+alias en-py=en-python
 
-vterm_printf(){ printf "\e]%s\e\\" "$1" }
+vterm_printf() { printf "\e]%s\e\\" "$1" }
 
 vterm_cmd() {
     local vterm_elisp
@@ -562,5 +563,8 @@ vterm_cmd() {
     vterm_printf "51;E$vterm_elisp"
 }
 
+
+ffr() { vterm_cmd my/ffr "$(realpath "${@:-.}")" }
 ff() { vterm_cmd find-file "$(realpath "${@:-.}")" }
 say() { vterm_cmd message "%s" "$*" }
+message() { vterm_cmd message "%s" "$*" }
