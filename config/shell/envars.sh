@@ -31,7 +31,7 @@ export VISUAL=$EDITOR
 export TMPDIR=~/tmp
 # export BROWSER=firefox  # previously: chromium, google-chrome
 export CHROME_BIN=/usr/bin/chromium
-export DE=i3 # must be Desktop Environment (was xfce in archbang's .xinitrc)
+# export DE=i3 # must be Desktop Environment (was xfce in archbang's .xinitrc)
 export MAILCHECK=60
 
 export IMGEDITOR=gimp
@@ -75,6 +75,10 @@ export DJANGO_SETTINGS_MODULE=settings
 
 export PATH=$PATH:/miniconda3/bin
 
+path+=~/.pyenv/bin
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
+
 export RLWRAP_EDITOR="$EDITOR -c ':set filetype=clojure'"
 export RLWRAP_OPTIONS='--multi-line -pyellow --remember --complete-filenames --histsize 10000'
 
@@ -88,8 +92,9 @@ export PATH=$PATH:/opt/clojurescript/bin
 #    export TERM=xterm
 #export TERM=xterm
 #export TERM=xterm-256color
-#export XTERM=urxvtcd
-export TERMINAL=$XTERM
+# export XTERM=urxvtcd
+export TERM=kitty
+export TERMINAL=$TERM
 
 # Needed for eshell
 #CDPATH=$cdpath
@@ -128,37 +133,39 @@ if [[ $ostype = 'Darwin' ]]; then
     source /usr/local/share/chruby/auto.sh
 else
     # chruby, completion, autoswitching (installed via yaourt)
-    source /usr/share/chruby/chruby.sh
+    source /usr/local/share/chruby/chruby.sh
     #RUBIES=( ~/.rbenv/versions/* )
     # RUBIES=( ~/.rubies/* )
     # export RUBIES
     # https://github.com/postmodern/chruby/issues/27#issuecomment-16911865
     # compctl -g '~/.rubies/*(:t)' chruby
-    source /usr/share/chruby/auto.sh
-
+    source /usr/local/share/chruby/auto.sh
 fi
+
+path+=~/.gem/ruby/bin
 
 # Node
 # nvm: See ni/jsi funcs. Just a little too slow for every shell.
-export NVM_DIR="$HOME/.nvm"
+# export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Node http://tnovelli.net/blog/blog.2011-08-27.node-npm-user-install.html
 export PATH=$HOME/.local/bin:$PATH
-export PATH="$HOME/.npm/bin:$PATH"
-export N_PREFIX=$HOME/.n
-export PATH="$PATH:$N_PREFIX/bin"
+
+# Node http://tnovelli.net/blog/blog.2011-08-27.node-npm-user-install.html
+# export PATH="$HOME/.npm/bin:$PATH"
+# export N_PREFIX=$HOME/.n
+# export PATH="$PATH:$N_PREFIX/bin"
 
 # https://stackoverflow.com/questions/18088372/how-to-npm-install-global-not-as-root
-export NPM_PACKAGES="${HOME}/.npm-packages"
-export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
-export PATH="$NPM_PACKAGES/bin:$PATH"
+# export NPM_PACKAGES="${HOME}/.npm-packages"
+# export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
+# export PATH="$NPM_PACKAGES/bin:$PATH"
 
 #export DEBUG='brunch:*'
 
 # https://github.com/visionmedia/n
-export N_PREFIX=~/local
+# export N_PREFIX=~/local
 
 # R
 export PATH=$PATH:/usr/lib/R/bin
@@ -176,6 +183,8 @@ export BOOT_CLOJURE_VERSION=1.10.0
 # Stop java 14 warnings: Options -Xverify:none and -noverify were deprecated in JDK 13
 # https://github.com/technomancy/leiningen/issues/2611#issuecomment-577288859
 export LEIN_JVM_OPTS="-XX:TieredStopAtLevel=1"
+
+# path+=~/.jenv/bin
 
 # Gitcontainer binstubs
 export PATH=$PATH:$HOME/gitcontainer/bin
@@ -199,10 +208,10 @@ export MAKE=make
 
 export VAGRANT_DEFAULT_PROVIDER=libvirt
 
-export GOPATH=$HOME/Go
-export GOROOT=/usr/local/opt/go/libexec
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$GOROOT/bin
+# Go
+export GOPATH=~/go
+# export PATH=$PATH:$GOPATH/bin
+# export PATH=$PATH:$GOROOT/bin
 
 # SDKMAN https://github.com/sdkman/sdkman-cli
 export SDKMAN_DIR=~/.sdkman
@@ -216,6 +225,10 @@ export SDKMAN_DIR=~/.sdkman
 # Rabbitmq
 path+=/usr/local/opt/rabbitmq/sbin
 
+
+# export SCAD_DOCKER=podman
+alias docker=podman
+export SCAD_DOCKER=docker
 
 # export EUAT_NAME=mde-$(gdate '+%Y%m%d')
 export EUAT_NAME=us-originations

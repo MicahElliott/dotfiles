@@ -381,7 +381,7 @@ alias elinks='TERM=xterm-256color elinks'
 #alias mn='make -n'
 
 # alias pg='pgrep --full --list-full'
-alias pg='pgrep -fL'
+alias pg='pgrep -fl'
 alias pk='pkill --full'
 alias pk='pkill -f'
 

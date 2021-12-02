@@ -12,8 +12,8 @@ do
   read line
   #mem=$(mempercent)
   mem=$(mempercent.awk)
-  # weather=$(cat /tmp/weather.txt)
-  weather=$(cat /tmp/wunderbar.txt)
+  # weather=$(cat /tmp/weather.txt) # FIXME
+  weather=
   # echo "$weather | MEM:$mem | $line" || exit 1
   # echo "MEM:$mem | $line" || exit 1
   # echo ',[{"name":"disk_info","instance":"/","markup":"pango","full_text":"xx <span size=\"x-large\" color=\"red\">YY</span>' $weather '<b>51</b>.7 GiB"}]'

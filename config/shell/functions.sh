@@ -544,8 +544,11 @@ save() { fc -l -1 | gsed -r 's/^\s*[0-9]+\s+//' | pbcopy }
 ### KAFKA
 kcc () { kafka-console-consumer --bootstrap-server localhost:9092 --from-beginning --timeout-ms 1000 --topic $1 }
 
-en-java() { eval "$(jenv init -)" }
-print "enabling java"
+en-java() {
+    print "enabling java (jenv and sdkman)"
+    # . ~/.sdkman/bin/sdkman-init.sh
+    eval "$(jenv init -)"
+}
 en-java
 
 en-python() { eval "$(pyenv init -)" }

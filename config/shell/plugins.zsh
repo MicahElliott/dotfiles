@@ -35,6 +35,10 @@ source ~/.zplug/init.zsh
 pimp () { source ~/powerlevel10k/powerlevel10k.zsh-theme }
 
 
+# Let zplug self-manage
+# https://github.com/zplug/zplug#let-zplug-manage-zplug
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+
 CASE_SENSITIVE="true"
 zplug "lib/completion", from:oh-my-zsh # for those sweet [tab] squares
 # zplug "modules/prompt", from:prezto
@@ -86,13 +90,14 @@ export FZF_CTRL_T_OPTS="--height 90% --preview '(bat --style=numbers --color=alw
 # export FZF_CTRL_T_OPTS="--preview 'cat {} | head -200'"
 # zplug "junegunn/fzf", use:"shell/*.zsh"
 zplug junegunn/fzf
-. ~/.fzf.zsh
+# . ~/.fzf.zsh
+source /usr/share/fzf/shell/key-bindings.zsh
 
 # navigation
 # export _Z_DATA=$ZPLUG_REPOS/rupa/z/data
 # zplug "rupa/z", use:z.sh
 # Native Zsh version of Z
-zplug "agkozak/zsh-z"
+zplug "agkozak/zsh-z", at:tilde
 
 zplug zsh-users/zsh-autosuggestions
 zplug zsh-users/zsh-completions
@@ -102,13 +107,12 @@ zplug hlissner/zsh-autopair, defer:2
 # C-x ;
 zplug zsh-users/zaw
 
-zplug "agkozak/zsh-z"
+# Show all hooks
+zplug agkozak/zhooks
 
 # zplug 'jimhester/per-directory-history'
 
 zplug MicahElliott/97df9ca799e49c0fcc0a981bf021f813, from:gist, as:plugin, use:zbell-long-cmd.zsh
-
-# zplug "akarzim/zsh-docker-aliases"
 
 zplug "k4rthik/git-cal", as:command, frozen:1
 
@@ -121,7 +125,22 @@ zplug "lukechilds/zsh-nvm"
 # Not working
 # zplug "b4b4r07/emoji-cli"
 
-zplug "~/proj/scad", from:local, use:'*.sh'
+zplug "greymd/docker-zsh-completion"
+
+# zplug "akarzim/zsh-docker-aliases"
+
+# zplug "~/proj/scad", from:local, use:'*.sh'
+zplug "MicahElliott/scad"
 
 zplug check || zplug install
+if [[ ! -f $TMPDIR/zplugstamp ]]; then
+    print "Creating new zplug timestamp update tracking file."
+    touch $TMPDIR/zplugstamp
+fi
+# Day math: https://unix.stackexchange.com/a/102698/101165
+if (( ( $(date +%s) - $(date +%s -r $TMPDIR/zplugstamp) ) / 86400 > 7 )); then
+    print "Detected that it's been over a week since updating your zsh plugins."
+    print "Run this now to update:\nzplug update; touch $TMPDIR/zplugstamp"
+fi
+
 zplug load #--verbose

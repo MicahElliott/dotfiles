@@ -77,7 +77,8 @@ WORDCHARS='_'
 TIMEFMT='%U user, %S kernel, %P cpu, %M mbmaxmem, %X kbheap, %D kbstack, %K kbspacetot, %*E totelapsed'
 
 # Just broke 2018-10-16
-export TERMINAL=mate-terminal
+# export TERMINAL=mate-terminal
+export TERMINAL=kitty
 # export TERMINAL=urxvtcd
 
 # Not going to work well since input will always be just STDIN, and
@@ -407,10 +408,10 @@ fi
 
 # Disable C-s as XOFF
 # https://coderwall.com/p/ltiqsq
-stty stop ''
-stty start ''
-stty -ixon
-stty -ixoff
+# stty stop ''
+# stty start ''
+# stty -ixon
+# stty -ixoff
 
 # Stop that dang bell (must be done in x)
 # xset -b
@@ -425,7 +426,7 @@ zstyle ':completion:*:*:(v|vim):*' ignored-patterns '*.(o|so|mp3|jpg|png|pdf|xcf
 
 # Auto-expand any alias (also: C-x a)
 # https://superuser.com/questions/1514569/how-to-expand-aliases-inline-in-zsh
-zstyle ':completion:*' completer _expand_alias _complete _ignored
+# zstyle ':completion:*' completer _expand_alias _complete _ignored
 
 # Automatically expand global aliases
 # https://blog.patshead.com/2012/11/automatically-expaning-zsh-global-aliases---simplified.html

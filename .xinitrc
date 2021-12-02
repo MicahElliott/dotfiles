@@ -11,8 +11,8 @@
 xset -b
 
 # Enable more fonts.
-xset +fp ~/gitcontainer/projects/orp-font/misc
-xset +fp /usr/share/fonts/local
+# xset +fp ~/gitcontainer/projects/orp-font/misc
+# xset +fp /usr/share/fonts/local
 
 # Set mouse acceleration
 # https://wiki.archlinux.org/index.php/Mouse_acceleration
@@ -39,7 +39,7 @@ xset +fp /usr/share/fonts/local
 
 
 ### All xmodmaps now in standalone script
-~/bin/qwerkey.zsh
+# ~/bin/qwerkey.zsh
 # To see all the xmodmap mappings: xmodmap -pke
 
 # Swap Caps_Lock and Control_L.
@@ -94,7 +94,7 @@ xset +fp /usr/share/fonts/local
 
 # CPU frequency. Wish it would do htop. Not sure why load is getting
 # high (0.4+), despite gatotray saying quiescent.
-#gatotray &
+# gatotray &
 
 ###feh --bg-fill /usr/share/archwall/Arch-Black.png
 #feh --bg-fill ~/Pictures/transcat.jpg
@@ -105,14 +105,14 @@ xset +fp /usr/share/fonts/local
 # and use `pamixer -- increase 10` (or ponymix)
 # Not working now
 #/usr/bin/start-pulseaudio-x11
-pulseaudio --log-level=4 --log-target=stderr &
+# pulseaudio --log-level=4 --log-target=stderr &
 
 #eval $(ssh-agent)
 #ssh-add
 
 
 
-#eval $(keychain --eval -Q --quiet id_rsa)
+eval $(keychain --eval -Q --quiet id_rsa)
 
 
 
@@ -139,6 +139,10 @@ pulseaudio --log-level=4 --log-target=stderr &
 # Kill <C-s> terminal pause
 # http://stackoverflow.com/questions/791765/unable-to-forward-search-bash-history-similarly-as-with-ctrl-r
 #stty -ixon
+
+# Map F12 as Compose (international): tap once, then ~ a -> ã
+# Note that the file .XCompose is added and tries to include the system xcompose config
+xmodmap -e 'keycode 96 = Multi_key'
 
 # ConsoleKit needed for some perms, like automount USBs.
 # http://igurublog.wordpress.com/downloads/script-devmon/#install

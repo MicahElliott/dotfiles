@@ -8,14 +8,14 @@ set $mod Mod4
 
 #set the font
 #exec xset fp+ /usr/share/fonts/local/ &
-exec xset +fp ~/gitcontainer/projects/orp-font/misc
+# exec xset +fp ~/gitcontainer/projects/orp-font/misc
 #exec xset +fp ~/gits/projects/orp-font/misc
-exec xset +fp /usr/share/fonts/local
+# exec xset +fp /usr/share/fonts/local
 exec xset -b
 
 # https://wiki.archlinux.org/index.php/Keyboard_configuration_in_Xorg#Using_xset
 #              msdelay rate
-#exec xset r rate 250    60    # super fast keyboard cursor delay and rate!
+exec xset r rate 250    20    # super fast keyboard cursor delay and rate!
 #exec xset r rate 250    2     # super slow (vim training)
 
 # Not sure if this works; might have to paste manually
@@ -31,20 +31,20 @@ exec volumeicon
 # Wow, fancy!
 #exec volti
 
-#exec parcellite
-exec clipit
+exec parcellite
+# exec clipit
 #exec nm-applet
 ##exec wicd-client
 #exec batti
 #exec batterymon
 # Frequency not detected??
-exec gatotray
+# exec gatotray
 # FIXME: check to see if this works, like in .xinitrc
 #exec eval $(keychain --eval -Q --quiet id_rsa)
 exec stty -ixon
 
 # Growl On Linux
-exec gol
+# exec gol
 
 # Alternative to standard notify-send
 # https://github.com/knopwob/dunst
@@ -64,7 +64,7 @@ exec --no-startup-id dunst
 #exec udiskie
 
 # font for window titles. ISO 10646 = Unicode
-#font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 #font -misc-orp-bold-r-*--*-*-*-*-*-*-iso10646-1
 # Big enough to see nm-applet's indicator in i3status
 #font -*-tamsyn-bold-*-*-*-20-*-*-*-*-*-*-*
@@ -104,9 +104,12 @@ bindsym $mod+Return exec i3-sensible-terminal
 
 # start dmenu (a program launcher)
 #bindsym $mod+d exec dmenu_run -b -nb red
-bindsym $mod+n exec dmenu_run -b -nb darkred
+# bindsym $mod+m exec dmenu_run -b -nb darkred
 # try shellex instead: https://github.com/Merovius/shellex
-#bindsym $mod+n exec shellex -bg brown -fg yellow
+# bindsym $mod+m exec shellex -bg brown -fg yellow
+bindsym $mod+m exec --no-startup-id rofi -show run -width 400 -lines 5 -font "Ubuntu 10" -separator-style "none"
+# Doesn't work
+# bindsym $mod+spacebar exec --no-startup-id rofi -show run -width 400 -lines 5 -font "Ubuntu 10" -separator-style "none"
 
 # lock screen
 # https://faq.i3wm.org/question/83/how-to-run-i3lock-after-computer-inactivity/
@@ -115,19 +118,19 @@ exec xautolock -time 22 -locker "i3lock -b -i $HOME/art/locked2.png"
 bindsym Control+Mod1+$mod+l exec i3lock -b -i $HOME/art/locked2.png
 
 # change focus
-bindsym $mod+e focus up
-bindsym $mod+d focus down
-bindsym $mod+s focus left
-bindsym $mod+f focus right
+bindsym $mod+f focus up
+bindsym $mod+s focus down
+bindsym $mod+r focus left
+bindsym $mod+t focus right
 
 # move focused window
-bindsym $mod+Shift+e move up
-bindsym $mod+Shift+d move down
-bindsym $mod+Shift+s move left
-bindsym $mod+Shift+f move right
+bindsym $mod+Shift+f move up
+bindsym $mod+Shift+s move down
+bindsym $mod+Shift+r move left
+bindsym $mod+Shift+t move right
 
 # split in horizontal orientation
-bindsym $mod+h split horizontal
+bindsym $mod+d split horizontal
 
 # split in vertical orientation
 bindsym $mod+v split vertical
@@ -137,8 +140,8 @@ bindsym $mod+a fullscreen
 
 # change container layout (stacked, tabbed, default)
 # bindsym $mod+s layout stacking
-bindsym $mod+t layout tabbed
-bindsym $mod+g layout default
+bindsym $mod+c layout tabbed
+bindsym $mod+x layout default
 bindsym $mod+z layout stacking
 
 # toggle tiling / floating
@@ -153,28 +156,28 @@ bindsym $mod+space focus mode_toggle
 #bindcode $mod+d focus child
 
 # switch to workspace
-bindsym $mod+u workspace 7
-bindsym $mod+i workspace 8
-bindsym $mod+o workspace 9
-bindsym $mod+j workspace 4
-bindsym $mod+k workspace 5
-bindsym $mod+l workspace 6
-bindsym $mod+m workspace 1
+bindsym $mod+l workspace 7
+bindsym $mod+u workspace 8
+bindsym $mod+y workspace 9
+bindsym $mod+n workspace 4
+bindsym $mod+e workspace 5
+bindsym $mod+i workspace 6
+bindsym $mod+h workspace 1
 bindsym $mod+comma workspace 2
 bindsym $mod+period workspace 3
-bindsym $mod+p workspace 10
+bindsym $mod+apostrophe workspace 10
 
 # move focused container to workspace
-bindsym $mod+Shift+M move container to workspace 1
+bindsym $mod+Shift+h move container to workspace 1
 bindsym $mod+Shift+comma move container to workspace 2
 bindsym $mod+Shift+period move container to workspace 3
-bindsym $mod+Shift+J move container to workspace 4
-bindsym $mod+Shift+K move container to workspace 5
-bindsym $mod+Shift+L move container to workspace 6
-bindsym $mod+Shift+U move container to workspace 7
-bindsym $mod+Shift+I move container to workspace 8
-bindsym $mod+Shift+O move container to workspace 9
-bindsym $mod+Shift+P move container to workspace 10
+bindsym $mod+Shift+N move container to workspace 4
+bindsym $mod+Shift+E move container to workspace 5
+bindsym $mod+Shift+I move container to workspace 6
+bindsym $mod+Shift+L move container to workspace 7
+bindsym $mod+Shift+U move container to workspace 8
+bindsym $mod+Shift+Y move container to workspace 9
+# bindsym $mod+Shift+doublequote move container to workspace 10 # FIXME
 
 # kill focused window
 # bindsym $mod+Shift+Q kill
@@ -182,12 +185,16 @@ bindsym $mod+Shift+X kill
 
 # reload the configuration file
 # bindsym $mod+Shift+O reload
-bindsym $mod+Shift+R reload
-# bindsym $mod+Shift+r reload
+# FIXME
+# bindsym $mod+Shift+R reload
+bindsym $mod+Shift+g reload
+
+bindsym --release $mod+Shift+4 exec scrot -s '%Y-%m-%d-%H%M_scrot.png' -e 'mv $f ~/screenshots/ && xclip -selection clipboard -t image/png -i ~/screenshots/$f'
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+Control+W restart
-bindsym $mod+Shift+Control+R restart
+# FIXME
+# bindsym $mod+Shift+Control+R restart
 
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+Control+BackSpace exit
@@ -197,23 +204,10 @@ bindsym $mod+Shift+Control+Q exit
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
-        # vim-style
-        bindsym h resize shrink width 3 px or 3 ppt
-        bindsym j resize grow height 3 px or 3 ppt
-        bindsym k resize shrink height 3 px or 3 ppt
-        bindsym l resize grow width 3 px or 3 ppt
-
-        # ZeLDA FESD
-        bindsym s resize shrink width 3 px or 3 ppt
-        bindsym d resize grow height 3 px or 3 ppt
-        bindsym e resize shrink height 3 px or 3 ppt
-        bindsym f resize grow width 3 px or 3 ppt
-
-        # same bindings, but for the typical arrow keys
-        bindsym 113 resize shrink width 3 px or 3 ppt
-        bindsym 116 resize grow height 3 px or 3 ppt
-        bindsym 111 resize shrink height 3 px or 3 ppt
-        bindsym 114 resize grow width 3 px or 3 ppt
+        bindsym r resize shrink width 3 px or 3 ppt
+        bindsym s resize grow height 3 px or 3 ppt
+        bindsym f resize shrink height 3 px or 3 ppt
+        bindsym t resize grow width 3 px or 3 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -221,7 +215,8 @@ mode "resize" {
 }
 
 
-bindsym $mod+r mode "resize"
+# FIXME
+bindsym $mod+p mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -322,36 +317,38 @@ client.urgent            #D11931     #D11931     #777777
 
 # App-specific
 # Use `xprop` (and maybe `xwininfo`) to determine class, title, etc.
-for_window [title=".* LibreOffice .*"] floating enable; border normal
+for_window [title=".* LibreOffice .*"] floating enable, border normal
 for_window [class="Firefox"] border normal
 for_window [class="(?i)google-chrome"] border normal
 for_window [class="(?i)chromium"] border normal
-for_window [class="(?i)thunar"] floating enable; border normal
-for_window [class="(?i)gimp"] floating enable; border normal
+for_window [class="(?i)thunar"] floating enable, border normal
+for_window [class="(?i)gimp"] floating enable, border normal
 for_window [class="(?i)gnumeric"] border normal
 for_window [class="(?i)soffice"] border normal
-for_window [class="(?i)feh"] floating enable; border normal
-for_window [class="(?i)s?mplayer"] floating enable; border normal
-for_window [class="(?i)vlc"] floating enable; border normal
+for_window [class="(?i)feh"] floating enable, border normal
+for_window [class="(?i)s?mplayer"] floating enable, border normal
+for_window [class="(?i)vlc"] floating enable, border normal
 for_window [class="(?i)nautilus"] border normal
-for_window [class="(?i)xvidcap"] floating enable; border normal
-for_window [title=".* Pinboard - Save a Bookmark - Aurora"] floating enable; border normal
-for_window [title="Mozilla Persona.*"] floating enable; border normal
-for_window [title="gbdfed*"] floating enable; border normal
-for_window [title="xfce4-notifyd"] floating enable; border normal
-for_window [title="Wicd Network Manager"] floating enable; border normal
-for_window [title="- Shutter"] floating enable; border normal
+for_window [class="(?i)xvidcap"] floating enable, border normal
+for_window [title=".* Pinboard - Save a Bookmark - Aurora"] floating enable, border normal
+for_window [title="Mozilla Persona.*"] floating enable, border normal
+for_window [title="gbdfed*"] floating enable, border normal
+for_window [title="xfce4-notifyd"] floating enable, border normal
+for_window [title="Wicd Network Manager"] floating enable, border normal
+for_window [title="- Shutter"] floating enable, border normal
 # key-mon
 for_window [title="Keyboard Status Monitor"] floating enable
 for_window [title="Text Import - "] floating enable
-for_window [title="Cinelerra: "] floating enable; border normal
-for_window [title="xfce4-notifyd"] floating enable; border none
-for_window [title="^qiv: "] floating enable; border normal
+for_window [title="Cinelerra: "] floating enable, border normal
+for_window [title="xfce4-notifyd"] floating enable, border none
+for_window [title="^qiv: "] floating enable, border normal
 #for_window [title="^ImageMagick: "] floating enable; border normal
 for_window [title="^ImageMagick: "] border none
 for_window [title=" - Geeqie"] border none
-for_window [title="^GPG: "] floating enable; border normal
-for_window [title=" - KeePassX"] floating enable; border normal
-for_window [title=" - R Help"] floating enable; border normal
-for_window [title=" - (ACTIVE)"] floating enable; border normal
+for_window [title="^GPG: "] floating enable, border normal
+for_window [title=" - KeePassX"] floating enable, border normal
+for_window [title=" - R Help"] floating enable, border normal
+for_window [title=" - (ACTIVE)"] floating enable, border normal
 #for_window [title="key-mon"] floating enable; border none
+for_window [title="Dunnit .*"] floating enable, border normal 2
+# for_window [title="Dunnit .*"] new_float normal 2

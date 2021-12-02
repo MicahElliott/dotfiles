@@ -1,1 +1,3 @@
-/home/mde/gitcontainer/projects/qwerkey/.XCompose
+include "%L"   # import the default Compose file for your locale
+
+<Multi_key> <l> <l> : "◊"
