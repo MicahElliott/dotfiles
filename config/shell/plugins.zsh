@@ -143,4 +143,9 @@ if (( ( $(date +%s) - $(date +%s -r $TMPDIR/zplugstamp) ) / 86400 > 7 )); then
     print "Run this now to update:\nzplug update; touch $TMPDIR/zplugstamp"
 fi
 
-zplug load #--verbose
+zplug load --verbose
+
+# Zplug bug: C-z (ctrl-z susp) stops working since zplug turns it off
+# It happens again: rm $_zplug_lock
+# https://github.com/zplug/zplug/issues/322
+setopt monitor

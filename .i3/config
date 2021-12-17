@@ -336,6 +336,7 @@ for_window [title="gbdfed*"] floating enable, border normal
 for_window [title="xfce4-notifyd"] floating enable, border normal
 for_window [title="Wicd Network Manager"] floating enable, border normal
 for_window [title="- Shutter"] floating enable, border normal
+for_window [title="emacs"] border normal
 # key-mon
 for_window [title="Keyboard Status Monitor"] floating enable
 for_window [title="Text Import - "] floating enable

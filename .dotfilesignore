@@ -41,6 +41,14 @@ mde-gpg*
 .muttrc
 muttrc
 mutt/
+/go
+/javasharedresources
+/powerlevel10k
+/proj
+/screenshots
+/snap
+/work
+/Documents
 
 # Specific files
 tags
@@ -122,6 +130,10 @@ z
 .muttrc
 .netrc
 .msmtprc
+.serverauth.*
+.papertrail.yml
+.erlang.cookie
+.cider-repl-history
 
 # Dot *dirs*
 .*/
