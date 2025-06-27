@@ -1,0 +1,9 @@
+#! /bin/zsh
+
+# Wrap a command that is known to be good, recording CWD, time, runtime, logging, ES
+
+
+/usr/bin/time -f '%e' -o ~/.goodtime $@
+
+# qq trick: https://stackoverflow.com/a/25592614/326516
+print $(date -Iseconds) "\t" $? "\t" $(cat ~/.goodtime) "\t" ${(qq):-$@} >> ~/.good

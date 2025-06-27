@@ -1,0 +1,17 @@
+font:
+  # The normal (roman) font face to use.
+  normal:
+    family: monospace
+    style: Regular
+
+  # The bold font face
+  bold:
+    family: monospace
+    style: Bold
+
+  # The italic font face
+  italic:
+    family: monospace
+    style: Italic
+
+  size: 7

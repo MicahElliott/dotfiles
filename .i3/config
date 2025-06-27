@@ -19,7 +19,7 @@ exec xset r rate 250    20    # super fast keyboard cursor delay and rate!
 #exec xset r rate 250    2     # super slow (vim training)
 
 # Not sure if this works; might have to paste manually
-exec xmodmap -e 'keycode 138 = Multi_key'
+exec xmodmap -e 'keycode 96 = Multi_key'
 
 # NOTE: some of these are being set in .xinitrc; could maybe move some here.
 
@@ -107,7 +107,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 # bindsym $mod+m exec dmenu_run -b -nb darkred
 # try shellex instead: https://github.com/Merovius/shellex
 # bindsym $mod+m exec shellex -bg brown -fg yellow
-bindsym $mod+m exec --no-startup-id rofi -show run -width 400 -lines 5 -font "Ubuntu 10" -separator-style "none"
+bindsym $mod+l exec        --no-startup-id rofi -show run -width 400 -lines 5 -font "Ubuntu 10" -separator-style "none"
 # Doesn't work
 # bindsym $mod+spacebar exec --no-startup-id rofi -show run -width 400 -lines 5 -font "Ubuntu 10" -separator-style "none"
 
@@ -115,22 +115,22 @@ bindsym $mod+m exec --no-startup-id rofi -show run -width 400 -lines 5 -font "Ub
 # https://faq.i3wm.org/question/83/how-to-run-i3lock-after-computer-inactivity/
 #exec xautolock -time 4 -locker 'i3lock -b -c 0000ff'
 exec xautolock -time 22 -locker "i3lock -b -i $HOME/art/locked2.png"
-bindsym Control+Mod1+$mod+l exec i3lock -b -i $HOME/art/locked2.png
+bindsym Control+$mod+f exec i3lock -b -i $HOME/art/locked2.png
 
 # change focus
-bindsym $mod+f focus up
-bindsym $mod+s focus down
-bindsym $mod+r focus left
-bindsym $mod+t focus right
+bindsym $mod+p focus up
+bindsym $mod+n focus down
+bindsym $mod+t focus left
+bindsym $mod+r focus right
 
 # move focused window
-bindsym $mod+Shift+f move up
-bindsym $mod+Shift+s move down
-bindsym $mod+Shift+r move left
-bindsym $mod+Shift+t move right
+bindsym $mod+Shift+p move up
+bindsym $mod+Shift+n move down
+bindsym $mod+Shift+t move left
+bindsym $mod+Shift+r move right
 
 # split in horizontal orientation
-bindsym $mod+d split horizontal
+bindsym $mod+w split horizontal
 
 # split in vertical orientation
 bindsym $mod+v split vertical
@@ -142,7 +142,7 @@ bindsym $mod+a fullscreen
 # bindsym $mod+s layout stacking
 bindsym $mod+c layout tabbed
 bindsym $mod+x layout default
-bindsym $mod+z layout stacking
+# bindsym $mod+z layout stacking
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -156,27 +156,27 @@ bindsym $mod+space focus mode_toggle
 #bindcode $mod+d focus child
 
 # switch to workspace
-bindsym $mod+l workspace 7
-bindsym $mod+u workspace 8
-bindsym $mod+y workspace 9
-bindsym $mod+n workspace 4
+bindsym $mod+h workspace 7
+bindsym $mod+o workspace 8
+bindsym $mod+u workspace 9
+bindsym $mod+m workspace 4
 bindsym $mod+e workspace 5
 bindsym $mod+i workspace 6
-bindsym $mod+h workspace 1
-bindsym $mod+comma workspace 2
-bindsym $mod+period workspace 3
-bindsym $mod+apostrophe workspace 10
+bindsym $mod+equal       workspace 1
+bindsym $mod+slash       workspace 2
+bindsym $mod+period      workspace 3
+bindsym $mod+apostrophe  workspace 10
 
 # move focused container to workspace
-bindsym $mod+Shift+h move container to workspace 1
-bindsym $mod+Shift+comma move container to workspace 2
-bindsym $mod+Shift+period move container to workspace 3
-bindsym $mod+Shift+N move container to workspace 4
+bindsym $mod+Shift+H move container to workspace 7
+bindsym $mod+Shift+O move container to workspace 8
+bindsym $mod+Shift+U move container to workspace 9
+bindsym $mod+Shift+M move container to workspace 4
 bindsym $mod+Shift+E move container to workspace 5
 bindsym $mod+Shift+I move container to workspace 6
-bindsym $mod+Shift+L move container to workspace 7
-bindsym $mod+Shift+U move container to workspace 8
-bindsym $mod+Shift+Y move container to workspace 9
+bindsym $mod+Shift+plus    move container to workspace 1
+bindsym $mod+Shift+question move container to workspace 2
+bindsym $mod+Shift+period   move container to workspace 3
 # bindsym $mod+Shift+doublequote move container to workspace 10 # FIXME
 
 # kill focused window
@@ -189,7 +189,7 @@ bindsym $mod+Shift+X kill
 # bindsym $mod+Shift+R reload
 bindsym $mod+Shift+g reload
 
-bindsym --release $mod+Shift+4 exec scrot -s '%Y-%m-%d-%H%M_scrot.png' -e 'mv $f ~/screenshots/ && xclip -selection clipboard -t image/png -i ~/screenshots/$f'
+bindsym --release $mod+Shift+4 exec scrot -d 1 -s '%Y-%m-%d-%H%M%S_scrot.png' -e 'mv $f ~/screenshots/ && xclip -selection clipboard -t image/png -i ~/screenshots/$f'
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+Control+W restart
@@ -216,7 +216,7 @@ mode "resize" {
 
 
 # FIXME
-bindsym $mod+p mode "resize"
+# bindsym $mod+z mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -351,5 +351,5 @@ for_window [title=" - KeePassX"] floating enable, border normal
 for_window [title=" - R Help"] floating enable, border normal
 for_window [title=" - (ACTIVE)"] floating enable, border normal
 #for_window [title="key-mon"] floating enable; border none
-for_window [title="Dunnit .*"] floating enable, border normal 2
+for_window [title="Dunnit.*"] floating enable, border normal 2
 # for_window [title="Dunnit .*"] new_float normal 2

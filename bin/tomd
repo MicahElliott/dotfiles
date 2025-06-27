@@ -1,0 +1,4 @@
+#! /bin/zsh
+
+txt=$(sed -r 's^.*/([a-z]*)^\1^' <<< $1)
+print  "> :jira:\n> :pr: [$txt]($1)\nfoo" | parcellite -c

@@ -9,6 +9,7 @@ export WORK_ENV=~/config/shell/work.sh
 if [[ ! -f $WORK_ENV ]]; then
     print "Missing non-git $WORK_ENV environment file." 2>&1
 else
+    print "enabling work_env"
     . $WORK_ENV
 fi
 
@@ -21,6 +22,8 @@ unset USERNAME
 #print "Enabling gpg-agent env stuff"
 #. ~/.gpg-agent-info
 
+export XDG_CONFIG_HOME=$HOME/.config
+
 # Mail agents need to see these
 #export EDITOR=vim
 export EDITOR=emacsclient
@@ -29,7 +32,7 @@ export XEDITOR=$EDITOR
 export VISUAL=$EDITOR
 #export VIMTAGS
 export TMPDIR=~/tmp
-# export BROWSER=firefox  # previously: chromium, google-chrome
+export BROWSER=firefox  # previously: chromium, google-chrome
 export CHROME_BIN=/usr/bin/chromium
 # export DE=i3 # must be Desktop Environment (was xfce in archbang's .xinitrc)
 export MAILCHECK=60
@@ -43,7 +46,7 @@ export APLAYER=mplayer
 #export PAGER=most
 #export PAGER=vimpager
 export PAGER=less
-# Enable ipython to display color sequences in PAGER (http://zi.ma/9e4f04)
+# Enable ipythoN to display color sequences in PAGER (http://zi.ma/9e4f04)
 export LESS='-R -S -X'
 # Make less more friendly for non-text input files, see lesspipe(1)
 # Set LESSOPEN/LESSCLOSE.
@@ -93,8 +96,9 @@ export PATH=$PATH:/opt/clojurescript/bin
 #export TERM=xterm
 #export TERM=xterm-256color
 # export XTERM=urxvtcd
-export TERM=kitty
-export TERMINAL=$TERM
+
+# export TERM=kitty
+# export TERMINAL=$TERM
 
 # Needed for eshell
 #CDPATH=$cdpath
@@ -128,21 +132,10 @@ which ruby >/dev/null && {
     #export GEM_HOME=$HOME/.gem/ruby/$rubyver
 }
 
-if [[ $ostype = 'Darwin' ]]; then
-    source /usr/local/share/chruby/chruby.sh
-    source /usr/local/share/chruby/auto.sh
-else
-    # chruby, completion, autoswitching (installed via yaourt)
-    source /usr/local/share/chruby/chruby.sh
-    #RUBIES=( ~/.rbenv/versions/* )
-    # RUBIES=( ~/.rubies/* )
-    # export RUBIES
-    # https://github.com/postmodern/chruby/issues/27#issuecomment-16911865
-    # compctl -g '~/.rubies/*(:t)' chruby
-    source /usr/local/share/chruby/auto.sh
-fi
-
-path+=~/.gem/ruby/bin
+# print 'enabling chruby'
+# source /usr/local/share/chruby/chruby.sh
+# source /usr/local/share/chruby/auto.sh
+# path+=~/.gem/ruby/bin
 
 # Node
 # nvm: See ni/jsi funcs. Just a little too slow for every shell.
@@ -158,9 +151,9 @@ export PATH=$HOME/.local/bin:$PATH
 # export PATH="$PATH:$N_PREFIX/bin"
 
 # https://stackoverflow.com/questions/18088372/how-to-npm-install-global-not-as-root
-# export NPM_PACKAGES="${HOME}/.npm-packages"
-# export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
-# export PATH="$NPM_PACKAGES/bin:$PATH"
+export NPM_PACKAGES="${HOME}/.npm"
+export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
+export PATH="$NPM_PACKAGES/bin:$PATH"
 
 #export DEBUG='brunch:*'
 
@@ -183,6 +176,10 @@ export BOOT_CLOJURE_VERSION=1.10.0
 # Stop java 14 warnings: Options -Xverify:none and -noverify were deprecated in JDK 13
 # https://github.com/technomancy/leiningen/issues/2611#issuecomment-577288859
 export LEIN_JVM_OPTS="-XX:TieredStopAtLevel=1"
+
+path+=~/src/cljfmt-graalvm
+
+path+=~/proj/captainhook/bin
 
 # path+=~/.jenv/bin
 
@@ -208,19 +205,36 @@ export MAKE=make
 
 export VAGRANT_DEFAULT_PROVIDER=libvirt
 
-# Go
+# Golang
 export GOPATH=~/go
 # export PATH=$PATH:$GOPATH/bin
 # export PATH=$PATH:$GOROOT/bin
+path+=$GOPATH/bin
+
+# BQN
+path+=~/src/CBQN
+
+export EGET_BIN=~/.local/bin
+
+export CAPT_VERBOSE=1 CAPT_INTERACTIVE=1
+
+export OLLAMA_API_BASE='http://127.0.0.1:11434'
 
 # SDKMAN https://github.com/sdkman/sdkman-cli
-export SDKMAN_DIR=~/.sdkman
-[[ -s ~/.sdkman/bin/sdkman-init.sh ]] && source ~/.sdkman/bin/sdkman-init.sh
+# print 'enabling sdkman (SLOW)'
+# export SDKMAN_DIR=~/.sdkman
+# [[ -s ~/.sdkman/bin/sdkman-init.sh ]] && source ~/.sdkman/bin/sdkman-init.sh
 
 # path+=~/vendor/flutter/bin
 
 # path+=~/vendor/confluent-5.3.1/bin
 # path+=~/vendor/confluent-cli
+
+# ## ASDF
+# print 'enabling asdf'
+# . $HOME/.asdf/asdf.sh
+# # append completions to fpath
+# fpath=(${ASDF_DIR}/completions $fpath)
 
 # Rabbitmq
 path+=/usr/local/opt/rabbitmq/sbin
@@ -228,19 +242,24 @@ path+=/usr/local/opt/rabbitmq/sbin
 
 # export SCAD_DOCKER=podman
 alias docker=podman
-export SCAD_DOCKER=docker
+# export SCAD_DOCKER=docker
+export SCAD_DOCKER=podman
 
-# export EUAT_NAME=mde-$(gdate '+%Y%m%d')
-export EUAT_NAME=us-originations
+
+# stderred: stderr in red (https://github.com/ku1ik/stderred)
+# Doesn't work with magit-process: color doesn't reset and everything after an error stays red
+# export LD_PRELOAD="$HOME/src/stderred/build/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
 
 
 ## COLORS ############################################################
 # Make dircolors work on non-RH systems.
-[[ -e "$HOME/.dir_colors" ]] && export DIR_COLORS="$HOME/.dir_colors"
-[[ -e "$DIR_COLORS" ]] || DIR_COLORS=""
+# print 'enabling dircolors'
+# [[ -e "$HOME/proj/dircolors/dir_colors" ]] && export DIR_COLORS="$HOME/proj/dircolors/dir_colors"
+# [[ -e "$DIR_COLORS" ]] || DIR_COLORS=""
 # Must here trick dircolors into not seeing "256color".
 # Results in “export LS_COLORS=…”
-eval "$(TERM=xterm dircolors -b $DIR_COLORS)"
+# eval "$(TERM=xterm dircolors -b $DIR_COLORS)"
+# source ~/src/LS_COLORS/lscolors.sh
 
 # Handy custom envars.
 dn=/dev/null

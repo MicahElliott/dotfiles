@@ -20,5 +20,5 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/mc mc
 
-. /usr/local/opt/asdf/asdf.sh
-. /usr/local/opt/asdf/etc/bash_completion.d/asdf.bash
+# . /usr/local/opt/asdf/asdf.sh
+# . /usr/local/opt/asdf/etc/bash_completion.d/asdf.bash

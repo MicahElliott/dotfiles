@@ -83,7 +83,18 @@ unset _siterc
 # VTerm promt/dir tracking
 # https://github.com/akermu/emacs-libvterm#directory-tracking-and-prompt-tracking
 # Start with a really simple prompt, enabling jumping with: C-c C-t ... C-c C-p
-PROMPT='%1~ %# '
+# PROMPT='%1~ %# '
+NEWLINE=$'\n'
+# PROMPT='%B%{$fg[%(?.green.red)]%}════════════════════════════════════════%{$reset_color%}%b${NEWLINE}%~ %? %# '
+# PROMPT='%B%(?.%{$fg[green]%}.%{$fg[red]%})════════════════════════════════════════ %?%{$reset_color%}%b${NEWLINE}%3~ %# '
+# Update prompt every 5m, for timestamp
+TMOUT=300
+# TRAPALRM() { zle reset-prompt }
+# https://stackoverflow.com/a/30456173/326516
+TRAPALRM() { if [ "$WIDGET" != "complete-word" ]; then zle reset-prompt; fi }
+# https://stackoverflow.com/a/17915194/326516
+# PROMPT='%B%(?.%{$fg[green]✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓✓%}.%{$fg[red]════════════════ %?:$(kill -l $?)%})%{$reset_color%}%b${NEWLINE}%D{%F %K:%M} %3~ %# '
+PROMPT='%B%(?.%{$fg[green]■■■■■■■■■■■■■■■■%}.%{$fg[red]■■■■■■■■■■■■■■■■ %?:$(kill -l $?)%})%{$reset_color%}%b${NEWLINE}%D{%F %H:%M} %3~ %# '
 vterm_prompt_end() { vterm_printf "51;A$(pwd)" }
 PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
 setopt PROMPT_SUBST
@@ -103,3 +114,20 @@ unset t0
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+
+if [[ -n "$INSIDE_EMACS" ]]; then
+    print 'running eat integration'
+    source $EAT_SHELL_INTEGRATION_DIR/zsh
+    # __eat_enable_integration
+fi
+
+# #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+# export SDKMAN_DIR="/home/mde/.sdkman"
+# [[ -s "/home/mde/.sdkman/bin/sdkman-init.sh" ]] && source "/home/mde/.sdkman/bin/sdkman-init.sh"
+
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+eval "$(atuin init zsh)"

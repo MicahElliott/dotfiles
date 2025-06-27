@@ -10,6 +10,9 @@
 # Disable bell.
 xset -b
 
+# Keyboard repeat rate/delay; maybe here works? Doesn't seem to in .i3/config
+xset r rate 220 20
+
 # Enable more fonts.
 # xset +fp ~/gitcontainer/projects/orp-font/misc
 # xset +fp /usr/share/fonts/local
@@ -57,6 +60,7 @@ xset -b
 # See ~/.XCompose
 # http://superuser.com/questions/311612/how-to-get-alt-nnnn-keyboard-shortcuts-to-work-under-linux
 # xmodmap -e "keysym Control_R = Multi_key"
+xmodmap -e 'keycode 96 = Multi_key'
 
 
 
@@ -142,6 +146,7 @@ eval $(keychain --eval -Q --quiet id_rsa)
 
 # Map F12 as Compose (international): tap once, then ~ a -> ã
 # Note that the file .XCompose is added and tries to include the system xcompose config
+
 xmodmap -e 'keycode 96 = Multi_key'
 
 # ConsoleKit needed for some perms, like automount USBs.

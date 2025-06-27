@@ -1,0 +1,51 @@
+#! /bin/zsh
+
+# Restrict a command from running forever
+# Usage: runfor 10m pgbouncer-prod.ini
+
+# print $argv
+
+dur=$argv[1]
+cmd=$argv[2]
+cmd0=${(s: :)cmd}
+
+notify () {
+     # title="Command reached end of duration for cycle $ncycle"
+     msg="Command reached end of duration for cycle $ncycle; extend?"
+     title='runfor'
+     # msg='Visit prompt to kill or recycle'
+     os=$( uname -o )
+     if   [[ $os == 'Darwin' ]]
+     then osascript -e 'display dialog "$msg" with title "$title"'
+     # then osascript -e 'display alert "$title" message "$msg"'
+     # else notify-send $title $msg -u critical
+     else zenity --question --text $msg
+     fi
+}
+
+print "Starting: $cmd"
+
+# Start command in background.
+# Must have & inside the quotes! Or eval itself is getting backgrounded.
+# https://stackoverflow.com/a/4340009/326516
+eval "$cmd &"
+pid=$!
+print pid: $pid
+
+trap "print 'Caught interrupt! Killing $cmd and ending now.'; kill $pid; exit" SIGINT
+
+ncycle=1
+sleep $dur
+while true
+do print "Duration $dur has passed for cycle $ncycle. Want to run another cycle?"
+   # notify-send "Command reached end of duration for cycle $ncycle" 'Visit prompt to kill or recycle' -u critical
+   # if read -qk '?Continue [y/n]? '
+   if notify
+   then print "Waiting for another cycle"
+        sleep $dur
+   else print "Killing $cmd"
+        kill $pid
+        exit
+   fi
+   (( ncycle+=1 ))
+done

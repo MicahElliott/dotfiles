@@ -1,3 +1,6 @@
 include "%L"   # import the default Compose file for your locale
 
 <Multi_key> <l> <l> : "◊"
+<Multi_key> <e>	: "é"
+
+# include ".bqn.xcompose"

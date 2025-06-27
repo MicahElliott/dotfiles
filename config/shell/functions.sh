@@ -27,6 +27,14 @@ hgrep() { history |grep --color=auto "$1"; }
 pygrep() { egrep --color=auto "$@" *.py; }
 plgrep() { egrep --color=auto "$@" *.pl *.pm; }
 
+# grep-compose (key)
+# gc() { grep -i $1 /usr/share/X11/locale/en_US.UTF-8/Compose | grep -i $2 }
+gc() {
+    if [[ $#argv == 1 ]]; then grep -i $1 /usr/share/X11/locale/en_US.UTF-8/Compose
+    else grep -i $1 /usr/share/X11/locale/en_US.UTF-8/Compose | grep -i $2
+    fi
+}
+
 re-comps() {
   # Pain to test
   rm ~/.zcompdump
@@ -458,6 +466,10 @@ compstatus() { print "words: $words\nCURRENT: $CURRENT\n" |osd_cat -d1 -s1 }
 dl()  { print ~/Downloads/*(.om[0,1])  }
 dlx() { print ~/Downloads/*(.om[0,$1]) }
 
+last() { print *(.om[0,1]) }
+
+ss()  { print ~/screenshots/*(.om[0,1])  }
+
 md() { mkdir $1; cd $1 }
 
 command_not_found_handler() {
@@ -551,9 +563,16 @@ en-java() {
 }
 en-java
 
-en-python() { eval "$(pyenv init -)" }
+# en-python() { eval "$(pyenv init -)" }
+en-python() {
+     print 'enabling python/uv'
+     eval "$(uv generate-shell-completion zsh)"
+     eval "$(uvx --generate-shell-completion zsh)"
+}
 alias en-py=en-python
+en-py
 
+# Simplified from https://github.com/akermu/emacs-libvterm#shell-side-configuration
 vterm_printf() { printf "\e]%s\e\\" "$1" }
 
 vterm_cmd() {

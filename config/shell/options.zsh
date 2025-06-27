@@ -110,6 +110,7 @@ zstyle :compinstall filename $HOME/.zshrc
 # done
 # compinit -C
 
+print 'running compinit'
 autoload -Uz compinit
 compinit
 
@@ -265,6 +266,8 @@ zstyle ':completion:*:*:ssnorm*:*'  file-patterns '*.tsv'
 ######################################################################
 ### Options
 
+print 'doing setopt options'
+
 setopt interactivecomments
 # Don't exit on ^D
 setopt ignoreeof
@@ -343,7 +346,7 @@ HISTFILESIZE=$HISTSIZE
 KEYTIMEOUT=1
 
 # Automatically show time info for long-running commands.
-# REPORTTIME=1
+REPORTTIME=1
 
 # Make debug prompt more useful by showing time per command
 export PS4='%B%* %2N:%i>%b '
@@ -444,6 +447,7 @@ bindkey -M isearch " " magic-space
 
 
 # Direnv (probably not slow but should keep an eye on it)
+print 'enabling direnv'
 eval "$(direnv hook zsh)"
 
 #fontset.zsh big

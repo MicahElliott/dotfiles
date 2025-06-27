@@ -10,6 +10,9 @@ urxvt.boldfont: xft:Fantasque Sans Mono:pixelsize=14:bold
 urxvt.italicfont: xft:Fantasque Sans Mono:pixelsize=14:italic
 urxvt.bolditalicfont: xft:Fantasque Sans Mono:pixelsize=14:style=bold italic
 
+XTerm.VT100.cursorBlink: never
+XTerm.VT100.scrollBar:false
+
 ! URxvt.background: #000000
 ! URxvt.font: 10x20
 ! URxvt.font: xft:monaco:size=10
@@ -56,7 +59,7 @@ urxvt.bolditalicfont: xft:Fantasque Sans Mono:pixelsize=14:style=bold italic
 
 ! YAY! Finally made my own font!!
 ! Grab font building package: http://www.cl.cam.ac.uk/~mgk25/download/ucs-fonts.tar.gz
-! aptitude install gbdfed
+! aptitecho -n "\033]0;${USER}@${HOST}\007"echo -n "\033]0;${USER}@${HOST}\007"ude install gbdfed
 ! gbdfed 6x12.bdf
 ! Tweak some internal font parameters so that your ‘fmly’ is ‘myfont’
 ! Save as ‘myfont.bdf’
@@ -126,14 +129,14 @@ urxvt.bolditalicfont: xft:Fantasque Sans Mono:pixelsize=14:style=bold italic
 ! Font of the modeline, menubar and pop-up menus.
 ! Note that the menubar resources do not use the `face' syntax, since they
 ! are X toolkit widgets and thus outside the domain of XEmacs proper.
-! 
+!
 !Emacs*menubar*Font: 		-*-helvetica-bold-r-*-*-*-120-*-*-*-*-iso8859-*
 !Emacs*popup*Font:		-*-helvetica-bold-r-*-*-*-120-*-*-*-*-iso8859-*
 
 ! Font in the Motif dialog boxes.
 ! (Motif uses `fontList' while most other things use `font' - if you don't
 ! know why you probably don't want to.)
-! 
+!
 !Emacs*XmDialogShell*FontList:	-*-helvetica-bold-r-*-*-*-120-*-*-*-*-iso8859-*
 !Emacs*XmTextField*FontList:	-*-courier-medium-r-*-*-*-120-*-*-*-*-iso8859-*
 !Emacs*XmText*FontList:		-*-courier-medium-r-*-*-*-120-*-*-*-*-iso8859-*
@@ -305,32 +308,34 @@ Emacs.cursorColor:  dark green
 !*dynamicColors:    true
 
 
-! Blacks
-*color0:           #151515
-*color8:           #505450
-! Reds
-*color1:           #a60101
-!*color1:           #ff0000
-!*color9:           #f99090
-*color9:           #ff0000
-! Greens
-*color2:           #026802
-*color10:          #a7e14b
-! Yellows
-*color3:           #ab6e03
-*color11:          #fddc01
-! Blues
-*color4:           #005faf
-*color12:          #0087ff
-! Purples
-*color5:           #9c3885
-*color13:          #e628ba
-! Cyans
-*color6:           #08bab0
-*color14:          #74fff7
-! Whites
-*color7:           #aaaaaa
-*color15:          #ffffff
+! FIXME 20230814
+! Most recent, but just disabled since at least green is way off (too light)
+! ! Blacks[
+! *color0:           #151515
+! *color8:           #505450
+! ! Reds
+! *color1:           #a60101
+! !*color1:           #ff0000
+! !*color9:           #f99090
+! *color9:           #ff0000
+! ! Greens
+! *color2:           #026802
+! *color10:          #a7e14b
+! ! Yellows
+! *color3:           #ab6e03
+! *color11:          #fddc01
+! ! Blues
+! *color4:           #005faf
+! *color12:          #0087ff
+! ! Purples
+! *color5:           #9c3885
+! *color13:          #e628ba
+! ! Cyans
+! *color6:           #08bab0
+! *color14:          #74fff7
+! ! Whites
+! *color7:           #aaaaaa
+! *color15:          #ffffff
 
 
 !!! Themes overrides

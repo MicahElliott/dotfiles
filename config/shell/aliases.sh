@@ -22,7 +22,8 @@ alias c2='/usr/bin/coderay' # uses bold unlike pygmentize
 alias c=bat
 
 # D -- dirs
-alias d='dirs -v'
+# alias d='dirs -v'
+alias ds='dirs -v'
 # E -- file Explorer
 #alias e='epiphany'
 #alias e='nemo --no-desktop'
@@ -37,7 +38,7 @@ alias g='rg'
 # PCRE and color for grep
 #alias g='grep --color=always -P'
 alias gr='g -ir'
-alias gc='g -C4'
+# alias gc='g -C4'
 # H -- help system
 # I can't seem to get ESC-h working for run-help, so this'll have to do.
 alias h=run-help
@@ -45,6 +46,7 @@ alias h=run-help
 # J -- job control
 alias j='jobs'
 # L -- dir listing
+alias ls='ls -F --color=auto'
 alias l='ls -hlkABFX --color=auto'
 # alias l='exa -lBF -sextension --git --group-directories-first'
 # M -- audio player
@@ -214,21 +216,21 @@ alias vp=$VPLAYER
 # NOTE: it would be better to have these as functions that knew which
 # VCS to apply to, but only aliases are smart enough to complete well.
 alias st='git status'
-alias di='git diff'
-alias dic='git diff --cached'
-alias lo='git log --stat'
-alias lo2='git log --abbrev-commit --pretty=format:"%Cgreen%h %Cred%ai %Creset%s %Cgreen(%aN)"'
-alias ci='git commit'
-alias cip='git commit -p'
-alias co='git checkout'
-alias br='git branch'
-alias ad='git add'
-alias fe='git fetch -v'
-alias fed='git fetch --dry-run'
-alias re='git rebase -v'
-alias met='git mergetool'
+# alias di='git diff'
+# alias dic='git diff --cached'
+alias glo='git log --stat'
+alias glo2='git log --abbrev-commit --pretty=format:"%Cgreen%h %Cred%ai %Creset%s %Cgreen(%aN)"'
+alias gci='git commit'
+alias gcip='git commit -p'
+alias gco='git checkout'
+alias gbr='git branch'
+alias gad='git add'
+alias gfe='git fetch -v'
+alias gfed='git fetch --dry-run'
+alias gre='git rebase -v'
+alias gmet='git mergetool'
 #alias cl='git clone'
-alias lsf='git ls-files'
+alias glsf='git ls-files'
 # Masks gnu-ls
 # alias gls='git ls-files'
 alias gpu='git push origin master'
@@ -244,18 +246,18 @@ alias gpu='git push origin master'
 #alias dotfiles='git --git-dir=$HOME/.dotfiles.git/.git --work-tree=$HOME'
 # Neat that can have custom ignore file, so as not to muck up globally utilized ~/.gitignore
 alias dotfiles='git --git-dir=$HOME/.dotfiles.git/.git --work-tree=$HOME -c core.excludesfile=$HOME/.dotfilesignore'
-alias dit='dotfiles'
-alias dad2='dotfiles add'  # completion does not work
-alias dad='dotfiles stage' # so use semi-working synonym
-alias dlo='dotfiles log --stat'
-alias dci='dotfiles commit'
-alias ddi='dotfiles diff'
-alias dst='dotfiles status'
-alias drm='dotfiles rm'  # maybe add --cached
-alias dpu='dotfiles push origin master'
-alias dfe='dotfiles fetch -v'
-alias dls='dotfiles ls-files'
-alias dign='comm -13 <(dls $(p .*(.))|sort) <(p .*(.)|sort)'  # ignored files
+alias .it='dotfiles'
+alias .ad2='dotfiles add'  # completion does not work
+alias .ad='dotfiles stage' # so use semi-working synonym
+alias .lo='dotfiles log --stat'
+alias .ci='dotfiles commit'
+alias .di='dotfiles diff'
+alias .st='dotfiles status'
+alias .rm='dotfiles rm'  # maybe add --cached
+alias .pu='dotfiles push origin master'
+alias .fe='dotfiles fetch -v'
+alias .ls='dotfiles ls-files'
+alias .ign='comm -13 <(dls $(p .*(.))|sort) <(p .*(.)|sort)'  # ignored files
 
 ### Python
 # VirtualEnvWrapper (see .../virtualenvwrapper.sh)
@@ -461,14 +463,15 @@ alias sm="ssh -F ${ANSIBLE_INVENTORY:h}/ssh-inventory.config"
 alias scpm="scp -F ${ANSIBLE_INVENTORY:h}/ssh-inventory.config"
 
 # alias s3='aws s3 --acl=public-read'
-alias s3cp='aws s3 cp --acl=public-read'
-alias s3ls='aws s3 ls'
+# alias s3cp='aws s3 cp --acl=public-read'
+# alias s3ls='aws s3 ls'
 # s3rver testing; neat!
 alias s3='aws --profile mdelocal --endpoint-url=http://localhost:4568 s3'
 
 alias ddb='aws dynamodb --endpoint-url http://localhost:8000 --profile mdelocal'
 
-
+# Don't know where alias make='colourify make' is coming from
+unalias make
 
 my_zk=localhost
 my_bss=localhost:9092
