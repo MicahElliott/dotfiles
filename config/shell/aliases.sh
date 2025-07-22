@@ -28,7 +28,8 @@ alias ds='dirs -v'
 #alias e='epiphany'
 #alias e='nemo --no-desktop'
 # alias e='emacs --daemon'
-alias e='emacsclient -c'
+alias ec='emacsclient -c'
+alias e='_eat_msg open'
 # F -- fc history display
 alias f='fc -ldD'
 alias fm=pcmanfm  # file manager

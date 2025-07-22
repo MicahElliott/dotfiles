@@ -322,6 +322,9 @@ setopt braceccl  # Support chars in range: {a-z}
 # Obviate tee, plus other niceties
 setopt multios
 
+# https://unix.stackexchange.com/questions/335145/using-zsh-autocompletion-for-alias
+setopt completealiases
+
 # Trying out 0-based arrays! Matches bash and ls
 #setopt kshzerosubscript
 

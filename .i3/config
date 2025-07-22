@@ -353,3 +353,6 @@ for_window [title=" - (ACTIVE)"] floating enable, border normal
 #for_window [title="key-mon"] floating enable; border none
 for_window [title="Dunnit.*"] floating enable, border normal 2
 # for_window [title="Dunnit .*"] new_float normal 2
+
+# https://github.com/i3/i3/issues/3788#issuecomment-528051929
+for_window [class="(?i)pinentry"] move position mouse; fullscreen enable; focus
