@@ -22,7 +22,12 @@ unset USERNAME
 #print "Enabling gpg-agent env stuff"
 #. ~/.gpg-agent-info
 
+# Maybe not what I want, but trying it out -- used by emacs' age.el
+export PINENTRY_PROGRAM=pinentry-gnome3
+
 export XDG_CONFIG_HOME=$HOME/.config
+export XDG_DATA_HOME=$HOME/.local/share
+export XDG_CACHE_HOME=$HOME/.cache
 
 # Mail agents need to see these
 #export EDITOR=vim
@@ -37,10 +42,15 @@ export CHROME_BIN=/usr/bin/chromium
 # export DE=i3 # must be Desktop Environment (was xfce in archbang's .xinitrc)
 export MAILCHECK=60
 
+if [[ $OSTYPE =~ '^darwin' ]]; then CLIPPER=pbcopy; else CLIPPER=xclip; fi
+export CLIPPER
+
 export IMGEDITOR=gimp
 export IMGVIEWER=feh
 export VPLAYER=smplayer
 export APLAYER=mplayer
+
+export RBW_MENU_COMMAND="fzf"
 
 # Pager stuff
 #export PAGER=most
@@ -180,6 +190,9 @@ export LEIN_JVM_OPTS="-XX:TieredStopAtLevel=1"
 path+=~/src/cljfmt-graalvm
 
 path+=~/proj/captainhook/bin
+path+=~/proj/tufa/bin
+path+=~/proj/havoc/bin
+path+=~/proj/manget/bin
 
 # path+=~/.jenv/bin
 
@@ -210,6 +223,13 @@ export GOPATH=~/go
 # export PATH=$PATH:$GOPATH/bin
 # export PATH=$PATH:$GOROOT/bin
 path+=$GOPATH/bin
+export GOROOT=~/.g/go
+path=($GOROOT/bin $path)
+
+path+=~/.cargo/bin
+
+# Zig
+path+=~/src/zig/zig-x86_64-linux-0.15.1
 
 # BQN
 path+=~/src/CBQN
@@ -253,13 +273,19 @@ export SCAD_DOCKER=podman
 
 ## COLORS ############################################################
 # Make dircolors work on non-RH systems.
-# print 'enabling dircolors'
-# [[ -e "$HOME/proj/dircolors/dir_colors" ]] && export DIR_COLORS="$HOME/proj/dircolors/dir_colors"
+print 'enabling dircolors'
+# [[ -e "$HOME/proj/dircolors/dir_colors" ]] && export DIR_COLORS="$HOME/proj/dircolors/dir_colors" ||
+export DIR_COLORS="$HOME/proj/dircolors/dir_colors"
+[[ -e $DIR_COLORS ]] || echo "Could not find dir_colors: $DIR_COLORS"
 # [[ -e "$DIR_COLORS" ]] || DIR_COLORS=""
+
+# https://github.com/trapd00r/LS_COLORS
 # Must here trick dircolors into not seeing "256color".
 # Results in “export LS_COLORS=…”
-# eval "$(TERM=xterm dircolors -b $DIR_COLORS)"
+eval "$(TERM=xterm dircolors -b $DIR_COLORS)"
 # source ~/src/LS_COLORS/lscolors.sh
+# Enable colors for tab-completion
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # Handy custom envars.
 dn=/dev/null
@@ -267,6 +293,8 @@ sc=~/.ssh/config
 
 # Archlinux dictionary
 # dict=/usr/share/dict/american-english
+dict=~/contrib/dict/10k-3.num
+DICT=~/contrib/dict/10k-3.num
 freqs=~/contrib/unigram_freq.csv
 freqs2=~/contrib/unigram_freq2.lst
 # More generic symlink to actual dictionary

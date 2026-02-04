@@ -1,0 +1,3 @@
+#! /bin/zsh
+
+git --git-dir=$HOME/.dotfiles.git/.git --work-tree=$HOME -c core.excludesfile=$HOME/.dotfilesignore

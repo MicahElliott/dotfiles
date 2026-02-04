@@ -56,6 +56,10 @@ xset r rate 220 20
 # xmodmap -e "keysym  Alt_R = grave asciitilde"
 # xmodmap -e "keycode 49 = Escape"
 
+# Enable secret-tool
+# https://unix.stackexchange.com/a/295652/101165
+. /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
+
 # Compose (unicode, digraphs) key: Control_R
 # See ~/.XCompose
 # http://superuser.com/questions/311612/how-to-get-alt-nnnn-keyboard-shortcuts-to-work-under-linux

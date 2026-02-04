@@ -52,11 +52,11 @@ my_configs=(
     $my_shdir/aliases.sh
     $my_shdir/aliases.zsh
     $my_shdir/functions.sh
-    # Load plugins manually since zplug is sooo slow.
-    # And this makes it possible to run basic shells in vterm etc.
-    # plugins.zsh
+    # Was loading plugins manually since zplug is sooo slow.
+    # And this made it possible to run basic shells in vterm etc.
+    $my_shdir/plugins.zsh
 )
-print 'Skipping plugins to enable faster minimal zsh.  Run ‘zp’ for full zplug.'
+# print 'Skipping plugins to enable faster minimal zsh.  Run ‘zp’ for full diy-plug.'
 #my_plugins=( $my_shdir/zsh/plugins/*.zsh )
 my_plugins=( )
 
@@ -130,4 +130,4 @@ fi
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-eval "$(atuin init zsh)"
+# eval "$(atuin init zsh)"

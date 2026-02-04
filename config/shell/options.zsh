@@ -178,7 +178,7 @@ autoload -Uz colors; colors
 autoload zmv
 
 # My funcs.
-autoload v foofunc
+# autoload v foofunc
 
 # Mime types; enable massive set of "alias -s" (MAYBE SLOW)
 #autoload -U zsh-mime-setup; zsh-mime-setup
@@ -262,6 +262,17 @@ zstyle ':completion:*'              group-name ''
 zstyle ':completion:*:*:sstrans*:*' file-patterns '*.(lst|clst)'
 zstyle ':completion:*:*:ssnorm*:*'  file-patterns '*.tsv'
 
+# Fuzzy matching, best of fzf without it! Nice for completing Dunnit deep paths.
+# https://superuser.com/a/815317/31492
+# 0 -- vanilla completion (abc => abc)
+# 1 -- smart case completion (abc => Abc)
+# 2 -- word flex completion (abc => A-big-Car)
+# 3 -- full flex completion (abc => ABraCadabra)
+zstyle ':completion:*' matcher-list '' \
+  'm:{a-z\-}={A-Z\_}' \
+  'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
+  'r:|?=** m:{a-z\-}={A-Z\_}'
+
 
 ######################################################################
 ### Options
@@ -323,7 +334,8 @@ setopt braceccl  # Support chars in range: {a-z}
 setopt multios
 
 # https://unix.stackexchange.com/questions/335145/using-zsh-autocompletion-for-alias
-setopt completealiases
+# Needed this enabled for something, but breaks aliases like bw
+setopt nocompletealiases
 
 # Trying out 0-based arrays! Matches bash and ls
 #setopt kshzerosubscript
@@ -428,7 +440,7 @@ zstyle ':completion:*:*:mp4crush*:*' file-patterns '*.mp4'
 zstyle ':completion:*:*:bkgd:*' file-patterns '*.jpg'
 zstyle ':completion:*:*:feh:*' file-patterns '*.(jpg|png)'
 zstyle ':completion:*:*:mb-purge-non-deliverables*:*' file-patterns '*.txt'
-zstyle ':completion:*:*:(v|vim):*' ignored-patterns '*.(o|so|mp3|jpg|png|pdf|xcf)'
+# zstyle ':completion:*:*:(v|vim):*' ignored-patterns '*.(o|so|mp3|jpg|png|pdf|xcf)'
 
 # Auto-expand any alias (also: C-x a)
 # https://superuser.com/questions/1514569/how-to-expand-aliases-inline-in-zsh
@@ -472,6 +484,15 @@ eval "$(direnv hook zsh)"
 
 # Fuck
 eval $(thefuck --alias fu)
+
+# Generic completions
+# https://stackoverflow.com/a/14198002/326516
+compdef _gnu_generic age
+compdef _gnu_generic rage
+compdef _gnu_generic age-plugin-yubikey
+compdef _gnu_generic ronn
+compdef _gnu_generic g
+
 
 # Doing FZF here and also in zplug, since don't always want to use zplug.
 # bindkey -r '^T'

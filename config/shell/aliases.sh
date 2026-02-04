@@ -19,7 +19,7 @@ alias c2='/usr/bin/coderay' # uses bold unlike pygmentize
 #alias c='python3 =pygmentize'
 #alias c='pygmentize'
 #alias c='src-hilite-lesspipe.sh'
-alias c=bat
+alias c='bat --style=plain --tabs 20'
 
 # D -- dirs
 # alias d='dirs -v'
@@ -35,10 +35,11 @@ alias f='fc -ldD'
 alias fm=pcmanfm  # file manager
 # G --  grep searching
 # alias g='ag'
-alias g='rg'
+# alias g='rg'
 # PCRE and color for grep
 #alias g='grep --color=always -P'
-alias gr='g -ir'
+# alias gr='g -ir'
+alias gr='rg'
 # alias gc='g -C4'
 # H -- help system
 # I can't seem to get ESC-h working for run-help, so this'll have to do.
@@ -107,6 +108,10 @@ alias lta='ls -l --time=atime'
 alias ltm='ls -l --time=mtime'
 alias lmp='ls -lBX *.py'
 
+# Show/display image directly in terminal
+alias catimg='timg'
+alias icat="kitty +kitten icat"
+
 ### Ruby
 #   Rubygems
 ##alias gs='gem search -r --details' # Too slow
@@ -117,7 +122,7 @@ alias gs='gem search -r'
 # http://ryan.mcgeary.org/2011/02/09/vendor-everything-still-applies/
 # http://stackoverflow.com/a/9791080/326516
 #alias b="./bin/bundle"
-alias b="bundle"
+# alias b="bundle"
 # alias bi="b install --path vendor"
 alias bi="b install"
 alias bu="b update"
@@ -181,33 +186,31 @@ alias a-add-PPA='sudo add-apt-repository'
 alias jobdone="date |mail -s 'job done' $EMAIL"
 
 #alias latest='ls ~/Downloads/$(ls -rt ~/Downloads/ |tail -1)'
-alias dt='date +%Y%m%d'    # frequent 8-digit stamp: 20160114
-alias dt8=dt
-alias day=dt
-alias dts='date +%s'       # seconds since epoch: 1452795263
-alias dte=dts
-alias dt10=dts
-alias dtep='print "use this to parse: date -d @123..."'  # parse the epoch
-alias dtp='date -d '       # parse
-alias dttm='date --utc +%Y%m%d%H%M%S'  # datetime: 20160114192940
-alias dt14=dttm
+alias dat='date +%Y%m%d'    # frequent 8-digit stamp: 20160114
+alias dat8=dat
+alias day=dat
+alias dats='date +%s'       # seconds since epoch: 1452795263
+alias dat10=dats
+alias datep='print "use this to parse: date -d @123..."'  # parse the epoch
+alias datp='date -d '       # parse
+alias dattm='date --utc +%Y%m%d%H%M%S'  # datetime: 20160114192940
+alias dat14=dattm
 #alias dd='date -d'  # okay to mask dd since use infrequently
-alias dt13=dtb
-alias dto='date +%Y%j'     # ordinal date: 2016016 (16th day of year)
-alias dt7=dto
+alias dato='date +%Y%j'     # ordinal date: 2016016 (16th day of year)
+alias dat7=dato
 # https://en.wikipedia.org/wiki/ISO_week_date
-alias dtwk='date +W%V'     # week date: W02
-alias dtyrwk='date +%GW%V' # year week date: 2016W02
+alias datwk='date +W%V'     # week date: W02
+alias datyrwk='date +%GW%V' # year week date: 2016W02
 # ISO 8601
-alias dtw='date +%G-W%V-%' # year week: 2016-W02-4
-alias dti='date -I'        # ISO-8601: 2016-01-14
-alias dt-=dti
-alias dtI='date -u +%Y%m%dT%H%M%S'        # 20160111T173110Z
-alias dtI-='date -u +%Y-%m-%dT%H:%M:%SZ'  # 2016-01-11T17:31:10Z
-alias dtI0='date -u -Iseconds'            # 2016-01-11T17:31:10+0000
-alias dto-='date +%Y-%j'                  # ordinal date: 2016-016
+alias datw='date +%G-W%V-%' # year week: 2016-W02-4
+alias dati='date -I'        # ISO-8601: 2016-01-14
+alias datI='date -u +%Y%m%dT%H%M%S'        # 20160111T173110Z
+alias datI='date -u +%Y-%m-%dT%H:%M:%SZ'  # 2016-01-11T17:31:10Z
+alias datI0='date -u -Iseconds'            # 2016-01-11T17:31:10+0000
+alias dato='date +%Y-%j'                  # ordinal date: 2016-016
 # Weird mongo
-alias dtb="date-iso2bson.rb <<<\"'`dt-`'\""  # for mongo bson
+alias datb="date-iso2bson.rb <<<\"'`dt-`'\""  # for mongo bson
+alias dat13=datb
 
 alias mp=$APLAYER
 alias vp=$VPLAYER
@@ -255,6 +258,7 @@ alias .ci='dotfiles commit'
 alias .di='dotfiles diff'
 alias .st='dotfiles status'
 alias .rm='dotfiles rm'  # maybe add --cached
+alias .mv='dotfiles mv'
 alias .pu='dotfiles push origin master'
 alias .fe='dotfiles fetch -v'
 alias .ls='dotfiles ls-files'
@@ -358,12 +362,12 @@ alias ro=raco
 alias en-py2='py2en'
 alias en-chruby='echo already enabled'
 alias en-nvm='nvi'
-alias en-ffsdk='ffi'
+# alias en-ffsdk='ffi'
 alias en-docker='sc start docker; sudo sysctl net.ipv4.ip_forward=1'
 
 ### Other
 alias clean="rm -f *~ .*~ core *.bak"
-alias info='info --vi-keys'
+# alias info='info --vi-keys'
 
 alias zg='zgrep -E --color=always'
 
@@ -404,6 +408,9 @@ alias pp='print -P'
 
 alias ap=ansible-playbook
 alias ap19=ansible-playbook-19
+
+alias bw=rbw
+alias bws='dcri bitwarden/bws'
 
 alias tm='tmux'
 # Each slime wants its own socket.
@@ -472,7 +479,7 @@ alias s3='aws --profile mdelocal --endpoint-url=http://localhost:4568 s3'
 alias ddb='aws dynamodb --endpoint-url http://localhost:8000 --profile mdelocal'
 
 # Don't know where alias make='colourify make' is coming from
-unalias make
+unalias make 2>/dev/null
 
 my_zk=localhost
 my_bss=localhost:9092

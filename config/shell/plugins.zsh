@@ -1,7 +1,7 @@
 # ZPlug
 
-print 'zplug init'
-source ~/.zplug/init.zsh
+print 'diy-plug start'
+# source ~/.zplug/init.zsh
 
 # Though neat, don't really want the git aliases, since magit.
 # zplug "plugins/git",   from:oh-my-zsh
@@ -40,10 +40,19 @@ pimp () {
 
 # Let zplug self-manage
 # https://github.com/zplug/zplug#let-zplug-manage-zplug
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+# zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 CASE_SENSITIVE="true"
-zplug "lib/completion", from:oh-my-zsh # for those sweet [tab] squares
+
+print 'loading ohmyzsh zstyles'
+source ~/src/zshplugins/ohmyzsh/lib/completion.zsh
+# zplug "lib/completion", from:oh-my-zsh # for those sweet [tab] squares
+
+print 'loading ohmyzsh colored-man-pages'
+source ~/src/zshplugins/ohmyzsh/plugins/colored-man-pages/colored-man-pages.plugin.zsh
+
+
+
 # zplug "modules/prompt", from:prezto
 
 #zplug "zsh-users/zsh-history-substring-search"
@@ -63,7 +72,6 @@ ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]=fg=cyan
 ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg=cyan
 #ZSH_HIGHLIGHT_STYLES[assign]=none
 ZSH_HIGHLIGHT_STYLES[assign]=fg=blue
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
 
 ######################################################################
@@ -73,7 +81,7 @@ zplug "zsh-users/zsh-syntax-highlighting", defer:2
 # M-c for cd
 # https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh
 # https://github.com/junegunn/fzf/wiki/Configuring-fuzzy-completion
-print 'setting up fzf'
+# print 'setting up fzf'
 # Remove default transpose-chars binding that conflicts with fzf
 bindkey -r '^T'
 # if [[ $ostype = 'Darwin' ]]; then
@@ -93,19 +101,24 @@ export FZF_COMPLETION_TRIGGER=,
 export FZF_CTRL_T_OPTS="--height 90% --preview '(bat --style=numbers --color=always {} || cat {} || tree -C {}) 2> /dev/null | head -200'"
 # export FZF_CTRL_T_OPTS="--preview 'cat {} | head -200'"
 # zplug "junegunn/fzf", use:"shell/*.zsh"
-zplug junegunn/fzf
+# zplug junegunn/fzf
 # . ~/.fzf.zsh
-source /usr/share/fzf/shell/key-bindings.zsh
+# source /usr/share/fzf/shell/key-bindings.zsh
 
 # navigation
 # export _Z_DATA=$ZPLUG_REPOS/rupa/z/data
 # zplug "rupa/z", use:z.sh
 # Native Zsh version of Z
-zplug "agkozak/zsh-z", at:tilde
+# zplug "agkozak/zsh-z", at:tilde
 
-print 'autosuggstions, completions, autopair'
-zplug zsh-users/zsh-autosuggestions
-zplug zsh-users/zsh-completions
+print 'enabling autosuggestions'
+source ~/src/zshplugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# zplug zsh-users/zsh-autosuggestions
+
+print 'enabling extra completions'
+fpath+=~/src/zshplugins/zsh-completions/src
+# zplug zsh-users/zsh-completions
+
 # zplug hlissner/zsh-autopair, defer:2
 # command-not-found
 
@@ -113,49 +126,62 @@ zplug zsh-users/zsh-completions
 # zplug zsh-users/zaw
 
 # Show all hooks
-zplug agkozak/zhooks
+# zplug agkozak/zhooks
 
 # zplug 'jimhester/per-directory-history'
 
-zplug MicahElliott/97df9ca799e49c0fcc0a981bf021f813, from:gist, as:plugin, use:zbell-long-cmd.zsh
+# https://gist.github.com/MicahElliott/97df9ca799e49c0fcc0a981bf021f813
+print 'enabling zbell-long-cmd'
+source ~/src/zshplugins/zbell-long-cmd/zbell-long-cmd.zsh
+# zplug MicahElliott/97df9ca799e49c0fcc0a981bf021f813, from:gist, as:plugin, use:zbell-long-cmd.zsh
 
-zplug "k4rthik/git-cal", as:command, frozen:1
+# zplug "k4rthik/git-cal", as:command, frozen:1
 
 # zplug "nnao45/zsh-kubectl-completion"
 
 # zplug "lukechilds/zsh-nvm"
 
-zplug "matthieusb/zsh-sdkman"
+# zplug "matthieusb/zsh-sdkman"
 
 # zplug " Valodim/zsh-curl-completion"
 
 # Not working
 # zplug "b4b4r07/emoji-cli"
 
-zplug "greymd/docker-zsh-completion"
+# zplug "greymd/docker-zsh-completion"
 
 # zplug "akarzim/zsh-docker-aliases"
 
 # zplug "~/proj/scad", from:local, use:'*.sh'
-zplug "MicahElliott/scad"
+# zplug "MicahElliott/scad"
+print 'enabling SCAD'
+source ~/proj/scad/init.sh
 
-zplug check || zplug install
-if [[ ! -f $TMPDIR/zplugstamp ]]; then
-    print timestamp
-    touch $TMPDIR/zplugstamp
-fi
-# Day math: https://unix.stackexchange.com/a/102698/101165
-if (( ( $(date +%s) - $(date +%s -r $TMPDIR/zplugstamp) ) / 86400 > 7 )); then
-    print "Detected that it's been over a week since updating your zsh plugins."
-    print "Run this now to update:\nzplug update; touch $TMPDIR/zplugstamp"
-fi
+# zplug check || zplug install
+# if [[ ! -f $TMPDIR/zplugstamp ]]; then
+#     print timestamp
+#     touch $TMPDIR/zplugstamp
+# fi
+# # Day math: https://unix.stackexchange.com/a/102698/101165
+# if (( ( $(date +%s) - $(date +%s -r $TMPDIR/zplugstamp) ) / 86400 > 7 )); then
+#     print "Detected that it's been over a week since updating your zsh plugins."
+#     print "Run this now to update:\nzplug update; touch $TMPDIR/zplugstamp"
+# fi
 
-print 'loading zplug'
-zplug load #--verbose
+# print 'loading zplug'
+# zplug load #--verbose
 
 # Zplug bug: C-z (ctrl-z susp) stops working since zplug turns it off
 # It happens again: rm $_zplug_lock
 # https://github.com/zplug/zplug/issues/322
-setopt monitor
+# setopt monitor
+
+# print 'enabling atuin'
+# eval "$(atuin init zsh)"
+
+# Must be last in file
+print 'enabling zsh-syntax-highlighting'
+source ~/src/zshplugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
 print 'finished plugins'

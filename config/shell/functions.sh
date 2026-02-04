@@ -141,53 +141,53 @@ i histinit () {
     fi
 }
 
-latest() {
-    set -x
-    local tgt ext cmd util filepath filename response
-    # Latest download.
-    filepath=$( ls $HOME/Downloads/$(ls -rt $HOME/Downloads/ |tail -1) )
-    filename=$(basename "$filepath")
-    # Go to archive to perform work.
-    pushd $HOME/archive
-    case "$filename" in
-        #*(*.tar.gz|*.tgz) ) util="tar xzvf" ;;
-        *.tar.gz  )
-            tgt="$HOME/archive/packages"
-            util="tar xzvf '$filename'"
-            ;;
-        *.tar.bz2 )
-            tgt="$HOME/archive/packages"
-            util="tar jzvf '$filename'"
-            ;;
-        (#i)*.(jpg|jpeg|gif|png) )
-            tgt="$HOME/archive/images"
-            util=""
-            ;;
-        (#i)*.(pdf|mov|mp4|doc) )
-            tgt="$HOME/archive/reference"
-            util=""
-            ;;
-        # Add more here, for zip, etc.
-        # Not recognized.
-        * ) echo "Don't know what to do with $filename"; return ;;
-    esac
-    # Set up for optional extraction command.
-    cmd="mv $filepath $tgt"
-    [[ -n "$util" ]] && cmd+=" ; $util"
-    # See if ok to proceed.
-    read -k1 "response?> $cmd [Y/n] "
-    if [[ ! "$response" =~ "[Nn]" ]] ; then
-        cd $tgt
-        eval "$cmd"
-    else
-        echo -e "\naborting"
-        return
-    fi
-    # Put final path into paste buffer.
-    #echo "$tgt" |xsel -i
-    echo "Sending you to $tgt"
-    echo "Now look at $filename and have your way with it."
-}
+# latest() {
+#     set -x
+#     local tgt ext cmd util filepath filename response
+#     # Latest download.
+#     filepath=$( ls $HOME/Downloads/$(ls -rt $HOME/Downloads/ |tail -1) )
+#     filename=$(basename "$filepath")
+#     # Go to archive to perform work.
+#     pushd $HOME/archive
+#     case "$filename" in
+#         #*(*.tar.gz|*.tgz) ) util="tar xzvf" ;;
+#         *.tar.gz  )
+#             tgt="$HOME/archive/packages"
+#             util="tar xzvf '$filename'"
+#             ;;
+#         *.tar.bz2 )
+#             tgt="$HOME/archive/packages"
+#             util="tar jzvf '$filename'"
+#             ;;
+#         (#i)*.(jpg|jpeg|gif|png) )
+#             tgt="$HOME/archive/images"
+#             util=""
+#             ;;
+#         (#i)*.(pdf|mov|mp4|doc) )
+#             tgt="$HOME/archive/reference"
+#             util=""
+#             ;;
+#         # Add more here, for zip, etc.
+#         # Not recognized.
+#         * ) echo "Don't know what to do with $filename"; return ;;
+#     esac
+#     # Set up for optional extraction command.
+#     cmd="mv $filepath $tgt"
+#     [[ -n "$util" ]] && cmd+=" ; $util"
+#     # See if ok to proceed.
+#     read -k1 "response?> $cmd [Y/n] "
+#     if [[ ! "$response" =~ "[Nn]" ]] ; then
+#         cd $tgt
+#         eval "$cmd"
+#     else
+#         echo -e "\naborting"
+#         return
+#     fi
+#     # Put final path into paste buffer.
+#     #echo "$tgt" |xsel -i
+#     echo "Sending you to $tgt"
+#     echo "Now look at $filename and have your way with it."
+# }
 
 ### VIM ##############################################################
 
@@ -342,13 +342,13 @@ ni()  {
 jsi() { ni }
 nvi() { ni }
 
-# Firefox addon sdk
-ffi() {
-  en-py2
-  # Have to be in this dir to work??
-  cd ~/archive/src/addon-sdk-1.14
-  . bin/activate
-}
+# # Firefox addon sdk
+# ffi() {
+#   en-py2
+#   # Have to be in this dir to work??
+#   cd ~/archive/src/addon-sdk-1.14
+#   . bin/activate
+# }
 
 # Create a gemset.
 rbg() {
@@ -590,3 +590,13 @@ ffr() { vterm_cmd my/ffr "$(realpath "${@:-.}")" }
 ff() { vterm_cmd find-file "$(realpath "${@:-.}")" }
 say() { vterm_cmd message "%s" "$*" }
 message() { vterm_cmd message "%s" "$*" }
+
+en-fzf() {
+     print 'enabling fzf history completions'
+     . ~/src/zshplugins/ohmyzsh/plugins/fzf/fzf.plugin.zsh
+}
+
+en-atuin() {
+     print 'enabling atuin history completions'
+     eval "$(atuin init zsh)"
+}

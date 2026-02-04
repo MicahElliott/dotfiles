@@ -1,2 +1,2 @@
 # https://github.com/markdownlint/markdownlint/blob/main/docs/configuration.md
-rules "~MD026", "~MD013", "~MD033"
+rules "~MD026", "~MD013", "~MD033", "~MD010", "~MD009"

@@ -31,8 +31,8 @@ exec volumeicon
 # Wow, fancy!
 #exec volti
 
-exec parcellite
-# exec clipit
+# exec parcellite
+exec clipit
 #exec nm-applet
 ##exec wicd-client
 #exec batti
@@ -115,7 +115,8 @@ bindsym $mod+l exec        --no-startup-id rofi -show run -width 400 -lines 5 -f
 # https://faq.i3wm.org/question/83/how-to-run-i3lock-after-computer-inactivity/
 #exec xautolock -time 4 -locker 'i3lock -b -c 0000ff'
 exec xautolock -time 22 -locker "i3lock -b -i $HOME/art/locked2.png"
-bindsym Control+$mod+f exec i3lock -b -i $HOME/art/locked2.png
+# bindsym Control+$mod+l exec i3lock -b -i $HOME/art/locked2.png
+bindsym Control+$mod+l exec i3lock -b
 
 # change focus
 bindsym $mod+p focus up
@@ -181,7 +182,7 @@ bindsym $mod+Shift+period   move container to workspace 3
 
 # kill focused window
 # bindsym $mod+Shift+Q kill
-bindsym $mod+Shift+X kill
+bindsym $mod+Control+X kill
 
 # reload the configuration file
 # bindsym $mod+Shift+O reload

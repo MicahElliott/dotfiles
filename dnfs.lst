@@ -7,10 +7,6 @@ NetworkManager-ppp
 NetworkManager-wifi
 NetworkManager-wwan
 PackageKit-gstreamer-plugin
-R-CRAN-cli
-R-CoprManager
-R-core
-R-core-devel
 R-java
 R-java-devel
 ShellCheck
@@ -25,6 +21,7 @@ acl
 adobe-source-code-pro-fonts
 adwaita-gtk2-theme
 adwaita-icon-theme
+age
 alacritty
 alltray
 alsa-lib-devel
@@ -39,6 +36,7 @@ anaconda-install-env-deps
 anaconda-live
 ansible
 arandr
+argon2
 arm-none-eabi-binutils-cs
 arm-none-eabi-gcc-cs
 arm-none-eabi-newlib
@@ -65,6 +63,7 @@ bash-color-prompt
 bash-completion
 bat
 bc
+bcrypt
 beep
 belluzj-fantasque-sans-mono-fonts
 bind-utils
@@ -94,6 +93,7 @@ cloc
 colord
 compat-ffmpeg4
 compsize
+console-image-viewer
 cool-retro-term
 copr-cli
 coreutils
@@ -150,6 +150,7 @@ dracut-config-rescue
 dracut-live
 dracut-network
 dropbox
+dropbox-api-command
 dunst
 e2fsprogs
 ed
@@ -209,6 +210,7 @@ gnome-keyring-pam
 gnome-network-displays
 gnome-settings-daemon
 gnome-terminal
+gnome-typer
 gnu-free-sans-fonts
 gnumeric
 gnupg2
@@ -233,6 +235,8 @@ google-noto-sans-sinhala-vf-fonts
 google-roboto-fonts
 google-tinos-fonts
 gopls
+gotags
+gpgme-devel
 gphoto2
 gphotofs
 gpicview
@@ -326,7 +330,9 @@ just
 jwhois
 kbd
 kbd-legacy
+kdocker
 kdump-anaconda-addon
+keepassxc
 kernel
 kernel-core
 kernel-devel
@@ -339,6 +345,7 @@ khmer-os-content-fonts
 khmer-os-system-fonts
 kitty
 konsole
+kpcli
 kphotoalbum
 langpacks-en
 lato-fonts
@@ -349,6 +356,8 @@ libRmath-devel
 libXScrnSaver-devel
 libXrandr-devel
 libXxf86vm-devel
+libatomic-static
+libayatana-appindicator-gtk3-devel
 libdbusmenu-devel
 libdbusmenu-gtk3-devel
 libdbusmenu-tools
@@ -373,6 +382,7 @@ libxdg-basedir-devel
 libyaml-devel
 linux-libertine-biolinum-fonts
 linux-libertine-fonts
+litecli
 logrotate
 lohit-assamese-fonts
 lohit-bengali-fonts
@@ -485,6 +495,7 @@ pango-devel
 paps
 parcellite
 parted
+pass
 passwdqc
 pasystray
 pavucontrol
@@ -493,7 +504,10 @@ pcmanfm
 pcre2-tools
 pcsc-lite
 pcsc-lite-ccid
+pcsc-lite-devel
+pcsc-tools
 perl-File-MimeInfo
+pgp-tools
 pidgin
 pinfo
 pipewire-alsa
@@ -521,6 +535,7 @@ psacct
 pt-sans-fonts
 pulseaudio-utils
 pv
+pwgen
 python3-csvkit
 python3-devel
 python3-libguestfs
@@ -535,6 +550,7 @@ rabbitmq-server
 rbenv
 rbjornera-victor-mono-fonts
 rbw
+rclone
 readline-devel
 realmd
 realtek-firmware
@@ -568,6 +584,8 @@ rubygem-rake
 samba-client
 screenkey
 scrot
+seahorse
+secure-delete
 selinux-policy-targeted
 setup
 shadow-utils
@@ -586,7 +604,10 @@ sos
 sox
 spice-vdagent
 spice-webdavd
+sqlcipher
 sqlite-devel
+sqlite-tools
+sqliteman
 sssd
 sssd-common
 sssd-kcm
@@ -618,7 +639,9 @@ texlive-firamath-otf
 texlive-lstfiracode
 the_silver_searcher
 thefuck
+tig
 time
+timg
 tiwilink-firmware
 tldr
 tlp
@@ -632,6 +655,7 @@ trezor-common
 ttyd
 unzip
 upower
+upx
 urlencode
 urw-base35-bookman-fonts
 urw-base35-c059-fonts
@@ -650,6 +674,7 @@ util-linux
 vala
 valkey-compat-redis
 vazirmatn-vf-fonts
+veracrypt
 vim-minimal
 virt-install
 virt-manager
@@ -662,9 +687,13 @@ wget2-wget
 which
 whois
 wireplumber
+wofi
 words
 wpa_supplicant
+wxsqlite3
+wxsqlite3-devel
 xarchiver
+xautolock
 xbacklight
 xclip
 xdg-user-dirs-gtk
@@ -702,6 +731,9 @@ yarnpkg
 yaru-sound-theme
 yq
 yubico-piv-tool
+yubikey-manager
+yubikey-personalization-gui
+zbar
 zd1211-firmware
 zip
 zlib-ng-devel
